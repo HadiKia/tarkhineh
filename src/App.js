@@ -1,13 +1,13 @@
 import React from "react";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-
+import Layout from "./components/layout";
+import HomePage from "./components/home/HomePage";
 
 const App = () => {
   return (
     <>
-      <Header />
-      <Footer />
+      <Layout>
+        <HomePage />
+      </Layout>
     </>
   );
 };

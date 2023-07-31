@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 // styles
 const burger = "h-[0.094em] w-[1.219em] bg-[#417F56] rounded-md duration-500";
-const mobileMenu = "absolute top-[4em] left-0 right-0 h-screen duration-700";
-const ulStyle= "text-right pt-6 flex flex-col gap-y-4 h-screen bg-[#E5F2E9] bg-white w-60"
+const mobileMenu = "absolute top-[4em] left-0 right-0 h-screen duration-700 z-10";
+const ulStyle= "text-right pt-6 flex flex-col gap-y-4 h-screen bg-white w-60"
 const liStyle = "text-[#417F56] py-2 px-[1.5em]"
 
 const Hamburger = () => {
