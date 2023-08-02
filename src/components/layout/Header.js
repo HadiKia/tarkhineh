@@ -1,5 +1,5 @@
 import React from "react";
-import Hamburger from "./Hamburger";
+import MobileMenu from "./MobileMenu";
 
 // icons
 import {
@@ -27,7 +27,7 @@ const Header = () => {
     <div className="sticky top-0 z-10 bg-white">
       <header className={headerStyle}>
         <div className="md:hidden">
-          <Hamburger />
+          <MobileMenu />
         </div>
 
         <div>
