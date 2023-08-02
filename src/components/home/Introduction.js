@@ -21,7 +21,7 @@ import {
 const bgStyle =
   "mt-12 bg-[image:var(--image-url)] bg-cover bg-center text-white py-5 px-5 h-[21.188em] md:h-[24.375em] md:py-12 md:flex md:items-center md:mt-14 lg:mt-16 xl:mt-20";
 const containerStyle =
-  "container max-w-[1224px] mx-auto md:flex md:items-start lg:items-center md:px-1 xl:pr-10 xl:gap-x-5";
+  "container max-w-[1224px] mx-auto md:flex md:items-start lg:items-center md:px-1 xl:pr-6 xl:gap-x-5";
 const h3Style = "mb-2 md:text-xl md:font-bold md:mb-6 lg:text-2xl";
 const descriptionStyle =
   "text-[11px] leading-5 text-justify mb-2 md:text-[15px] md:leading-6 lg:text-base lg:text-xl xl:mb-8 xl:font-light";
