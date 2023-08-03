@@ -85,7 +85,7 @@ const Footer = () => {
                 type="text"
                 placeholder="پیام شما"
                 multiple
-                className={`${inputStyle} w-[17.875em] h-[9em] !p-4`}
+                className={`${inputStyle} w-[17.875em] h-[9em] !p-4 resize-none scroll-smooth`}
               />
               <button className={buttonStyle}>ارسال پیام</button>
             </div>
