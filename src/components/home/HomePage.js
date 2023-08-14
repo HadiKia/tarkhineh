@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "./Banner";
+import Banner from '../shared/Banner'
 import HomePageMenu from "./HomePageMenu";
 import Introduction from "./Introduction";
 import Branches from "./Branches";

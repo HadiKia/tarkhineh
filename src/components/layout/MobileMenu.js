@@ -25,7 +25,7 @@ const logoMobileStyle = "absolute right-4 top-8";
 const ulStyle =
   "text-right flex flex-col gap-y-2 h-screen bg-white w-[16em] px-4 py-2";
 const liStyle =
-  "flex items-center gap-x-2 text-[#353535] text-sm border-b borader-[#CBCBCB] pb-2";
+  "flex items-center gap-x-2 text-[#353535] text-sm border-b border-[#CBCBCB] pb-2";
 
 const MobileMenu = () => {
   const open = true;

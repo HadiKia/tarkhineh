@@ -12,7 +12,7 @@ import Drink from "../../images/drink.svg";
 
 // styles 
 const searchBoxStyle = 'flex items-center justify-between px-4 mx-5 h-9 border border-[#CBCBCB] rounded-md mb-[1.5em] md:hidden'
-const inputStyle = 'bg-transparent outline-none text-[#353535] text-sm placeholder:text-xs placeholder:text-[#353535]'
+const inputStyle = 'bg-transparent w-full pl-2 outline-none text-[#353535] text-sm placeholder:text-xs placeholder:text-[#353535]'
 
 const HomePageMenu = () => {
   return (
