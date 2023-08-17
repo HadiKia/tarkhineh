@@ -15,7 +15,7 @@
   left: 0 !important;
   right: 0 !important;
   margin: 0 auto;
-  padding: 0.4em 0.25em;
+  padding: 0.5em 0.25em;
   border-radius: 1.5em;
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@
   background-color: white;
   position: absolute;
   left: 0;
-  top: 0.5em;
+  top: 0.55em;
   transform: rotate(-45deg) translate(-1em, -0.65em);
 }
 .swiper-pagination::after {
@@ -37,7 +37,7 @@
   background-color: white;
   position: absolute;
   right: 0;
-  top: 0.5em;
+  top: 0.55em;
   transform: rotate(45deg) translate(1em, -0.65em);
 }
 .swiper-pagination-bullet {

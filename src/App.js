@@ -1,14 +1,23 @@
-import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Provider } from "react-redux";
 import Layout from "./components/layout";
 import HomePage from "./components/home/HomePage";
+import Foods from "./components/menu/Foods";
+
+// Redux
+import store from "./components/redux/store";
 
 const App = () => {
   return (
-    <>
+    <Provider store={store}>
       <Layout>
-        <HomePage />
+        <Routes>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/menu" element={<Foods />} />
+          <Route path="/*" element={<Navigate to="/home" />} />
+        </Routes>
       </Layout>
-    </>
+    </Provider>
   );
 };
 
