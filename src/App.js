@@ -4,6 +4,7 @@ import Layout from "./components/layout";
 import HomePage from "./components/home/HomePage";
 import Foods from "./components/menu/Foods";
 import FoodDetails from "./components/menu/FoodDetails";
+import ScrollToTop from "./components/helper/ScrollToTop";
 
 // Redux
 import store from "./components/redux/store";
@@ -12,6 +13,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Layout>
+        <ScrollToTop />
         <Routes>
           <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Foods />} />
