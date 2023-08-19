@@ -57,7 +57,7 @@ const Foods = () => {
   let foundResults = false;
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    if (!productsState.products.length) dispatch(fetchProducts());
     document.title = "منو";
   }, []);
 
@@ -75,7 +75,7 @@ const Foods = () => {
         </div>
       </div>
 
-      <div className="container max-w-[1224px] mx-auto flex flex-col md:flex-row md:mb-7 xl:justify-between">
+      <div className="container max-w-[1224px] mx-auto flex flex-col md:flex-row md:mb-7 md:justify-between">
         {/* category box */}
         <div className={categoryBoxStyle}>
           <button

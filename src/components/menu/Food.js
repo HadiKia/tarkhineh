@@ -7,12 +7,13 @@ import { convertToFa } from "../helper/functions";
 // icons
 import {
   likeIcon,
-  likeDesktopIocn,
+  likeDesktopIcon,
   starIcon,
   starEmptyIcon,
   starDesktopIcon,
   starEmptyDesktopIcon,
 } from "../../icons/foodsPageIcons";
+import { Link } from "react-router-dom";
 
 // styles
 const foodBoxStyle =
@@ -36,14 +37,14 @@ const ratingDivStyle = "flex items-center gap-x-1";
 const buttonStyle =
   "bg-[#417F56] text-white rounded-md text-[10px] p-2.5 font-medium lg:rounded lg:text-sm lg:px-5 xl:px-12 ";
 
-const rating = {
+export const rating = {
   count: 5,
   value: 4,
   emptyIcon: <span>{starEmptyIcon}</span>,
   filledIcon: <span>{starIcon}</span>,
 };
 
-const ratingDesktop = {
+export const ratingDesktop = {
   count: 5,
   value: 4,
   emptyIcon: <span>{starEmptyDesktopIcon}</span>,
@@ -53,23 +54,23 @@ const ratingDesktop = {
 const Food = ({ productData }) => {
   const [isActive, setIsActive] = useState(false);
   const [isActive2, setIsActive2] = useState(false);
-  const { title, price, offer, discountedPrice, description, image } =
+  const { title, price, offer, discountedPrice, description, image, slug } =
     productData;
 
   const likeClick = () => {
     setIsActive((current) => !current);
   };
 
-  const likeDesktopClick = () => {
+ const likeDesktopClick = () => {
     setIsActive2((current2) => !current2);
   };
 
   return (
     <div className={foodBoxStyle}>
-      <img src={image} alt={title} className={foodImgStyle} />
+      <Link to={`/menu/${slug}`}><img src={image} alt={title} className={foodImgStyle} /></Link>
       <div className="p-2 flex-1 lg:px-3 lg:py-0">
         <div className={headerDivStyle}>
-          <span className={titleStyle}>{title}</span>
+          <span className={titleStyle}><Link to={`/menu/${slug}`}>{title}</Link></span>
           <div className={priceDivStyle}>
             <span className={priceStyle}>{convertToFa(price)}</span>
             <span className={offerStyle}>%{convertToFa(offer)}</span>
@@ -78,7 +79,7 @@ const Food = ({ productData }) => {
 
         <div className={containerDivStyle}>
           <span className={descriptionStyle}>
-            {description.slice(0, 25)}...
+            <Link to={`/menu/${slug}`}>{description.slice(0, 25)}...</Link>
           </span>
           <div className={discountedDivStyle}>
             <span>{convertToFa(discountedPrice)}</span>
@@ -106,7 +107,7 @@ const Food = ({ productData }) => {
               }
               onClick={likeDesktopClick}
             >
-              {likeDesktopIocn}
+              {likeDesktopIcon}
             </button>
             <div className="lg:hidden">
               <ReactStars {...rating} />
