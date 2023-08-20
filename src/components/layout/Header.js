@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import MobileMenu from "./MobileMenu";
+import { useSelector } from "react-redux";
+
+// functions
+import { convertToFa } from "../helper/functions";
 
 // icons
 import {
@@ -22,13 +26,15 @@ const liStyle =
 const liActiveStyle = '!text-[#417F56] text-sm lg:text-lg border-b border-[#417F56] py-1 font-bold duration-500 '
 const buttonBoxStyle =
   "flex items-center gap-x-[0.25em] md:gap-x-[0.5em] justify-end";
-const headerButtonStyle = "p-[0.25em] md:p-[0.5em] bg-[#E5F2E9] rounded-md";
+const headerButtonStyle = "p-[0.25em] md:p-[0.5em] bg-[#E5F2E9] rounded-md relative";
+const itemsCounterStyle = "absolute -top-1 -right-1.5 text-[10px] text-white bg-[#61AE7B] rounded-full px-1  md:right-0.5 md:top-0.5 font-medium"
 
 const Header = () => {
   let [plan, setPlan] = useState("home");
+  const state = useSelector(state => state.cartState)
 
   return (
-    <div className="sticky top-0 z-10 bg-white">
+    <div className="sticky top-0 z-10 bg-white shadow-md">
       <header className={headerStyle}>
         <div className="md:hidden">
           <MobileMenu />
@@ -83,6 +89,7 @@ const Header = () => {
           <button className={headerButtonStyle}>
             <span className="md:hidden"> {cartIcon} </span>
             <span className="hidden md:block"> {cartIconDesktop}</span>
+            <span className={itemsCounterStyle}>{convertToFa(state.itemsCounter)}</span>
           </button>
           <button className={headerButtonStyle}>
             <span className="md:hidden">{userIcon}</span>

@@ -10,7 +10,7 @@ import {
   menuIcon,
   closeIcon,
   homeIcon,
-  menuBoradIcon,
+  menuBoardIcon,
   hashtagIcon,
   profile2userIcon,
   callingIcon,
@@ -83,7 +83,7 @@ const MobileMenu = () => {
                       : `${liStyle}`
                   }
                 >
-                  <span>{menuBoradIcon}</span>
+                  <span>{menuBoardIcon}</span>
                   <span>منو</span>
                 </li>
               )}

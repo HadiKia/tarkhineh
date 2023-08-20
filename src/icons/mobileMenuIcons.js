@@ -47,7 +47,7 @@ const homeIcon = (
   </svg>
 );
 
-const menuBoradIcon = (
+const menuBoardIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
     <path
       fill="#353535"
@@ -103,7 +103,7 @@ export {
   menuIcon,
   closeIcon,
   homeIcon,
-  menuBoradIcon,
+  menuBoardIcon,
   hashtagIcon,
   profile2userIcon,
   callingIcon,

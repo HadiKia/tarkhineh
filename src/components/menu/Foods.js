@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Banner from "../shared/Banner";
+import { ToastContainer } from "react-toastify";
 
 // Redux
 import { fetchProducts } from "../redux/products/productsAction";
@@ -162,6 +163,7 @@ const Foods = () => {
                     <Food key={product.id} productData={product} />
                   ))}
                 </div>
+                
               </div>
             );
           }
@@ -173,6 +175,7 @@ const Foods = () => {
           <h3>محصولی مرتبط با "{searchText}" پیدا نشد</h3>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 };
