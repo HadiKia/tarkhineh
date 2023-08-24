@@ -11,9 +11,10 @@ const sumItems = (items) => {
     0
   );
   const total = items
-    .reduce((total, product) => total + product.price * product.quantity, 0)
-    .toFixed(2);
-  return { itemsCounter, total };
+    .reduce((total, product) => total + product.discountedPrice * product.quantity, 0)
+  const discount = items
+    .reduce((total, product) => total + ((product.price - product.discountedPrice) * product.quantity), 0)
+  return { itemsCounter, total, discount };
 };
 
 const cartReducer = (state = initialState, action) => {

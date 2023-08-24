@@ -18,7 +18,7 @@ const closeIcon = (
       height="16"
       x="5.313"
       y="7.414"
-      fill="#fff"
+      fill="currentColor"
       rx="1"
       transform="rotate(-45 5.313 7.414)"
     />
@@ -27,7 +27,7 @@ const closeIcon = (
       height="16"
       x="16.314"
       y="6"
-      fill="#fff"
+      fill="currentColor"
       rx="1"
       transform="rotate(45 16.314 6)"
     />

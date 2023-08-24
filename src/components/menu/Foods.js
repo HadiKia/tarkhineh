@@ -18,6 +18,7 @@ import {
 
 // styles
 import { searchBoxStyle, inputSearchStyle } from "../home/HomePageMenu";
+import { Link } from "react-router-dom";
 const tabGroupStyle =
   "container max-w-[1224px] mx-auto flex items-center justify-start px-5 text-[13px] gap-x-4 mb-2 md:text-base";
 const tabGroupItemStyle =
@@ -132,11 +133,11 @@ const Foods = () => {
 
       {/* shopping cart button */}
       <div className="relative container max-w-[1224px] mx-auto">
-        <button className={cartButtonStyle}>
+        <Link to="/cart" className={cartButtonStyle}>
           <span className="md:hidden">{shoppingCartIcon}</span>
           <span className="hidden md:block">{shoppingCartDesktopIcon}</span>
           <span>تکمیل خرید</span>
-        </button>
+        </Link>
       </div>
 
       {/* products */}
@@ -156,7 +157,7 @@ const Foods = () => {
           if (filteredProducts.length > 0) {
             foundResults = true;
             return (
-              <div className="container max-w-[1224px] mx-auto">
+              <div className="container max-w-[1224px] mx-auto" key={category}>
                 <div key={category} className={mainContainerStyle}>
                   <h3 className={categoryTitleStyle}>{category}</h3>
                   {filteredProducts.map((product) => (

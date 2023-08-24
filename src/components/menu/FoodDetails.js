@@ -22,7 +22,7 @@ import {
 import { closeIcon } from "../../icons/mobileMenuIcons";
 
 // Styles
-const topBarStyle = "container max-w-[1224px] mx-auto h-14 text-white flex items-center px-5 mb-4 md:mb-8";
+const topBarStyle = "container max-w-[1224px] mx-auto h-[4.5em] text-white flex items-center px-5 mb-4 md:mb-8";
 const topBarTitleStyle = "font-bold flex-1 text-center pl-10 text-xl";
 const mainStyle = "container max-w-[1224px] mx-auto px-5 text-[#353535] md:flex md:gap-x-4"
 const imgStyle = "w-full h-[205px] rounded-lg mb-[17px] md:w-[350px] md:h-[220px] lg:w-[450px] lg:h-[320px]"
@@ -81,7 +81,7 @@ const FoodDetails = () => {
   };
 
   return (
-    <div className="h-screen">
+    <div className="min-h-[calc(100vh_-_200px)] mb-10 md:min-h-[calc(100vh_-_474px)]">
       <div className="bg-[#417F56]">
         <div className={topBarStyle}>
           <button onClick={() => navigate(-1)}>{arrowRightIcon}</button>

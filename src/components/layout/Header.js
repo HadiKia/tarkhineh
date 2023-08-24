@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import MobileMenu from "./MobileMenu";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 // functions
 import { convertToFa } from "../helper/functions";
@@ -87,8 +88,8 @@ const Header = () => {
             {searchIcon}
           </button>
           <button className={headerButtonStyle}>
-            <span className="md:hidden"> {cartIcon} </span>
-            <span className="hidden md:block"> {cartIconDesktop}</span>
+            <Link to="/cart" className="md:hidden"> {cartIcon} </Link>
+            <Link to="/cart" className="hidden md:block"> {cartIconDesktop}</Link>
             <span className={itemsCounterStyle}>{convertToFa(state.itemsCounter)}</span>
           </button>
           <button className={headerButtonStyle}>
