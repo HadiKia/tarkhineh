@@ -15,6 +15,7 @@ import {
   profile2userIcon,
   callingIcon,
 } from "../../icons/mobileMenuIcons";
+import { Link } from "react-router-dom";
 
 // styles
 const bgMenu =
@@ -57,85 +58,34 @@ const MobileMenu = () => {
 
         <RadioGroup value={plan} onChange={setPlan}>
           <ul className={ulStyle}>
-            <RadioGroup.Option value="home">
-              {({ checked }) => (
-                <li
-                  onClick={openMenu}
-                  className={
-                    checked
-                      ? `${liStyle} text-[#417F56] font-medium`
-                      : `${liStyle}`
-                  }
-                >
-                  <span>{homeIcon}</span>
-                  <span>صفحه اصلی</span>
-                </li>
-              )}
-            </RadioGroup.Option>
+            <li onClick={openMenu} >
+              <Link to="/" className={liStyle}>
+                <span>{homeIcon}</span>
+                <span>صفحه اصلی</span>
+              </Link>
+            </li>
 
-            <RadioGroup.Option value="menu">
-              {({ checked }) => (
-                <li
-                  onClick={openMenu}
-                  className={
-                    checked
-                      ? `${liStyle} text-[#417F56] font-medium`
-                      : `${liStyle}`
-                  }
-                >
-                  <span>{menuBoardIcon}</span>
-                  <span>منو</span>
-                </li>
-              )}
-            </RadioGroup.Option>
+            <li onClick={openMenu} >
+              <Link to="/menu" className={liStyle}>
+                <span>{menuBoardIcon}</span>
+                <span>منو</span>
+              </Link>
+            </li>
 
-            <RadioGroup.Option value="branch">
-              {({ checked }) => (
-                <li
-                  onClick={openMenu}
-                  className={
-                    checked
-                      ? `${liStyle} text-[#417F56] font-medium`
-                      : `${liStyle}`
-                  }
-                >
-                  <span>{hashtagIcon}</span>
-                  <span>شعبه</span>
-                </li>
-              )}
-            </RadioGroup.Option>
+            <li onClick={openMenu} className={liStyle}>
+              <span>{hashtagIcon}</span>
+              <span>شعبه</span>
+            </li>
 
-            <RadioGroup.Option value="aboutus">
-              {({ checked }) => (
-                <li
-                  onClick={openMenu}
-                  className={
-                    checked
-                      ? `${liStyle} text-[#417F56] font-medium`
-                      : `${liStyle}`
-                  }
-                >
-                  <span>{profile2userIcon}</span>
-                  <span>درباره ما</span>
-                </li>
-              )}
-            </RadioGroup.Option>
+            <li onClick={openMenu} className={liStyle}>
+              <span>{profile2userIcon}</span>
+              <span>درباره ما</span>
+            </li>
 
-            <RadioGroup.Option value="calling">
-              {({ checked }) => (
-                <li
-                  onClick={openMenu}
-                  className={
-                    checked
-                      ? `${liStyle} text-[#417F56] font-medium border-none`
-                      : `${liStyle} border-none`
-                  }
-                >
-                  <span>{callingIcon}</span>
-                  <span>تماس با ما</span>
-                </li>
-              )}
-            </RadioGroup.Option>
+            <li onClick={openMenu} className={liStyle}>
+              <span>{callingIcon}</span>
+              <span>تماس با ما</span>
+            </li>
           </ul>
         </RadioGroup>
       </div>

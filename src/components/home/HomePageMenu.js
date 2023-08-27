@@ -9,6 +9,7 @@ import Maincourse from "../../images/main-course.png";
 import Appetizer from "../../images/appetizer.png";
 import Dessert from "../../images/dessert.png";
 import Drink from "../../images/drink.svg";
+import { Link } from "react-router-dom";
 
 // styles
 export const searchBoxStyle =
@@ -32,12 +33,20 @@ const HomePageMenu = () => {
 
       <div className="flex flex-col justify-center md:flex-row gap-y-10">
         <div className="flex items-center justify-center">
-          <HomePageMenuItem image={Maincourse} title={"غذای اصلی"} />
-          <HomePageMenuItem image={Appetizer} title={"پیش غذا"} />
+          <Link to="/menu">
+            <HomePageMenuItem image={Maincourse} title={"غذای اصلی"} />
+          </Link>
+          <Link to="/menu">
+            <HomePageMenuItem image={Appetizer} title={"پیش غذا"} />
+          </Link>
         </div>
         <div className="flex items-center justify-center">
-          <HomePageMenuItem image={Dessert} title={"دسر"} />
-          <HomePageMenuItem image={Drink} title={"نوشیدنی"} />
+          <Link to="/menu">
+            <HomePageMenuItem image={Dessert} title={"دسر"} />
+          </Link>
+          <Link to="/menu">
+            <HomePageMenuItem image={Drink} title={"نوشیدنی"} />
+          </Link>
         </div>
       </div>
     </div>
