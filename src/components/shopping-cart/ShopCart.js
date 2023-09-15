@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 
 // Components
@@ -29,9 +29,9 @@ import {
 import { closeIcon } from "../../icons/mobileMenuIcons";
 
 // Styles
-const containerStyle =
+export const containerStyle =
   "container max-w-[1224px] mx-auto mt-6 px-5 min-h-[calc(100vh_-_240px)] md:mt-10";
-const headerStyle =
+export const headerStyle =
   "flex items-center justify-between text-[#353535] font-bold mb-6 md:hidden";
 const dialogBgStyle = "fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm";
 const dialogDivStyle =
@@ -45,10 +45,11 @@ const dialogPStyle = "text-center text-sm text-[#353535] md:text-base";
 const dialogButtonDivStyle =
   "flex items-center justify-center gap-x-5 mb-4 md:mb-6 text-sm md:font-semibold md:text-base";
 const dialogButtonStyle = "rounded border px-11 py-[5px] md:py-[7px]";
-const headerDesktopStyle =
+export const headerDesktopStyle =
   "hidden md:flex items-center justify-center gap-x-0.5 mb-10";
-const headerDesktopItem = "flex items-center gap-x-1 lg:gap-x-2 text-[#CBCBCB]";
-const headerDesktopPStyle = "font-medium text-sm pt-1";
+export const headerDesktopItemStyle =
+  "flex items-center gap-x-1 lg:gap-x-2 text-[#CBCBCB]";
+export const headerDesktopPStyle = "!font-medium text-sm pt-1";
 const mainDivStyle =
   "border border-[#CBCBCB] rounded-lg mb-10 p-6 text-[#353535] flex flex-col lg:flex-row lg:items-start lg:gap-x-6 md:p-0 md:border-none";
 const cartDivStyle =
@@ -175,21 +176,21 @@ const ShopCart = () => {
 
       <div className={headerDesktopStyle}>
         <div
-          className={`${headerDesktopItem} text-lg font-bold !text-[#417F56]`}
+          className={`${headerDesktopItemStyle} text-lg font-bold !text-[#417F56]`}
         >
           <span>{cartDesktopIcon}</span>
           <span>سبد خرید</span>
           <p className={headerDesktopPStyle}>- - - - - - - -</p>
         </div>
 
-        <div className={headerDesktopItem}>
+        <div className={headerDesktopItemStyle}>
           <p className={headerDesktopPStyle}>- - - - - - - -</p>
           <span>{tickSquareIcon}</span>
           <span>تکمیل اطلاعات</span>
           <p className={headerDesktopPStyle}>- - - - - - - -</p>
         </div>
 
-        <div className={headerDesktopItem}>
+        <div className={headerDesktopItemStyle}>
           <p className={headerDesktopPStyle}>- - - - - - - -</p>
           <span>{walletIcon}</span>
           <span>پرداخت</span>
@@ -259,11 +260,14 @@ const ShopCart = () => {
               </div>
             </div>
 
-            <button className={settlementCardButtonStyle}>
+            <Link
+              to="/completion-of-information"
+              className={settlementCardButtonStyle}
+            >
               <span>تکمیل اطلاعات</span>
               <span className="md:hidden">{arrowLeftIcon}</span>
               <span className="hidden md:block">{arrowLeftDesktopIcon}</span>
-            </button>
+            </Link>
           </div>
         )}
       </div>

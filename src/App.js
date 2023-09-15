@@ -5,6 +5,7 @@ import HomePage from "./components/home/HomePage";
 import Foods from "./components/menu/Foods";
 import FoodDetails from "./components/menu/FoodDetails";
 import ShopCart from "./components/shopping-cart/ShopCart";
+import CompletionOfInformation from "./components/completion-of-information/CompletionOfInformation";
 
 import ScrollToTop from "./components/helper/ScrollToTop";
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/menu" element={<Foods />} />
           <Route path="/menu/:slug" element={<FoodDetails />} />
           <Route path="/cart" element={<ShopCart />} />
+          <Route path="/completion-of-information" element={<CompletionOfInformation />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </Layout>
