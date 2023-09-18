@@ -210,7 +210,7 @@ const Factor = ({ shippingCost, list }) => {
             </div>
 
             <Link
-              to="/completion-of-information"
+              to="/payment"
               className={settlementCardButtonStyle}
             >
               <span className="md:hidden">{tickIcon}</span>

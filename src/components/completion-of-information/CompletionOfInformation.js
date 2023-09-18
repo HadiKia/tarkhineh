@@ -74,7 +74,7 @@ const CompletionOfInformation = () => {
 
       <div className={headerDesktopStyle}>
         <div
-          className={`${headerDesktopItemStyle} text-lg font-bold !text-[#417F56]`}
+          className={`${headerDesktopItemStyle} text-lg !text-[#417F56]`}
         >
           <span>{cartDesktopIcon}</span>
           <span>سبد خرید</span>
