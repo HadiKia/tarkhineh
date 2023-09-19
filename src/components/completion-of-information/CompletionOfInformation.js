@@ -31,9 +31,9 @@ import {
   headerDesktopItemStyle,
   headerDesktopPStyle,
 } from "../shopping-cart/ShopCart";
-const mainStyle = "flex flex-col gap-y-3 lg:flex-row lg:gap-x-6";
+export const mainStyle = "flex flex-col gap-y-3 lg:flex-row lg:gap-x-6";
 const completionInfoDivStyle = "flex flex-col gap-y-3 lg:gap-y-6 flex-1";
-const completionInfoDivItemStyle = "border border-[#CBCBCB] rounded-lg p-4";
+export const completionInfoDivItemStyle = "border border-[#CBCBCB] rounded-lg p-4";
 const shippingMethodTitleStyle =
   "flex items-center gap-x-1 border-b border-[#CBCBCB] pb-3 mb-4 text-[15px] lg:text-base text-[#353535] lg:border-none lg:pb-0 lg:mb-0";
 const shippingMethodStyle =
