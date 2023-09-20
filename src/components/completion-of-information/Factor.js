@@ -17,7 +17,10 @@ import {
   warningDesktopIcon,
 } from "../../icons/shopCartIcons";
 import { closeIcon } from "../../icons/mobileMenuIcons";
-import { tickIcon, tickDesktopIcon } from "../../icons/CompletionOfInformationIcon";
+import {
+  tickIcon,
+  tickDesktopIcon,
+} from "../../icons/completionOfInformationIcon";
 
 // Styles
 export const containerStyle = "container max-w-[1224px] mx-auto ";
@@ -209,10 +212,7 @@ const Factor = ({ shippingCost, list }) => {
               </div>
             </div>
 
-            <Link
-              to="/payment"
-              className={settlementCardButtonStyle}
-            >
+            <Link to="/payment" className={settlementCardButtonStyle}>
               <span className="md:hidden">{tickIcon}</span>
               <span className="hidden md:block">{tickDesktopIcon}</span>
               <span>ثبت سفارش</span>

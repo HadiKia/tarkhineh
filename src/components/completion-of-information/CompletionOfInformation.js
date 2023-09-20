@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Components
 import Address from "./Address";
@@ -21,7 +21,7 @@ import {
   locationDesktopIcon,
   documentNormalIcon,
   documentNormalDesktopIcon,
-} from "../../icons/CompletionOfInformationIcon";
+} from "../../icons/completionOfInformationIcon";
 
 // Styles
 import {
@@ -32,25 +32,24 @@ import {
   headerDesktopPStyle,
 } from "../shopping-cart/ShopCart";
 export const mainStyle = "flex flex-col gap-y-3 lg:flex-row lg:gap-x-6";
-const completionInfoDivStyle = "flex flex-col gap-y-3 lg:gap-y-6 flex-1";
-export const completionInfoDivItemStyle = "border border-[#CBCBCB] rounded-lg p-4";
-const shippingMethodTitleStyle =
-  "flex items-center gap-x-1 border-b border-[#CBCBCB] pb-3 mb-4 text-[15px] lg:text-base text-[#353535] lg:border-none lg:pb-0 lg:mb-0";
-const shippingMethodStyle =
-  "pr-2 lg:flex lg:items-center lg:justify-evenly flex-1";
-const shippingMethodItemStyle =
-  "flex items-center gap-x-1 text-[#717171] text-[13px] mb-3 lg:mb-0 lg:text-sm lg:font-medium lg:cursor-pointer";
-const shippingMethodItemInputStyle =
+export const completionInfoDivStyle = "flex flex-col gap-y-3 lg:gap-y-6 flex-1";
+export const completionInfoDivItemStyle =
+  "border border-[#CBCBCB] rounded-lg p-4";
+export const shippingMethodTitleStyle =
+  "flex items-center gap-x-1 border-b border-[#CBCBCB] pb-3 mb-4 text-[15px] font-medium lg:text-base text-[#353535] lg:border-none lg:pb-0 lg:mb-0";
+export const shippingMethodStyle =
+  "pr-2 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-evenly flex-1";
+export const shippingMethodItemStyle =
+  "flex items-center jus gap-x-1 text-[#717171] text-[13px] lg:text-base lg:font-medium lg:cursor-pointer";
+export const shippingMethodItemInputStyle =
   "appearance-none w-3.5 h-3.5 rounded-full ring-1 ring-[#CBCBCB] ring-offset-1 checked:bg-[#00BA88] duration-200 ml-2";
-const shippingMethodItemSpanStyle = "hidden lg:block text-[10px] font-normal";
+export const shippingMethodItemSpanStyle = "hidden lg:block text-[10px] font-normal";
 const addressTitleStyle =
-  "flex items-center gap-x-1 text-[15px] text-[#353535] pb-3 mb-4 border-b border-[#CBCBCB] lg:text-base";
+  "flex items-center gap-x-1 text-[15px] font-medium text-[#353535] pb-3 mb-4 border-b border-[#CBCBCB] lg:text-base";
 const textareaStyle =
   "resize-none scroll-smooth w-full h-[141px] outline-none placeholder:text-[15px] placeholder:text-[#717171] lg:placeholder:text-base";
 
 const CompletionOfInformation = () => {
-  const navigate = useNavigate();
-
   const [deliveryMethod, setDeliveryMethod] = useState("delivery");
   const [list, setList] = useState([]);
   const [shippingCost, setShippingCost] = useState(0);
@@ -66,16 +65,14 @@ const CompletionOfInformation = () => {
   return (
     <div className={containerStyle}>
       <div className={`${headerStyle} !justify-center relative`}>
-        <button onClick={() => navigate(-1)} className="absolute right-0">
+        <Link to="/cart" className="absolute right-0">
           {arrowRightIcon}
-        </button>
+        </Link>
         <span className="pl-2">تکمیل اطلاعات</span>
       </div>
 
       <div className={headerDesktopStyle}>
-        <div
-          className={`${headerDesktopItemStyle} text-lg !text-[#417F56]`}
-        >
+        <div className={`${headerDesktopItemStyle} text-lg !text-[#417F56]`}>
           <span>{cartDesktopIcon}</span>
           <span>سبد خرید</span>
           <p className={headerDesktopPStyle}>- - - - - - - -</p>

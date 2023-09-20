@@ -3,7 +3,7 @@ import emptyPage from "../../images/empty-page.svg";
 
 // Icons
 import { trashIcon, trashDesktopIcon } from "../../icons/shopCartIcons";
-import { addIcon,add2icon, add2DesktopIcon, closeIcon, closeDesktopIcon, editIcon, editDesktopIcon } from "../../icons/AddressIcon";
+import { addIcon,add2icon, add2DesktopIcon, closeIcon, closeDesktopIcon, editIcon, editDesktopIcon } from "../../icons/addressIcon";
 
 // Styles
 const addressBoxStyle =
