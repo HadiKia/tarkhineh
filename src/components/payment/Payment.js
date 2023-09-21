@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tab, RadioGroup } from "@headlessui/react";
+import PaymentFactor from "./PaymentFactor";
 
 // Image
 import saman from "../../images/bankSaman.svg";
@@ -54,7 +55,7 @@ const discountInputStyle =
   "border border-[#CBCBCB] rounded placeholder:text-[#717171] py-1.5 px-4 w-4/5 text-sm outline-none text-[#353535] flex-1 lg:py-[9px] lg:w-[270px] xl:w-[320px]";
 const discountCodeButtonStyle =
   "text-xs w-[51px] py-[9px] rounded lg:w-[95px] lg:py-2 lg:text-base font-medium duration-500";
-const bankImgStyle = "border rounded-md w-16 md:w-24 lg:cursor-pointer";
+const bankImgStyle = "border rounded-md w-16 md:w-24 lg:cursor-pointer duration-300";
 
 const Payment = () => {
   const [discountCode, setDiscountCode] = useState("");
@@ -104,7 +105,7 @@ const Payment = () => {
       <div className={mainStyle}>
         <div className={completionInfoDivStyle}>
           <div
-            className={`${completionInfoDivItemStyle} flex flex-col gap-y-4 lg:flex-row flex-1 lg:justify-start lg:gap-x-6 xl:gap-x-14`}
+            className={`${completionInfoDivItemStyle} flex flex-col gap-y-4 lg:flex-row lg:gap-x-6 xl:gap-x-14`}
           >
             <div className={discountTitleStyle}>
               <span className="lg:hidden">{discountShapeIcon}</span>
@@ -285,7 +286,9 @@ const Payment = () => {
           </Tab.Group>
         </div>
 
-        <div className="lg:w-[370px] xl:w-[416px]">factor</div>
+        <div className="lg:w-[370px] xl:w-[416px]">
+          <PaymentFactor />
+        </div>
       </div>
     </div>
   );

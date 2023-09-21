@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-import FactorCart from "./FactorCart";
+import FactorCart from "../completion-of-information/FactorCart";
 
 // Actions
 import { clear } from "../redux/cart/cartAction";
@@ -13,8 +13,6 @@ import { convertToFa } from "../helper/functions";
 // Icons
 import {
   trashDesktopIcon,
-  warningIcon,
-  warningDesktopIcon,
 } from "../../icons/shopCartIcons";
 import { closeIcon } from "../../icons/mobileMenuIcons";
 import {
@@ -49,8 +47,6 @@ const settlementCardDiscountStyle =
 const shippingCostStyle =
   "border-b border-[#CBCBCB] pb-3 flex  flex-col gap-y-2";
 const shippingCostTitleStyle = "flex items-center justify-between text-[15px]";
-const shippingCostDescriptionStyle =
-  "flex items-start gap-x-2 text-[#A9791C] text-[11px] md:text-xs";
 const payableStyle =
   "flex items-center justify-between text-[15px] md:text-lg md:my-2";
 const payableDivStyle =
@@ -58,7 +54,7 @@ const payableDivStyle =
 const settlementCardButtonStyle =
   "bg-[#417F56] text-white rounded py-2 text-xs font-medium flex items-center justify-center gap-x-1 md:text-base";
 
-const Factor = ({ shippingCost, list }) => {
+const PaymentFactor = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.cartState);
 
@@ -177,54 +173,25 @@ const Factor = ({ shippingCost, list }) => {
               <div className={shippingCostTitleStyle}>
                 <span>هزینه ارسال</span>
                 <div className={settlementCardPriceDivStyle}>
-                  {list.length ? (
-                    <span>{convertToFa(shippingCost)}</span>
-                  ) : (
-                    <span>۰</span>
-                  )}
+                  <span>۳۹,۰۰۰</span>
                   <span>تومان</span>
                 </div>
               </div>
-
-              {list.length ? (
-                ""
-              ) : (
-                <div className={shippingCostDescriptionStyle}>
-                  <span className="pt-0.5 md:hidden">{warningIcon}</span>
-                  <span className="hidden md:block">{warningDesktopIcon}</span>
-                  <p className="text-justify leading-5 font-medium">
-                    هزینه ارسال در ادامه بر اساس آدرس، زمان و نحوه ارسال انتخابی
-                    شما محاسبه و به این مبلغ اضافه خواهد شد.
-                  </p>
-                </div>
-              )}
             </div>
 
             <div className={payableStyle}>
               <span>مبلغ قابل پرداخت</span>
               <div className={payableDivStyle}>
-                {list.length ? (
-                  <span>{convertToFa(state.total + shippingCost)}</span>
-                ) : (
-                  <span>{convertToFa(state.total)}</span>
-                )}
+                <span>{convertToFa(state.total + 39000)}</span>
                 <span>تومان</span>
               </div>
             </div>
 
-            {list.length ? (
-              <Link to="/payment" className={settlementCardButtonStyle}>
-                <span className="md:hidden">{tickIcon}</span>
-                <span className="hidden md:block">{tickDesktopIcon}</span>
-                <span>ثبت سفارش</span>
-              </Link>
-            ) : (
-              <button className={`${settlementCardButtonStyle} !bg-[#CBCBCB]`}>
-                <span className="md:hidden">{tickIcon}</span>
-                <span className="hidden md:block">{tickDesktopIcon}</span>
-                <span>ثبت سفارش</span>
-              </button>
-            )}
+            <Link to="/payment" className={settlementCardButtonStyle}>
+              <span className="md:hidden">{tickIcon}</span>
+              <span className="hidden md:block">{tickDesktopIcon}</span>
+              <span>ثبت سفارش</span>
+            </Link>
           </div>
         )}
       </div>
@@ -232,4 +199,4 @@ const Factor = ({ shippingCost, list }) => {
   );
 };
 
-export default Factor;
+export default PaymentFactor;
