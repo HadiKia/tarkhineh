@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Banner from "../shared/Banner";
 import { ToastContainer } from "react-toastify";
+import ReactLoading from "react-loading";
 
 // Redux
 import { fetchProducts } from "../redux/products/productsAction";
@@ -49,7 +50,7 @@ const categorizeProducts = (products) => {
   return categorized;
 };
 
-const Foods = () => {
+const Foods = ({ type, color }) => {
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const dispatch = useDispatch();
@@ -142,7 +143,24 @@ const Foods = () => {
 
       {/* products */}
       {productsState.loading ? (
-        <h2 className="h-screen flex justify-center mt-20">loading ...</h2>
+        <>
+          <div className="h-screen flex justify-center mt-28 md:hidden">
+            <ReactLoading
+              type="bubbles"
+              color="#417F56"
+              height={60}
+              width={60}
+            />
+          </div>
+          <div className="h-screen hidden md:flex justify-center mt-32 ">
+            <ReactLoading
+              type="bubbles"
+              color="#417F56"
+              height={75}
+              width={75}
+            />
+          </div>
+        </>
       ) : productsState.error ? (
         <h2 className="h-screen">{productsState.error}</h2>
       ) : (
@@ -164,7 +182,6 @@ const Foods = () => {
                     <Food key={product.id} productData={product} />
                   ))}
                 </div>
-                
               </div>
             );
           }
