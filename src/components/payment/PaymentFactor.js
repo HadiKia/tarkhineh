@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import FactorCart from "../completion-of-information/FactorCart";
 
 // Actions
-import { clear } from "../redux/cart/cartAction";
+import { clear, checkout } from "../redux/cart/cartAction";
 
 // Functions
 import { convertToFa } from "../helper/functions";
@@ -177,13 +177,13 @@ const PaymentFactor = ({ paymentMethod }) => {
             </div>
 
             {paymentMethod === "cash" ? (
-              <Link to="/payment" className={settlementCardButtonStyle}>
+              <Link to="/successful-order" onClick={() => dispatch(checkout())} className={settlementCardButtonStyle}>
                 <span className="md:hidden">{tickIcon}</span>
                 <span className="hidden md:block">{tickDesktopIcon}</span>
                 <span>ثبت سفارش</span>
               </Link>
             ) : (
-              <Link to="/payment" className={settlementCardButtonStyle}>
+              <Link to="/successful-payment" onClick={() => dispatch(checkout())} className={settlementCardButtonStyle}>
                 <span className="md:hidden">{card2Icon}</span>
                 <span className="hidden md:block">{card2DesktopIcon}</span>
                 <span>تأیید و پرداخت</span>
