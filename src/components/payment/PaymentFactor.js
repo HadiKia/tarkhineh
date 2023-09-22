@@ -11,50 +11,39 @@ import { clear } from "../redux/cart/cartAction";
 import { convertToFa } from "../helper/functions";
 
 // Icons
-import {
-  trashDesktopIcon,
-} from "../../icons/shopCartIcons";
+import { trashDesktopIcon } from "../../icons/shopCartIcons";
 import { closeIcon } from "../../icons/mobileMenuIcons";
 import {
   tickIcon,
   tickDesktopIcon,
 } from "../../icons/completionOfInformationIcon";
+import { card2Icon, card2DesktopIcon } from "../../icons/paymentIcons";
 
 // Styles
-export const containerStyle = "container max-w-[1224px] mx-auto ";
-const dialogBgStyle = "fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm";
-const dialogDivStyle =
-  "flex min-h-full items-center justify-center p-4 text-center";
-const dialogPanelStyle =
-  "w-full mx-1 transform overflow-hidden rounded-lg bg-white align-middle shadow-xl transition-all md:w-[392px]";
-const dialogTitleStyle =
-  "relative flex items-center justify-center font-medium bg-[#F9F9F9] px-6 py-[17px] mb-4 md:text-xl md:font-semibold md:py-[21px] md:mb-8";
-const dialogCloseButtonStyle = "text-[#717171] absolute left-6";
-const dialogPStyle = "text-center text-sm text-[#353535] md:text-base";
-const dialogButtonDivStyle =
-  "flex items-center justify-center gap-x-5 mb-4 md:mb-6 text-sm md:font-semibold md:text-base";
-const dialogButtonStyle = "rounded border px-11 py-[5px] md:py-[7px]";
-const mainDivStyle =
-  "border border-[#CBCBCB] rounded-lg mb-10 p-6 text-[#353535] flex flex-col";
-const cartDivStyle =
-  "hidden lg:block [&>*:nth-child(odd)]:bg-[#F9F9F9] [&>*:nth-child(even)]:bg-[#EDEDED] h-[187px] overflow-scroll mb-3";
-const settlementCardStyle = "flex flex-col gap-y-3";
-const settlementCardCartStyle =
-  "hidden lg:flex items-center justify-between border-b border-[#CBCBCB] pb-3 mb-3";
-const settlementCardPriceDivStyle = "flex items-center gap-x-1 text-[#717171]";
-const settlementCardDiscountStyle =
-  "flex items-center justify-between pb-3 border-b border-[#CBCBCB] text-[15px] lg:py-3 lg:border-y";
-const shippingCostStyle =
-  "border-b border-[#CBCBCB] pb-3 flex  flex-col gap-y-2";
-const shippingCostTitleStyle = "flex items-center justify-between text-[15px]";
-const payableStyle =
-  "flex items-center justify-between text-[15px] md:text-lg md:my-2";
-const payableDivStyle =
-  "text-[#417F56] flex items-center gap-x-1 font-medium md:text-lg";
-const settlementCardButtonStyle =
-  "bg-[#417F56] text-white rounded py-2 text-xs font-medium flex items-center justify-center gap-x-1 md:text-base";
+import {
+  containerStyle,
+  dialogBgStyle,
+  dialogDivStyle,
+  dialogPanelStyle,
+  dialogTitleStyle,
+  dialogCloseButtonStyle,
+  dialogPStyle,
+  dialogButtonDivStyle,
+  dialogButtonStyle,
+  mainDivStyle,
+  cartDivStyle,
+  settlementCardStyle,
+  settlementCardCartStyle,
+  settlementCardPriceDivStyle,
+  settlementCardDiscountStyle,
+  shippingCostStyle,
+  shippingCostTitleStyle,
+  payableStyle,
+  payableDivStyle,
+  settlementCardButtonStyle,
+} from "../completion-of-information/Factor";
 
-const PaymentFactor = () => {
+const PaymentFactor = ({ paymentMethod }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.cartState);
 
@@ -187,11 +176,19 @@ const PaymentFactor = () => {
               </div>
             </div>
 
-            <Link to="/payment" className={settlementCardButtonStyle}>
-              <span className="md:hidden">{tickIcon}</span>
-              <span className="hidden md:block">{tickDesktopIcon}</span>
-              <span>ثبت سفارش</span>
-            </Link>
+            {paymentMethod === "cash" ? (
+              <Link to="/payment" className={settlementCardButtonStyle}>
+                <span className="md:hidden">{tickIcon}</span>
+                <span className="hidden md:block">{tickDesktopIcon}</span>
+                <span>ثبت سفارش</span>
+              </Link>
+            ) : (
+              <Link to="/payment" className={settlementCardButtonStyle}>
+                <span className="md:hidden">{card2Icon}</span>
+                <span className="hidden md:block">{card2DesktopIcon}</span>
+                <span>تأیید و پرداخت</span>
+              </Link>
+            )}
           </div>
         )}
       </div>

@@ -287,7 +287,7 @@ const Payment = () => {
         </div>
 
         <div className="lg:w-[370px] xl:w-[416px]">
-          <PaymentFactor />
+          <PaymentFactor paymentMethod={paymentMethod} />
         </div>
       </div>
     </div>
