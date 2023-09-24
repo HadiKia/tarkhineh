@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { RadioGroup } from "@headlessui/react";
+import React from "react";
 import MobileMenu from "./MobileMenu";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -51,14 +50,22 @@ const Header = () => {
         <div className="hidden md:block">
           <ul className={ulStyle}>
             <li>
-              <Link to="/" className={liStyle}>صفحه اصلی</Link>
+              <Link to="/" className={liStyle}>
+                صفحه اصلی
+              </Link>
             </li>
             <li className={liStyle}>شعبه</li>
             <li>
-              <Link to="/menu" className={liStyle}>منو</Link>
+              <Link to="/menu" className={liStyle}>
+                منو
+              </Link>
             </li>
             <li className={liStyle}>اعطای نمایندگی</li>
-            <li className={liStyle}>درباره ما</li>
+            <li>
+              <Link to="/about-us" className={liStyle}>
+                درباره ما
+              </Link>
+            </li>
             <li className={liStyle}>تماس با ما</li>
           </ul>
         </div>
@@ -68,8 +75,12 @@ const Header = () => {
             {searchIcon}
           </button>
           <button className={headerButtonStyle}>
-            <Link to="/cart" className="md:hidden">{cartIcon}</Link>
-            <Link to="/cart" className="hidden md:block">{cartIconDesktop}</Link>
+            <Link to="/cart" className="md:hidden">
+              {cartIcon}
+            </Link>
+            <Link to="/cart" className="hidden md:block">
+              {cartIconDesktop}
+            </Link>
             <span className={itemsCounterStyle}>
               {convertToFa(state.itemsCounter)}
             </span>

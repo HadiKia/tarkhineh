@@ -58,14 +58,14 @@ const MobileMenu = () => {
 
         <RadioGroup value={plan} onChange={setPlan}>
           <ul className={ulStyle}>
-            <li onClick={openMenu} >
+            <li onClick={openMenu}>
               <Link to="/" className={liStyle}>
                 <span>{homeIcon}</span>
                 <span>صفحه اصلی</span>
               </Link>
             </li>
 
-            <li onClick={openMenu} >
+            <li onClick={openMenu}>
               <Link to="/menu" className={liStyle}>
                 <span>{menuBoardIcon}</span>
                 <span>منو</span>
@@ -77,9 +77,11 @@ const MobileMenu = () => {
               <span>شعبه</span>
             </li>
 
-            <li onClick={openMenu} className={liStyle}>
-              <span>{profile2userIcon}</span>
-              <span>درباره ما</span>
+            <li onClick={openMenu}>
+              <Link to="/about-us" className={liStyle}>
+                <span>{profile2userIcon}</span>
+                <span>درباره ما</span>
+              </Link>
             </li>
 
             <li onClick={openMenu} className={liStyle}>

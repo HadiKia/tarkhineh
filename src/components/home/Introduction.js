@@ -29,9 +29,9 @@ const buttonBoxStyle = "flex justify-end mb-5";
 const buttonStyle =
   "flex items-center justify-center gap-x-2 border border-white rounded h-8 w-[9.5em] md:h-[2.5em] lg:w-[11.5em]";
 const buttonSpanStyle = "text-xs md:text-sm lg:text-base";
-const featuresBoxStyle =
+export const featuresBoxStyle =
   "flex items-center justify-around mb-4 md:mb-8 lg:justify-evenly";
-const featuresBoxItemStyle =
+export const featuresBoxItemStyle =
   "flex flex-col items-center gap-y-2 text-xs md:text-base";
 
 const Introduction = () => {
