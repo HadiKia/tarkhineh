@@ -49,27 +49,19 @@ const Header = () => {
 
         <div className="hidden md:block">
           <ul className={ulStyle}>
-            <li>
-              <Link to="/" className={liStyle}>
-                صفحه اصلی
-              </Link>
+            <li className={liStyle}>
+              <Link to="/">صفحه اصلی</Link>
             </li>
             <li className={liStyle}>شعبه</li>
-            <li>
-              <Link to="/menu" className={liStyle}>
-                منو
-              </Link>
+            <li className={liStyle}>
+              <Link to="/menu">منو</Link>
             </li>
             <li className={liStyle}>اعطای نمایندگی</li>
-            <li>
-              <Link to="/about-us" className={liStyle}>
-                درباره ما
-              </Link>
+            <li className={liStyle}>
+              <Link to="/about-us">درباره ما</Link>
             </li>
-            <li>
-              <Link to="/contact-us" className={liStyle}>
-                تماس با ما
-              </Link>
+            <li className={liStyle}>
+              <Link to="/contact-us">تماس با ما</Link>
             </li>
           </ul>
         </div>
