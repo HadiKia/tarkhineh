@@ -84,9 +84,11 @@ const MobileMenu = () => {
               </Link>
             </li>
 
-            <li onClick={openMenu} className={liStyle}>
+            <li onClick={openMenu} >
+              <Link to="/contact-us" className={liStyle}>
               <span>{callingIcon}</span>
               <span>تماس با ما</span>
+              </Link>
             </li>
           </ul>
         </RadioGroup>

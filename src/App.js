@@ -10,6 +10,7 @@ import Payment from "./components/payment/Payment";
 import SuccessfulPayment from "./components/payment/SuccessfulPayment";
 import SuccessfulOrder from "./components/payment/SuccessfulOrder";
 import AboutUs from "./components/about-us/AboutUs";
+import ContactUs from "./components/contact-us/ContactUs";
 
 import ScrollToTop from "./components/helper/ScrollToTop";
 
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/successful-payment" element={<SuccessfulPayment />} />
           <Route path="/successful-order" element={<SuccessfulOrder />} />
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </Layout>

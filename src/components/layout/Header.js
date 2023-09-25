@@ -66,7 +66,11 @@ const Header = () => {
                 درباره ما
               </Link>
             </li>
-            <li className={liStyle}>تماس با ما</li>
+            <li>
+              <Link to="/contact-us" className={liStyle}>
+                تماس با ما
+              </Link>
+            </li>
           </ul>
         </div>
 
