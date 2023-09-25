@@ -41,7 +41,7 @@ const AboutUs = () => {
         <div className="text-[#717171] px-5 content text-[11px] leading-[17.5px] text-justify mb-4 min-h-[calc(100vh_-_520px)] md:text-base md:leading-[26px] lg:min-h-[calc(100vh_-_380px)] xl:text-lg xl:leading-8">
           <div
             style={{ "--image-url": `url(${aboutUsImg})` }}
-            className="bg-[image:var(--image-url)] bg-cover bg-center float-left w-[152px] h-[120px] rounded mr-4 md:w-[400px] md:h-[300px] lg:w-[600px] lg:h-[492px]"
+            className="bg-[image:var(--image-url)] bg-cover bg-center float-left w-[152px] h-[120px] rounded mr-4 md:w-[400px] md:h-[300px] lg:w-[600px] lg:h-[492px] lg:mr-6"
           ></div>
           <p className="item-body">
             رستوران‌های زنجیره‌ای ترخینه در سال ۱۳۶۸ افتتاح گردیده‌اند و در طی
