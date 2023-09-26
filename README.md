@@ -42,5 +42,5 @@
 
 ## Contact me
 
-- _[email](mailto:hadikiamarzi@protonmail.com)_
-- _[instagram](https://www.instagram.com/ihadikia)_
+- <a href="mailto:hadikiamarzi@protonmail.com"><img src="https://img.shields.io/badge/Email-323540?style=for-the-badge&logo=protonmail&logoColor=5294E2" alt="Email" style="border-radius:15px"></a>
+- <a href="https://www.instagram.com/ihadikia"><img src="https://img.shields.io/badge/Instagram-323540?style=for-the-badge&logo=instagram&logoColor=5294E2" style="border-radius:15px" alt="Instagram"></a>
