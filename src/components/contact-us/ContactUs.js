@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import bannerImg from "../../images/contact-us-banner.svg";
 
 // Images
@@ -16,6 +16,10 @@ const buttonDivStyle = "flex items-center gap-x-4 pt-3"
 const buttonStyle = "border border-[#417F56] rounded font-medium py-1 px-9 md:px-7"
 
 const ContactUs = () => {
+   useEffect(() => {
+    document.title = "تماس با ما";
+  }, []);
+  
   return (
     <>
       <div
