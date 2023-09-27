@@ -21,7 +21,7 @@ const ulStyle =
   "flex flex-col gap-y-[0.5em] md:gap-y-[1em] pr-[0.5em] md:pr-[1em]";
 const liStyle = "text-[10px] md:text-base md:font-medium md:text-[#EDEDED]";
 const h4Style =
-  "mb-[0.5em] md:mb-[1em] text-[14px] font-medium md:text-xl md:font-bold";
+  "mb-[0.5em] md:mb-[1em] text-xs sm:text-sm font-medium md:text-xl md:font-bold";
 const iconBoxStyle = "items-center gap-x-[0.5em] md:gap-x-[1em]";
 const inputBoxStyle = "flex flex-col gap-y-[0.75em]";
 const inputStyle =

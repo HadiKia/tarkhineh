@@ -14,7 +14,7 @@ import slider3 from '../../images/slider3.svg'
 // styles
 const swiperStyle = 'w-full h-[11em] md:h-[21em]'
 const swiperSlideStyle = 'text-center py-[4em] h-[11em] bg-[image:var(--image-url)] bg-cover bg-center md:py-[7.75em] md:h-[21em]'
-const pStyle = 'text-[#E5F2E9] font-bold md:text-3xl lg:text-4xl'
+const pStyle = 'text-[13px] sm:text-base text-[#E5F2E9] font-bold md:text-3xl lg:text-4xl'
 const buttonStyle = 'bg-[#417F56] py-1.5 px-3 text-[10px] font-medium text-white rounded-md mt-3.5 md:mt-12 xl:mt-16 md:py-2 md:px-6 md:text-base '
 
 const Banner = () => {

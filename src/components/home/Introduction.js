@@ -22,17 +22,17 @@ const bgStyle =
   "mt-12 bg-[image:var(--image-url)] bg-cover bg-center text-white py-5 px-5 h-[21.188em] md:h-[24.375em] md:py-12 md:flex md:items-center md:mt-14 lg:mt-16 xl:mt-20";
 const containerStyle =
   "container max-w-[1224px] mx-auto md:flex md:items-start lg:items-center md:px-1 xl:pr-6 xl:gap-x-5";
-const h3Style = "mb-2 md:text-xl md:font-bold md:mb-6 lg:text-2xl";
+const h3Style = "text-sm sm:text-base mb-2 md:text-xl md:font-bold md:mb-6 lg:text-2xl";
 const descriptionStyle =
-  "text-[11px] leading-5 text-justify mb-2 md:text-[15px] md:leading-6 lg:text-base lg:text-xl xl:mb-8 xl:font-light";
-const buttonBoxStyle = "flex justify-end mb-5";
+  "text-[10px] sm:text-[11px] leading-5 text-justify mb-2 md:text-[15px] md:leading-6 lg:text-base lg:text-xl xl:mb-8 xl:font-light";
+const buttonBoxStyle = "flex justify-end mb-3 sm:mb-5";
 const buttonStyle =
-  "flex items-center justify-center gap-x-2 border border-white rounded h-8 w-[9.5em] md:h-[2.5em] lg:w-[11.5em]";
+  "flex items-center justify-center gap-x-2 border border-white rounded h-7 sm:h-8 w-[8.5em] sm:w-[9.5em] md:h-[2.5em] lg:w-[11.5em]";
 const buttonSpanStyle = "text-xs md:text-sm lg:text-base";
 export const featuresBoxStyle =
   "flex items-center justify-around mb-4 md:mb-8 lg:justify-evenly";
 export const featuresBoxItemStyle =
-  "flex flex-col items-center gap-y-2 text-xs md:text-base";
+  "flex flex-col items-center gap-y-2 text-[11px] sm:text-xs md:text-base";
 
 const Introduction = () => {
   return (
