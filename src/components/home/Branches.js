@@ -1,10 +1,10 @@
 import React from "react";
 
 // images
-import EkbatanImg from "../../images/ekbatan.svg";
-import ChalosImg from "../../images/chalos.svg";
-import AghdasiehImg from "../../images/aghdasieh.svg";
-import VanakImg from "../../images/vanak.png";
+import EkbatanImg from "../../images/ekbatan.jpg";
+import ChalosImg from "../../images/chalos.jpg";
+import AghdasiehImg from "../../images/aghdasieh.jpg";
+import VanakImg from "../../images/vanak.jpg";
 
 // styles
 const containerStyle = 'container max-w-[1224px] mx-auto px-5 mt-6 md:mt-10 text-center mb-12 xl:mt-12'

@@ -7,9 +7,9 @@ import 'swiper/css/autoplay'
 import { Link } from "react-router-dom";
 
 // images
-import slider from '../../images/slider.svg'
-import slider2 from '../../images/slider2.svg'
-import slider3 from '../../images/slider3.svg'
+import slider from '../../images/slider.jpg'
+import slider2 from '../../images/slider2.jpg'
+import slider3 from '../../images/slider3.jpg'
 
 // styles
 const swiperStyle = 'w-full h-[11em] md:h-[21em]'

@@ -1,5 +1,5 @@
 import React from "react";
-import footerImg from "../../images/footer.png";
+import footerImg from "../../images/footer.jpg";
 import { Link } from "react-router-dom";
 
 // icons

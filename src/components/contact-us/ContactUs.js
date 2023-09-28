@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import bannerImg from "../../images/contact-us-banner.svg";
 
 // Images
-import EkbatanImg from "../../images/ekbatan.svg";
-import ChalosImg from "../../images/chalos.svg";
-import AghdasiehImg from "../../images/aghdasieh.svg";
-import VanakImg from "../../images/vanak.png";
+import bannerImg from "../../images/contact-us-banner.jpg";
+import EkbatanImg from "../../images/ekbatan.jpg";
+import ChalosImg from "../../images/chalos.jpg";
+import AghdasiehImg from "../../images/aghdasieh.jpg";
+import VanakImg from "../../images/vanak.jpg";
 
 // Styles 
 const branchBoxStyle = "flex flex-col md:flex-row md:items-center border border-[#CBCBCB] rounded-md overflow-hidden lg:hover:shadow-lg lg:duration-500"

@@ -1,7 +1,7 @@
 import React from "react";
 
 // images
-import IntroductionImg from "../../images/introduction.svg";
+import IntroductionImg from "../../images/introduction.jpg";
 
 // icons
 import {

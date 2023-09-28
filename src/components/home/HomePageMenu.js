@@ -8,7 +8,7 @@ import { searchIcon } from "../../icons/homePageIcons";
 import Maincourse from "../../images/main-course.png";
 import Appetizer from "../../images/appetizer.png";
 import Dessert from "../../images/dessert.png";
-import Drink from "../../images/drink.svg";
+import Drink from "../../images/drink.png";
 import { Link } from "react-router-dom";
 
 // styles

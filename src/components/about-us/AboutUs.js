@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import bannerImg from "../../images/about-us-banner.svg";
-import aboutUsImg from "../../images/about-us.svg";
+import bannerImg from "../../images/about-us-banner.jpg";
+import aboutUsImg from "../../images/about-us.jpg";
 
 // icons
 import {

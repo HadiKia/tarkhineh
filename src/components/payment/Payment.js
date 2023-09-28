@@ -4,9 +4,9 @@ import { Tab, RadioGroup } from "@headlessui/react";
 import PaymentFactor from "./PaymentFactor";
 
 // Image
-import saman from "../../images/bankSaman.svg";
-import mellat from "../../images/bankMellat.svg";
-import parsian from "../../images/bankParsian.svg";
+import saman from "../../images/bankSaman.jpg";
+import mellat from "../../images/bankMellat.jpg";
+import parsian from "../../images/bankParsian.jpg";
 
 // Icons
 import {
