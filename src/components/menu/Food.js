@@ -23,23 +23,25 @@ import { closeIcon } from "../../icons/mobileMenuIcons";
 const foodBoxStyle =
   "flex items-center justify-between border border-[#CBCBCB] rounded-md h-[6.25em] lg:h-[9.875em] lg:rounded-lg lg:relative";
 const foodImgStyle = "w-[5.75em] h-[6.25em] lg:w-[10.563em] lg:h-[9.875em]";
-const headerDivStyle = "flex items-center justify-between text-xs mb-2 lg:mb-3";
+const headerDivStyle =
+  "flex items-center justify-between text-xs sm:mb-2 lg:mb-3";
 const titleStyle =
-  "text-[#353535] text-[12.5px] font-medium lg:text-lg lg:font-bold lg:mt-1";
-const priceDivStyle = "flex items-center gap-x-2 lg:relative lg:top-9";
+  "text-[#353535] sm:text-[12.5px] font-medium lg:text-lg lg:font-bold lg:mt-1";
+const priceDivStyle =
+  "flex flex-col-reverse sm:flex-row items-center sm:gap-x-2 lg:relative lg:top-9";
 const priceStyle = "text-[#ADADAD] line-through lg:text-[15px] ";
 const offerStyle =
-  "bg-[#FFF2F2] text-[#C30000] py-[2px] px-[6px] rounded-[10px] font-medium lg:text-xs ";
+  "bg-[#FFF2F2] text-[#C30000] py-[2px] px-[6px] text-[9px] sm:text-xs rounded-[10px] font-medium lg:text-xs ";
 const containerDivStyle =
-  "flex items-center justify-between text-xs font-medium text-[#353535] mb-1 lg:text-base lg:mb-8";
-const descriptionStyle = "text-[10.25px] lg:text-sm";
+  "flex items-center justify-end sm:justify-between text-xs font-medium text-[#353535] mb-1 lg:text-base lg:mb-8";
+const descriptionStyle = "hidden sm:block text-[10.25px] lg:text-sm";
 const discountedDivStyle =
   "flex items-center gap-x-2 font-medium lg:relative lg:top-6 ";
 const footerDivStyle = "flex items-center justify-between";
 const likeStyle = "lg:absolute lg:left-3 lg:top-3";
 const ratingDivStyle = "flex items-center gap-x-1";
 const buttonStyle =
-  "bg-[#417F56] text-white border border-[#417F56] rounded-md text-[10px] p-[9px] font-medium lg:rounded lg:text-sm lg:px-5 xl:px-12 ";
+  "bg-[#417F56] text-white border border-[#417F56] rounded sm:rounded-md text-[10px] py-1.5 px-2 sm:p-[9px] font-medium lg:rounded lg:text-sm lg:px-5 xl:px-12 ";
 
 export const rating = {
   count: 5,
@@ -143,7 +145,7 @@ const Food = ({ productData }) => {
             >
               {likeDesktopIcon}
             </button>
-            <div className="lg:hidden">
+            <div className="hidden sm:block lg:hidden">
               <ReactStars {...rating} />
             </div>
             <div className="hidden lg:block">
