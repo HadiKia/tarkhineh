@@ -10,10 +10,10 @@ import VanakImg from "../../images/vanak.png";
 // Styles 
 const branchBoxStyle = "flex flex-col md:flex-row md:items-center border border-[#CBCBCB] rounded-md overflow-hidden lg:hover:shadow-lg lg:duration-500"
 const branchImgStyle = "bg-[image:var(--image-url)] bg-cover bg-center w-full h-[112px] md:h-[280px]"
-const branchDescriptionDivStyle = "flex flex-col items-center text-center gap-y-1 text-[#717171] text-[11px] py-3 px-1 w-full md:gap-y-2 md:text-sm"
+const branchDescriptionDivStyle = "flex flex-col items-center text-center gap-y-1 text-[#717171] text-[11px] py-3 px-2 sm:px-1 w-full md:gap-y-2 md:text-sm"
 const titleStyle = "text-[#353535] text-sm mb-1 md:font-semibold md:text-base md:mb-8"
 const buttonDivStyle = "flex items-center gap-x-4 pt-3"
-const buttonStyle = "border border-[#417F56] rounded font-medium py-1 px-9 md:px-7"
+const buttonStyle = "border border-[#417F56] rounded font-medium py-1 px-5 sm:px-9 md:px-7"
 
 const ContactUs = () => {
    useEffect(() => {
