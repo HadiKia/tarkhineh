@@ -50,7 +50,7 @@ const categorizeProducts = (products) => {
   return categorized;
 };
 
-const Foods = ({ type, color }) => {
+const Foods = () => {
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const dispatch = useDispatch();

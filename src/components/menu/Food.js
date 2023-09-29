@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,12 +6,14 @@ import { toast, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // functions
-import { convertToFa, isInCart } from "../helper/functions";
+import { convertToFa, isInCart, isInFavorite } from "../helper/functions";
+
+// Actions
+import { dislikeItem } from "../redux/favorite/favoriteAction";
 
 // icons
 import {
   likeIcon,
-  likeDesktopIcon,
   starIcon,
   starEmptyIcon,
   starDesktopIcon,
@@ -38,7 +40,7 @@ const descriptionStyle = "hidden sm:block text-[10.25px] lg:text-sm";
 const discountedDivStyle =
   "flex items-center gap-x-2 font-medium lg:relative lg:top-6 ";
 const footerDivStyle = "flex items-center justify-between";
-const likeStyle = "lg:absolute lg:left-3 lg:top-3";
+const likeStyle = "lg:absolute lg:left-4 lg:top-4 lg:scale-[1.5]";
 const ratingDivStyle = "flex items-center gap-x-1";
 const buttonStyle =
   "bg-[#417F56] text-white border border-[#417F56] rounded sm:rounded-md text-[10px] py-1.5 px-2 sm:p-[9px] font-medium lg:rounded lg:text-sm lg:px-5 xl:px-12 ";
@@ -58,20 +60,28 @@ export const ratingDesktop = {
 };
 
 const Food = ({ productData }) => {
-  const [isActive, setIsActive] = useState(false);
-  const [isActive2, setIsActive2] = useState(false);
   const { title, price, offer, discountedPrice, description, image, slug, id } =
     productData;
 
   const state = useSelector((state) => state.cartState);
+  const favorite = useSelector((state) => state.favoriteState);
   const dispatch = useDispatch();
 
-  const likeClick = () => {
-    setIsActive((current) => !current);
-  };
-
-  const likeDesktopClick = () => {
-    setIsActive2((current2) => !current2);
+  const likeItem = () => {
+    dispatch({ type: "LIKE_ITEM", payload: productData });
+    toast.success("محصول به علاقه‌مندی ها اضافه شد", {
+      position: "top-center",
+      theme: "colored",
+      style: {
+        background: "#417F56",
+        color: "#fff",
+        textAlign: "right",
+      },
+      icon: false,
+      transition: Flip,
+      closeButton: CloseButton,
+      autoClose: 2500,
+    });
   };
 
   const CloseButton = ({ closeToast }) => (
@@ -125,26 +135,22 @@ const Food = ({ productData }) => {
 
         <div className={footerDivStyle}>
           <div className={ratingDivStyle}>
-            <button
-              className={
-                isActive
-                  ? `${likeStyle} text-[#C30000]`
-                  : `${likeStyle} text-[#717171] lg:hidden`
-              }
-              onClick={likeClick}
-            >
-              {likeIcon}
-            </button>
-            <button
-              className={
-                isActive2
-                  ? `${likeStyle} text-[#C30000]`
-                  : `${likeStyle} text-[#717171] hidden lg:block`
-              }
-              onClick={likeDesktopClick}
-            >
-              {likeDesktopIcon}
-            </button>
+            {isInFavorite(favorite, id) ? (
+              <button
+                className={`${likeStyle} text-[#C30000]`}
+                onClick={() => dispatch(dislikeItem(productData))}
+              >
+                {likeIcon}
+              </button>
+            ) : (
+              <button
+                className={`${likeStyle} text-[#717171]`}
+                onClick={likeItem}
+              >
+                {likeIcon}
+              </button>
+            )}
+
             <div className="hidden sm:block lg:hidden">
               <ReactStars {...rating} />
             </div>
