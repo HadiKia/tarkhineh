@@ -41,10 +41,10 @@ const dialogPanelStyle =
 const dialogTitleStyle =
   "relative flex items-center justify-center font-medium bg-[#F9F9F9] px-6 py-[17px] mb-4 md:text-xl md:font-semibold md:py-[21px] md:mb-8";
 const dialogCloseButtonStyle = "text-[#717171] absolute left-6";
-const dialogPStyle = "text-center text-sm text-[#353535] md:text-base";
+const dialogPStyle = "text-center text-xs sm:text-sm text-[#353535] md:text-base";
 const dialogButtonDivStyle =
-  "flex items-center justify-center gap-x-5 mb-4 md:mb-6 text-sm md:font-semibold md:text-base";
-const dialogButtonStyle = "rounded border px-11 py-[5px] md:py-[7px]";
+  "flex items-center justify-center gap-x-5 mb-4 md:mb-6 text-xs sm:text-sm md:font-semibold md:text-base";
+const dialogButtonStyle = "rounded border px-7 sm:px-11 py-[5px] md:py-[7px]";
 export const headerDesktopStyle =
   "hidden md:flex items-center justify-center gap-x-0.5 mb-10";
 export const headerDesktopItemStyle =
@@ -60,14 +60,14 @@ const settlementCardCartStyle =
   "hidden md:flex items-center justify-between mb-3";
 const settlementCardPriceDivStyle = "flex items-center gap-x-1 text-[#717171]";
 const settlementCardDiscountStyle =
-  "flex items-center justify-between py-3 border-y border-[#CBCBCB] text-[15px]";
+  "flex items-center justify-between py-3 border-y border-[#CBCBCB] text-[13px] sm:text-[15px]";
 const shippingCostStyle = "border-b border-[#CBCBCB] pb-3";
 const shippingCostTitleStyle =
-  "flex items-center justify-between text-[15px] mb-2";
+  "flex items-center justify-between text-[13px] sm:text-[15px] mb-2";
 const shippingCostDescriptionStyle =
-  "flex items-start gap-x-2 text-[#A9791C] text-[11px] md:text-xs";
+  "flex items-start gap-x-2 text-[#A9791C] text-[10px] sm:text-[11px] md:text-xs";
 const payableStyle =
-  "flex items-center justify-between text-[15px] md:text-lg md:my-2";
+  "flex items-center justify-between text-[13px] sm:text-[15px] md:text-lg md:my-2";
 const payableDivStyle =
   "text-[#417F56] flex items-center gap-x-1 font-medium md:text-lg";
 const settlementCardButtonStyle =

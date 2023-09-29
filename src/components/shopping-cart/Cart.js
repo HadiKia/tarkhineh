@@ -17,7 +17,7 @@ const boxStyle =
   "flex items-center justify-between py-2 px-2 md:border md:border-[#CBCBCB] md:rounded-lg md:mb-4 md:p-0 md:overflow-hidden md:gap-x-8 md:items-start md:relative";
 const imgStyle = "hidden md:block  w-full max-w-[169px] h-[158px]";
 const titleStyle =
-  "text-[#353535] text-sm mb-1 md:font-semibold md:text-xl md:mb-3 lg:mb-2 xl:mb-3";
+  "text-[#353535] text-xs sm:text-sm mb-1 md:font-semibold md:text-xl md:mb-3 lg:mb-2 xl:mb-3";
 const descriptionStyle = "hidden md:block text-[15px] md:pl-7 xl:pl-8";
 const discountedPriceStyle =
   "text-[#717171] text-xs flex items-center gap-x-1 md:absolute md:left-8 md:bottom-[18px] md:text-[#353535] md:text-lg md:font-medium xl:text-xl";
