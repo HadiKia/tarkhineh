@@ -40,7 +40,7 @@ export const shippingMethodTitleStyle =
 export const shippingMethodStyle =
   "pr-2 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-evenly flex-1";
 export const shippingMethodItemStyle =
-  "flex items-center jus gap-x-1 text-[#717171] text-[13px] lg:text-base lg:font-medium lg:cursor-pointer";
+  "flex items-center jus gap-x-1 text-[#717171] text-xs sm:text-[13px] lg:text-base lg:font-medium lg:cursor-pointer";
 export const shippingMethodItemInputStyle =
   "appearance-none w-3.5 h-3.5 rounded-full ring-1 ring-[#CBCBCB] ring-offset-1 checked:bg-[#00BA88] duration-200 ml-2";
 export const shippingMethodItemSpanStyle = "hidden lg:block text-[10px] font-normal";

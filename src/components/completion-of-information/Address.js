@@ -136,7 +136,7 @@ const Address = ({ list, setList, updateShippingCost }) => {
       ) : (
         <button
           onClick={() => setIsCreating(true)}
-          className={`${addAddressButtonStyle} text-sm`}
+          className={`${addAddressButtonStyle} text-xs sm:text-sm`}
         >
           <span>{addIcon}</span>
           <span>افزودن آدرس</span>

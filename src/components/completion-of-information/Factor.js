@@ -47,15 +47,15 @@ export const settlementCardCartStyle =
 export const settlementCardPriceDivStyle =
   "flex items-center gap-x-1 text-[#717171]";
 export const settlementCardDiscountStyle =
-  "flex items-center justify-between pb-3 border-b border-[#CBCBCB] text-[15px] lg:py-3 lg:border-y";
+  "flex items-center justify-between pb-3 border-b border-[#CBCBCB] text-[13px] sm:text-[15px] lg:py-3 lg:border-y";
 export const shippingCostStyle =
   "border-b border-[#CBCBCB] pb-3 flex  flex-col gap-y-2";
 export const shippingCostTitleStyle =
-  "flex items-center justify-between text-[15px]";
+  "flex items-center justify-between text-[13px] sm:text-[15px]";
 const shippingCostDescriptionStyle =
-  "flex items-start gap-x-2 text-[#A9791C] text-[11px] md:text-xs";
+  "flex items-start gap-x-2 text-[#A9791C] text-[10px] sm:text-[11px] md:text-xs";
 export const payableStyle =
-  "flex items-center justify-between text-[15px] md:text-lg md:my-2";
+  "flex items-center justify-between text-[13px] sm:text-[15px] md:text-lg md:my-2";
 export const payableDivStyle =
   "text-[#417F56] flex items-center gap-x-1 font-medium md:text-lg";
 export const settlementCardButtonStyle =
