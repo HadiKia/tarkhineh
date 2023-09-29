@@ -25,7 +25,7 @@ const SuccessfulPayment = () => {
       </p>
       <Link
         to="/"
-        className="text-sm border border-[#417F56] bg-white py-[5px] px-3 rounded lg:text-base lg:font-medium lg:py-[7px] lg:px-[18px]"
+        className="text-xs sm:text-sm border border-[#417F56] bg-white py-[5px] px-3 rounded lg:text-base lg:font-medium lg:py-[7px] lg:px-[18px]"
       >
         بازگشت به صفحه اصلی
       </Link>

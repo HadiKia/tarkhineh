@@ -148,7 +148,7 @@ const Payment = () => {
               </div>
               <Tab.List>
                 <div
-                  className={`${shippingMethodStyle} !flex-row lg:gap-x-5 xl:gap-x-14`}
+                  className={`${shippingMethodStyle} sm:!flex-row lg:gap-x-5 xl:gap-x-14`}
                 >
                   <Tab>
                     <label>
