@@ -39,7 +39,9 @@ const Footer = () => {
         <div>
           <h4 className={h4Style}>دسترسی آسان</h4>
           <ul className={ulStyle}>
-            <li className={liStyle}>پرسش های متداول</li>
+            <li className={liStyle}>
+              <Link to="/faq">پرسش های متداول</Link>
+            </li>
             <li className={liStyle}>قوانین ترخینه</li>
             <li className={liStyle}>حریم خصوصی</li>
             <div className={`${iconBoxStyle} flex md:hidden`}>
