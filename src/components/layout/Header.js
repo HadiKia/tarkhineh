@@ -70,17 +70,15 @@ const Header = () => {
           <button className={`${headerButtonStyle} hidden md:block`}>
             {searchIcon}
           </button>
-          <button className={headerButtonStyle}>
-            <Link to="/cart" className="md:hidden">
-              {cartIcon}
-            </Link>
-            <Link to="/cart" className="hidden md:block">
-              {cartIconDesktop}
-            </Link>
-            <span className={itemsCounterStyle}>
-              {convertToFa(state.itemsCounter)}
-            </span>
-          </button>
+          <Link to="/cart">
+            <button className={headerButtonStyle}>
+              <span className="md:hidden">{cartIcon}</span>
+              <span className="hidden md:block">{cartIconDesktop}</span>
+              <span className={itemsCounterStyle}>
+                {convertToFa(state.itemsCounter)}
+              </span>
+            </button>
+          </Link>
           <button className={headerButtonStyle}>
             <span className="md:hidden">{userIcon}</span>
             <span className="hidden md:block">{userIconDesktop}</span>

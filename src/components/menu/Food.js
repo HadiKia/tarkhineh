@@ -159,11 +159,13 @@ const Food = ({ productData }) => {
             </div>
           </div>
           {isInCart(state, id) ? (
-            <button
-              className={`${buttonStyle} !bg-white !text-[#417F56] border-[#417F56] px-[11px] lg:text-sm lg:px-[22px] xl:px-[51px]`}
-            >
-              <Link to="/cart">مشاهده سبد خرید</Link>
-            </button>
+            <Link to="/cart">
+              <button
+                className={`${buttonStyle} !bg-white !text-[#417F56] border-[#417F56] px-[11px] lg:text-sm lg:px-[22px] xl:px-[51px]`}
+              >
+                مشاهده سبد خرید
+              </button>
+            </Link>
           ) : (
             <button className={buttonStyle} onClick={addToCart}>
               افزودن به سبد خرید

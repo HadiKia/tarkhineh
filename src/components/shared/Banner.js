@@ -24,15 +24,15 @@ const Banner = () => {
       <Swiper pagination={true} modules={[Pagination, Autoplay]} autoplay={{delay: 4000}} className={swiperStyle}>
         <SwiperSlide style={{ "--image-url": `url(${slider})` }} className={swiperSlideStyle}>
           <p className={pStyle}>تجربه غذای سالم و گیاهی به سبک ترخینه</p>
-          <button className={buttonStyle}><Link to="/menu">سفارش آنلاین غذا</Link></button>
+          <Link to="/menu"><button className={buttonStyle}>سفارش آنلاین غذا</button></Link>
         </SwiperSlide>
         <SwiperSlide style={{ "--image-url": `url(${slider2})` }} className={swiperSlideStyle}>
           <p className={pStyle}>طعم بی‌نظیر طبیعت!</p>
-          <button className={buttonStyle}><Link to="/menu">سفارش آنلاین غذا</Link></button>
+          <Link to="/menu"><button className={buttonStyle}>سفارش آنلاین غذا</button></Link>
         </SwiperSlide>
         <SwiperSlide style={{ "--image-url": `url(${slider3})` }} className={swiperSlideStyle}>
           <p className={pStyle}>لذت غذای سالم و گیاهی را با ترخینه تجربه کنید!</p>
-          <button className={buttonStyle}><Link to="/menu">سفارش آنلاین غذا</Link></button>
+          <Link to="/menu"><button className={buttonStyle}>سفارش آنلاین غذا</button></Link>
         </SwiperSlide> 
       </Swiper>
     </>
