@@ -28,7 +28,7 @@ const AboutUs = () => {
         style={{ "--image-url": `url(${bannerImg})` }}
         className="bg-[image:var(--image-url)] bg-cover bg-center relative w-full h-[176px] md:h-[336px]"
       >
-        <span className="text-[#E5F2E9] absolute text-center left-0 right-0 top-[45%] font-bold text-lg md:text-3xl">
+        <span className="text-[#E5F2E9] absolute text-center left-0 right-0 top-[45%] font-bold text-lg md:text-3xl lg:text-4xl">
           درباره ترخینه بیشتر بدانید!
         </span>
       </div>
