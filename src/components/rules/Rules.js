@@ -5,7 +5,7 @@ import DisclosureItem from "../shared/DisclosureItem";
 
 // Styles
 import { bannerImgStyle, bannerTitleStyle } from "../about-us/AboutUs";
-import { tabDivStyle, tabActiveStyle } from "../faq/FAQ";
+import { containerStyle, tabDivStyle, tabActiveStyle } from "../faq/FAQ";
 
 const Rules = () => {
   useEffect(() => {
@@ -13,7 +13,7 @@ const Rules = () => {
   }, []);
 
   return (
-    <div className="min-h-[calc(100vh_-_216px)]">
+    <div className={containerStyle}>
       <div
         style={{ "--image-url": `url(${bannerImg})` }}
         className={bannerImgStyle}
@@ -27,7 +27,9 @@ const Rules = () => {
             <button className="py-3 sm:py-2.5">سوالات متداول</button>
           </Link>
           <button className={tabActiveStyle}>قوانین ترخینه</button>
-          <button className="py-3 sm:py-2.5">حریم خصوصی</button>
+          <Link to="/privacy">
+            <button className="py-3 sm:py-2.5">حریم خصوصی</button>
+          </Link>
         </div>
       </div>
 

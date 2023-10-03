@@ -14,7 +14,7 @@ const chevronIcon = (
 // Styles
 const disclosureBoxStyle = "border-b border-b-[#CBCBCB]";
 const disclosureTitleStyle =
-  "flex items-center justify-between w-full px-4 py-2.5 text-[11px] sm:text-[13px] font-medium md:text-base md:py-4 ";
+  "flex items-center justify-between w-full px-4 py-2.5 text-[11px] sm:text-[13px] font-medium md:text-base lg:text-lg md:py-4 ";
 const disclosureDescriptionStyle =
   "text-[11px] text-[#717171] leading-5 px-7 pb-3 md:text-sm md:leading-6 md:pb-4";
 

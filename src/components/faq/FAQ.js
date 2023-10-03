@@ -5,6 +5,7 @@ import DisclosureItem from "../shared/DisclosureItem";
 
 // Styles
 import { bannerTitleStyle } from "../about-us/AboutUs";
+export const containerStyle = "min-h-[calc(100vh_-_216px)] md:mb-12"
 export const tabDivStyle =
   "container max-w-[1224px] mx-auto text-[#717171] flex items-center justify-start px-5 text-[10px] sm:text-[13px] gap-x-4 mb-3 md:text-lg md:gap-x-8 md:mb-6";
 export const tabActiveStyle =
@@ -16,7 +17,7 @@ const FAQ = () => {
   }, []);
 
   return (
-    <div className="min-h-[calc(100vh_-_216px)]">
+    <div className={containerStyle}>
       <div
         style={{ "--image-url": `url(${bannerImg})` }}
         className="bg-[image:var(--image-url)] bg-cover bg-right relative w-full h-[176px] md:h-[336px] filter grayscale contrast-100"
@@ -30,12 +31,14 @@ const FAQ = () => {
           <Link to="/rules">
             <button className="py-3 sm:py-2.5 ">قوانین ترخینه</button>
           </Link>
-          <button className="py-3 sm:py-2.5">حریم خصوصی</button>
+          <Link to="/privacy">
+            <button className="py-3 sm:py-2.5">حریم خصوصی</button>
+          </Link>
         </div>
       </div>
 
-      <div className="container max-w-[1224px] mx-auto ">
-        <div className="mx-5 border border-[#CBCBCB] rounded-md mb-6 ">
+      <div className="container max-w-[1224px] mx-auto">
+        <div className="mx-5 border border-[#CBCBCB] rounded-md mb-6">
           <DisclosureItem
             title="امکانات ترخینه"
             titleDesktop="ترخینه چه امکانات متفاوتی داره؟"
