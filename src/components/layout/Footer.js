@@ -42,7 +42,11 @@ const Footer = () => {
             <li className={liStyle}>
               <Link to="/faq">پرسش های متداول</Link>
             </li>
-            <li className={liStyle}>قوانین ترخینه</li>
+            <li className={liStyle}>
+              <Link to="/rules">
+              قوانین ترخینه
+              </Link>
+            </li>
             <li className={liStyle}>حریم خصوصی</li>
             <div className={`${iconBoxStyle} flex md:hidden`}>
               <span>{twitterIcon}</span>

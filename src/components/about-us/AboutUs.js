@@ -16,6 +16,8 @@ import {
 
 // Styles
 import { featuresBoxItemStyle } from "../home/Introduction";
+export const bannerImgStyle = "bg-[image:var(--image-url)] bg-cover bg-center relative w-full h-[176px] md:h-[336px]"
+export const bannerTitleStyle = "text-[#E5F2E9] absolute text-center left-0 right-0 top-[45%] font-bold text-lg md:text-3xl lg:text-4xl"
 
 const AboutUs = () => {
   useEffect(() => {
@@ -26,9 +28,9 @@ const AboutUs = () => {
     <div>
       <div
         style={{ "--image-url": `url(${bannerImg})` }}
-        className="bg-[image:var(--image-url)] bg-cover bg-center relative w-full h-[176px] md:h-[336px]"
+        className={bannerImgStyle}
       >
-        <span className="text-[#E5F2E9] absolute text-center left-0 right-0 top-[45%] font-bold text-lg md:text-3xl lg:text-4xl">
+        <span className={bannerTitleStyle}>
           درباره ترخینه بیشتر بدانید!
         </span>
       </div>

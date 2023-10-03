@@ -8,6 +8,7 @@ import AghdasiehImg from "../../images/aghdasieh.jpg";
 import VanakImg from "../../images/vanak.jpg";
 
 // Styles 
+import { bannerImgStyle, bannerTitleStyle } from "../about-us/AboutUs";
 const branchBoxStyle = "flex flex-col md:flex-row md:items-center border border-[#CBCBCB] rounded-md overflow-hidden lg:hover:shadow-lg lg:duration-500"
 const branchImgStyle = "bg-[image:var(--image-url)] bg-cover bg-center w-full h-[112px] md:h-[280px]"
 const branchDescriptionDivStyle = "flex flex-col items-center text-center gap-y-1 text-[#717171] text-[11px] py-3 px-2 sm:px-1 w-full md:gap-y-2 md:text-sm"
@@ -24,9 +25,9 @@ const ContactUs = () => {
     <>
       <div
         style={{ "--image-url": `url(${bannerImg})` }}
-        className="bg-[image:var(--image-url)] bg-cover bg-center relative w-full h-[176px] md:h-[336px]"
+        className={bannerImgStyle}
       >
-        <span className="text-[#E5F2E9] absolute text-center left-0 right-0 top-[45%] font-bold text-lg md:text-3xl lg:text-4xl">
+        <span className={bannerTitleStyle}>
           با ترخینه در تماس باشید.
         </span>
       </div>
