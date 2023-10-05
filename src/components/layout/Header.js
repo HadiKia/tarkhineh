@@ -79,10 +79,12 @@ const Header = () => {
               </span>
             </button>
           </Link>
-          <button className={headerButtonStyle}>
+         <Link to="/dashboard">
+         <button className={headerButtonStyle}>
             <span className="md:hidden">{userIcon}</span>
             <span className="hidden md:block">{userIconDesktop}</span>
           </button>
+          </Link>
         </div>
       </header>
     </div>

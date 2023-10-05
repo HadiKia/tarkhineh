@@ -14,6 +14,7 @@ import ContactUs from "./components/contact-us/ContactUs";
 import FAQ from "./components/faq/FAQ";
 import Rules from "./components/rules/Rules";
 import Privacy from "./components/privacy/Privacy";
+import Dashboard from "./dashboard";
 
 import ScrollToTop from "./components/helper/ScrollToTop";
 
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/rules" element={<Rules />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </Layout>
