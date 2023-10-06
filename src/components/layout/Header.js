@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SignUp from "../shared/SignUp";
+import { ToastContainer } from "react-toastify";
 
 // functions
 import { convertToFa } from "../helper/functions";
@@ -32,6 +34,18 @@ const itemsCounterStyle =
 
 const Header = () => {
   const state = useSelector((state) => state.cartState);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div className="sticky top-0 z-10 bg-white shadow-md">
@@ -79,14 +93,22 @@ const Header = () => {
               </span>
             </button>
           </Link>
-         <Link to="/dashboard">
-         <button className={headerButtonStyle}>
+
+          <button
+            className={headerButtonStyle}
+            onClick={() => {
+              localStorage.getItem("phoneNumber")
+                ? navigate("/dashboard")
+                : openModal();
+            }}
+          >
             <span className="md:hidden">{userIcon}</span>
             <span className="hidden md:block">{userIconDesktop}</span>
           </button>
-          </Link>
+          <SignUp isOpen={isOpen} closeModal={closeModal} />
         </div>
       </header>
+      <ToastContainer />
     </div>
   );
 };

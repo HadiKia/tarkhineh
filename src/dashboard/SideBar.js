@@ -11,8 +11,10 @@ import {
   likeSolidIcon,
   locationIcon,
   locationSolidIcon,
+  logOutIcon,
 } from "../icons/sideBarIcons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { enToFa } from "../components/helper/functions";
 
 // Styles
 const mainStyle =
@@ -34,6 +36,13 @@ const SideBar = () => {
   const favoritesURL = "http://localhost:3000/dashboard/favorites";
   const addressURL = "http://localhost:3000/dashboard/address";
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("phoneNumber");
+    navigate("/home");
+  };
+
   return (
     <div className={mainStyle}>
       <div className={headerStyle}>
@@ -41,7 +50,7 @@ const SideBar = () => {
         <div className={headerInfoStyle}>
           <span className="text-[#353535] font-medium">کابر ترخینه</span>
           <span dir="ltr" className="text-[#717171] text-xs md:text-sm">
-            ۰۹۱۴ ۸۶۴ ۳۳۵۰
+            {enToFa(localStorage.getItem("phoneNumber"))}
           </span>
         </div>
       </div>
@@ -104,6 +113,14 @@ const SideBar = () => {
           )}
           <span>آدرس های من</span>
         </Link>
+
+        <button
+          className={`${linkStyle} text-[#C30000]`}
+          onClick={handleLogout}
+        >
+          <span>{logOutIcon}</span>
+          <span>خروج</span>
+        </button>
       </div>
     </div>
   );

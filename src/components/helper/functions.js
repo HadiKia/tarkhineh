@@ -29,6 +29,30 @@ const convertToFa = (number) => {
   return persianNumber;
 };
 
+const enToFa = (number) => {
+  const persian = {
+    0: "۰",
+    1: "۱",
+    2: "۲",
+    3: "۳",
+    4: "۴",
+    5: "۵",
+    6: "۶",
+    7: "۷",
+    8: "۸",
+    9: "۹",
+  };
+
+  const numberString = number.toString();
+  let persianNumber = "";
+
+  for (let i = 0; i < numberString.length; i++) {
+    persianNumber += persian[numberString[i]];
+  }
+
+  return persianNumber;
+};
+
 const isInCart = (state, id) => {
   const result = !!state.selectedItems.find((item) => item.id === id);
   return result;
@@ -48,4 +72,4 @@ const quantityCount = (state, id) => {
   }
 };
 
-export { convertToFa, isInCart, isInFavorite, quantityCount };
+export { convertToFa, enToFa, isInCart, isInFavorite, quantityCount };
