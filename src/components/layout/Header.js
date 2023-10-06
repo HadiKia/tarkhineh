@@ -3,7 +3,6 @@ import MobileMenu from "./MobileMenu";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SignUp from "../shared/SignUp";
-import { ToastContainer } from "react-toastify";
 
 // functions
 import { convertToFa } from "../helper/functions";
@@ -34,7 +33,7 @@ const itemsCounterStyle =
 
 const Header = () => {
   const state = useSelector((state) => state.cartState);
-
+  const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -88,9 +87,9 @@ const Header = () => {
             <button className={headerButtonStyle}>
               <span className="md:hidden">{cartIcon}</span>
               <span className="hidden md:block">{cartIconDesktop}</span>
-              <span className={itemsCounterStyle}>
+              {isLoggedIn &&  <span className={itemsCounterStyle}>
                 {convertToFa(state.itemsCounter)}
-              </span>
+              </span>}
             </button>
           </Link>
 
@@ -108,7 +107,6 @@ const Header = () => {
           <SignUp isOpen={isOpen} closeModal={closeModal} />
         </div>
       </header>
-      <ToastContainer />
     </div>
   );
 };

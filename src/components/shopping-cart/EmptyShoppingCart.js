@@ -19,7 +19,7 @@ const EmptyShoppingCart = () => {
         style={{ "--image-url": `url(${emptyPage})` }}
         className={imgBoxStyle}
       >
-        <p className={pStyle}>شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!</p>
+        <p className={pStyle}>شما هنوز هیچ محصولی انتخاب نکرده‌اید!</p>
         <Link to="/menu" className={linkStyle}>
           منوی رستوران
         </Link>

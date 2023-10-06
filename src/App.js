@@ -16,6 +16,7 @@ import Rules from "./components/rules/Rules";
 import Privacy from "./components/privacy/Privacy";
 import Dashboard from "./dashboard";
 
+import { ToastContainer } from "react-toastify";
 import ScrollToTop from "./components/helper/ScrollToTop";
 
 // Redux
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </Layout>
+      <ToastContainer />
     </Provider>
   );
 };

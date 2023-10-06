@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Banner from "../shared/Banner";
-import { ToastContainer } from "react-toastify";
 import ReactLoading from "react-loading";
 
 // Redux
@@ -62,7 +61,7 @@ const Foods = () => {
   useEffect(() => {
     if (!productsState.products.length) dispatch(fetchProducts());
     document.title = "منو";
-  }, []);
+  }, [dispatch, productsState.products.length]);
 
   return (
     <>
@@ -193,7 +192,6 @@ const Foods = () => {
           <h3>محصولی مرتبط با "{searchText}" پیدا نشد</h3>
         </div>
       )}
-      <ToastContainer />
     </>
   );
 };

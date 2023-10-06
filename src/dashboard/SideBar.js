@@ -1,5 +1,9 @@
 import React from "react";
 import profileImg from "../images/profile.png";
+import { useDispatch } from "react-redux";
+
+// Actions 
+import { setLoginStatus } from "../components/redux/auth/authActions"; 
 
 // Icons
 import {
@@ -31,6 +35,7 @@ const linkActiveStyle =
   "px-2 border-r-2 border-[#417F56] text-[#417F56] text-[15px] font-medium py-1 flex items-center gap-x-1  duration-500 ";
 
 const SideBar = () => {
+  const dispatch = useDispatch();
   const profileURL = "http://localhost:3000/dashboard/profile";
   const orderHistoryURL = "http://localhost:3000/dashboard/order-history";
   const favoritesURL = "http://localhost:3000/dashboard/favorites";
@@ -39,8 +44,9 @@ const SideBar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    dispatch(setLoginStatus(false));
     localStorage.removeItem("phoneNumber");
-    navigate("/home");
+    navigate(-1);
   };
 
   return (

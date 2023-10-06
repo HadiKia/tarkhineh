@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { useSelector, useDispatch } from "react-redux";
-import { toast, Flip, ToastContainer } from "react-toastify";
+import showToast from "../helper/showToast";
 import "react-toastify/dist/ReactToastify.css";
 
 import { rating, ratingDesktop } from "./Food";
@@ -30,7 +30,6 @@ import {
   likeIcon,
   trashIcon,
 } from "../../icons/foodsPageIcons";
-import { closeIcon } from "../../icons/mobileMenuIcons";
 
 // Styles
 const topBarStyle =
@@ -66,47 +65,26 @@ const FoodDetails = () => {
   const navigate = useNavigate();
 
   const state = useSelector((state) => state.cartState);
-  const favorite = useSelector((state) => state.favoriteState)
+  const favorite = useSelector((state) => state.favoriteState);
+  const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
   const dispatch = useDispatch();
 
   const likeItem = () => {
-    dispatch({ type: "LIKE_ITEM", payload: product });
-    toast.success("محصول به علاقه‌مندی ها اضافه شد", {
-      position: "top-center",
-      theme: "colored",
-      style: {
-        background: "#417F56",
-        color: "#fff",
-        textAlign: "right",
-      },
-      icon: false,
-      transition: Flip,
-      closeButton: CloseButton,
-      autoClose: 2500,
-    });
+    if (isLoggedIn) {
+      dispatch({ type: "LIKE_ITEM", payload: product });
+      showToast("محصول به علاقه‌مندی ها اضافه شد", "success");
+    } else {
+      showToast("شما ابتدا باید وارد شوید", "error");
+    }
   };
 
-  const CloseButton = ({ closeToast }) => (
-    <i className="absolute top-[18px] left-2.5" onClick={closeToast}>
-      {closeIcon}
-    </i>
-  );
-
   const addToCart = () => {
-    dispatch(addItem(product));
-    toast.success("محصول به سبد خرید اضافه شد", {
-      position: "top-center",
-      theme: "colored",
-      style: {
-        background: "#417F56",
-        color: "#fff",
-        textAlign: "right",
-      },
-      icon: false,
-      transition: Flip,
-      closeButton: CloseButton,
-      autoClose: 2500,
-    });
+    if (isLoggedIn) {
+      dispatch(addItem(product));
+      showToast("محصول به سبد خرید اضافه شد", "success");
+    } else {
+      showToast("شما ابتدا باید وارد شوید", "error");
+    }
   };
 
   return (
@@ -122,18 +100,15 @@ const FoodDetails = () => {
         <div className="md:flex-1 ">
           <div className={mainHeaderStyle}>
             <h3 className={mainHeaderH3Style}>{title}</h3>
-            {isInFavorite(favorite, id) ? (
+            {isInFavorite(favorite, id) && isLoggedIn ? (
               <button
                 className="text-[#C30000] scale-[1.5]"
-                onClick={() =>dispatch(dislikeItem(product))}
+                onClick={() => dispatch(dislikeItem(product))}
               >
                 {likeIcon}
               </button>
             ) : (
-              <button
-                className="text-[#717171] scale-[1.5]"
-                onClick={likeItem}
-              >
+              <button className="text-[#717171] scale-[1.5]" onClick={likeItem}>
                 {likeIcon}
               </button>
             )}
@@ -156,7 +131,7 @@ const FoodDetails = () => {
             </div>
           </div>
           <div className={quantityCountDivStyle}>
-            {isInCart(state, id) ? (
+            {isInCart(state, id) && isLoggedIn ? (
               <button
                 onClick={() => dispatch(increase(product))}
                 className={quantityCountButtonStyle}
@@ -168,12 +143,12 @@ const FoodDetails = () => {
                 افزودن به سبد خرید
               </button>
             )}
-            {quantityCount(state, id) > 0 && (
+            {quantityCount(state, id) > 0 && isLoggedIn && (
               <span className="text-[#417F56] font-semibold mt-1 md:text-lg">
                 {convertToFa(quantityCount(state, id))}
               </span>
             )}
-            {quantityCount(state, id) === 1 && (
+            {quantityCount(state, id) === 1 && isLoggedIn && (
               <button
                 onClick={() => dispatch(removeItem(product))}
                 className={quantityCountButtonStyle}
@@ -181,7 +156,7 @@ const FoodDetails = () => {
                 {trashIcon}
               </button>
             )}
-            {quantityCount(state, id) > 1 && (
+            {quantityCount(state, id) > 1 && isLoggedIn && (
               <button
                 onClick={() => dispatch(decrease(product))}
                 className={quantityCountButtonStyle}
@@ -192,7 +167,6 @@ const FoodDetails = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

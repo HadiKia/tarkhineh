@@ -1,11 +1,15 @@
 import React, { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
 import { toast, Flip } from "react-toastify";
+
+// Actions 
+import { setLoginStatus } from '../redux/auth/authActions';
+
 // Icons
 import { logo } from "../../icons/headerIcons";
 import { closeIcon } from "../../icons/mobileMenuIcons";
@@ -25,6 +29,7 @@ const dialogButtonStyle =
   "w-full py-[7px] bg-[#EDEDED] text-sm rounded mb-6 text-[#CBCBCB] md:py-2 md:text-base md:mb-6 duration-500";
 
 const SignUp = ({ isOpen, closeModal }) => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const phoneRegExp = "^(\\+98|0)?9\\d{9}$";
@@ -46,7 +51,7 @@ const SignUp = ({ isOpen, closeModal }) => {
   const handleRegistration = () => {
     localStorage.setItem("phoneNumber", formik.values.phoneNumber);
     formik.resetForm();
-
+    dispatch(setLoginStatus(true));
     toast.success("خوش آمدید", {
       position: "top-center",
       theme: "colored",

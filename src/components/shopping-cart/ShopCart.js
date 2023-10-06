@@ -41,7 +41,8 @@ const dialogPanelStyle =
 const dialogTitleStyle =
   "relative flex items-center justify-center font-medium bg-[#F9F9F9] px-6 py-[17px] mb-4 md:text-xl md:font-semibold md:py-[21px] md:mb-8";
 const dialogCloseButtonStyle = "text-[#717171] absolute left-6";
-const dialogPStyle = "text-center text-xs sm:text-sm text-[#353535] md:text-base";
+const dialogPStyle =
+  "text-center text-xs sm:text-sm text-[#353535] md:text-base";
 const dialogButtonDivStyle =
   "flex items-center justify-center gap-x-5 mb-4 md:mb-6 text-xs sm:text-sm md:font-semibold md:text-base";
 const dialogButtonStyle = "rounded border px-7 sm:px-11 py-[5px] md:py-[7px]";
@@ -74,8 +75,9 @@ const settlementCardButtonStyle =
   "bg-[#417F56] text-white rounded py-2 text-xs font-medium flex items-center justify-center gap-x-1 md:text-base";
 
 const ShopCart = () => {
-  const dispatch = useDispatch();
   const state = useSelector((state) => state.cartState);
+  const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   let [isOpen, setIsOpen] = useState(false);
@@ -94,185 +96,198 @@ const ShopCart = () => {
 
   return (
     <div className={containerStyle}>
-      <div className={headerStyle}>
-        <button onClick={() => navigate(-1)}>{arrowRightIcon}</button>
-        <span className="pl-2">سبد خرید</span>
-        <button
-          onClick={() => {
-            if (state.itemsCounter > 0) openModal();
-          }}
-          className={
-            state.itemsCounter > 0 ? "text-[#353535]" : "text-[#CBCBCB]"
-          }
-        >
-          {trashIcon}
-        </button>
-        <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModal}>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
+      {isLoggedIn ? (
+        <>
+          <div className={headerStyle}>
+            <button onClick={() => navigate(-1)}>{arrowRightIcon}</button>
+            <span className="pl-2">سبد خرید</span>
+            <button
+              onClick={() => {
+                if (state.itemsCounter > 0) openModal();
+              }}
+              className={
+                state.itemsCounter > 0 ? "text-[#353535]" : "text-[#CBCBCB]"
+              }
             >
-              <div className={dialogBgStyle} />
-            </Transition.Child>
-
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className={dialogDivStyle}>
+              {trashIcon}
+            </button>
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog as="div" className="relative z-10" onClose={closeModal}>
                 <Transition.Child
                   as={Fragment}
                   enter="ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
                   leave="ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
                 >
-                  <Dialog.Panel className={dialogPanelStyle}>
-                    <Dialog.Title className={dialogTitleStyle}>
-                      <span>حذف محصولات</span>
-                      <button
-                        onClick={closeModal}
-                        className={dialogCloseButtonStyle}
-                      >
-                        {closeIcon}
-                      </button>
-                    </Dialog.Title>
-
-                    <div className="mb-[34px]">
-                      <p className={dialogPStyle}>
-                        همه محصولات سبد خرید شما حذف شود؟
-                      </p>
-                    </div>
-
-                    <div className={dialogButtonDivStyle}>
-                      <button
-                        onClick={closeModal}
-                        className={`${dialogButtonStyle} text-[#417F56] border-[#417F56]`}
-                      >
-                        بازگشت
-                      </button>
-                      <button
-                        onClick={() => {
-                          dispatch(clear());
-                          closeModal();
-                        }}
-                        className={`${dialogButtonStyle} text-[#C30000] border-[#FFF2F2] bg-[#FFF2F2]`}
-                      >
-                        حذف
-                      </button>
-                    </div>
-                  </Dialog.Panel>
+                  <div className={dialogBgStyle} />
                 </Transition.Child>
-              </div>
-            </div>
-          </Dialog>
-        </Transition>
-      </div>
 
-      <div className={headerDesktopStyle}>
-        <div
-          className={`${headerDesktopItemStyle} text-lg font-bold !text-[#417F56]`}
-        >
-          <span>{cartDesktopIcon}</span>
-          <span>سبد خرید</span>
-          <p className={headerDesktopPStyle}>- - - - - - - -</p>
-        </div>
+                <div className="fixed inset-0 overflow-y-auto">
+                  <div className={dialogDivStyle}>
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Dialog.Panel className={dialogPanelStyle}>
+                        <Dialog.Title className={dialogTitleStyle}>
+                          <span>حذف محصولات</span>
+                          <button
+                            onClick={closeModal}
+                            className={dialogCloseButtonStyle}
+                          >
+                            {closeIcon}
+                          </button>
+                        </Dialog.Title>
 
-        <div className={headerDesktopItemStyle}>
-          <p className={headerDesktopPStyle}>- - - - - - - -</p>
-          <span>{tickSquareIcon}</span>
-          <span>تکمیل اطلاعات</span>
-          <p className={headerDesktopPStyle}>- - - - - - - -</p>
-        </div>
+                        <div className="mb-[34px]">
+                          <p className={dialogPStyle}>
+                            همه محصولات سبد خرید شما حذف شود؟
+                          </p>
+                        </div>
 
-        <div className={headerDesktopItemStyle}>
-          <p className={headerDesktopPStyle}>- - - - - - - -</p>
-          <span>{walletIcon}</span>
-          <span>پرداخت</span>
-        </div>
-      </div>
-
-      <div className={state.itemsCounter > 0 ? mainDivStyle : ""}>
-        <div className={state.itemsCounter > 0 ? cartDivStyle : ""}>
-          {state.selectedItems.map((item) => (
-            <Cart key={item.id} data={item} />
-          ))}
-        </div>
-
-        {state.itemsCounter > 0 && (
-          <div className={settlementCardStyle}>
-            <div className={settlementCardCartStyle}>
-              <div className={`${settlementCardPriceDivStyle} !text-[#353535]`}>
-                <span>سبد خرید</span>
-                <span className="text-sm">
-                  ({convertToFa(state.itemsCounter)})
-                </span>
-              </div>
-              <button
-                onClick={() => {
-                  if (state.itemsCounter > 0) openModal();
-                }}
-                className={
-                  state.itemsCounter > 0 ? "text-[#353535]" : "text-[#CBCBCB]"
-                }
-              >
-                {trashDesktopIcon}
-              </button>
-            </div>
-
-            <div className={settlementCardDiscountStyle}>
-              <span>تخفیف محصولات</span>
-              <div className={settlementCardPriceDivStyle}>
-                <span>{convertToFa(state.discount)}</span>
-                <span>تومان</span>
-              </div>
-            </div>
-
-            <div className={shippingCostStyle}>
-              <div className={shippingCostTitleStyle}>
-                <span>هزینه ارسال</span>
-                <div className={settlementCardPriceDivStyle}>
-                  <span>۰</span>
-                  <span>تومان</span>
+                        <div className={dialogButtonDivStyle}>
+                          <button
+                            onClick={closeModal}
+                            className={`${dialogButtonStyle} text-[#417F56] border-[#417F56]`}
+                          >
+                            بازگشت
+                          </button>
+                          <button
+                            onClick={() => {
+                              dispatch(clear());
+                              closeModal();
+                            }}
+                            className={`${dialogButtonStyle} text-[#C30000] border-[#FFF2F2] bg-[#FFF2F2]`}
+                          >
+                            حذف
+                          </button>
+                        </div>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
                 </div>
-              </div>
-
-              <div className={shippingCostDescriptionStyle}>
-                <span className="pt-0.5 md:hidden">{warningIcon}</span>
-                <span className="hidden md:block">{warningDesktopIcon}</span>
-                <p className="text-justify leading-5 font-medium">
-                  هزینه ارسال در ادامه بر اساس آدرس، زمان و نحوه ارسال انتخابی
-                  شما محاسبه و به این مبلغ اضافه خواهد شد.
-                </p>
-              </div>
-            </div>
-
-            <div className={payableStyle}>
-              <span>مبلغ قابل پرداخت</span>
-              <div className={payableDivStyle}>
-                <span>{convertToFa(state.total)}</span>
-                <span>تومان</span>
-              </div>
-            </div>
-
-            <Link
-              to="/completion-of-information"
-              className={settlementCardButtonStyle}
-            >
-              <span>تکمیل اطلاعات</span>
-              <span className="md:hidden">{arrowLeftIcon}</span>
-              <span className="hidden md:block">{arrowLeftDesktopIcon}</span>
-            </Link>
+              </Dialog>
+            </Transition>
           </div>
-        )}
-      </div>
+          <div className={headerDesktopStyle}>
+            <div
+              className={`${headerDesktopItemStyle} text-lg font-bold !text-[#417F56]`}
+            >
+              <span>{cartDesktopIcon}</span>
+              <span>سبد خرید</span>
+              <p className={headerDesktopPStyle}>- - - - - - - -</p>
+            </div>
 
-      {!state.checkout && state.itemsCounter === 0 && <EmptyShoppingCart />}
+            <div className={headerDesktopItemStyle}>
+              <p className={headerDesktopPStyle}>- - - - - - - -</p>
+              <span>{tickSquareIcon}</span>
+              <span>تکمیل اطلاعات</span>
+              <p className={headerDesktopPStyle}>- - - - - - - -</p>
+            </div>
+
+            <div className={headerDesktopItemStyle}>
+              <p className={headerDesktopPStyle}>- - - - - - - -</p>
+              <span>{walletIcon}</span>
+              <span>پرداخت</span>
+            </div>
+          </div>
+          <div className={state.itemsCounter > 0 ? mainDivStyle : ""}>
+            <div className={state.itemsCounter > 0 ? cartDivStyle : ""}>
+              {state.selectedItems.map((item) => (
+                <Cart key={item.id} data={item} />
+              ))}
+            </div>
+
+            {state.itemsCounter > 0 && (
+              <div className={settlementCardStyle}>
+                <div className={settlementCardCartStyle}>
+                  <div
+                    className={`${settlementCardPriceDivStyle} !text-[#353535]`}
+                  >
+                    <span>سبد خرید</span>
+                    <span className="text-sm">
+                      ({convertToFa(state.itemsCounter)})
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (state.itemsCounter > 0) openModal();
+                    }}
+                    className={
+                      state.itemsCounter > 0
+                        ? "text-[#353535]"
+                        : "text-[#CBCBCB]"
+                    }
+                  >
+                    {trashDesktopIcon}
+                  </button>
+                </div>
+
+                <div className={settlementCardDiscountStyle}>
+                  <span>تخفیف محصولات</span>
+                  <div className={settlementCardPriceDivStyle}>
+                    <span>{convertToFa(state.discount)}</span>
+                    <span>تومان</span>
+                  </div>
+                </div>
+
+                <div className={shippingCostStyle}>
+                  <div className={shippingCostTitleStyle}>
+                    <span>هزینه ارسال</span>
+                    <div className={settlementCardPriceDivStyle}>
+                      <span>۰</span>
+                      <span>تومان</span>
+                    </div>
+                  </div>
+
+                  <div className={shippingCostDescriptionStyle}>
+                    <span className="pt-0.5 md:hidden">{warningIcon}</span>
+                    <span className="hidden md:block">
+                      {warningDesktopIcon}
+                    </span>
+                    <p className="text-justify leading-5 font-medium">
+                      هزینه ارسال در ادامه بر اساس آدرس، زمان و نحوه ارسال
+                      انتخابی شما محاسبه و به این مبلغ اضافه خواهد شد.
+                    </p>
+                  </div>
+                </div>
+
+                <div className={payableStyle}>
+                  <span>مبلغ قابل پرداخت</span>
+                  <div className={payableDivStyle}>
+                    <span>{convertToFa(state.total)}</span>
+                    <span>تومان</span>
+                  </div>
+                </div>
+
+                <Link
+                  to="/completion-of-information"
+                  className={settlementCardButtonStyle}
+                >
+                  <span>تکمیل اطلاعات</span>
+                  <span className="md:hidden">{arrowLeftIcon}</span>
+                  <span className="hidden md:block">
+                    {arrowLeftDesktopIcon}
+                  </span>
+                </Link>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        <EmptyShoppingCart />
+      )}
+      {isLoggedIn && !state.checkout && state.itemsCounter === 0 && (
+        <EmptyShoppingCart />
+      )}
     </div>
   );
 };

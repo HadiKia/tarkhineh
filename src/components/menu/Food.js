@@ -2,7 +2,7 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { toast, Flip } from "react-toastify";
+import showToast from "../helper/showToast";
 import "react-toastify/dist/ReactToastify.css";
 
 // functions
@@ -19,7 +19,6 @@ import {
   starDesktopIcon,
   starEmptyDesktopIcon,
 } from "../../icons/foodsPageIcons";
-import { closeIcon } from "../../icons/mobileMenuIcons";
 
 // styles
 const foodBoxStyle =
@@ -65,46 +64,25 @@ const Food = ({ productData }) => {
 
   const state = useSelector((state) => state.cartState);
   const favorite = useSelector((state) => state.favoriteState);
+  const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
   const dispatch = useDispatch();
 
   const likeItem = () => {
-    dispatch({ type: "LIKE_ITEM", payload: productData });
-    toast.success("محصول به علاقه‌مندی ها اضافه شد", {
-      position: "top-center",
-      theme: "colored",
-      style: {
-        background: "#417F56",
-        color: "#fff",
-        textAlign: "right",
-      },
-      icon: false,
-      transition: Flip,
-      closeButton: CloseButton,
-      autoClose: 2500,
-    });
+    if (isLoggedIn) {
+      dispatch({ type: "LIKE_ITEM", payload: productData });
+      showToast("محصول به علاقه‌مندی ها اضافه شد", "success");
+    } else {
+      showToast("شما ابتدا باید وارد شوید", "error");
+    }
   };
 
-  const CloseButton = ({ closeToast }) => (
-    <i className="absolute top-[18px] left-2.5" onClick={closeToast}>
-      {closeIcon}
-    </i>
-  );
-
   const addToCart = () => {
-    dispatch({ type: "ADD_ITEM", payload: productData });
-    toast.success("محصول به سبد خرید اضافه شد", {
-      position: "top-center",
-      theme: "colored",
-      style: {
-        background: "#417F56",
-        color: "#fff",
-        textAlign: "right",
-      },
-      icon: false,
-      transition: Flip,
-      closeButton: CloseButton,
-      autoClose: 2500,
-    });
+    if (isLoggedIn) {
+      dispatch({ type: "ADD_ITEM", payload: productData });
+      showToast("محصول به سبد خرید اضافه شد", "success");
+    } else {
+      showToast("شما ابتدا باید وارد شوید", "error");
+    }
   };
 
   return (
@@ -135,7 +113,7 @@ const Food = ({ productData }) => {
 
         <div className={footerDivStyle}>
           <div className={ratingDivStyle}>
-            {isInFavorite(favorite, id) ? (
+            {isInFavorite(favorite, id) && isLoggedIn ? (
               <button
                 className={`${likeStyle} text-[#C30000]`}
                 onClick={() => dispatch(dislikeItem(productData))}
@@ -158,7 +136,7 @@ const Food = ({ productData }) => {
               <ReactStars {...ratingDesktop} />
             </div>
           </div>
-          {isInCart(state, id) ? (
+          {isInCart(state, id) && isLoggedIn ? (
             <Link to="/cart">
               <button
                 className={`${buttonStyle} !bg-white !text-[#417F56] border-[#417F56] px-[11px] lg:text-sm lg:px-[22px] xl:px-[51px]`}
