@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast, Flip } from "react-toastify";
+import showToast from "../helper/showToast";
 
 // Actions 
 import { setLoginStatus } from '../redux/auth/authActions';
@@ -52,27 +52,8 @@ const SignUp = ({ isOpen, closeModal }) => {
     localStorage.setItem("phoneNumber", formik.values.phoneNumber);
     formik.resetForm();
     dispatch(setLoginStatus(true));
-    toast.success("خوش آمدید", {
-      position: "top-center",
-      theme: "colored",
-      style: {
-        background: "#417F56",
-        color: "#fff",
-        textAlign: "right",
-        padding: "0 15px",
-      },
-      icon: false,
-      transition: Flip,
-      closeButton: CloseButton,
-      autoClose: 2500,
-    });
+    showToast("خوش آمدید", "success");
   };
-
-  const CloseButton = ({ closeToast }) => (
-    <i className="absolute top-[18px] left-2.5" onClick={closeToast}>
-      {closeIcon}
-    </i>
-  );
 
   const handleClick = () => {
     if (formik.isValid && formik.values.phoneNumber) {

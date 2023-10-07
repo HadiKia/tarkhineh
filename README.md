@@ -19,6 +19,7 @@
 ## Features
 
 - SPA app (react-router-dom v6)
+- Sign Up / Sign Out
 - Add and remove item from cart
 - Minus and plus quantity cart items
 - Product details page

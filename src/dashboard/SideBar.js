@@ -36,10 +36,10 @@ const linkActiveStyle =
 
 const SideBar = () => {
   const dispatch = useDispatch();
-  const profileURL = "http://localhost:3000/dashboard/profile";
-  const orderHistoryURL = "http://localhost:3000/dashboard/order-history";
-  const favoritesURL = "http://localhost:3000/dashboard/favorites";
-  const addressURL = "http://localhost:3000/dashboard/address";
+  const profileURL = "https://tarkhineh.iran.liara.run/dashboard/profile";
+  const orderHistoryURL = "https://tarkhineh.iran.liara.run/dashboard/order-history";
+  const favoritesURL = "https://tarkhineh.iran.liara.run/dashboard/favorites";
+  const addressURL = "https://tarkhineh.iran.liara.run/dashboard/address";
 
   const navigate = useNavigate();
 
