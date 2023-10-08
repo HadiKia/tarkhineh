@@ -20,7 +20,8 @@
 
 - SPA app (react-router-dom v6)
 - Sign Up / Sign Out
-- Add and remove item from cart
+- Add & remove product from cart
+- Add & remove product from favorites
 - Minus and plus quantity cart items
 - Product details page
 - Search products
@@ -38,6 +39,7 @@
 - Headless UI
 - Swiper
 - React Toastify
+- Formik
 
 ---
 
