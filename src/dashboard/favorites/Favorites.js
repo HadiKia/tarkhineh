@@ -8,12 +8,16 @@ import { categorizeProducts } from "../../components/menu/Foods";
 import SideBar from "../SideBar";
 import EmptyFavorites from "./EmptyFavorites";
 import Favorite from "./Favorite";
+import Category from "../../components/shared/Category";
+
+// Images
+import notFoundImg from "../../images/match-not-found.png"
 
 // Icons
 import { arrowRightIcon } from "../../icons/shopCartIcons";
 import { searchIcon } from "../../icons/homePageIcons";
 
-import { arrowLeftIcon, searchDesktopIcon } from "../../icons/foodsPageIcons";
+import { searchDesktopIcon } from "../../icons/foodsPageIcons";
 
 // Styles
 import { headerStyle } from "../../components/shopping-cart/ShopCart";
@@ -22,8 +26,6 @@ import {
   inputSearchStyle,
 } from "../../components/home/HomePageMenu";
 import {
-  categoryBoxStyle,
-  categoryItemStyle,
   mainContainerStyle,
   notFoundResultsStyle,
 } from "../../components/menu/Foods";
@@ -45,61 +47,37 @@ const Favorites = () => {
     <div className="container max-w-[1224px] mx-auto px-5 min-h-[calc(100vh_-_239px)] md:min-h-[calc(100vh_-_466px)] md:flex md:gap-x-6">
       <div className="hidden md:block flex-1 md:max-w-[182px] lg:max-w-[248px]">
         <SideBar />
-      </div>  
+      </div>
 
-      <div className="md:mt-8 flex-1 min-h-[calc(100vh_-_465px)] lg:w-[712px]">
+      <div className="md:mt-10 flex-1 min-h-[calc(100vh_-_465px)] md:w-[400px] lg:w-[712px] md:border md:border-[#CBCBCB] md:rounded-md md:p-6 md:pb-0 md:mb-12">
         {/* Header */}
-        <div className={`${headerStyle} !justify-center relative mt-6`}>
-          <button onClick={() => navigate("/dashboard")} className="absolute right-0">
+        <div
+          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 !mb-5`}
+        >
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="absolute right-0 md:hidden"
+          >
             {arrowRightIcon}
           </button>
-          <span className="pl-2">علاقمندی ها</span>
+          <p className="pl-2">علاقمندی ها</p>
         </div>
 
         {state.selectedItems.length ? (
           <>
-            <div className="md:flex justify-between md:gap-x-2">
+            <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-2 md:mb-7">
               {/* category box */}
-              <div className={`hidden md:flex ${categoryBoxStyle} !px-0`}>
-                <button
-                  onClick={() => setSelectedCategory("all")}
-                  className={categoryItemStyle}
-                >
-                  <span>همه</span>
-                  <span>{arrowLeftIcon}</span>
-                </button>
-                <button
-                  onClick={() => setSelectedCategory("غذاهای ایرانی")}
-                  className={categoryItemStyle}
-                >
-                  <span className="w-[67px]">غذاهای ایرانی</span>
-                  <span>{arrowLeftIcon}</span>
-                </button>
-                <button
-                  onClick={() => setSelectedCategory("غذاهای غیر ایرانی")}
-                  className={categoryItemStyle}
-                >
-                  <span className="w-[86px]">غذاهای غیر ایرانی</span>
-                  <span>{arrowLeftIcon}</span>
-                </button>
-                <button
-                  onClick={() => setSelectedCategory("پیتزاها")}
-                  className={categoryItemStyle}
-                >
-                  <span>پیتزاها</span>
-                  <span>{arrowLeftIcon}</span>
-                </button>
-                <button
-                  onClick={() => setSelectedCategory("ساندویچ‌ها")}
-                  className={categoryItemStyle}
-                >
-                  <span>ساندویچ‌ها</span>
-                  <span>{arrowLeftIcon}</span>
-                </button>
+              <div className="-mx-5 hidden md:block">
+                <Category
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                />
               </div>
 
               {/* search box */}
-              <div className={`${searchBoxStyle} lg:!w-[351px] !mx-0`}>
+              <div
+                className={`${searchBoxStyle} bg-white  lg:!w-[351px] !mx-0`}
+              >
                 <input
                   type="text"
                   placeholder="جستجو"
@@ -112,41 +90,38 @@ const Favorites = () => {
               </div>
             </div>
 
-            {Object.keys(categorizedProducts).map((category) => {
-              const filteredProducts = categorizedProducts[category].filter(
-                (product) =>
-                  (selectedCategory === "all" ||
-                    product.category === selectedCategory) &&
-                  product.title.includes(searchText)
-              );
-
-              if (filteredProducts.length > 0) {
-                foundResults = true;
-                return (
-                  <div key={category}>
-                    <div
-                      key={category}
-                      className={` ${mainContainerStyle} !grid-cols-2 lg:!grid-cols-3 !gap-x-4 !gap-y-5 !mb-5 !mx-0 `}
-                    >
-                      {filteredProducts.map((product) => (
-                        <Favorite key={product.id} productData={product} />
-                      ))}
-                    </div>
-                  </div>
+            <div
+              className={` ${mainContainerStyle} !grid-cols-2 xl:!grid-cols-3 !gap-x-4 !gap-y-5 !mb-5 !mx-0`}
+            >
+              {Object.keys(categorizedProducts).map((category) => {
+                const filteredProducts = categorizedProducts[category].filter(
+                  (product) =>
+                    (selectedCategory === "all" ||
+                      product.category === selectedCategory) &&
+                    product.title.includes(searchText)
                 );
-              }
-              return null;
-            })}
 
+                if (filteredProducts.length > 0) {
+                  foundResults = true;
+                  return filteredProducts.map((product) => (
+                    <Favorite key={product.id} productData={product} />
+                  ));
+                }
+                return null;
+              })}
+            </div>
 
             {!foundResults && (
-              <div className={notFoundResultsStyle}>
-                <h3>محصولی مرتبط با "{searchText} {selectedCategory}" پیدا نشد</h3>
-              </div>
+               <div className={notFoundResultsStyle}>
+               <h3>موردی با این مشخصات پیدا نکردیم!</h3>
+               <img src={notFoundImg} alt="not found" className="w-[152px] md:w-[390px]"/>
+             </div>
             )}
           </>
         ) : (
-          <div className="md:mt-2"><EmptyFavorites /> </div>
+          <div className="md:mt-2">
+            <EmptyFavorites />{" "}
+          </div>
         )}
       </div>
     </div>

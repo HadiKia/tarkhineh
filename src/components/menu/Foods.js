@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Banner from "../shared/Banner";
+import Food from "./Food";
+import Category from "../shared/Category";
 import ReactLoading from "react-loading";
 
 // Redux
 import { fetchProducts } from "../redux/products/productsAction";
-import Food from "./Food";
+
+// images
+import notFoundImg from "../../images/match-not-found.png"
 
 // icons
 import { searchIcon } from "../../icons/homePageIcons";
 import {
-  arrowLeftIcon,
   shoppingCartDesktopIcon,
   shoppingCartIcon,
   searchDesktopIcon,
@@ -23,17 +26,14 @@ const tabGroupStyle =
   "container max-w-[1224px] mx-auto flex items-center justify-start px-5 text-[13px] gap-x-4 mb-2 md:text-base";
 const tabGroupItemStyle =
   "font-semibold text-sm border-b border-[#417F56] py-[.6em] text-[#417F56] md:py-[1.188em] md:text-base md:border-b-2";
-export const categoryBoxStyle =
-  "flex items-center text-[11px] font-medium px-5 gap-x-2 overflow-scroll relative text-[#353535] mb-3 md:text-xs md:mb-4";
-export const categoryItemStyle =
-  "flex items-center rounded-[10px] gap-x-1 px-2 py-1.5 bg-[#EDEDED] text-[#353535] md:py-2 lg:px-3 md:rounded-full";
 const cartButtonStyle =
   "absolute left-5 -top-1.5 flex items-center gap-x-1 text-[#417F56] py-1.5 px-2 text-sm border border-[#417F56] rounded-md md:gap-x-2 md:px-7 md:text-base md:rounded lg:py-[7px] lg:px-7 xl:py-2 xl:px-8";
 export const mainContainerStyle =
   "mx-5 mb-6 grid grid-cols-1 md:grid-cols-2 gap-y-3 md:gap-6 md:mb-11 ";
 const categoryTitleStyle =
   "text-[#353535] font-bold text-lg md:col-span-2 md:text-xl xl:text-2xl";
-export const notFoundResultsStyle = "min-h-[calc(100vh_-_590px)] sm:min-h-[calc(100vh_-_615px)] flex justify-center  mt-14 sm:mt-20";
+export const notFoundResultsStyle =
+  "min-h-[calc(100vh_-_590px)] sm:min-h-[calc(100vh_-_670px)] text-[#353535] flex flex-col justify-center items-center gap-y-4 text-sm my-14 sm:mt-20 md:text-xl md:gap-y-8";
 
 export const categorizeProducts = (products) => {
   const categorized = {};
@@ -79,43 +79,10 @@ const Foods = () => {
 
       <div className="container max-w-[1224px] mx-auto flex flex-col md:flex-row md:mb-7 md:justify-between">
         {/* category box */}
-        <div className={categoryBoxStyle}>
-          <button
-            onClick={() => setSelectedCategory("all")}
-            className={categoryItemStyle}
-          >
-            <span>همه</span>
-            <span>{arrowLeftIcon}</span>
-          </button>
-          <button
-            onClick={() => setSelectedCategory("غذاهای ایرانی")}
-            className={categoryItemStyle}
-          >
-            <span className="w-[67px]">غذاهای ایرانی</span>
-            <span>{arrowLeftIcon}</span>
-          </button>
-          <button
-            onClick={() => setSelectedCategory("غذاهای غیر ایرانی")}
-            className={categoryItemStyle}
-          >
-            <span className="w-[86px]">غذاهای غیر ایرانی</span>
-            <span>{arrowLeftIcon}</span>
-          </button>
-          <button
-            onClick={() => setSelectedCategory("پیتزاها")}
-            className={categoryItemStyle}
-          >
-            <span>پیتزاها</span>
-            <span>{arrowLeftIcon}</span>
-          </button>
-          <button
-            onClick={() => setSelectedCategory("ساندویچ‌ها")}
-            className={categoryItemStyle}
-          >
-            <span>ساندویچ‌ها</span>
-            <span>{arrowLeftIcon}</span>
-          </button>
-        </div>
+        <Category
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
 
         {/* search box */}
         <div className={searchBoxStyle}>
@@ -143,7 +110,7 @@ const Foods = () => {
       {/* products */}
       {productsState.loading ? (
         <>
-          <div className="h-screen flex justify-center mt-28 md:hidden">
+          <div className="min-h-[calc(100vh_-_575px)] sm:min-h-[calc(100vh_-_615px)] flex justify-center mt-10 sm:mt-20 md:hidden">
             <ReactLoading
               type="bubbles"
               color="#417F56"
@@ -151,7 +118,7 @@ const Foods = () => {
               width={60}
             />
           </div>
-          <div className="h-screen hidden md:flex justify-center mt-32 ">
+          <div className="hidden min-h-[calc(100vh_-_60vh)]  md:flex justify-center mt-32 ">
             <ReactLoading
               type="bubbles"
               color="#417F56"
@@ -189,7 +156,8 @@ const Foods = () => {
       )}
       {!foundResults && !productsState.loading && (
         <div className={notFoundResultsStyle}>
-          <h3>محصولی مرتبط با "{searchText}" پیدا نشد</h3>
+          <h3>موردی با این مشخصات پیدا نکردیم!</h3>
+          <img src={notFoundImg} alt="not found" className="w-[152px] md:w-[390px]"/>
         </div>
       )}
     </>

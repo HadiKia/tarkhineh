@@ -46,7 +46,7 @@ const SideBar = () => {
   const handleLogout = () => {
     dispatch(setLoginStatus(false));
     localStorage.removeItem("phoneNumber");
-    navigate(-1);
+    navigate('/home');
   };
 
   return (
@@ -89,7 +89,7 @@ const SideBar = () => {
           ) : (
             <span>{walletIcon}</span>
           )}
-          <span>تاریخچه سفارشات</span>
+          <span>پیگیری سفارشات</span>
         </Link>
 
         <Link

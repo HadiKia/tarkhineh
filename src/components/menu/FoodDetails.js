@@ -28,6 +28,7 @@ import { dislikeItem } from "../redux/favorite/favoriteAction";
 import {
   arrowRightIcon,
   likeIcon,
+  likeRedIcon,
   trashIcon,
 } from "../../icons/foodsPageIcons";
 
@@ -102,13 +103,13 @@ const FoodDetails = () => {
             <h3 className={mainHeaderH3Style}>{title}</h3>
             {isInFavorite(favorite, id) && isLoggedIn ? (
               <button
-                className="text-[#C30000] scale-[1.5]"
+                className="md:scale-[1.5]"
                 onClick={() => dispatch(dislikeItem(product))}
               >
-                {likeIcon}
+                {likeRedIcon}
               </button>
             ) : (
-              <button className="text-[#717171] scale-[1.5]" onClick={likeItem}>
+              <button className="md:scale-[1.5]" onClick={likeItem}>
                 {likeIcon}
               </button>
             )}
