@@ -28,11 +28,11 @@ const foodBoxStyle =
 const foodImgStyle = "w-full h-[104px] rounded md:h-[140px]";
 const headerStyle =
   "flex items-center justify-between text-[11px] sm:text-[13px] font-medium md:text-lg md:font-semibold";
-const likeStyle = "md:scale-[1.5]";
+const likeStyle = "scale-[1.2] md:scale-[1.5]";
 const mainStyle =
   "flex flex-col flex-1 justify-between gap-y-2 p-2 text-[#353535] md:p-3.5 md:gap-y-3";
 const priceStyle =
-  "flex items-center justify-between text-[11px] sm:text-sm md:text-[17px] md:mb-4";
+  "flex items-center justify-between text-[11px] sm:text-sm md:text-base lg:text-[17px] md:mb-4";
 const discountedDivStyle = "flex items-center gap-x-1 ";
 const buttonStyle =
   "bg-[#417F56] text-white border border-[#417F56] rounded sm:rounded-md text-[8px] sm:text-[10px] py-1.5 px-2 sm:p-[9px] font-medium lg:rounded md:text-sm lg:px-5 xl:px-12 ";

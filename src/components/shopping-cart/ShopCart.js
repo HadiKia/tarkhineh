@@ -33,19 +33,19 @@ export const containerStyle =
   "container max-w-[1224px] mx-auto mt-6 px-5 min-h-[calc(100vh_-_239px)] md:mt-10";
 export const headerStyle =
   "flex items-center justify-between text-[#353535] font-bold mb-6 md:hidden";
-const dialogBgStyle = "fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm";
-const dialogDivStyle =
+export const dialogBgStyle = "fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm";
+export const dialogDivStyle =
   "flex min-h-full items-center justify-center p-4 text-center";
-const dialogPanelStyle =
+export const dialogPanelStyle =
   "w-full mx-1 transform overflow-hidden rounded-lg bg-white align-middle shadow-xl transition-all md:w-[392px]";
-const dialogTitleStyle =
+export const dialogTitleStyle =
   "relative flex items-center justify-center font-medium bg-[#F9F9F9] px-6 py-[17px] mb-4 md:text-xl md:font-semibold md:py-[21px] md:mb-8";
-const dialogCloseButtonStyle = "text-[#717171] absolute left-6";
-const dialogPStyle =
+export const dialogCloseButtonStyle = "text-[#717171] absolute left-6";
+export const dialogPStyle =
   "text-center text-xs sm:text-sm text-[#353535] md:text-base";
-const dialogButtonDivStyle =
-  "flex items-center justify-center gap-x-5 mb-4 md:mb-6 text-xs sm:text-sm md:font-semibold md:text-base";
-const dialogButtonStyle = "rounded border px-7 sm:px-11 py-[5px] md:py-[7px]";
+export const dialogButtonDivStyle =
+  "flex items-center justify-center gap-x-5 mb-4 md:mb-6 text-xs sm:text-sm md:font-medium md:text-base";
+export const dialogButtonStyle = "rounded border px-7 sm:px-11 py-[5px] md:py-[7px]";
 export const headerDesktopStyle =
   "hidden md:flex items-center justify-center gap-x-0.5 mb-10";
 export const headerDesktopItemStyle =

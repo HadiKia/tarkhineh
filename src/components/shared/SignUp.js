@@ -1,14 +1,14 @@
 import React, { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import showToast from "../helper/showToast";
 
-// Actions 
-import { setLoginStatus } from '../redux/auth/authActions';
+// Actions
+import { setLoginStatus } from "../redux/auth/authActions";
 
 // Icons
 import { logo } from "../../icons/headerIcons";
@@ -24,7 +24,8 @@ const dialogTitleStyle =
   "relative flex items-center justify-center px-6 py-4 mb-0 md:py-[21px] ";
 const dialogCloseButtonStyle = "text-[#717171] absolute left-6";
 const dialogInputStyle =
-  "w-full outline-none border border-[#353535] text-[#353535] text-sm rounded px-2 py-1.5 mb-4 md:py-2 md:text-base";
+  "w-full outline-none border border-[#353535] text-[#353535] text-sm rounded px-2 py-2.5 mb-5 md:py-2 md:text-base";
+const dialogErrorStyle = "text-[#C30000] text-xs mb-4 text-right";
 const dialogButtonStyle =
   "w-full py-[7px] bg-[#EDEDED] text-sm rounded mb-6 text-[#CBCBCB] md:py-2 md:text-base md:mb-6 duration-500";
 
@@ -35,6 +36,12 @@ const SignUp = ({ isOpen, closeModal }) => {
   const phoneRegExp = "^(\\+98|0)?9\\d{9}$";
 
   const validationSchema = Yup.object({
+    name: Yup.string()
+      .max(15, "نام باید کمتر از ۱۵ حرف باشد")
+      .required("وارد کردن نام الزامی است"),
+    lastName: Yup.string()
+      .max(32, "نام خانوادگی باید کمتر از ۳۲ حرف باشد")
+      .required("وارد کردن نام خانوادگی الزامی است"),
     phoneNumber: Yup.string()
       .matches(phoneRegExp, "شماره همراه وارد شده معتبر نیست")
       .required("وارد کردن شماره همراه الزامی است"),
@@ -42,6 +49,8 @@ const SignUp = ({ isOpen, closeModal }) => {
 
   const formik = useFormik({
     initialValues: {
+      name: "",
+      lastName: "",
       phoneNumber: "",
     },
     onSubmit: () => handleClick(),
@@ -49,6 +58,8 @@ const SignUp = ({ isOpen, closeModal }) => {
   });
 
   const handleRegistration = () => {
+    localStorage.setItem("name", formik.values.name);
+    localStorage.setItem("lastName", formik.values.lastName);
     localStorage.setItem("phoneNumber", formik.values.phoneNumber);
     formik.resetForm();
     dispatch(setLoginStatus(true));
@@ -56,7 +67,12 @@ const SignUp = ({ isOpen, closeModal }) => {
   };
 
   const handleClick = () => {
-    if (formik.isValid && formik.values.phoneNumber) {
+    if (
+      formik.isValid &&
+      formik.values.name &&
+      formik.values.lastName &&
+      formik.values.phoneNumber
+    ) {
       setIsLoading(true);
 
       setTimeout(() => {
@@ -105,6 +121,45 @@ const SignUp = ({ isOpen, closeModal }) => {
                 </Dialog.Title>
                 <div className="px-7">
                   <p className="mb-4 md:text-lg md:mb-5">ورود/ثبت نام</p>
+
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="name"
+                      {...formik.getFieldProps("name")}
+                      className={
+                        formik.touched.name && formik.errors.name
+                          ? `${dialogInputStyle}!border-[#C30000] !mb-2`
+                          : dialogInputStyle
+                      }
+                    />
+                    <span className="text-[#353535] text-xs absolute bg-white right-2 -top-2 px-1">
+                      نام
+                    </span>
+                  </div>
+                  {formik.touched.name && formik.errors.name && (
+                    <p className={dialogErrorStyle}>{formik.errors.name}</p>
+                  )}
+
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="lastName"
+                      {...formik.getFieldProps("lastName")}
+                      className={
+                        formik.touched.lastName && formik.errors.lastName
+                          ? `${dialogInputStyle}!border-[#C30000] !mb-2`
+                          : dialogInputStyle
+                      }
+                    />
+                    <span className="text-[#353535] text-xs absolute bg-white right-2 -top-2 px-1">
+                      نام خانوادگی
+                    </span>
+                  </div>
+                  {formik.touched.lastName && formik.errors.lastName && (
+                    <p className={dialogErrorStyle}>{formik.errors.lastName}</p>
+                  )}
+
                   <div className="relative">
                     <input
                       type="tel"
@@ -113,7 +168,7 @@ const SignUp = ({ isOpen, closeModal }) => {
                       {...formik.getFieldProps("phoneNumber")}
                       className={
                         formik.touched.phoneNumber && formik.errors.phoneNumber
-                          ? `${dialogInputStyle} !border-[#C30000]`
+                          ? `${dialogInputStyle}!border-[#C30000] !mb-2`
                           : dialogInputStyle
                       }
                     />
@@ -123,7 +178,7 @@ const SignUp = ({ isOpen, closeModal }) => {
                   </div>
 
                   {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-                    <p className="text-[#C30000] text-xs mb-4">
+                    <p className={dialogErrorStyle}>
                       {formik.errors.phoneNumber}
                     </p>
                   )}
@@ -133,27 +188,29 @@ const SignUp = ({ isOpen, closeModal }) => {
                     type="submit"
                     variant="contained"
                     className={
+                      formik.values.name &&
+                      formik.values.lastName &&
                       formik.values.phoneNumber
                         ? `${dialogButtonStyle} !bg-[#417F56] !text-white`
                         : dialogButtonStyle
                     }
                   >
                     {isLoading ? (
-                       <>
-                       <ReactLoading
-                        type="bubbles"
-                        color="#FFFFFF"
-                        height={20}
-                        width={25}
-                        className="md:hidden mx-auto"
-                      />
-                      <ReactLoading
-                        type="bubbles"
-                        color="#FFFFFF"
-                        height={24}
-                        width={25}
-                        className="hidden md:block mx-auto"
-                      />
+                      <>
+                        <ReactLoading
+                          type="bubbles"
+                          color="#FFFFFF"
+                          height={20}
+                          width={25}
+                          className="md:hidden mx-auto"
+                        />
+                        <ReactLoading
+                          type="bubbles"
+                          color="#FFFFFF"
+                          height={24}
+                          width={25}
+                          className="hidden md:block mx-auto"
+                        />
                       </>
                     ) : (
                       "ادامه"

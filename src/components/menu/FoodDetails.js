@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { useSelector, useDispatch } from "react-redux";
 import showToast from "../helper/showToast";
@@ -27,6 +27,7 @@ import { dislikeItem } from "../redux/favorite/favoriteAction";
 // Icons
 import {
   arrowRightIcon,
+  shoppingCartIcon,
   likeIcon,
   likeRedIcon,
   trashIcon,
@@ -101,18 +102,24 @@ const FoodDetails = () => {
         <div className="md:flex-1 ">
           <div className={mainHeaderStyle}>
             <h3 className={mainHeaderH3Style}>{title}</h3>
-            {isInFavorite(favorite, id) && isLoggedIn ? (
-              <button
-                className="md:scale-[1.5]"
-                onClick={() => dispatch(dislikeItem(product))}
-              >
-                {likeRedIcon}
-              </button>
-            ) : (
-              <button className="md:scale-[1.5]" onClick={likeItem}>
-                {likeIcon}
-              </button>
-            )}
+
+            <div className="flex items-center gap-x-4 text-[#717171]">
+              {isInFavorite(favorite, id) && isLoggedIn ? (
+                <button
+                  className="scale-[1.65]"
+                  onClick={() => dispatch(dislikeItem(product))}
+                >
+                  {likeRedIcon}
+                </button>
+              ) : (
+                <button className="scale-[1.5]" onClick={likeItem}>
+                  {likeIcon}
+                </button>
+              )}
+              <Link to="/cart" className="scale-[1.5]">
+                {shoppingCartIcon}
+              </Link>
+            </div>
           </div>
           <div className={foodDetailsStyle}>
             <p className={foodDetailsContentsStyle}>محتویات</p>

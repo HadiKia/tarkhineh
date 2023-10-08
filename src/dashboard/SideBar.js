@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import SignOut from "../components/shared/SignOut";
+import { Link } from "react-router-dom";
+import { enToFa } from "../components/helper/functions";
 import profileImg from "../images/profile.png";
-import { useDispatch } from "react-redux";
-
-// Actions 
-import { setLoginStatus } from "../components/redux/auth/authActions"; 
 
 // Icons
 import {
@@ -17,14 +16,12 @@ import {
   locationSolidIcon,
   logOutIcon,
 } from "../icons/sideBarIcons";
-import { Link, useNavigate } from "react-router-dom";
-import { enToFa } from "../components/helper/functions";
 
 // Styles
 const mainStyle =
   "mt-6 md:mt-10 md:px-2 md:py-4 md:rounded-lg md:border md:border-[#CBCBCB]";
 const headerStyle =
-  "flex items-center gap-x-2 pb-2 border-b border-[#757575] mb-4 lg:gap-x-6";
+  "flex items-center gap-x-2 pb-2 border-b border-[#757575] mb-4";
 const profileImgStyle = "w-12 rounded-full border border-[#CBCBCB] lg:w-[88px]";
 const headerInfoStyle = "flex flex-col gap-y-1 lg:gap-y-2";
 const linkBoxStyle =
@@ -35,18 +32,20 @@ const linkActiveStyle =
   "px-2 border-r-2 border-[#417F56] text-[#417F56] text-[15px] font-medium py-1 flex items-center gap-x-1  duration-500 ";
 
 const SideBar = () => {
-  const dispatch = useDispatch();
   const profileURL = "https://tarkhineh.iran.liara.run/dashboard/profile";
-  const orderHistoryURL = "https://tarkhineh.iran.liara.run/dashboard/order-history";
+  const orderHistoryURL =
+    "https://tarkhineh.iran.liara.run/dashboard/order-history";
   const favoritesURL = "https://tarkhineh.iran.liara.run/dashboard/favorites";
   const addressURL = "https://tarkhineh.iran.liara.run/dashboard/address";
 
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleLogout = () => {
-    dispatch(setLoginStatus(false));
-    localStorage.removeItem("phoneNumber");
-    navigate('/home');
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -54,8 +53,14 @@ const SideBar = () => {
       <div className={headerStyle}>
         <img src={profileImg} alt="profile" className={profileImgStyle} />
         <div className={headerInfoStyle}>
-          <span className="text-[#353535] font-medium">کابر ترخینه</span>
-          <span dir="ltr" className="text-[#717171] text-xs md:text-sm">
+          <p className="text-[#353535] flex gap-x-1 text-sm lg:text-base">
+            <span>{localStorage.getItem("name")}</span>
+            <span>{localStorage.getItem("lastName")}</span>
+          </p>
+          <span
+            dir="ltr"
+            className="text-[#717171] text-xs md:text-sm text-right"
+          >
             {enToFa(localStorage.getItem("phoneNumber"))}
           </span>
         </div>
@@ -120,13 +125,11 @@ const SideBar = () => {
           <span>آدرس های من</span>
         </Link>
 
-        <button
-          className={`${linkStyle} text-[#C30000]`}
-          onClick={handleLogout}
-        >
+        <button className={`${linkStyle} text-[#C30000]`} onClick={openModal}>
           <span>{logOutIcon}</span>
           <span>خروج</span>
         </button>
+        <SignOut isOpen={isOpen} closeModal={closeModal} />
       </div>
     </div>
   );
