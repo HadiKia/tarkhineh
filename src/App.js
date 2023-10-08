@@ -15,6 +15,7 @@ import FAQ from "./components/faq/FAQ";
 import Rules from "./components/rules/Rules";
 import Privacy from "./components/privacy/Privacy";
 import Dashboard from "./dashboard";
+import Favorites from "./dashboard/favorites/Favorites";
 
 import { ToastContainer } from "react-toastify";
 import ScrollToTop from "./components/helper/ScrollToTop";
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/rules" element={<Rules />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/favorites" element={<Favorites />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </Layout>

@@ -30,7 +30,7 @@ import { closeIcon } from "../../icons/mobileMenuIcons";
 
 // Styles
 export const containerStyle =
-  "container max-w-[1224px] mx-auto mt-6 px-5 min-h-[calc(100vh_-_240px)] md:mt-10";
+  "container max-w-[1224px] mx-auto mt-6 px-5 min-h-[calc(100vh_-_239px)] md:mt-10";
 export const headerStyle =
   "flex items-center justify-between text-[#353535] font-bold mb-6 md:hidden";
 const dialogBgStyle = "fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm";

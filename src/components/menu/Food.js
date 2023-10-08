@@ -14,6 +14,7 @@ import { dislikeItem } from "../redux/favorite/favoriteAction";
 // icons
 import {
   likeIcon,
+  likeRedIcon,
   starIcon,
   starEmptyIcon,
   starDesktopIcon,
@@ -39,7 +40,7 @@ const descriptionStyle = "hidden sm:block text-[10.25px] lg:text-sm";
 const discountedDivStyle =
   "flex items-center gap-x-2 font-medium lg:relative lg:top-6 ";
 const footerDivStyle = "flex items-center justify-between";
-const likeStyle = "lg:absolute lg:left-4 lg:top-4 lg:scale-[1.5]";
+const likeStyle = "mt-0.5 lg:absolute lg:left-4 lg:top-4 lg:scale-[1.5]";
 const ratingDivStyle = "flex items-center gap-x-1";
 const buttonStyle =
   "bg-[#417F56] text-white border border-[#417F56] rounded sm:rounded-md text-[10px] py-1.5 px-2 sm:p-[9px] font-medium lg:rounded lg:text-sm lg:px-5 xl:px-12 ";
@@ -115,16 +116,13 @@ const Food = ({ productData }) => {
           <div className={ratingDivStyle}>
             {isInFavorite(favorite, id) && isLoggedIn ? (
               <button
-                className={`${likeStyle} text-[#C30000]`}
+                className={likeStyle}
                 onClick={() => dispatch(dislikeItem(productData))}
               >
-                {likeIcon}
+                {likeRedIcon}
               </button>
             ) : (
-              <button
-                className={`${likeStyle} text-[#717171]`}
-                onClick={likeItem}
-              >
+              <button className={likeStyle} onClick={likeItem}>
                 {likeIcon}
               </button>
             )}

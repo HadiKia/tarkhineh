@@ -7,8 +7,8 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="container max-w-[1224px] mx-auto px-5 min-h-[calc(100vh_-_247px)] md:min-h-[calc(100vh_-_466px)]">
-      <div className="md:max-w-[288px]">
+    <div className="container max-w-[1224px] mx-auto px-5 min-h-[calc(100vh_-_239px)] md:min-h-[calc(100vh_-_466px)]">
+      <div className="md:max-w-[182px] lg:max-w-[248px]">
         <SideBar />
       </div>
     </div>

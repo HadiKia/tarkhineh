@@ -22,11 +22,11 @@ import { enToFa } from "../components/helper/functions";
 
 // Styles
 const mainStyle =
-  "mt-8 md:px-2 md:py-4 md:rounded-lg md:border md:border-[#CBCBCB]";
+  "mt-6 md:mt-10 md:px-2 md:py-4 md:rounded-lg md:border md:border-[#CBCBCB]";
 const headerStyle =
-  "flex items-center gap-x-2 pb-2 border-b border-[#757575] mb-4 md:gap-x-6";
-const profileImgStyle = "w-12 rounded-full border border-[#CBCBCB] md:w-[88px]";
-const headerInfoStyle = "flex flex-col gap-y-1 md:gap-y-2";
+  "flex items-center gap-x-2 pb-2 border-b border-[#757575] mb-4 lg:gap-x-6";
+const profileImgStyle = "w-12 rounded-full border border-[#CBCBCB] lg:w-[88px]";
+const headerInfoStyle = "flex flex-col gap-y-1 lg:gap-y-2";
 const linkBoxStyle =
   "flex flex-col gap-y-2 md:gap-y-3 text-[#353535] text-xs md:text-sm";
 const linkStyle =
@@ -103,7 +103,7 @@ const SideBar = () => {
           ) : (
             <span>{likeIcon}</span>
           )}
-          <span>علاقه مندی ها</span>
+          <span>علاقمندی ها</span>
         </Link>
 
         <Link
