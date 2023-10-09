@@ -11,24 +11,19 @@ import Favorite from "./Favorite";
 import Category from "../../components/shared/Category";
 
 // Images
-import notFoundImg from "../../images/match-not-found.png"
+import notFoundImg from "../../images/match-not-found.png";
 
 // Icons
 import { arrowRightIcon } from "../../icons/shopCartIcons";
-import { searchIcon } from "../../icons/homePageIcons";
-
-import { searchDesktopIcon } from "../../icons/foodsPageIcons";
 
 // Styles
 import { headerStyle } from "../../components/shopping-cart/ShopCart";
-import {
-  searchBoxStyle,
-  inputSearchStyle,
-} from "../../components/home/HomePageMenu";
+import {} from "../../components/home/HomePageMenu";
 import {
   mainContainerStyle,
   notFoundResultsStyle,
 } from "../../components/menu/Foods";
+import SearchProduct from "../../components/shared/SearchProduct";
 
 const Favorites = () => {
   const state = useSelector((state) => state.favoriteState);
@@ -65,7 +60,7 @@ const Favorites = () => {
 
         {state.selectedItems.length ? (
           <>
-            <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-2 md:mb-7">
+            <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-2 md:mb-7 ">
               {/* category box */}
               <div className="-mx-5 hidden md:block">
                 <Category
@@ -75,19 +70,10 @@ const Favorites = () => {
               </div>
 
               {/* search box */}
-              <div
-                className={`${searchBoxStyle} bg-white  lg:!w-[351px] !mx-0`}
-              >
-                <input
-                  type="text"
-                  placeholder="جستجو"
-                  className={inputSearchStyle}
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                />
-                <span className="lg:hidden">{searchIcon}</span>
-                <span className="hidden lg:block">{searchDesktopIcon}</span>
-              </div>
+              <SearchProduct
+                searchText={searchText}
+                setSearchText={setSearchText}
+              />
             </div>
 
             <div
@@ -112,10 +98,14 @@ const Favorites = () => {
             </div>
 
             {!foundResults && (
-               <div className={notFoundResultsStyle}>
-               <h3>موردی با این مشخصات پیدا نکردیم!</h3>
-               <img src={notFoundImg} alt="not found" className="w-[152px] md:w-[390px]"/>
-             </div>
+              <div className={notFoundResultsStyle}>
+                <h3>موردی با این مشخصات پیدا نکردیم!</h3>
+                <img
+                  src={notFoundImg}
+                  alt="not found"
+                  className="w-[152px] md:w-[390px]"
+                />
+              </div>
             )}
           </>
         ) : (

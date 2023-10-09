@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { enToFa } from "../components/helper/functions";
 import profileImg from "../images/profile.png";
 
+// URls
+import { sideBarURLs } from "../components/helper/URLs";
+
 // Icons
 import {
   userIcon,
@@ -32,11 +35,7 @@ const linkActiveStyle =
   "px-2 border-r-2 border-[#417F56] text-[#417F56] text-[15px] font-medium py-1 flex items-center gap-x-1  duration-500 ";
 
 const SideBar = () => {
-  const profileURL = "https://tarkhineh.iran.liara.run/dashboard/profile";
-  const orderHistoryURL =
-    "https://tarkhineh.iran.liara.run/dashboard/order-history";
-  const favoritesURL = "https://tarkhineh.iran.liara.run/dashboard/favorites";
-  const addressURL = "https://tarkhineh.iran.liara.run/dashboard/address";
+
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -70,10 +69,10 @@ const SideBar = () => {
         <Link
           to="/dashboard/profile"
           className={
-            window.location.href === profileURL ? linkActiveStyle : linkStyle
+            window.location.href === sideBarURLs.profile ? linkActiveStyle : linkStyle
           }
         >
-          {window.location.href === profileURL ? (
+          {window.location.href === sideBarURLs.profile ? (
             <span>{userSolidIcon}</span>
           ) : (
             <span>{userIcon}</span>
@@ -84,12 +83,12 @@ const SideBar = () => {
         <Link
           to="/dashboard/order-history"
           className={
-            window.location.href === orderHistoryURL
+            window.location.href === sideBarURLs.orderHistory
               ? linkActiveStyle
               : linkStyle
           }
         >
-          {window.location.href === orderHistoryURL ? (
+          {window.location.href === sideBarURLs.orderHistory ? (
             <span>{walletSolidIcon}</span>
           ) : (
             <span>{walletIcon}</span>
@@ -100,10 +99,10 @@ const SideBar = () => {
         <Link
           to="/dashboard/favorites"
           className={
-            window.location.href === favoritesURL ? linkActiveStyle : linkStyle
+            window.location.href === sideBarURLs.favorites ? linkActiveStyle : linkStyle
           }
         >
-          {window.location.href === favoritesURL ? (
+          {window.location.href === sideBarURLs.favorites ? (
             <span>{likeSolidIcon}</span>
           ) : (
             <span>{likeIcon}</span>
@@ -114,10 +113,10 @@ const SideBar = () => {
         <Link
           to="/dashboard/address"
           className={
-            window.location.href === addressURL ? linkActiveStyle : linkStyle
+            window.location.href === sideBarURLs.address ? linkActiveStyle : linkStyle
           }
         >
-          {window.location.href === addressURL ? (
+          {window.location.href === sideBarURLs.address ? (
             <span>{locationSolidIcon}</span>
           ) : (
             <span>{locationIcon}</span>

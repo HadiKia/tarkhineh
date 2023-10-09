@@ -9,19 +9,17 @@ import ReactLoading from "react-loading";
 import { fetchProducts } from "../redux/products/productsAction";
 
 // images
-import notFoundImg from "../../images/match-not-found.png"
+import notFoundImg from "../../images/match-not-found.png";
 
 // icons
-import { searchIcon } from "../../icons/homePageIcons";
 import {
   shoppingCartDesktopIcon,
   shoppingCartIcon,
-  searchDesktopIcon,
 } from "../../icons/foodsPageIcons";
 
 // styles
-import { searchBoxStyle, inputSearchStyle } from "../home/HomePageMenu";
 import { Link } from "react-router-dom";
+import SearchProduct from "../shared/SearchProduct";
 const tabGroupStyle =
   "container max-w-[1224px] mx-auto flex items-center justify-start px-5 text-[13px] gap-x-4 mb-2 md:text-base";
 const tabGroupItemStyle =
@@ -85,16 +83,11 @@ const Foods = () => {
         />
 
         {/* search box */}
-        <div className={searchBoxStyle}>
-          <input
-            type="text"
-            placeholder="جستجو"
-            className={inputSearchStyle}
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+        <div className="px-5">
+          <SearchProduct
+            searchText={searchText}
+            setSearchText={setSearchText}
           />
-          <span className="lg:hidden">{searchIcon}</span>
-          <span className="hidden lg:block">{searchDesktopIcon}</span>
         </div>
       </div>
 
@@ -157,7 +150,11 @@ const Foods = () => {
       {!foundResults && !productsState.loading && (
         <div className={notFoundResultsStyle}>
           <h3>موردی با این مشخصات پیدا نکردیم!</h3>
-          <img src={notFoundImg} alt="not found" className="w-[152px] md:w-[390px]"/>
+          <img
+            src={notFoundImg}
+            alt="not found"
+            className="w-[152px] md:w-[390px]"
+          />
         </div>
       )}
     </>

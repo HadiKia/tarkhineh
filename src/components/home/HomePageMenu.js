@@ -12,15 +12,13 @@ import Drink from "../../images/drink.png";
 import { Link } from "react-router-dom";
 
 // styles
-export const searchBoxStyle =
-  "flex items-center justify-between px-4 mx-5 h-9 border border-[#CBCBCB] rounded-md mb-[1.5em] md:relative md:top-1 lg:w-[490px] lg:h-10 lg:rounded-lg";
-export const inputSearchStyle =
-  "bg-transparent w-full pl-2 outline-none text-[#353535] text-sm placeholder:text-xs placeholder:text-[#353535]";
+import { searchBoxStyle, inputSearchStyle } from "../shared/SearchProduct"; 
+
 
 const HomePageMenu = () => {
   return (
     <div className="text-center container max-w-[1224px] mx-auto mt-4 ">
-      <div className="md:hidden">
+      <div className="md:hidden px-5">
         <div className={searchBoxStyle}>
           <input type="text" placeholder="جستجو" className={inputSearchStyle} />
           <span>{searchIcon}</span>

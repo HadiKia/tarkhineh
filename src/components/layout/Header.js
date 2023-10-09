@@ -7,6 +7,9 @@ import SignUp from "../shared/SignUp";
 // functions
 import { convertToFa } from "../helper/functions";
 
+// URLs
+import { headerURLs, headerButtonURLs } from "../helper/URLs";
+
 // icons
 import {
   logo,
@@ -36,20 +39,6 @@ const itemsCounterStyle =
   "absolute -top-1 -right-1.5 text-[10px] text-white bg-[#61AE7B] rounded-full px-1  md:right-0.5 md:top-0.5 font-medium";
 
 const Header = () => {
-  const URLs = [
-    "https://tarkhineh.iran.liara.run/cart",
-    "https://tarkhineh.iran.liara.run/completion-of-information",
-    "https://tarkhineh.iran.liara.run/payment",
-    "https://tarkhineh.iran.liara.run/dashboard",
-    "https://tarkhineh.iran.liara.run/dashboard/profile",
-    "https://tarkhineh.iran.liara.run/dashboard/order-history",
-    "https://tarkhineh.iran.liara.run/dashboard/favorites",
-    "https://tarkhineh.iran.liara.run/dashboard/address",
-  ];
-  const homeURL = "https://tarkhineh.iran.liara.run/home";
-  const menuURL = "https://tarkhineh.iran.liara.run/menu";
-  const aboutUsURL = "https://tarkhineh.iran.liara.run/about-us";
-  const contactUsURL = "https://tarkhineh.iran.liara.run/contact-us";
 
   const state = useSelector((state) => state.cartState);
   const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
@@ -83,7 +72,7 @@ const Header = () => {
           <ul className={ulStyle}>
             <li
               className={
-                window.location.href === homeURL ? liActiveStyle : liStyle
+                window.location.href === headerURLs.home ? liActiveStyle : liStyle
               }
             >
               <Link to="/">صفحه اصلی</Link>
@@ -91,7 +80,7 @@ const Header = () => {
             <li className={liStyle}>شعبه</li>
             <li
               className={
-                window.location.href === menuURL ? liActiveStyle : liStyle
+                window.location.href === headerURLs.menu ? liActiveStyle : liStyle
               }
             >
               <Link to="/menu">منو</Link>
@@ -99,14 +88,14 @@ const Header = () => {
             <li className={liStyle}>اعطای نمایندگی</li>
             <li
               className={
-                window.location.href === aboutUsURL ? liActiveStyle : liStyle
+                window.location.href === headerURLs.aboutUs ? liActiveStyle : liStyle
               }
             >
               <Link to="/about-us">درباره ما</Link>
             </li>
             <li
               className={
-                window.location.href === contactUsURL ? liActiveStyle : liStyle
+                window.location.href === headerURLs.contactUs ? liActiveStyle : liStyle
               }
             >
               <Link to="/contact-us">تماس با ما</Link>
@@ -122,7 +111,7 @@ const Header = () => {
           <Link
             to="/cart"
             className={
-              URLs.slice(0, 3).includes(window.location.href)
+              headerButtonURLs.slice(0, 3).includes(window.location.href)
                 ? linkBoxItemActiveStyle
                 : linkBoxItemStyle
             }
@@ -138,7 +127,7 @@ const Header = () => {
 
           <button
             className={
-              URLs.slice(3).includes(window.location.href)
+              headerButtonURLs.slice(3).includes(window.location.href)
                 ? linkBoxItemActiveStyle
                 : linkBoxItemStyle
             }

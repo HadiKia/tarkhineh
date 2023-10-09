@@ -24,10 +24,10 @@ const dialogTitleStyle =
   "relative flex items-center justify-center px-6 py-4 mb-0 md:py-[21px] ";
 const dialogCloseButtonStyle = "text-[#717171] absolute left-6";
 const dialogInputStyle =
-  "w-full outline-none border border-[#353535] text-[#353535] text-sm rounded px-2 py-2.5 mb-5 md:py-2 md:text-base";
+  "w-full outline-none border border-[#353535] text-[#353535] text-sm rounded px-2 py-2.5 mb-5 md:text-base";
 const dialogErrorStyle = "text-[#C30000] text-xs mb-4 text-right";
 const dialogButtonStyle =
-  "w-full py-[7px] bg-[#EDEDED] text-sm rounded mb-6 text-[#CBCBCB] md:py-2 md:text-base md:mb-6 duration-500";
+  "w-full py-2.5 bg-[#EDEDED] text-sm rounded mb-6 text-[#CBCBCB]  md:text-base md:mb-6 duration-500";
 
 const SignUp = ({ isOpen, closeModal }) => {
   const dispatch = useDispatch();
