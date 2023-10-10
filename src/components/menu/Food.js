@@ -23,7 +23,7 @@ import {
 
 // styles
 const foodBoxStyle =
-  "flex items-center justify-between border border-[#CBCBCB] rounded-md h-[6.25em] lg:h-[9.875em] lg:rounded-lg lg:relative";
+  "flex items-center justify-between border border-[#CBCBCB] overflow-hidden rounded-md h-[6.25em] lg:h-[9.875em] lg:rounded-lg lg:relative";
 const foodImgStyle = "w-[5.75em] h-[6.25em] lg:w-[10.563em] lg:h-[9.875em]";
 const headerDivStyle =
   "flex items-center justify-between text-xs sm:mb-2 lg:mb-3";

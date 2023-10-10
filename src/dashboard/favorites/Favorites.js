@@ -44,7 +44,7 @@ const Favorites = () => {
         <SideBar />
       </div>
 
-      <div className="md:mt-10 flex-1 min-h-[calc(100vh_-_465px)] md:w-[400px] lg:w-[712px] md:border md:border-[#CBCBCB] md:rounded-md md:p-6 md:pb-0 md:mb-12">
+      <div className="md:mt-10 flex-1 md:w-[400px] lg:w-[712px] md:border md:border-[#CBCBCB] md:rounded-md md:p-6 md:pb-0 md:mb-12">
         {/* Header */}
         <div
           className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 !mb-5`}

@@ -220,7 +220,7 @@ const Address = ({ list, setList, updateShippingCost }) => {
                 </div>
               </div>
             )}
-            <div className="absolute top-4 left-4">
+            <div className="absolute top-4 left-4 text-[#353535]">
               {editedIndex === index ? (
                 <button
                   onClick={() => saveEditedItem(item.value, index)}

@@ -25,7 +25,7 @@ const mainStyle =
   "mt-6 md:mt-10 md:px-2 md:py-4 md:rounded-lg md:border md:border-[#CBCBCB]";
 const headerStyle =
   "flex items-center gap-x-2 pb-2 border-b border-[#757575] mb-4";
-const profileImgStyle = "w-12 rounded-full border border-[#CBCBCB] lg:w-[88px]";
+const profileImgStyle = "w-12 rounded-full border border-[#CBCBCB] lg:w-[55px]";
 const headerInfoStyle = "flex flex-col gap-y-1 lg:gap-y-2";
 const linkBoxStyle =
   "flex flex-col gap-y-2 md:gap-y-3 text-[#353535] text-xs md:text-sm";
@@ -35,8 +35,6 @@ const linkActiveStyle =
   "px-2 border-r-2 border-[#417F56] text-[#417F56] text-[15px] font-medium py-1 flex items-center gap-x-1  duration-500 ";
 
 const SideBar = () => {
-
-
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
@@ -52,7 +50,7 @@ const SideBar = () => {
       <div className={headerStyle}>
         <img src={profileImg} alt="profile" className={profileImgStyle} />
         <div className={headerInfoStyle}>
-          <p className="text-[#353535] flex gap-x-1 text-sm lg:text-base">
+          <p className="text-[#353535] flex flex-wrap gap-x-1 text-sm">
             <span>{localStorage.getItem("name")}</span>
             <span>{localStorage.getItem("lastName")}</span>
           </p>
@@ -69,7 +67,9 @@ const SideBar = () => {
         <Link
           to="/dashboard/profile"
           className={
-            window.location.href === sideBarURLs.profile ? linkActiveStyle : linkStyle
+            window.location.href === sideBarURLs.profile
+              ? linkActiveStyle
+              : linkStyle
           }
         >
           {window.location.href === sideBarURLs.profile ? (
@@ -99,7 +99,9 @@ const SideBar = () => {
         <Link
           to="/dashboard/favorites"
           className={
-            window.location.href === sideBarURLs.favorites ? linkActiveStyle : linkStyle
+            window.location.href === sideBarURLs.favorites
+              ? linkActiveStyle
+              : linkStyle
           }
         >
           {window.location.href === sideBarURLs.favorites ? (
@@ -113,7 +115,9 @@ const SideBar = () => {
         <Link
           to="/dashboard/address"
           className={
-            window.location.href === sideBarURLs.address ? linkActiveStyle : linkStyle
+            window.location.href === sideBarURLs.address
+              ? linkActiveStyle
+              : linkStyle
           }
         >
           {window.location.href === sideBarURLs.address ? (

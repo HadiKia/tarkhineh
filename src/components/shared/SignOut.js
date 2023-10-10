@@ -29,6 +29,7 @@ const SignOut = ({ isOpen, closeModal }) => {
     dispatch(setLoginStatus(false));
     localStorage.removeItem("name");
     localStorage.removeItem("lastName");
+    localStorage.removeItem("email");
     localStorage.removeItem("phoneNumber");
     navigate("/home");
   };
