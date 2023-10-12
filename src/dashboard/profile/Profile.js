@@ -136,6 +136,7 @@ const Profile = () => {
             formik={formik}
             formikError={formik.errors.phoneNumber}
             formikTouched={formik.touched.phoneNumber}
+            dir="ltr"
           />
         </div>
 

@@ -1,22 +1,23 @@
-import { toast, Flip } from "react-toastify";
+import { toast, Slide } from "react-toastify";
 import { closeIcon } from "../../icons/mobileMenuIcons";
 
 const showToast = (message, type = "success") => {
   const CloseButton = ({ closeToast }) => (
-    <i className="absolute top-[18px] left-2.5" onClick={closeToast}>
+    <i
+      className="absolute top-[11px] md:top-4 left-2.5 md:left-3 scale-90 md:scale-100"
+      onClick={closeToast}
+    >
       {closeIcon}
     </i>
   );
   const config = {
     position: "top-center",
     theme: "colored",
-    style: {
-      textAlign: "right",
-    },
     icon: false,
-    transition: Flip,
+    transition: Slide,
     closeButton: CloseButton,
-    autoClose: 2500,
+    autoClose: 2000,
+    rtl: true,
   };
   if (type === "success") {
     toast.success(message, {

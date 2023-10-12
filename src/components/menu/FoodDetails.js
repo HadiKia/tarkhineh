@@ -35,7 +35,7 @@ import {
 
 // Styles
 const topBarStyle =
-  "container max-w-[1224px] mx-auto h-[4.5em] text-white flex items-center px-5 mb-4 md:mb-8";
+  "container max-w-[1224px] mx-auto h-[4em] text-white flex items-center md:h-[4.5em] px-5 mb-4 md:mb-8";
 const topBarTitleStyle = "font-bold flex-1 text-center pl-10 text-xl";
 const mainStyle =
   "container max-w-[1224px] mx-auto px-5 text-[#353535] md:flex md:gap-x-4";
@@ -53,11 +53,11 @@ const ratingDivStyle =
 const discountedDivStyle =
   "flex items-center justify-between text-[15px] md:text-base lg:text-lg ";
 const quantityCountDivStyle =
-  "flex items-center gap-x-2 justify-center lg:justify-end";
+  "flex items-center gap-x-2.5 justify-center md:justify-end";
 const quantityCountButtonStyle =
-  "bg-[#417F56] text-white w-6 h-6 rounded mt-1 font-bold flex items-center justify-center md:w-8 md:h-8";
+  "bg-[#417F56] text-white w-6 h-6 rounded mt-1 font-bold flex items-center justify-center md:w-8 md:h-8 scale-110";
 const addToCartButtonStyle =
-  "bg-[#417F56] text-white rounded-md text-[10px] font-medium py-[10px] px-[35px] md:text-sm lg:py-2.5 lg:px-5 xl:px-12";
+  "bg-[#417F56] text-white rounded-md text-xs font-medium py-2.5 px-[35px] md:text-sm lg:py-2.5 lg:px-5 xl:px-12";
 
 const FoodDetails = () => {
   const { slug } = useParams();
