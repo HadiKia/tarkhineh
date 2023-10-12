@@ -4,7 +4,7 @@ import emptyPage from "../../images/empty-page.svg";
 
 // Styles
 export const containerStyle =
-  "relative min-h-[calc(100vh_-_365px)] border border-[#CBCBCB] rounded-lg mb-10 flex items-center justify-center md:min-h-[calc(100vh_-_442px)]";
+  "relative min-h-[calc(100vh_-_365px)] border border-[#CBCBCB] rounded-lg  flex items-center justify-center md:min-h-[calc(100vh_-_442px)]";
 export const imgBoxStyle =
   "bg-[image:var(--image-url)] bg-cover bg-center w-[200px] h-[193px] flex items-center justify-center md:w-[325px] md:h-[313px]";
 export const pStyle =

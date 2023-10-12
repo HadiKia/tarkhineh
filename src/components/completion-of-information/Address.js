@@ -6,24 +6,24 @@ import { trashIcon, trashDesktopIcon } from "../../icons/shopCartIcons";
 import { addIcon,add2icon, add2DesktopIcon, closeIcon, closeDesktopIcon, editIcon, editDesktopIcon } from "../../icons/addressIcon";
 
 // Styles
-const addressBoxStyle =
+export const addressBoxStyle =
   "border border-[#CBCBCB] rounded p-4 relative lg:rounded-lg";
-const addressTextareaStyle =
+export const addressTextareaStyle =
   "bg-[#F9F9F9] w-full outline-none resize-none scroll-smooth placeholder:text-[#717171] text-[#353535] text-[13px] mb-1 pl-[52px] lg:text-base";
-const userInfoDivStyle =
+export const userInfoDivStyle =
   "flex items-center justify-center text-[13px] text-[#717171] lg:text-sm";
-const inputNameStyle = "w-1/2 outline-none bg-[#F9F9F9]";
-const inputPhoneNumberStyle =
-  "w-1/2 outline-none text-left placeholder:text-right bg-[#F9F9F9]";
-const addAddressButtonStyle =
+export const inputNameStyle = "w-1/2 outline-none bg-[#F9F9F9]";
+export const inputPhoneNumberStyle =
+  "w-1/2 outline-none text-left placeholder:text-right bg-[#F9F9F9] duration-300";
+export const addAddressButtonStyle =
   "absolute top-4 left-4 text-[#417F56] flex items-center";
 const nullBoxStyle = "flex items-center justify-center -m-1";
 const nullBoxBackgroundStyle =
   "bg-[image:var(--image-url)] bg-cover bg-center w-[131px] h-[127px] flex items-center justify-center";
 const nullBoxPStyle =
   "text-[11px] absolute left-0 right-0 top-[60%] text-center font-medium text-[#757575] md:text-sm";
-const ulStyle = "flex flex-col gap-y-2 lg:grid lg:grid-cols-2 lg:gap-4";
-const liStyle = "relative bg-[#F9F9F9] lg:w-full";
+export const ulStyle = "flex flex-col gap-y-2 lg:grid lg:grid-cols-2 lg:gap-4";
+export const liStyle = "relative bg-[#F9F9F9] lg:w-full";
 
 const Address = ({ list, setList, updateShippingCost }) => {
   const [address, setAddress] = useState("");
