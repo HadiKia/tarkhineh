@@ -13,7 +13,7 @@ const headerButtonURLs = [
   "https://tarkhineh.iran.liara.run/dashboard/profile",
   "https://tarkhineh.iran.liara.run/dashboard/order-history",
   "https://tarkhineh.iran.liara.run/dashboard/favorites",
-  "https://tarkhineh.iran.liara.run/dashhttps://tarkhineh.iran.liara.run/dashboard/address",
+  "https://tarkhineh.iran.liara.run/dashboard/address",
 ];
 
 const sideBarURLs = {

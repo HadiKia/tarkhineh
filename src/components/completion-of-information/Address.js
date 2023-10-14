@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import emptyPage from "../../images/empty-page.svg";
 
 // Icons
 import { trashIcon, trashDesktopIcon } from "../../icons/shopCartIcons";
-import { addIcon,add2icon, add2DesktopIcon, closeIcon, closeDesktopIcon, editIcon, editDesktopIcon } from "../../icons/addressIcon";
+import {
+  addIcon,
+  add2icon,
+  add2DesktopIcon,
+  closeIcon,
+  closeDesktopIcon,
+  editIcon,
+  editDesktopIcon,
+} from "../../icons/addressIcon";
 
 // Styles
 export const addressBoxStyle =
@@ -34,6 +42,18 @@ const Address = ({ list, setList, updateShippingCost }) => {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [initialAddressAdded, setInitialAddressAdded] = useState(false);
 
+  useEffect(() => {
+    const storedList = JSON.parse(localStorage.getItem("addressList")) || [];
+    setList(storedList);
+
+    if (storedList.length > 0) {
+      const initialAddressId = storedList[0].id;
+      setSelectedAddressId(initialAddressId);
+    }
+
+    list && updateShippingCost(39000);
+  }, []);
+
   const updateAddress = (value) => {
     setAddress(value);
   };
@@ -49,11 +69,13 @@ const Address = ({ list, setList, updateShippingCost }) => {
   const addItem = () => {
     if (address !== "" && name !== "" && phoneNumber !== "") {
       const newItem = {
-        id: Math.random(),
+        id: Math.floor(Math.random() * 100),
         address: address,
         name: name,
         phoneNumber: phoneNumber,
       };
+
+      const updatedList = [...list, newItem];
 
       if (!initialAddressAdded) {
         setSelectedAddressId(newItem.id);
@@ -65,13 +87,16 @@ const Address = ({ list, setList, updateShippingCost }) => {
       setName("");
       setPhoneNumber("");
       setIsCreating(false);
-      updateShippingCost(39000);
+
+      localStorage.setItem("addressList", JSON.stringify(updatedList));
     }
   };
 
   const deleteItem = (key) => {
     const updatedList = list.filter((item) => item.id !== key);
     setList(updatedList);
+
+    localStorage.setItem("addressList", JSON.stringify(updatedList));
   };
 
   const saveEditedItem = (editedValue, index) => {
@@ -79,6 +104,8 @@ const Address = ({ list, setList, updateShippingCost }) => {
     updatedItem[index].value = editedValue;
     setList(updatedItem);
     setEditedIndex(-1);
+
+    localStorage.setItem("addressList", JSON.stringify(updatedItem));
   };
 
   return (
@@ -112,10 +139,7 @@ const Address = ({ list, setList, updateShippingCost }) => {
             />
           </div>
 
-          <button
-            onClick={addItem}
-            className={`${addAddressButtonStyle}`}
-          >
+          <button onClick={addItem} className={`${addAddressButtonStyle}`}>
             <span className="lg:hidden">{add2icon}</span>
             <span className="hidden lg:block">{add2DesktopIcon}</span>
           </button>

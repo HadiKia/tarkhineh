@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../SideBar";
 import EmptyAddress from "./EmptyAddress";
@@ -40,6 +40,11 @@ const ProfileAddress = () => {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [initialAddressAdded, setInitialAddressAdded] = useState(false);
 
+  useEffect(() => {
+    const storedList = JSON.parse(localStorage.getItem("addressList")) || [];
+    setList(storedList);
+  }, []);
+
   const updateAddress = (value) => {
     setAddress(value);
   };
@@ -55,28 +60,34 @@ const ProfileAddress = () => {
   const addItem = () => {
     if (address !== "" && name !== "" && phoneNumber !== "") {
       const newItem = {
-        id: Math.random(),
+        id: Math.floor(Math.random() * 100),
         address: address,
         name: name,
         phoneNumber: phoneNumber,
       };
+
+      const updatedList = [...list, newItem];
 
       if (!initialAddressAdded) {
         setSelectedAddressId(newItem.id);
         setInitialAddressAdded(true);
       }
 
-      setList([...list, newItem]);
+      setList(updatedList);
       setAddress("");
       setName("");
       setPhoneNumber("");
       setIsCreating(false);
+
+      localStorage.setItem("addressList", JSON.stringify(updatedList));
     }
   };
 
   const deleteItem = (key) => {
     const updatedList = list.filter((item) => item.id !== key);
     setList(updatedList);
+
+    localStorage.setItem("addressList", JSON.stringify(updatedList));
   };
 
   const saveEditedItem = (editedValue, index) => {
@@ -84,6 +95,8 @@ const ProfileAddress = () => {
     updatedItem[index].value = editedValue;
     setList(updatedItem);
     setEditedIndex(-1);
+
+    localStorage.setItem("addressList", JSON.stringify(updatedItem));
   };
 
   return (

@@ -109,7 +109,7 @@ const Favorites = () => {
             )}
           </>
         ) : (
-          <div className="md:mt-2">
+          <div className="md:mt-2 mb-10">
             <EmptyFavorites />{" "}
           </div>
         )}
