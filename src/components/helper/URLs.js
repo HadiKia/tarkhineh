@@ -3,6 +3,7 @@ const headerURLs = {
   menu: "https://tarkhineh.iran.liara.run/menu",
   aboutUs: "https://tarkhineh.iran.liara.run/about-us",
   contactUs: "https://tarkhineh.iran.liara.run/contact-us",
+  franchise: "https://tarkhineh.iran.liara.run/franchise",
 };
 
 const headerButtonURLs = [

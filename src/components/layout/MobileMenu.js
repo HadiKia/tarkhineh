@@ -93,9 +93,18 @@ const MobileMenu = () => {
               </Link>
             </li>
 
-            <li onClick={openMenu} className={liStyle}>
-              <span>{hashtagIcon}</span>
-              <span>شعبه</span>
+            <li onClick={openMenu}>
+              <Link
+                to="/franchise"
+                className={
+                  window.location.href === headerURLs.franchise
+                    ? liActiveStyle
+                    : liStyle
+                }
+              >
+                <span>{hashtagIcon}</span>
+                <span>اعطای نمایندگی</span>
+              </Link>
             </li>
 
             <li onClick={openMenu}>

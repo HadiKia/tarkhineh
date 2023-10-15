@@ -18,6 +18,7 @@ import Dashboard from "./dashboard";
 import Favorites from "./dashboard/favorites/Favorites";
 import Profile from "./dashboard/profile/Profile";
 import ProfileAddress from "./dashboard/address/ProfileAddress";
+import Franchise from "./components/franchise/Franchise";
 
 import { ToastContainer } from "react-toastify";
 import ScrollToTop from "./components/helper/ScrollToTop";
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/dashboard/profile" element={<Profile />} />
           <Route path="/dashboard/favorites" element={<Favorites />} />
           <Route path="/dashboard/address" element={<ProfileAddress />} />
+          <Route path="/franchise" element={<Franchise />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </Layout>
