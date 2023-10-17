@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import Advice from "./Advice";
+import OptionItem from "./OptionItem";
 
 // Images
 import bannerImg from "../../images/franchise-banner.jpg";
@@ -9,7 +11,6 @@ import feature4 from "../../images/franchise-feature4.png";
 
 // Styles
 import { bannerImgStyle, bannerTitleStyle } from "../about-us/AboutUs";
-import OptionItem from "./OptionItem";
 const featuresDivStyle =
   "container max-w-[1224px] mx-auto flex items-start justify-evenly gap-x-3 px-5 my-5 text-[8px] sm:text-[9px] text-center text-[#353535] md:text-sm md:my-14 lg:text-base";
 const featuresDivItemStyle =
@@ -17,7 +18,7 @@ const featuresDivItemStyle =
 const featureImgStyle = "w-12 sm:w-13 md:w-20 lg:w-28";
 const optionsDivStyle = "container max-w-[1224px] mx-auto px-5 text-[#353535]";
 const optionsTitleStyle =
-  "mb-3 font-bold text-[15px] pt-5 border-t border-[#CBCBCB] md:text-center md:text-xl md:pt-12 md:mb-6";
+  "mb-3 font-bold text-[15px] pt-6 border-t border-[#CBCBCB] text-center md:text-xl md:pt-12 md:mb-6";
 const optionItem =
   "flex flex-col md:flex-row md:justify-center md:gap-x-7 pb-5 border-b border-[#CBCBCB] md:pb-12 md:mb-6";
 
@@ -80,6 +81,12 @@ const Franchise = () => {
           </div>
         </div>
       </div>
+
+      {/* get advice */}
+      <div className={optionsDivStyle}>
+        <Advice />
+      </div>
+
     </div>
   );
 };

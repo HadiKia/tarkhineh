@@ -93,6 +93,61 @@
   background-color: transparent !important;
 }
 
+.rmdp-shadow {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+}
+.datePickerInput {
+  width: 100%;
+  border: 1px solid #cbcbcb;
+  font-size: 14px;
+  color: #353535;
+  border-radius: 6px;
+  outline: none;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+}
+.datePickerInput::placeholder {
+  color: #717171;
+}
+.rmdp-calendar {
+  box-shadow: none !important;
+}
+.rmdp-header {
+  font-weight: 700 !important;
+  font-size: 16px !important;
+}
+.rmdp-header-values,
+.rmdp-day span {
+  color: #353535 !important;
+}
+
+.rmdp-day span:hover,
+.rmdp-today span {
+  background: #e5f2e9 !important;
+  color: #417f56 !important;
+  border-radius: 2em !important;
+  transition: all 0.3s;
+}
+.rmdp-selected span {
+  background: #417f56 !important;
+  color: white !important;
+  border-radius: 2em !important;
+  box-shadow: none !important;
+}
+.rmdp-arrow-container {
+  border: 1px solid #417f56 !important;
+  box-shadow: none !important;
+}
+.rmdp-arrow-container:hover {
+  background: white !important;
+}
+.rmdp-arrow {
+  border-color: #417f56 !important;
+}
+.rmdp-week-day {
+  color: #717171 !important;
+}
+
 @media only screen and (min-width: 768px) {
   .swiper-pagination {
     bottom: 0 !important;
@@ -107,7 +162,6 @@
   }
 
   .Toastify__toast-container {
-    
     font-size: 15px !important;
     position: fixed !important;
     left: 50% !important;
@@ -125,6 +179,10 @@
     width: 270px !important;
     min-height: 40px !important;
     margin-bottom: 1em !important;
+  }
+  .datePickerInput {
+    padding: 7px 12px;
+    font-size: 16px;
   }
 }
 
