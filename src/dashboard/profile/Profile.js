@@ -68,15 +68,17 @@ const Profile = () => {
   };
 
   const cancelHandler = () => {
-    formik.values.name = localStorage.getItem("name");
-    formik.values.lastName = localStorage.getItem("lastName");
-    formik.values.email = localStorage.getItem("email");
-    formik.values.phoneNumber = localStorage.getItem("phoneNumber");
-
     formik.errors.name = null;
     formik.errors.lastName = null;
     formik.errors.email = null;
     formik.errors.phoneNumber = null;
+
+    formik.values.name = localStorage.getItem("name");
+    formik.values.lastName = localStorage.getItem("lastName");
+    formik.values.email = localStorage.getItem("email")
+      ? localStorage.getItem("email")
+      : "";
+    formik.values.phoneNumber = localStorage.getItem("phoneNumber");
 
     setIsDisabled(true);
   };
@@ -124,7 +126,7 @@ const Profile = () => {
           <ProfileFormInput
             isDisabled={isDisabled}
             name="email"
-            placeholder="ایمیل"
+            placeholder="ایمیل (اختیاری)"
             formik={formik}
             formikError={formik.errors.email}
             formikTouched={formik.touched.email}
