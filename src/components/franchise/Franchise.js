@@ -11,14 +11,15 @@ import feature4 from "../../images/franchise-feature4.png";
 
 // Styles
 import { bannerImgStyle, bannerTitleStyle } from "../about-us/AboutUs";
+import RepresentationRequestForm from "./RepresentationRequestForm";
 const featuresDivStyle =
   "container max-w-[1224px] mx-auto flex items-start justify-evenly gap-x-3 px-5 my-5 text-[8px] sm:text-[9px] text-center text-[#353535] md:text-sm md:my-14 lg:text-base";
 const featuresDivItemStyle =
   "flex flex-col justify-center items-center gap-y-2 lg:gap-y-4";
 const featureImgStyle = "w-12 sm:w-13 md:w-20 lg:w-28";
-const optionsDivStyle = "container max-w-[1224px] mx-auto px-5 text-[#353535]";
+const containerStyle = "container max-w-[1224px] mx-auto px-5 text-[#353535]";
 const optionsTitleStyle =
-  "mb-3 font-bold text-[15px] pt-6 border-t border-[#CBCBCB] text-center md:text-xl md:pt-12 md:mb-6";
+  "mb-4 font-bold text-[15px] pt-6 border-t border-[#CBCBCB] text-center md:text-xl md:pt-12 md:mb-6";
 const optionItem =
   "flex flex-col md:flex-row md:justify-center md:gap-x-7 pb-5 border-b border-[#CBCBCB] md:pb-12 md:mb-6";
 
@@ -28,7 +29,7 @@ const Franchise = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mb-6 md:mb-12">
       {/* banner */}
       <div
         style={{ "--image-url": `url(${bannerImg})` }}
@@ -63,7 +64,7 @@ const Franchise = () => {
       </div>
 
       {/* options */}
-      <div className={optionsDivStyle}>
+      <div className={containerStyle}>
         <h3 className={optionsTitleStyle}>مزیت دریافت نمایندگی</h3>
         <div className={optionItem}>
           <div>
@@ -83,10 +84,19 @@ const Franchise = () => {
       </div>
 
       {/* get advice */}
-      <div className={optionsDivStyle}>
+      <div className={containerStyle}>
         <Advice />
       </div>
 
+      {/* Representation request */}
+      <div className={containerStyle}>
+        <div className="mt-6 border border-[#CBCBCB] rounded-lg px-3 md:px-6 py-4 md:py-8 md:mt-12">
+          <h3 className={`${optionsTitleStyle} !border-none !pt-0`}>
+            فرم درخواست نمایندگی
+          </h3>
+          <RepresentationRequestForm />
+        </div>
+      </div>
     </div>
   );
 };

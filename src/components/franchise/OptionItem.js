@@ -9,7 +9,7 @@ const rectangleIcon = (
       x=".414"
       y="10"
       stroke="#417F56"
-      stroke-width="2"
+      strokeWidth="2"
       rx="3"
       transform="rotate(-45 .414 10)"
     />
