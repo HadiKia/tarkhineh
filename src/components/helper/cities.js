@@ -1,4 +1,4 @@
-const provinces = [
+export const provinces = [
   {
     id: 1,
     name: "آذربایجان شرقی",
@@ -651,4 +651,4 @@ const provinces = [
   },
 ];
 
-export default provinces;
+
