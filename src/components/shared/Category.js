@@ -5,7 +5,7 @@ import { RadioGroup } from "@headlessui/react";
 import { arrowLeftIcon } from "../../icons/foodsPageIcons";
 
 export const categoryBoxStyle =
-  "flex items-center text-[11px] font-medium px-5 gap-x-2 overflow-scroll relative text-[#353535] mb-3 md:text-xs md:mb-4";
+  "flex items-center text-[11px] font-medium px-5 gap-x-2 overflow-scroll overflow-y-hidden relative text-[#353535] mb-3 md:text-xs md:mb-4";
 export const categoryItemStyle =
   "flex items-center rounded-[10px] gap-x-1 px-2 py-1.5 bg-[#EDEDED] text-[#353535] md:py-2 lg:px-3 md:rounded-full duration-300 cursor-pointer";
 

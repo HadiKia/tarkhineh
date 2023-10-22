@@ -12,8 +12,11 @@ const InputDivStyle = "flex flex-col md:flex-row md:gap-x-3 lg:gap-x-6 md:mb-3";
 const inputStyle =
   "w-full outline-none border border-[#CBCBCB] text-sm text-[#353535] placeholder:text-[#717171] placeholder:text-right text-right rounded-md px-3 py-2 md:py-[7px] mb-4 md:text-base";
 const inputErrorStyle = "text-[#C30000] text-[11px] mb-3 text-right mr-1";
+const listBoxLabelStyle =
+  "absolute right-3 -top-2 px-1 text-xs text-[#717171] bg-white";
 const listBoxOptionsStyle =
-  "absolute right-0 left-0 top-12 bg-white border border-[#EDEDED] rounded-md shadow-md h-36 md:h-40 overflow-scroll text-sm md:text-base px-3 py-2 md:py-[7px] text-[#353535] z-10 ";
+  "absolute right-0 left-0 top-12 bg-white border border-[#EDEDED] rounded-md shadow-md h-36 md:h-48  overflow-x-hidden text-sm md:text-base px-3 text-[#353535] z-10";
+const listBoxOptionStyles = "py-[9px] md:px-0.5 cursor-pointer";
 
 const RepresentationRequestForm = () => {
   const [selectedProvince, setSelectedProvince] = useState(provinces[0]);
@@ -130,42 +133,56 @@ const RepresentationRequestForm = () => {
         <div className={InputDivStyle}>
           <Listbox value={selectedProvince} onChange={handleProvinceChange}>
             <div className="relative w-full">
+              <Listbox.Label className={listBoxLabelStyle}>استان</Listbox.Label>
               <Listbox.Button className={inputStyle}>
                 {selectedProvince.name}
               </Listbox.Button>
               <Listbox.Options className={listBoxOptionsStyle}>
-                {provinces.map((province) => (
-                  <Listbox.Option
-                    key={province.id}
-                    value={province}
-                    disabled={province.unavailable}
-                    className="py-2 border-b border-[#EDEDED]"
-                  >
-                    {province.name}
-                  </Listbox.Option>
+                {provinces.map((province, index) => (
+                  <>
+                    <Listbox.Option
+                      key={province.id}
+                      value={province}
+                      disabled={province.unavailable}
+                      className={listBoxOptionStyles}
+                    >
+                      {province.name}
+                    </Listbox.Option>
+                    {index !== provinces.length - 1 && (
+                      <hr className="border-[#EDEDED]" />
+                    )}
+                  </>
                 ))}
               </Listbox.Options>
             </div>
           </Listbox>
+
           <Listbox value={selectedCity} onChange={setSelectedCity}>
             <div className="relative w-full">
+              <Listbox.Label className={listBoxLabelStyle}>شهر</Listbox.Label>
               <Listbox.Button className={inputStyle}>
                 {selectedCity.name}
               </Listbox.Button>
               <Listbox.Options className={listBoxOptionsStyle}>
-                {selectedProvince.counties.map((city) => (
-                  <Listbox.Option
-                    key={city.id}
-                    value={city}
-                    disabled={city.unavailable}
-                    className="py-2 border-b border-[#EDEDED]"
-                  >
-                    {city.name}
-                  </Listbox.Option>
+                {selectedProvince.counties.map((city, index) => (
+                  <>
+                    <Listbox.Option
+                      key={city.id}
+                      value={city}
+                      disabled={city.unavailable}
+                      className={listBoxOptionStyles}
+                    >
+                      {city.name}
+                    </Listbox.Option>
+                    {index !== selectedProvince.counties.length - 1 && (
+                      <hr className="border-[#EDEDED]" />
+                    )}
+                  </>
                 ))}
               </Listbox.Options>
             </div>
           </Listbox>
+
           <div className="w-full">
             <input
               type="text"
