@@ -7,6 +7,7 @@ import showToast from "../helper/showToast";
 import { provinces } from "../helper/cities";
 
 // Styles
+import { buttonStyle } from "./Advice";
 const titleStyle = "text-sm md:text-lg mb-[12.5px] md:mb-[25px] md:font-medium";
 const InputDivStyle = "flex flex-col md:flex-row md:gap-x-3 lg:gap-x-6 md:mb-3";
 const inputStyle =
@@ -17,6 +18,10 @@ const listBoxLabelStyle =
 const listBoxOptionsStyle =
   "absolute right-0 left-0 top-12 bg-white border border-[#EDEDED] rounded-md shadow-md h-36 md:h-48  overflow-x-hidden text-sm md:text-base px-3 text-[#353535] z-10";
 const listBoxOptionStyles = "py-[9px] md:px-0.5 cursor-pointer";
+const checkBoxDivStyle =
+  "flex items-center gap-x-1 md:gap-x-2 text-sm text-[#717171] md:text-base mb-2";
+const inputCheckBoxStyle =
+  "w-3 h-3 md:w-4 md:h-4 rounded-sm md:rounded text-[#417F56] bg-white border-[#417F56] accent-[#417F56]";
 
 const RepresentationRequestForm = () => {
   const [selectedProvince, setSelectedProvince] = useState(provinces[0]);
@@ -47,11 +52,11 @@ const RepresentationRequestForm = () => {
       nationalCode: "",
       address: "",
     },
-    onSubmit: () => adviceClickHandler(),
+    onSubmit: () => registerClickHandler(),
     validationSchema,
   });
 
-  const adviceClickHandler = () => {
+  const registerClickHandler = () => {
     if (
       formik.values.name &&
       formik.values.nationalCode &&
@@ -128,7 +133,7 @@ const RepresentationRequestForm = () => {
         </div>
       </div>
 
-      <div>
+      <div className="mb-1 md:mb-6">
         <h3 className={titleStyle}>آدرس ملک متقاضی</h3>
         <div className={InputDivStyle}>
           <Listbox value={selectedProvince} onChange={handleProvinceChange}>
@@ -200,6 +205,57 @@ const RepresentationRequestForm = () => {
             )}
           </div>
         </div>
+      </div>
+
+      <div className="mb-1 md:mb-10">
+        <h3 className={titleStyle}>امکانات ملک متقاضی</h3>
+        <div className={InputDivStyle}>
+          <div className={checkBoxDivStyle}>
+            <input
+              id="businessLicense"
+              type="checkbox"
+              className={inputCheckBoxStyle}
+            />
+            <label for="businessLicense" className="cursor-pointer">
+              پروانه کسب دارد.
+            </label>
+          </div>
+
+          <div className={checkBoxDivStyle}>
+            <input
+              id="kitchen"
+              type="checkbox"
+              className={inputCheckBoxStyle}
+            />
+            <label for="kitchen" className="cursor-pointer">
+              آشپزخانه دارد.
+            </label>
+          </div>
+
+          <div className={checkBoxDivStyle}>
+            <input
+              id="parking"
+              type="checkbox"
+              className={inputCheckBoxStyle}
+            />
+            <label for="parking" className="cursor-pointer">
+              پارکینگ دارد.
+            </label>
+          </div>
+
+          <div className={checkBoxDivStyle}>
+            <input id="store" type="checkbox" className={inputCheckBoxStyle} />
+            <label for="store" className="cursor-pointer">
+              انبار دارد.
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center">
+        <button onClick={registerClickHandler} className={buttonStyle}>
+          ثبت اطلاعات
+        </button>
       </div>
     </>
   );

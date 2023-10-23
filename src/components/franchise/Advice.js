@@ -11,8 +11,8 @@ import showToast from "../helper/showToast";
 // Styles
 const adviceTitleStyle =
   "mb-4 pt-6 font-bold text-[15px] text-center md:text-xl md:pt-6 md:mb-6";
-const buttonStyle =
-  "px-3 py-2 bg-[#417F56] text-sm text-white font-medium rounded-md md:px-4 md:py-2 md:text-base";
+export const buttonStyle =
+  "px-3 py-2 bg-[#417F56] text-sm text-white font-medium rounded-md md:px-10 md:py-2 md:text-base";
 
 const Advice = () => {
   const phoneReg = "^(\\+98|0)?9\\d{9}$";
