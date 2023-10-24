@@ -19,6 +19,7 @@ import Favorites from "./dashboard/favorites/Favorites";
 import Profile from "./dashboard/profile/Profile";
 import ProfileAddress from "./dashboard/address/ProfileAddress";
 import Franchise from "./components/franchise/Franchise";
+import OrderHistory from "./dashboard/orderHistory/OrderHistory";
 
 import { ToastContainer } from "react-toastify";
 import ScrollToTop from "./components/helper/ScrollToTop";
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/profile" element={<Profile />} />
+          <Route path="/dashboard/order-history" element={<OrderHistory />} />
           <Route path="/dashboard/favorites" element={<Favorites />} />
           <Route path="/dashboard/address" element={<ProfileAddress />} />
           <Route path="/franchise" element={<Franchise />} />

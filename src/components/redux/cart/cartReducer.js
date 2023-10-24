@@ -3,6 +3,7 @@ const initialState = {
   itemsCounter: 0,
   total: 0,
   checkout: false,
+  purchaseHistory: [],
 };
 
 const sumItems = (items) => {
@@ -10,10 +11,15 @@ const sumItems = (items) => {
     (total, product) => total + product.quantity,
     0
   );
-  const total = items
-    .reduce((total, product) => total + product.discountedPrice * product.quantity, 0)
-  const discount = items
-    .reduce((total, product) => total + ((product.price - product.discountedPrice) * product.quantity), 0)
+  const total = items.reduce(
+    (total, product) => total + product.discountedPrice * product.quantity,
+    0
+  );
+  const discount = items.reduce(
+    (total, product) =>
+      total + (product.price - product.discountedPrice) * product.quantity,
+    0
+  );
   return { itemsCounter, total, discount };
 };
 
@@ -63,11 +69,17 @@ const cartReducer = (state = initialState, action) => {
       };
 
     case "CHECKOUT":
+      const newPurchase = {
+        items: state.selectedItems,
+        total: state.total,
+        date: new Date().toLocaleString(),
+      };
       return {
         selectedItems: [],
         itemsCounter: 0,
         total: 0,
         checkout: true,
+        purchaseHistory: [...state.purchaseHistory, newPurchase],
       };
 
     case "CLEAR":

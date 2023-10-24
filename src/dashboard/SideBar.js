@@ -93,7 +93,7 @@ const SideBar = () => {
           ) : (
             <span>{walletIcon}</span>
           )}
-          <span>پیگیری سفارشات</span>
+          <span>تاریخچه سفارشات</span>
         </Link>
 
         <Link
