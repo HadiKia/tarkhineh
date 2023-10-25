@@ -72,7 +72,7 @@ const cartReducer = (state = initialState, action) => {
       const newPurchase = {
         items: state.selectedItems,
         total: state.total,
-        date: new Date().toLocaleString(),
+        date: new Date(),
       };
       return {
         selectedItems: [],
