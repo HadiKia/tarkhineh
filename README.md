@@ -22,6 +22,7 @@
 - Sign Up / Sign Out
 - Add & remove product from cart
 - Add & remove product from favorites
+- View purchase history
 - Minus and plus quantity cart items
 - Product details page
 - Search products
