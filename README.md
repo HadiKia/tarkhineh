@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="screenshot.png" style="border-radius:20px">
+  <img src="screenshot.jpg" style="border-radius:20px">
 </div>
 
 ---
