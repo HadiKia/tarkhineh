@@ -88,7 +88,7 @@ const cartReducer = (state = initialState, action) => {
         itemsCounter: 0,
         total: 0,
         checkout: false,
-        purchaseHistory: [],
+        purchaseHistory: [...state.purchaseHistory],
       };
 
     default:

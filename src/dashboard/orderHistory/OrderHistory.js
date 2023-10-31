@@ -64,7 +64,7 @@ const OrderHistory = () => {
 
         {purchaseHistory.length ? (
           <ul>
-            {purchaseHistory.reverse().map((order, index) => (
+            {purchaseHistory.map((order, index) => (
               <li key={index} className={liMainStyle}>
                 <div className={liTitleDivStyle}>
                   <div className={liTitleDivITemStyle}>
