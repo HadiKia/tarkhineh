@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SideBar from "../SideBar";
 import EmptyAddress from "./EmptyAddress";
 
@@ -30,7 +30,6 @@ import {
 } from "../../components/completion-of-information/Address";
 
 const ProfileAddress = () => {
-  const navigate = useNavigate();
   const [list, setList] = useState([]);
   const [address, setAddress] = useState("");
   const [name, setName] = useState("");
@@ -108,14 +107,14 @@ const ProfileAddress = () => {
       <div className="md:mt-10 flex-1 md:w-[400px] lg:w-[712px] md:border md:border-[#CBCBCB] md:rounded-md md:p-6 md:pb-0 md:mb-12">
         {/* Header */}
         <div
-          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 !mb-0`}
+          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 `}
         >
-          <button
-            onClick={() => navigate("/dashboard")}
+          <Link
+            to="/dashboard"
             className="absolute right-0 md:hidden"
           >
             {arrowRightIcon}
-          </button>
+          </Link>
           <p className="pl-2">آدرس ها</p>
           <button
             onClick={() => setIsCreating(true)}

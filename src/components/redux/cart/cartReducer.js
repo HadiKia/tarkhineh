@@ -29,7 +29,7 @@ const cartReducer = (state = initialState, action) => {
       if (!state.selectedItems.find((item) => item.id === action.payload.id)) {
         state.selectedItems.push({
           ...action.payload,
-          quantity: 1,
+          quantity: 1, 
         });
       }
       return {
@@ -88,6 +88,7 @@ const cartReducer = (state = initialState, action) => {
         itemsCounter: 0,
         total: 0,
         checkout: false,
+        purchaseHistory: [],
       };
 
     default:

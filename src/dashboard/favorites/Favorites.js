@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { categorizeProducts } from "../../components/menu/Foods";
 
@@ -27,7 +27,6 @@ import SearchProduct from "../../components/shared/SearchProduct";
 
 const Favorites = () => {
   const state = useSelector((state) => state.favoriteState);
-  const navigate = useNavigate();
   const categorizedProducts = categorizeProducts(state.selectedItems);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchText, setSearchText] = useState("");
@@ -47,14 +46,11 @@ const Favorites = () => {
       <div className="md:mt-10 flex-1 md:w-[400px] lg:w-[712px] md:border md:border-[#CBCBCB] md:rounded-md md:p-6 md:pb-0 md:mb-12">
         {/* Header */}
         <div
-          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 !mb-5`}
+          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2`}
         >
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="absolute right-0 md:hidden"
-          >
+          <Link to="/dashboard" className="absolute right-0 md:hidden">
             {arrowRightIcon}
-          </button>
+          </Link>
           <p className="pl-2">علاقمندی ها</p>
         </div>
 

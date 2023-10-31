@@ -54,7 +54,7 @@ const OrderHistory = () => {
       <div className={mainStyle}>
         {/* Header */}
         <div
-          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 !mb-5`}
+          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2`}
         >
           <Link to="/dashboard" className="absolute right-0 md:hidden">
             {arrowRightIcon}
@@ -85,7 +85,7 @@ const OrderHistory = () => {
                 <ul className={ulItemStyle}>
                   {order.items.map((item, itemIndex) => (
                     <li key={itemIndex}>
-                      <Link to={`/menu/${item.slug}`} className={liItemStyle}>
+                      <div className={liItemStyle}>
                         <div className="relative">
                           <img
                             src={item.image}
@@ -98,7 +98,7 @@ const OrderHistory = () => {
                         </div>
                         <p className={itemTitleStyle}>{item.title}</p>
                         <p>{convertToFa(item.price)} تومان</p>
-                      </Link>
+                      </div>
                     </li>
                   ))}
                 </ul>

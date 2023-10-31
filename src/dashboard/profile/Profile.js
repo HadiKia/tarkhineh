@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ProfileFormInput from "./ProfileFormInput";
@@ -21,8 +21,6 @@ const saveButtonStyle =
   "border border-[#417F56] bg-[#417F56] rounded text-white px-2 py-1.5  md:py-[7px] w-full md:w-[130px]";
 
 const Profile = () => {
-  const navigate = useNavigate();
-
   const [isDisabled, setIsDisabled] = useState(true);
 
   const phoneReg = "^(\\+98|0)?9\\d{9}$";
@@ -92,14 +90,14 @@ const Profile = () => {
       <div className="md:mt-10 flex-1 md:w-[400px] lg:w-[712px] md:border md:border-[#CBCBCB] md:rounded-md md:p-6 md:pb-0 md:mb-12">
         {/* Header */}
         <div
-          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 !mb-5 md:!mb-10`}
+          className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 md:!mb-10`}
         >
-          <button
-            onClick={() => navigate("/dashboard")}
+          <Link
+            to="/dashboard"
             className="absolute right-0 md:hidden"
           >
             {arrowRightIcon}
-          </button>
+          </Link>
           <p className="pl-2">پروفایل من</p>
         </div>
 
