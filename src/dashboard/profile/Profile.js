@@ -33,11 +33,8 @@ const Profile = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(15, "نام باید کمتر از ۱۵ حرف باشد")
-      .required("وارد کردن نام الزامی است"),
-    lastName: Yup.string()
-      .max(32, "نام خانوادگی باید کمتر از ۳۲ حرف باشد")
-      .required("وارد کردن نام خانوادگی الزامی است"),
+      .max(50, "نام و نام خانوادگی باید کمتر از ۵۰ حرف باشد")
+      .required("وارد کردن نام و نام خانوادگی الزامی است"),
     email: Yup.string().matches(emailReg, "ایمیل وارد شده نامعتبر است"),
     phoneNumber: Yup.string()
       .matches(phoneReg, "شماره همراه وارد شده معتبر نیست")
@@ -47,7 +44,6 @@ const Profile = () => {
   const formik = useFormik({
     initialValues: {
       name: localStorage.getItem("name"),
-      lastName: localStorage.getItem("lastName"),
       email: localStorage.getItem("email") ? localStorage.getItem("email") : "",
       phoneNumber: localStorage.getItem("phoneNumber"),
     },
@@ -58,7 +54,6 @@ const Profile = () => {
   const saveHandler = () => {
     if (formik.isValid) {
       localStorage.setItem("name", formik.values.name);
-      localStorage.setItem("lastName", formik.values.lastName);
       localStorage.setItem("email", formik.values.email);
       localStorage.setItem("phoneNumber", formik.values.phoneNumber);
       setIsDisabled(true);
@@ -67,12 +62,10 @@ const Profile = () => {
 
   const cancelHandler = () => {
     formik.errors.name = null;
-    formik.errors.lastName = null;
     formik.errors.email = null;
     formik.errors.phoneNumber = null;
 
     formik.values.name = localStorage.getItem("name");
-    formik.values.lastName = localStorage.getItem("lastName");
     formik.values.email = localStorage.getItem("email")
       ? localStorage.getItem("email")
       : "";
@@ -92,10 +85,7 @@ const Profile = () => {
         <div
           className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2 md:!mb-10`}
         >
-          <Link
-            to="/dashboard"
-            className="absolute right-0 md:hidden"
-          >
+          <Link to="/dashboard" className="absolute right-0 md:hidden">
             {arrowRightIcon}
           </Link>
           <p className="pl-2">پروفایل من</p>
@@ -106,18 +96,19 @@ const Profile = () => {
           <ProfileFormInput
             isDisabled={isDisabled}
             name="name"
-            placeholder="نام"
+            placeholder="نام و نام خانوادگی"
             formik={formik}
             formikError={formik.errors.name}
             formikTouched={formik.touched.name}
           />
-          <ProfileFormInput
+           <ProfileFormInput
             isDisabled={isDisabled}
-            name="lastName"
-            placeholder="نام خانوادگی"
+            name="phoneNumber"
+            placeholder="شماره همراه"
             formik={formik}
-            formikError={formik.errors.lastName}
-            formikTouched={formik.touched.lastName}
+            formikError={formik.errors.phoneNumber}
+            formikTouched={formik.touched.phoneNumber}
+            dir="ltr"
           />
         </div>
         <div className="md:flex md:items-start md:gap-x-4">
@@ -129,15 +120,7 @@ const Profile = () => {
             formikError={formik.errors.email}
             formikTouched={formik.touched.email}
           />
-          <ProfileFormInput
-            isDisabled={isDisabled}
-            name="phoneNumber"
-            placeholder="شماره همراه"
-            formik={formik}
-            formikError={formik.errors.phoneNumber}
-            formikTouched={formik.touched.phoneNumber}
-            dir="ltr"
-          />
+        <div className="flex-1"></div>
         </div>
 
         <div className="flex justify-center text-sm md:text-base font-medium mt-7">

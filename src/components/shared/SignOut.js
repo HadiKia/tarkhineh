@@ -28,9 +28,9 @@ const SignOut = ({ isOpen, closeModal }) => {
   const handleLogout = () => {
     dispatch(setLoginStatus(false));
     localStorage.removeItem("name");
-    localStorage.removeItem("lastName");
     localStorage.removeItem("email");
     localStorage.removeItem("phoneNumber");
+    localStorage.removeItem("addressList");
     navigate("/home");
   };
 

@@ -37,11 +37,8 @@ const SignUp = ({ isOpen, closeModal }) => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(15, "نام باید کمتر از ۱۵ حرف باشد")
-      .required("وارد کردن نام الزامی است"),
-    lastName: Yup.string()
-      .max(32, "نام خانوادگی باید کمتر از ۳۲ حرف باشد")
-      .required("وارد کردن نام خانوادگی الزامی است"),
+      .max(50, "نام و نام خانوادگی باید کمتر از ۵۰ حرف باشد")
+      .required("وارد کردن نام و نام خانوادگی الزامی است"),
     phoneNumber: Yup.string()
       .matches(phoneRegExp, "شماره همراه وارد شده معتبر نیست")
       .required("وارد کردن شماره همراه الزامی است"),
@@ -50,7 +47,6 @@ const SignUp = ({ isOpen, closeModal }) => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      lastName: "",
       phoneNumber: "",
     },
     onSubmit: () => handleClick(),
@@ -59,7 +55,6 @@ const SignUp = ({ isOpen, closeModal }) => {
 
   const handleRegistration = () => {
     localStorage.setItem("name", formik.values.name);
-    localStorage.setItem("lastName", formik.values.lastName);
     localStorage.setItem("phoneNumber", formik.values.phoneNumber);
     formik.resetForm();
     dispatch(setLoginStatus(true));
@@ -70,7 +65,6 @@ const SignUp = ({ isOpen, closeModal }) => {
     if (
       formik.isValid &&
       formik.values.name &&
-      formik.values.lastName &&
       formik.values.phoneNumber
     ) {
       setIsLoading(true);
@@ -134,30 +128,11 @@ const SignUp = ({ isOpen, closeModal }) => {
                       }
                     />
                     <span className="text-[#353535] text-xs absolute bg-white right-2 -top-2 px-1">
-                      نام
+                      نام و نام خانوادگی
                     </span>
                   </div>
                   {formik.touched.name && formik.errors.name && (
                     <p className={dialogErrorStyle}>{formik.errors.name}</p>
-                  )}
-
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="lastName"
-                      {...formik.getFieldProps("lastName")}
-                      className={
-                        formik.touched.lastName && formik.errors.lastName
-                          ? `${dialogInputStyle}!border-[#C30000] !mb-2`
-                          : dialogInputStyle
-                      }
-                    />
-                    <span className="text-[#353535] text-xs absolute bg-white right-2 -top-2 px-1">
-                      نام خانوادگی
-                    </span>
-                  </div>
-                  {formik.touched.lastName && formik.errors.lastName && (
-                    <p className={dialogErrorStyle}>{formik.errors.lastName}</p>
                   )}
 
                   <div className="relative">
@@ -189,7 +164,6 @@ const SignUp = ({ isOpen, closeModal }) => {
                     variant="contained"
                     className={
                       formik.values.name &&
-                      formik.values.lastName &&
                       formik.values.phoneNumber
                         ? `${dialogButtonStyle} !bg-[#417F56] !text-white`
                         : dialogButtonStyle

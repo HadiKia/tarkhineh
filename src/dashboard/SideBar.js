@@ -50,9 +50,8 @@ const SideBar = () => {
       <div className={headerStyle}>
         <img src={profileImg} alt="profile" className={profileImgStyle} />
         <div className={headerInfoStyle}>
-          <p className="text-[#353535] flex flex-wrap gap-x-1 text-sm">
-            <span>{localStorage.getItem("name")}</span>
-            <span>{localStorage.getItem("lastName")}</span>
+          <p className="text-[#353535] text-sm">
+           {localStorage.getItem("name")}
           </p>
           <span
             dir="ltr"
