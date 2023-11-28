@@ -16,9 +16,13 @@ const showToast = (message, type = "success") => {
     icon: false,
     transition: Slide,
     closeButton: CloseButton,
-    autoClose: 2000,
+    autoClose: 1500,
     rtl: true,
   };
+  
+  const toastId = message + type;
+  config.toastId = toastId;
+
   if (type === "success") {
     toast.success(message, {
       ...config,

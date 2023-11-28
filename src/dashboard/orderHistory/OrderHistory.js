@@ -24,7 +24,7 @@ const liTitleDivStyle = "flex flex-col gap-y-2 mb-4";
 const liTitleDivITemStyle =
   "flex items-center gap-x-1 text-xs text-[#717171] md:text-sm";
 const ulItemStyle =
-  "flex overflow-auto overflow-y-hidden gap-x-2 pb-2 md:pb-4 md:gap-x-3";
+  "flex overflow-auto overflow-y-hidden gap-x-2 pb-1 md:pb-4 md:gap-x-3";
 const liItemStyle =
   "h-[132px] md:h-[170px] border rounded-lg border-[#CBCBCB] overflow-hidden text-xs text-[#353535] flex flex-col items-center justify-between gap-y-1 pb-2 md:text-sm";
 const itemImgStyle = "w-[90px] h-[70px] md:w-[150px] md:h-[110px]";
@@ -64,15 +64,15 @@ const OrderHistory = () => {
 
         {purchaseHistory.length ? (
           <ul>
-            {purchaseHistory.map((order, index) => (
+            {purchaseHistory.reverse().map((order, index) => (
               <li key={index} className={liMainStyle}>
                 <div className={liTitleDivStyle}>
                   <div className={liTitleDivITemStyle}>
                     <span className="md:scale-110">{calendarIcon}</span>
                     <span>
-                      تاریخ:
+                      تاریخ: 
                       {moment(order.date).format(
-                        "dddd jYYYY/jMM/jDD - ساعت: HH:mm "
+                        " dddd jYYYY/jMM/jDD - ساعت: HH:mm "
                       )}
                     </span>
                   </div>

@@ -69,9 +69,9 @@ const Foods = () => {
       <div className="bg-[#EDEDED] text-[#717171]">
         <div className={tabGroupStyle}>
           <button className={tabGroupItemStyle}>غذای اصلی</button>
-          <button>پیش غذا</button>
-          <button>دسر</button>
-          <button>نوشیدنی</button>
+          <button className="py-[.6em]">پیش غذا</button>
+          <button className="py-[.6em]">دسر</button>
+          <button className="py-[.6em]">نوشیدنی</button>
         </div>
       </div>
 
