@@ -6,8 +6,6 @@ import {
   searchProducts,
 } from "../../components/helper/functions";
 
-import { categorizeProducts } from "../../components/menu/Foods";
-
 // Components
 import SideBar from "../SideBar";
 import EmptyFavorites from "./EmptyFavorites";
@@ -33,12 +31,8 @@ const Favorites = () => {
   const productsState = useSelector((state) => state.favoriteState);
   const [displayed, setDisplayed] = useState([]);
 
-  console.log(productsState);
-
   const [query, setQuery] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
-
-  let foundResults = false;
 
   useEffect(() => {
     setDisplayed(productsState.selectedItems);
@@ -62,7 +56,7 @@ const Favorites = () => {
         <SideBar />
       </div>
 
-      <div className="md:mt-10 flex-1 md:w-[400px] lg:w-[712px] md:border md:border-[#CBCBCB] md:rounded-md md:p-6 md:pb-0 md:mb-12">
+      <div className="md:mt-10 flex-1 md:w-[400px] lg:w-[712px] md:border md:border-[#CBCBCB] md:rounded-md md:p-6 md:mb-12">
         {/* Header */}
         <div
           className={`${headerStyle} md:!block !justify-center relative mt-6 md:mt-0 md:text-[22px] md:border-b md:border-[#CBCBCB] md:pb-2`}
@@ -82,24 +76,29 @@ const Favorites = () => {
           <SearchProduct setQuery={setQuery} />
         </div>
 
-        <div
-          className={` ${mainContainerStyle} !grid-cols-2 xl:!grid-cols-3 !gap-x-4 !gap-y-5 !mb-5 !mx-0`}
-        >
-          {displayed.map((product) => (
-            <Favorite key={product.id} productData={product} />
-          ))}
-        </div>
-        {/* 
-            {!foundResults && (
-              <div className={notFoundResultsStyle}>
-                <h3>موردی با این مشخصات پیدا نکردیم!</h3>
-                <img
-                  src={notFoundImg}
-                  alt="not found"
-                  className="w-[152px] md:w-[390px]"
-                />
-              </div>
-            )} */}
+        {displayed.length ? (
+          <div
+            className={` ${mainContainerStyle} !grid-cols-2 xl:!grid-cols-3 !gap-x-4 !gap-y-5 !mb-5 !mx-0`}
+          >
+            {displayed.map((product) => (
+              <Favorite key={product.id} productData={product} />
+            ))}
+          </div>
+        ) : (
+          query.search &&
+          !displayed.length && (
+            <div className={notFoundResultsStyle}>
+              <h3>موردی با این مشخصات پیدا نکردیم!</h3>
+              <img
+                src={notFoundImg}
+                alt="not found"
+                className="w-[152px] md:w-[390px]"
+              />
+            </div>
+          )
+        )}
+
+        {!displayed.length && !query.search && <EmptyFavorites />}
       </div>
     </div>
   );
