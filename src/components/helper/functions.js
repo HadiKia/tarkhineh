@@ -53,6 +53,37 @@ const enToFa = (number) => {
   return persianNumber;
 };
 
+const searchProducts = (products, search) => {
+  if (!search) return products;
+
+  const searchedProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(search)
+  );
+
+  return searchedProducts;
+};
+
+const filterProducts = (products, category) => {
+  if (!category) return products;
+  const filteredProducts = products.filter(
+    (product) => product.category === category
+  );
+  return filteredProducts;
+};
+
+const createQueryObject = (currentQuery, newQuery) => {
+  if (newQuery.category === "همه") {
+    const { category, ...rest } = currentQuery;
+    return rest;
+  }
+
+  if (newQuery.search === "") {
+    const { search, ...rest } = currentQuery;
+    return rest;
+  }
+  return { ...currentQuery, ...newQuery };
+};
+
 const isInCart = (state, id) => {
   const result = !!state.selectedItems.find((item) => item.id === id);
   return result;
@@ -72,4 +103,13 @@ const quantityCount = (state, id) => {
   }
 };
 
-export { convertToFa, enToFa, isInCart, isInFavorite, quantityCount };
+export {
+  convertToFa,
+  enToFa,
+  searchProducts,
+  filterProducts,
+  createQueryObject,
+  isInCart,
+  isInFavorite,
+  quantityCount,
+};

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Banner from "../shared/Banner";
 import Food from "./Food";
 import Category from "../shared/Category";
 import ReactLoading from "react-loading";
+import { filterProducts, searchProducts } from "../helper/functions";
 
 // Redux
 import { fetchProducts } from "../redux/products/productsAction";
@@ -18,7 +20,6 @@ import {
 } from "../../icons/foodsPageIcons";
 
 // styles
-import { Link } from "react-router-dom";
 import SearchProduct from "../shared/SearchProduct";
 const tabGroupStyle =
   "container max-w-[1224px] mx-auto flex items-center justify-start px-5 text-[13px] gap-x-4 mb-2 md:text-base";
@@ -28,31 +29,22 @@ const cartButtonStyle =
   "absolute left-5 -top-1.5 flex items-center gap-x-1 text-[#417F56] py-1.5 px-2 text-sm border border-[#417F56] rounded-md md:gap-x-2 md:px-7 md:text-base md:rounded lg:py-[7px] lg:px-7 xl:py-2 xl:px-8";
 export const mainContainerStyle =
   "mx-5 mb-6 grid grid-cols-1 md:grid-cols-2 gap-y-3 md:gap-6 md:mb-11 ";
-const categoryTitleStyle =
-  "text-[#353535] font-bold text-lg md:col-span-2 md:text-xl xl:text-2xl";
+
 export const notFoundResultsStyle =
   "min-h-[calc(100vh_-_590px)] sm:min-h-[calc(100vh_-_670px)] text-[#353535] flex flex-col justify-center items-center gap-y-4 text-sm my-14 sm:mt-20 md:text-xl md:gap-y-8";
 
 export const categorizeProducts = (products) => {
   const categorized = {};
 
-  products.forEach((product) => {
-    if (categorized[product.category]) {
-      categorized[product.category].push(product);
-    } else {
-      categorized[product.category] = [product];
-    }
-  });
-
   return categorized;
 };
 
 const Foods = () => {
-  const [searchText, setSearchText] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
   const dispatch = useDispatch();
   const productsState = useSelector((state) => state.productsState);
-  const categorizedProducts = categorizeProducts(productsState.products);
+  const [displayed, setDisplayed] = useState([]);
+  const [query, setQuery] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
 
   let foundResults = false;
 
@@ -60,6 +52,18 @@ const Foods = () => {
     if (!productsState.products.length) dispatch(fetchProducts());
     document.title = "منو";
   }, [dispatch, productsState.products.length]);
+
+  useEffect(() => {
+    setDisplayed(productsState.products);
+  }, [productsState]);
+
+  useEffect(() => {
+    setSearchParams(query);
+    let finalProducts = searchProducts(productsState.products, query.search);
+    finalProducts = filterProducts(finalProducts, query.category);
+
+    setDisplayed(finalProducts);
+  }, [query]);
 
   return (
     <>
@@ -77,22 +81,16 @@ const Foods = () => {
 
       <div className="container max-w-[1224px] mx-auto flex flex-col md:flex-row md:mb-7 md:justify-between">
         {/* category box */}
-        <Category
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
+        <Category setQuery={setQuery} />
 
         {/* search box */}
         <div className="px-5">
-          <SearchProduct
-            searchText={searchText}
-            setSearchText={setSearchText}
-          />
+          <SearchProduct setQuery={setQuery}  />
         </div>
       </div>
 
       {/* shopping cart button */}
-      <div className="relative container max-w-[1224px] mx-auto">
+      <div className="relative container max-w-[1224px] mx-auto mb-24">
         <Link to="/cart" className={cartButtonStyle}>
           <span className="md:hidden">{shoppingCartIcon}</span>
           <span className="hidden md:block">{shoppingCartDesktopIcon}</span>
@@ -123,31 +121,15 @@ const Foods = () => {
       ) : productsState.error ? (
         <h2 className="h-screen">{productsState.error}</h2>
       ) : (
-        Object.keys(categorizedProducts).map((category) => {
-          const filteredProducts = categorizedProducts[category].filter(
-            (product) =>
-              (selectedCategory === "all" ||
-                product.category === selectedCategory) &&
-              product.title.includes(searchText)
-          );
-
-          if (filteredProducts.length > 0) {
-            foundResults = true;
-            return (
-              <div className="container max-w-[1224px] mx-auto" key={category}>
-                <div key={category} className={mainContainerStyle}>
-                  <h3 className={categoryTitleStyle}>{category}</h3>
-                  {filteredProducts.map((product) => (
-                    <Food key={product.id} productData={product} />
-                  ))}
-                </div>
-              </div>
-            );
-          }
-          return null;
-        })
+        <div className="container max-w-[1224px] mx-auto">
+          <div className={mainContainerStyle}>
+            {displayed.map((product) => (
+              <Food key={product.id} productData={product} />
+            ))}
+          </div>
+        </div>
       )}
-      {!foundResults && !productsState.loading && (
+      {/* {!foundResults && !productsState.loading && (
         <div className={notFoundResultsStyle}>
           <h3>موردی با این مشخصات پیدا نکردیم!</h3>
           <img
@@ -156,7 +138,7 @@ const Foods = () => {
             className="w-[152px] md:w-[390px]"
           />
         </div>
-      )}
+      )} */}
     </>
   );
 };

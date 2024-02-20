@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  filterProducts,
+  searchProducts,
+} from "../../components/helper/functions";
 
 import { categorizeProducts } from "../../components/menu/Foods";
 
@@ -26,19 +30,34 @@ import {
 import SearchProduct from "../../components/shared/SearchProduct";
 
 const Favorites = () => {
-  const state = useSelector((state) => state.favoriteState);
-  const categorizedProducts = categorizeProducts(state.selectedItems);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [searchText, setSearchText] = useState("");
+  const productsState = useSelector((state) => state.favoriteState);
+  const [displayed, setDisplayed] = useState([]);
+
+  console.log(productsState);
+
+  const [query, setQuery] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
 
   let foundResults = false;
 
   useEffect(() => {
+    setDisplayed(productsState.selectedItems);
     document.title = "علاقمندی ها";
-  }, []);
+  }, [productsState]);
+
+  useEffect(() => {
+    setSearchParams(query);
+    let finalProducts = searchProducts(
+      productsState.selectedItems,
+      query.search
+    );
+    finalProducts = filterProducts(finalProducts, query.category);
+
+    setDisplayed(finalProducts);
+  }, [query]);
 
   return (
-    <div className="container max-w-[1224px] mx-auto px-5 min-h-[calc(100vh_-_239px)] md:min-h-[calc(100vh_-_466px)] md:flex md:gap-x-6">
+    <div className="container max-w-[1224px] mx-auto px-5 min-h-[calc(100vh_-_239px)] md:min-h-[calc(100vh_-_434px)] md:flex md:gap-x-6">
       <div className="hidden md:block flex-1 md:max-w-[182px] lg:max-w-[248px]">
         <SideBar />
       </div>
@@ -53,46 +72,24 @@ const Favorites = () => {
           </Link>
           <p className="pl-2">علاقمندی ها</p>
         </div>
+        <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-2 md:mb-7 ">
+          {/* category box */}
+          <div className="-mx-5 hidden md:block">
+            <Category setQuery={setQuery} />
+          </div>
 
-        {state.selectedItems.length ? (
-          <>
-            <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-2 md:mb-7 ">
-              {/* category box */}
-              <div className="-mx-5 hidden md:block">
-                <Category
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
-                />
-              </div>
+          {/* search box */}
+          <SearchProduct setQuery={setQuery} />
+        </div>
 
-              {/* search box */}
-              <SearchProduct
-                searchText={searchText}
-                setSearchText={setSearchText}
-              />
-            </div>
-
-            <div
-              className={` ${mainContainerStyle} !grid-cols-2 xl:!grid-cols-3 !gap-x-4 !gap-y-5 !mb-5 !mx-0`}
-            >
-              {Object.keys(categorizedProducts).map((category) => {
-                const filteredProducts = categorizedProducts[category].filter(
-                  (product) =>
-                    (selectedCategory === "all" ||
-                      product.category === selectedCategory) &&
-                    product.title.includes(searchText)
-                );
-
-                if (filteredProducts.length > 0) {
-                  foundResults = true;
-                  return filteredProducts.map((product) => (
-                    <Favorite key={product.id} productData={product} />
-                  ));
-                }
-                return null;
-              })}
-            </div>
-
+        <div
+          className={` ${mainContainerStyle} !grid-cols-2 xl:!grid-cols-3 !gap-x-4 !gap-y-5 !mb-5 !mx-0`}
+        >
+          {displayed.map((product) => (
+            <Favorite key={product.id} productData={product} />
+          ))}
+        </div>
+        {/* 
             {!foundResults && (
               <div className={notFoundResultsStyle}>
                 <h3>موردی با این مشخصات پیدا نکردیم!</h3>
@@ -102,13 +99,7 @@ const Favorites = () => {
                   className="w-[152px] md:w-[390px]"
                 />
               </div>
-            )}
-          </>
-        ) : (
-          <div className="md:mt-2 mb-10">
-            <EmptyFavorites />{" "}
-          </div>
-        )}
+            )} */}
       </div>
     </div>
   );

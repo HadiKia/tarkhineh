@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { createQueryObject } from "../helper/functions";
 // Icons
 import { searchIcon } from "../../icons/homePageIcons";
 import { searchDesktopIcon } from "../../icons/foodsPageIcons";
@@ -9,19 +9,28 @@ export const searchBoxStyle =
 export const inputSearchStyle =
   "bg-transparent w-full pl-2 outline-none text-[#353535] text-sm placeholder:text-xs placeholder:text-[#353535]";
 
-const SearchProduct = ({ searchText, setSearchText }) => {
+const SearchProduct = ({ setQuery }) => {
+  const [search, setSearch] = useState("");
+
+  const searchHandler = (event) => {
+    event.preventDefault();
+    setQuery((query) => createQueryObject(query, { search }));
+  };
+
   return (
-    <div className={searchBoxStyle}>
+    <form className={searchBoxStyle} onSubmit={searchHandler}>
       <input
         type="text"
         placeholder="جستجو"
         className={inputSearchStyle}
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
-      <span className="lg:hidden">{searchIcon}</span>
-      <span className="hidden lg:block">{searchDesktopIcon}</span>
-    </div>
+      <button>
+        <span className="lg:hidden">{searchIcon}</span>
+        <span className="hidden lg:block">{searchDesktopIcon}</span>
+      </button>
+    </form>
   );
 };
 
