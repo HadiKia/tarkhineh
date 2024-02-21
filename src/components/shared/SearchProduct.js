@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createQueryObject } from "../helper/functions";
 // Icons
 import { searchIcon } from "../../icons/homePageIcons";
@@ -9,8 +9,12 @@ export const searchBoxStyle =
 export const inputSearchStyle =
   "bg-transparent w-full pl-2 outline-none text-[#353535] text-sm placeholder:text-xs placeholder:text-[#353535]";
 
-const SearchProduct = ({ setQuery }) => {
+const SearchProduct = ({ query, setQuery }) => {
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    setSearch(query.search || "");
+  }, [query]);
 
   const searchHandler = (event) => {
     event.preventDefault();

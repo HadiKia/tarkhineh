@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import {
   filterProducts,
   searchProducts,
+  getInitialQuery,
 } from "../../components/helper/functions";
 
 // Components
@@ -35,8 +36,9 @@ const Favorites = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    setDisplayed(productsState.selectedItems);
     document.title = "علاقمندی ها";
+    setDisplayed(productsState.selectedItems);
+    setQuery(getInitialQuery(searchParams));
   }, [productsState]);
 
   useEffect(() => {
@@ -73,7 +75,7 @@ const Favorites = () => {
           </div>
 
           {/* search box */}
-          <SearchProduct setQuery={setQuery} />
+          <SearchProduct query={query} setQuery={setQuery} />
         </div>
 
         {displayed.length ? (

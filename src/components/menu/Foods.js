@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Banner from "../shared/Banner";
 import Food from "./Food";
 import Category from "../shared/Category";
 import ReactLoading from "react-loading";
-import { filterProducts, searchProducts } from "../helper/functions";
+import {
+  filterProducts,
+  searchProducts,
+  getInitialQuery,
+} from "../helper/functions";
 
 // Redux
 import { fetchProducts } from "../redux/products/productsAction";
@@ -38,6 +42,7 @@ const Foods = () => {
 
   useEffect(() => {
     setDisplayed(productsState.products);
+    setQuery(getInitialQuery(searchParams));
   }, [productsState]);
 
   useEffect(() => {
@@ -68,7 +73,7 @@ const Foods = () => {
 
         {/* search box */}
         <div className="px-5">
-          <SearchProduct setQuery={setQuery} />
+          <SearchProduct query={query} setQuery={setQuery} />
         </div>
       </div>
 
