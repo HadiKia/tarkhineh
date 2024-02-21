@@ -39,8 +39,7 @@ const topBarStyle =
 const topBarTitleStyle = "font-bold flex-1 text-center pl-10 text-xl";
 const mainStyle =
   "container max-w-[1224px] mx-auto px-5 text-[#353535] md:flex md:gap-x-4";
-const imgStyle =
-  "w-full h-[205px] rounded-lg mb-[17px] md:w-[350px] md:h-[220px] lg:w-[450px] lg:h-[320px]";
+const imgStyle = "w-full  rounded-lg mb-[17px] md:w-[350px]";
 const mainHeaderStyle = "flex items-center justify-between mb-[17px] px-0.5";
 const mainHeaderH3Style = "font-bold text-lg md:text-2xl";
 const foodDetailsStyle =
@@ -93,7 +92,12 @@ const FoodDetails = () => {
     <div className="min-h-[calc(100vh_-_200px)] mb-10 md:min-h-[calc(100vh_-_474px)]">
       <div className="bg-[#417F56]">
         <div className={topBarStyle}>
-          <button onClick={() => navigate(-1)}>{arrowRightIcon}</button>
+          <button
+            onClick={() => navigate(-1)}
+            className="md:scale-110 lg:scale-125"
+          >
+            {arrowRightIcon}
+          </button>
           <h3 className={topBarTitleStyle}>جزئیات محصول</h3>
         </div>
       </div>

@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { Listbox } from "@headlessui/react";
 
 import showToast from "../helper/showToast";
-import { provinces } from "../helper/cities";
+import { provinces } from "../../constants/cities";
 
 // Styles
 import { buttonStyle } from "./Advice";

@@ -69,22 +69,13 @@ const Foods = () => {
 
       <div className="container max-w-[1224px] mx-auto flex flex-col md:flex-row lg:mt-3.5 lg:mb-3.5 md:justify-between">
         {/* category box */}
-        <Category setQuery={setQuery} />
+        <Category query={query} setQuery={setQuery} />
 
         {/* search box */}
         <div className="px-5">
           <SearchProduct query={query} setQuery={setQuery} />
         </div>
       </div>
-
-      {/* shopping cart button */}
-      {/* <div className="relative container max-w-[1224px] mx-auto mb-10 md:mb-20 xl:mb-[84px]">
-        <Link to="/cart" className={cartButtonStyle}>
-          <span className="md:hidden">{shoppingCartIcon}</span>
-          <span className="hidden md:block">{shoppingCartDesktopIcon}</span>
-          <span>تکمیل خرید</span>
-        </Link>
-      </div> */}
 
       {/* products */}
       {productsState.loading ? (

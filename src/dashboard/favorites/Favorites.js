@@ -71,7 +71,7 @@ const Favorites = () => {
         <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-2 md:mb-7 ">
           {/* category box */}
           <div className="-mx-5 hidden md:block">
-            <Category setQuery={setQuery} />
+            <Category query={query} setQuery={setQuery} />
           </div>
 
           {/* search box */}
