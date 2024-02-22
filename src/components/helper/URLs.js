@@ -1,27 +1,27 @@
 const headerURLs = {
-  home: "https://tarkhineh-app.netlify.app/home",
-  menu: "https://tarkhineh-app.netlify.app/menu",
-  aboutUs: "https://tarkhineh-app.netlify.app/about-us",
-  contactUs: "https://tarkhineh-app.netlify.app/contact-us",
-  franchise: "https://tarkhineh-app.netlify.app/franchise",
+  home: "https://tarkhineh-app.liara.run/home",
+  menu: "https://tarkhineh-app.liara.run/menu",
+  aboutUs: "https://tarkhineh-app.liara.run/about-us",
+  contactUs: "https://tarkhineh-app.liara.run/contact-us",
+  franchise: "https://tarkhineh-app.liara.run/franchise",
 };
 
 const headerButtonURLs = [
-  "https://tarkhineh-app.netlify.app/cart",
-  "https://tarkhineh-app.netlify.app/completion-of-information",
-  "https://tarkhineh-app.netlify.app/payment",
-  "https://tarkhineh-app.netlify.app/dashboard",
-  "https://tarkhineh-app.netlify.app/dashboard/profile",
-  "https://tarkhineh-app.netlify.app/dashboard/order-history",
-  "https://tarkhineh-app.netlify.app/dashboard/favorites",
-  "https://tarkhineh-app.netlify.app/dashboard/address",
+  "https://tarkhineh-app.liara.run/cart",
+  "https://tarkhineh-app.liara.run/completion-of-information",
+  "https://tarkhineh-app.liara.run/payment",
+  "https://tarkhineh-app.liara.run/dashboard",
+  "https://tarkhineh-app.liara.run/dashboard/profile",
+  "https://tarkhineh-app.liara.run/dashboard/order-history",
+  "https://tarkhineh-app.liara.run/dashboard/favorites",
+  "https://tarkhineh-app.liara.run/dashboard/address",
 ];
 
 const sideBarURLs = {
-  profile: "https://tarkhineh-app.netlify.app/dashboard/profile",
-  orderHistory: "https://tarkhineh-app.netlify.app/dashboard/order-history",
-  favorites: "https://tarkhineh-app.netlify.app/dashboard/favorites",
-  address: "https://tarkhineh-app.netlify.app/dashboard/address",
+  profile: "https://tarkhineh-app.liara.run/dashboard/profile",
+  orderHistory: "https://tarkhineh-app.liara.run/dashboard/order-history",
+  favorites: "https://tarkhineh-app.liara.run/dashboard/favorites",
+  address: "https://tarkhineh-app.liara.run/dashboard/address",
 };
 
 export { headerURLs, headerButtonURLs, sideBarURLs };
