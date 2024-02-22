@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Banner from "../shared/Banner";
 import Food from "./Food";
 import Category from "../shared/Category";
-import ReactLoading from "react-loading";
+import { RotatingLines } from "react-loader-spinner";
+
 import {
   filterProducts,
   searchProducts,
@@ -24,7 +25,7 @@ const tabGroupStyle =
 const tabGroupItemStyle =
   "font-semibold text-sm border-b border-[#417F56] py-[.6em] text-[#417F56] md:py-[1.188em] md:text-base md:border-b-2";
 export const mainContainerStyle =
-  "mx-5 mb-6 grid grid-cols-1 md:grid-cols-2 gap-y-3 md:gap-6 md:mb-11 ";
+  "mx-5 mb-6 grid grid-cols-1 md:grid-cols-2 gap-y-3 md:gap-6 md:mb-11";
 export const notFoundResultsStyle =
   "min-h-[calc(100vh_-_590px)] sm:min-h-[calc(100vh_-_670px)] text-[#353535] flex flex-col justify-center items-center gap-y-4 text-sm my-14 sm:mt-20 md:text-xl md:gap-y-8";
 
@@ -80,20 +81,13 @@ const Foods = () => {
       {/* products */}
       {productsState.loading ? (
         <>
-          <div className="min-h-[calc(100vh_-_575px)] sm:min-h-[calc(100vh_-_615px)] flex justify-center mt-10 sm:mt-20 md:hidden">
-            <ReactLoading
-              type="bubbles"
-              color="#417F56"
-              height={60}
-              width={60}
-            />
-          </div>
-          <div className="hidden min-h-[calc(100vh_-_60vh)]  md:flex justify-center mt-32 ">
-            <ReactLoading
-              type="bubbles"
-              color="#417F56"
-              height={75}
-              width={75}
+          <div className="min-h-[calc(100vh_-_535px)] flex justify-center">
+            <RotatingLines
+              height="50"
+              width="50"
+              strokeColor="#417F56"
+              strokeWidth="2"
+              animationDuration="2"
             />
           </div>
         </>
@@ -107,7 +101,7 @@ const Foods = () => {
             ))}
           </div>
         </div>
-      ) : (
+      ) : query.search && (
         <div className={notFoundResultsStyle}>
           <h3>موردی با این مشخصات پیدا نکردیم!</h3>
           <img

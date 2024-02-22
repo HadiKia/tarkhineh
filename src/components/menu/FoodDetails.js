@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { useSelector, useDispatch } from "react-redux";
 import showToast from "../helper/showToast";
 import "react-toastify/dist/ReactToastify.css";
+import { RotatingLines } from "react-loader-spinner";
 
 import { rating, ratingDesktop } from "./Food";
 
@@ -14,6 +15,8 @@ import {
   isInFavorite,
   quantityCount,
 } from "../helper/functions";
+
+import { fetchProducts } from "../redux/products/productsAction";
 
 // Actions
 import {
@@ -62,13 +65,17 @@ const FoodDetails = () => {
   const { slug } = useParams();
   const products = useSelector((state) => state.productsState.products);
   const product = products.find((item) => item.slug === slug);
-  const { title, discountedPrice, description, image, id } = product;
+  // const { title, discountedPrice, description, image, id } = product;
   const navigate = useNavigate();
 
   const state = useSelector((state) => state.cartState);
   const favorite = useSelector((state) => state.favoriteState);
   const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
 
   const likeItem = () => {
     if (isLoggedIn) {
@@ -101,84 +108,98 @@ const FoodDetails = () => {
           <h3 className={topBarTitleStyle}>جزئیات محصول</h3>
         </div>
       </div>
-      <div className={mainStyle}>
-        <img src={image} alt={title} className={imgStyle} />
-        <div className="md:flex-1 ">
-          <div className={mainHeaderStyle}>
-            <h3 className={mainHeaderH3Style}>{title}</h3>
+      {!product ? (
+        <>
+          <div className="flex justify-center mt-52 md:pb-52">
+            <RotatingLines
+              height="50"
+              width="50"
+              strokeColor="#417F56"
+              strokeWidth="2"
+              animationDuration="2"
+            />
+          </div>
+        </>
+      ) : (
+        <div className={mainStyle}>
+          <img src={product.image} alt={product.title} className={imgStyle} />
+          <div className="md:flex-1 ">
+            <div className={mainHeaderStyle}>
+              <h3 className={mainHeaderH3Style}>{product.title}</h3>
 
-            <div className="flex items-center gap-x-4 text-[#717171]">
-              {isInFavorite(favorite, id) && isLoggedIn ? (
+              <div className="flex items-center gap-x-4 text-[#717171]">
+                {isInFavorite(favorite, product.id) && isLoggedIn ? (
+                  <button
+                    className="scale-[1.65]"
+                    onClick={() => dispatch(dislikeItem(product))}
+                  >
+                    {likeRedIcon}
+                  </button>
+                ) : (
+                  <button className="scale-[1.5]" onClick={likeItem}>
+                    {likeIcon}
+                  </button>
+                )}
+                <Link to="/cart" className="scale-[1.5]">
+                  {shoppingCartIcon}
+                </Link>
+              </div>
+            </div>
+            <div className={foodDetailsStyle}>
+              <p className={foodDetailsContentsStyle}>محتویات</p>
+              <p className={descriptionStyle}>{product.description}</p>
+              <div className={ratingDivStyle}>
+                <span>امتیاز</span>
+                <div className="lg:hidden">
+                  <ReactStars {...rating} />
+                </div>
+                <div className="hidden lg:block">
+                  <ReactStars {...ratingDesktop} />
+                </div>
+              </div>
+              <div className={discountedDivStyle}>
+                <span>قیمت</span>
+                <span>{convertToFa(product.discountedPrice)} تومان</span>
+              </div>
+            </div>
+            <div className={quantityCountDivStyle}>
+              {isInCart(state, product.id) && isLoggedIn ? (
                 <button
-                  className="scale-[1.65]"
-                  onClick={() => dispatch(dislikeItem(product))}
+                  onClick={() => dispatch(increase(product))}
+                  className={quantityCountButtonStyle}
                 >
-                  {likeRedIcon}
+                  +
                 </button>
               ) : (
-                <button className="scale-[1.5]" onClick={likeItem}>
-                  {likeIcon}
+                <button className={addToCartButtonStyle} onClick={addToCart}>
+                  افزودن به سبد خرید
                 </button>
               )}
-              <Link to="/cart" className="scale-[1.5]">
-                {shoppingCartIcon}
-              </Link>
+              {quantityCount(state, product.id) > 0 && isLoggedIn && (
+                <span className="text-[#417F56] font-semibold mt-1 md:text-lg">
+                  {convertToFa(quantityCount(state, product.id))}
+                </span>
+              )}
+              {quantityCount(state, product.id) === 1 && isLoggedIn && (
+                <button
+                  onClick={() => dispatch(removeItem(product))}
+                  className={quantityCountButtonStyle}
+                >
+                  {trashIcon}
+                </button>
+              )}
+              {quantityCount(state, product.id) > 1 && isLoggedIn && (
+                <button
+                  onClick={() => dispatch(decrease(product))}
+                  className={quantityCountButtonStyle}
+                >
+                  -
+                </button>
+              )}
             </div>
-          </div>
-          <div className={foodDetailsStyle}>
-            <p className={foodDetailsContentsStyle}>محتویات</p>
-            <p className={descriptionStyle}>{description}</p>
-            <div className={ratingDivStyle}>
-              <span>امتیاز</span>
-              <div className="lg:hidden">
-                <ReactStars {...rating} />
-              </div>
-              <div className="hidden lg:block">
-                <ReactStars {...ratingDesktop} />
-              </div>
-            </div>
-            <div className={discountedDivStyle}>
-              <span>قیمت</span>
-              <span>{convertToFa(discountedPrice)} تومان</span>
-            </div>
-          </div>
-          <div className={quantityCountDivStyle}>
-            {isInCart(state, id) && isLoggedIn ? (
-              <button
-                onClick={() => dispatch(increase(product))}
-                className={quantityCountButtonStyle}
-              >
-                +
-              </button>
-            ) : (
-              <button className={addToCartButtonStyle} onClick={addToCart}>
-                افزودن به سبد خرید
-              </button>
-            )}
-            {quantityCount(state, id) > 0 && isLoggedIn && (
-              <span className="text-[#417F56] font-semibold mt-1 md:text-lg">
-                {convertToFa(quantityCount(state, id))}
-              </span>
-            )}
-            {quantityCount(state, id) === 1 && isLoggedIn && (
-              <button
-                onClick={() => dispatch(removeItem(product))}
-                className={quantityCountButtonStyle}
-              >
-                {trashIcon}
-              </button>
-            )}
-            {quantityCount(state, id) > 1 && isLoggedIn && (
-              <button
-                onClick={() => dispatch(decrease(product))}
-                className={quantityCountButtonStyle}
-              >
-                -
-              </button>
-            )}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
