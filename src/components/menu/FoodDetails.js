@@ -65,7 +65,6 @@ const FoodDetails = () => {
   const { slug } = useParams();
   const products = useSelector((state) => state.productsState.products);
   const product = products.find((item) => item.slug === slug);
-  // const { title, discountedPrice, description, image, id } = product;
   const navigate = useNavigate();
 
   const state = useSelector((state) => state.cartState);
@@ -109,17 +108,15 @@ const FoodDetails = () => {
         </div>
       </div>
       {!product ? (
-        <>
-          <div className="flex justify-center mt-52 md:pb-52">
-            <RotatingLines
-              height="50"
-              width="50"
-              strokeColor="#417F56"
-              strokeWidth="2"
-              animationDuration="2"
-            />
-          </div>
-        </>
+        <div className="flex justify-center mt-52 md:mt-32 lg:mt-42 md:pb-50">
+          <RotatingLines
+            height="50"
+            width="50"
+            strokeColor="#417F56"
+            strokeWidth="2"
+            animationDuration="2"
+          />
+        </div>
       ) : (
         <div className={mainStyle}>
           <img src={product.image} alt={product.title} className={imgStyle} />

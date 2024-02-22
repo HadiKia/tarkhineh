@@ -6,7 +6,7 @@
 
 # A shopping cart!
 
-## [review online](https://tarkhineh-app.netlify.app/)
+## [review online](https://tarkhineh-app.liara.run/)
 
 ---
 
