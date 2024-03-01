@@ -80,7 +80,7 @@ const Favorites = () => {
 
         {displayed.length ? (
           <div
-            className={` ${mainContainerStyle} !grid-cols-2 xl:!grid-cols-3 !gap-x-4 !gap-y-5 !mb-5 !mx-0`}
+            className={` ${mainContainerStyle} !grid-cols-2 lg:!grid-cols-3 !gap-x-4 !gap-y-5 !mb-5 !mx-0`}
           >
             {displayed.map((product) => (
               <Favorite key={product.id} productData={product} />

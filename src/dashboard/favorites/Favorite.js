@@ -25,7 +25,7 @@ import {
 // styles
 const foodBoxStyle =
   "flex flex-col gap-y-1 border border-[#CBCBCB] rounded-md md:rounded-lg overflow-hidden";
-const foodImgStyle = "w-full h-[104px] rounded md:h-[140px]";
+const foodImgStyle = "w-full rounded";
 const headerStyle =
   "flex items-center justify-between text-[11px] sm:text-[13px] font-medium md:text-lg md:font-semibold";
 const likeStyle = "scale-[1.2] md:scale-[1.5]";
