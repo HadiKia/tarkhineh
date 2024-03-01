@@ -131,7 +131,7 @@ const Header = () => {
           >
             <span className="md:hidden">{cartIcon}</span>
             <span className="hidden md:block">{cartIconDesktop}</span>
-            {isLoggedIn && (
+            {isLoggedIn && state.itemsCounter > 0 && (
               <span className={itemsCounterStyle}>
                 {convertToFa(state.itemsCounter)}
               </span>

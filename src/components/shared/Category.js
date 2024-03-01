@@ -24,7 +24,13 @@ const Category = ({ query, setQuery }) => {
       {categories.map((item) => (
         <li
           key={item.id}
-          className={item.type === query.category ? selectedStyle : liStyle}
+          className={
+            item.id === 1 && !query.category
+              ? selectedStyle
+              : item.type === query.category
+              ? selectedStyle
+              : liStyle
+          }
         >
           {item.type}
           {arrowLeftIcon}
