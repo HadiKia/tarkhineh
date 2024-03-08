@@ -1,5 +1,5 @@
 import React from "react";
-import { createQueryObject } from "../helper/functions";
+import { createQueryObject } from "../../helper/functions";
 import { categories } from "../../constants/list";
 
 // Icons

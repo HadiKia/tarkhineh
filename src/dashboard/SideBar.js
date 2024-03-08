@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import SignOut from "../components/shared/SignOut";
 import { Link } from "react-router-dom";
-import { enToFa } from "../components/helper/functions";
+import { enToFa } from "../helper/functions";
 import profileImg from "../images/profile.png";
 
 // URls
-import { sideBarURLs } from "../components/helper/URLs";
+import { sideBarURLs } from "../helper/URLs";
 
 // Icons
 import {

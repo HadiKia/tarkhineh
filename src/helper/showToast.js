@@ -1,5 +1,5 @@
 import { toast, Slide } from "react-toastify";
-import { closeIcon } from "../../icons/mobileMenuIcons";
+import { closeIcon } from "../icons/mobileMenuIcons";
 
 const showToast = (message, type = "success") => {
   const CloseButton = ({ closeToast }) => (

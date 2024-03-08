@@ -1,14 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { clear } from "../../features/cart/cartSlice";
+
 import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import FactorCart from "./FactorCart";
 
-// Actions
-import { clear } from "../redux/cart/cartAction";
 
 // Functions
-import { convertToFa } from "../helper/functions";
+import { convertToFa } from "../../helper/functions";
 
 // Icons
 import {
@@ -128,7 +128,7 @@ const Factor = ({ shippingCost, list }) => {
                     </button>
                     <button
                       onClick={() => {
-                        dispatch(clear());
+                        dispatch(clear);
                         closeModal();
                       }}
                       className={`${dialogButtonStyle} text-[#C30000] border-[#FFF2F2] bg-[#FFF2F2]`}

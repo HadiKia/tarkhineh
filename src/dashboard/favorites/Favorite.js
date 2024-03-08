@@ -2,7 +2,7 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import showToast from "../../components/helper/showToast";
+import showToast from "../../helper/showToast";
 import "react-toastify/dist/ReactToastify.css";
 
 // functions
@@ -10,10 +10,8 @@ import {
   convertToFa,
   isInCart,
   isInFavorite,
-} from "../../components/helper/functions";
+} from "../../helper/functions";
 
-// Actions
-import { dislikeItem } from "../../components/redux/favorite/favoriteAction";
 
 // icons
 import {
@@ -21,6 +19,7 @@ import {
   starIcon,
   starEmptyIcon,
 } from "../../icons/foodsPageIcons";
+import { disLikeItem } from "../../features/favorite/favoriteSlice";
 
 // styles
 const foodBoxStyle =
@@ -80,7 +79,7 @@ const Favorite = ({ productData }) => {
           {isInFavorite(favorite, id) && isLoggedIn && (
             <button
               className={likeStyle}
-              onClick={() => dispatch(dislikeItem(productData))}
+              onClick={() => dispatch(disLikeItem(productData))}
             >
               {likeRedIcon}
             </button>

@@ -22,41 +22,38 @@ import Franchise from "./components/franchise/Franchise";
 import OrderHistory from "./dashboard/orderHistory/OrderHistory";
 
 import { ToastContainer } from "react-toastify";
-import ScrollToTop from "./components/helper/ScrollToTop";
-
-// Redux
-import store from "./components/redux/store";
+import ScrollToTop from "./helper/ScrollToTop";
 
 const App = () => {
   return (
-    <Provider store={store}>
+     <>
       <Layout>
         <ScrollToTop />
         <Routes>
           <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Foods />} />
           <Route path="/menu/:slug" element={<FoodDetails />} />
-          <Route path="/cart" element={<ShopCart />} />
-          <Route path="/completion-of-information" element={<CompletionOfInformation />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/successful-payment" element={<SuccessfulPayment />} />
-          <Route path="/successful-order" element={<SuccessfulOrder />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/rules" element={<Rules />} />
-          <Route path="/privacy" element={<Privacy />} />
+          {/* <Route path="/cart" element={<ShopCart />} /> */}
+          {/* <Route path="/completion-of-information" element={<CompletionOfInformation />} /> */}
+          {/* <Route path="/payment" element={<Payment />} /> */}
+          {/* <Route path="/successful-payment" element={<SuccessfulPayment />} /> */}
+          {/* <Route path="/successful-order" element={<SuccessfulOrder />} /> */}
+          {/* <Route path="/about-us" element={<AboutUs />} /> */}
+          {/* <Route path="/contact-us" element={<ContactUs />} /> */}
+          {/* <Route path="/faq" element={<FAQ />} /> */}
+          {/* <Route path="/rules" element={<Rules />} /> */}
+          {/* <Route path="/privacy" element={<Privacy />} /> */}
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/profile" element={<Profile />} />
-          <Route path="/dashboard/order-history" element={<OrderHistory />} />
-          <Route path="/dashboard/favorites" element={<Favorites />} />
-          <Route path="/dashboard/address" element={<ProfileAddress />} />
-          <Route path="/franchise" element={<Franchise />} />
+          {/* <Route path="/dashboard/profile" element={<Profile />} /> */}
+          {/* <Route path="/dashboard/order-history" element={<OrderHistory />} /> */}
+          {/* <Route path="/dashboard/favorites" element={<Favorites />} /> */}
+          {/* <Route path="/dashboard/address" element={<ProfileAddress />} /> */}
+          {/* <Route path="/franchise" element={<Franchise />} /> */}
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>
       </Layout>
       <ToastContainer />
-    </Provider>
+      </>
   );
 };
 

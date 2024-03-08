@@ -5,10 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import SignUp from "../shared/SignUp";
 
 // functions
-import { convertToFa } from "../helper/functions";
+import { convertToFa } from "../../helper/functions";
 
 // URLs
-import { headerURLs, headerButtonURLs } from "../helper/URLs";
+import { headerURLs, headerButtonURLs } from "../../helper/URLs";
 
 // icons
 import {
@@ -38,8 +38,8 @@ const itemsCounterStyle =
   "absolute -top-1 -right-1.5 text-[10px] text-white bg-[#61AE7B] rounded-full px-1  md:right-0.5 md:top-0.5 font-medium";
 
 const Header = () => {
-  const state = useSelector((state) => state.cartState);
-  const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
+  const cartState = useSelector((state) => state.cart);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -131,9 +131,9 @@ const Header = () => {
           >
             <span className="md:hidden">{cartIcon}</span>
             <span className="hidden md:block">{cartIconDesktop}</span>
-            {isLoggedIn && state.itemsCounter > 0 && (
+            {isLoggedIn && cartState.itemsCounter > 0 && (
               <span className={itemsCounterStyle}>
-                {convertToFa(state.itemsCounter)}
+                {convertToFa(cartState.itemsCounter)}
               </span>
             )}
           </Link>

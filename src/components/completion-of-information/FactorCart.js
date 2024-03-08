@@ -2,10 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 // Actions
-import { removeItem, decrease, increase } from "../redux/cart/cartAction";
+import { removeItem, decrease, increase } from "../../features/cart/cartSlice";
 
 // Function
-import { convertToFa } from "../helper/functions";
+import { convertToFa } from "../../helper/functions";
 
 // Icons
 import { trashIcon } from "../../icons/shopCartIcons";

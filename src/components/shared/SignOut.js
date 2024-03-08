@@ -3,8 +3,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-// Actions
-import { setLoginStatus } from "../redux/auth/authActions";
 
 // Icons
 import { closeIcon } from "../../icons/mobileMenuIcons";
@@ -20,6 +18,7 @@ import {
   dialogButtonDivStyle,
   dialogButtonStyle,
 } from "../shopping-cart/ShopCart";
+import { setLoginStatus } from "../../features/auth/authSlice";
 
 const SignOut = ({ isOpen, closeModal }) => {
   const dispatch = useDispatch();

@@ -4,11 +4,9 @@ import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import FactorCart from "../completion-of-information/FactorCart";
 
-// Actions
-import { clear, checkout } from "../redux/cart/cartAction";
 
 // Functions
-import { convertToFa } from "../helper/functions";
+import { convertToFa } from "../../helper/functions";
 
 // Icons
 import { trashDesktopIcon } from "../../icons/shopCartIcons";
@@ -42,10 +40,11 @@ import {
   payableDivStyle,
   settlementCardButtonStyle,
 } from "../completion-of-information/Factor";
+import { checkout, clear } from "../../features/cart/cartSlice";
 
 const PaymentFactor = ({ paymentMethod }) => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.cartState);
+  const state = useSelector((state) => state.cart);
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -110,7 +109,7 @@ const PaymentFactor = ({ paymentMethod }) => {
                     </button>
                     <button
                       onClick={() => {
-                        dispatch(clear());
+                        dispatch(clear(state));
                         closeModal();
                       }}
                       className={`${dialogButtonStyle} text-[#C30000] border-[#FFF2F2] bg-[#FFF2F2]`}
@@ -177,13 +176,13 @@ const PaymentFactor = ({ paymentMethod }) => {
             </div>
 
             {paymentMethod === "cash" ? (
-              <Link to="/successful-order" onClick={() => dispatch(checkout())} className={settlementCardButtonStyle}>
+              <Link to="/successful-order" onClick={() => dispatch(checkout(state))} className={settlementCardButtonStyle}>
                 <span className="md:hidden">{tickIcon}</span>
                 <span className="hidden md:block">{tickDesktopIcon}</span>
                 <span>ثبت سفارش</span>
               </Link>
             ) : (
-              <Link to="/successful-payment" onClick={() => dispatch(checkout())} className={settlementCardButtonStyle}>
+              <Link to="/successful-payment" onClick={() => dispatch(checkout(state))} className={settlementCardButtonStyle}>
                 <span className="md:hidden">{card2Icon}</span>
                 <span className="hidden md:block">{card2DesktopIcon}</span>
                 <span>تأیید و پرداخت</span>

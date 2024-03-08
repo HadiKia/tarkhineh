@@ -5,7 +5,7 @@ import {
   filterProducts,
   searchProducts,
   getInitialQuery,
-} from "../../components/helper/functions";
+} from "../../helper/functions";
 
 // Components
 import SideBar from "../SideBar";
@@ -29,7 +29,7 @@ import {
 import SearchProduct from "../../components/shared/SearchProduct";
 
 const Favorites = () => {
-  const productsState = useSelector((state) => state.favoriteState);
+  const productsState = useSelector((state) => state.favorite);
   const [displayed, setDisplayed] = useState([]);
 
   const [query, setQuery] = useState({});

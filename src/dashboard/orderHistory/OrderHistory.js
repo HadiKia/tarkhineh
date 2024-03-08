@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import EmptyHistory from "./EmptyHistory";
 import SideBar from "../SideBar";
 import moment from "moment-jalaali";
-import { convertToFa, enToFa } from "../../components/helper/functions";
+import { convertToFa, enToFa } from "../../helper/functions";
 
 // Icons
 import { arrowRightIcon } from "../../icons/shopCartIcons";

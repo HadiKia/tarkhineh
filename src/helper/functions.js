@@ -113,6 +113,16 @@ const getInitialQuery = (searchParams) => {
   return query;
 };
 
+const sumPrice = (products) => {
+  return products.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+};
+const sumQuantity = (products) => {
+  return products.reduce((counter, product) => counter + product.quantity, 0);
+};
+
 export {
   convertToFa,
   enToFa,
@@ -123,4 +133,6 @@ export {
   isInCart,
   isInFavorite,
   quantityCount,
+  sumPrice,
+  sumQuantity
 };

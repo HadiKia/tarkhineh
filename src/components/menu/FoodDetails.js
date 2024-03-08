@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { useSelector, useDispatch } from "react-redux";
-import showToast from "../helper/showToast";
+import { fetchProducts } from "../../features/product/productSlice";
+import showToast from "../../helper/showToast";
 import "react-toastify/dist/ReactToastify.css";
 import { RotatingLines } from "react-loader-spinner";
-
 import { rating, ratingDesktop } from "./Food";
 
 // Functions
@@ -14,9 +14,7 @@ import {
   isInCart,
   isInFavorite,
   quantityCount,
-} from "../helper/functions";
-
-import { fetchProducts } from "../redux/products/productsAction";
+} from "../../helper/functions";
 
 // Actions
 import {
@@ -24,8 +22,8 @@ import {
   removeItem,
   increase,
   decrease,
-} from "../redux/cart/cartAction";
-import { dislikeItem } from "../redux/favorite/favoriteAction";
+} from "../../features/cart/cartSlice";
+import { disLikeItem, likeItem } from "../../features/favorite/favoriteSlice";
 
 // Icons
 import {
@@ -63,22 +61,23 @@ const addToCartButtonStyle =
 
 const FoodDetails = () => {
   const { slug } = useParams();
-  const products = useSelector((state) => state.productsState.products);
-  const product = products.find((item) => item.slug === slug);
-  const navigate = useNavigate();
-
-  const state = useSelector((state) => state.cartState);
-  const favorite = useSelector((state) => state.favoriteState);
-  const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
   const dispatch = useDispatch();
+  const data = useSelector((store) =>
+    store.product.products.find((item) => item.slug === slug)
+  );
+  const cartState = useSelector((state) => state.cart);
+  const favorite = useSelector((state) => state.favorite);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
 
-  const likeItem = () => {
+  const navigate = useNavigate();
+
+  const likeHandler = () => {
     if (isLoggedIn) {
-      dispatch({ type: "LIKE_ITEM", payload: product });
+      dispatch(likeItem(data));
       showToast("محصول به علاقه‌مندی ها اضافه شد", "success");
     } else {
       showToast("شما ابتدا باید وارد شوید", "error");
@@ -87,7 +86,7 @@ const FoodDetails = () => {
 
   const addToCart = () => {
     if (isLoggedIn) {
-      dispatch(addItem(product));
+      dispatch(addItem(data));
       showToast("محصول به سبد خرید اضافه شد", "success");
     } else {
       showToast("شما ابتدا باید وارد شوید", "error");
@@ -107,7 +106,8 @@ const FoodDetails = () => {
           <h3 className={topBarTitleStyle}>جزئیات محصول</h3>
         </div>
       </div>
-      {!product ? (
+
+      {!data ? (
         <div className="flex justify-center mt-52 md:mt-32 lg:mt-42 md:pb-50">
           <RotatingLines
             height="50"
@@ -119,21 +119,21 @@ const FoodDetails = () => {
         </div>
       ) : (
         <div className={mainStyle}>
-          <img src={product.image} alt={product.title} className={imgStyle} />
+          <img src={data.image} alt={data.title} className={imgStyle} />
           <div className="md:flex-1 ">
             <div className={mainHeaderStyle}>
-              <h3 className={mainHeaderH3Style}>{product.title}</h3>
+              <h3 className={mainHeaderH3Style}>{data.title}</h3>
 
               <div className="flex items-center gap-x-4 text-[#717171]">
-                {isInFavorite(favorite, product.id) && isLoggedIn ? (
+                {isInFavorite(favorite, data.id) && isLoggedIn ? (
                   <button
                     className="scale-[1.65]"
-                    onClick={() => dispatch(dislikeItem(product))}
+                    onClick={() => dispatch(disLikeItem(data))}
                   >
                     {likeRedIcon}
                   </button>
                 ) : (
-                  <button className="scale-[1.5]" onClick={likeItem}>
+                  <button className="scale-[1.5]" onClick={likeHandler}>
                     {likeIcon}
                   </button>
                 )}
@@ -144,7 +144,7 @@ const FoodDetails = () => {
             </div>
             <div className={foodDetailsStyle}>
               <p className={foodDetailsContentsStyle}>محتویات</p>
-              <p className={descriptionStyle}>{product.description}</p>
+              <p className={descriptionStyle}>{data.description}</p>
               <div className={ratingDivStyle}>
                 <span>امتیاز</span>
                 <div className="lg:hidden">
@@ -156,13 +156,13 @@ const FoodDetails = () => {
               </div>
               <div className={discountedDivStyle}>
                 <span>قیمت</span>
-                <span>{convertToFa(product.discountedPrice)} تومان</span>
+                <span>{convertToFa(data.discountedPrice)} تومان</span>
               </div>
             </div>
             <div className={quantityCountDivStyle}>
-              {isInCart(state, product.id) && isLoggedIn ? (
+              {isInCart(cartState, data.id) && isLoggedIn ? (
                 <button
-                  onClick={() => dispatch(increase(product))}
+                  onClick={() => dispatch(increase(data))}
                   className={quantityCountButtonStyle}
                 >
                   +
@@ -172,22 +172,22 @@ const FoodDetails = () => {
                   افزودن به سبد خرید
                 </button>
               )}
-              {quantityCount(state, product.id) > 0 && isLoggedIn && (
+              {quantityCount(cartState, data.id) > 0 && isLoggedIn && (
                 <span className="text-[#417F56] font-semibold mt-1 md:text-lg">
-                  {convertToFa(quantityCount(state, product.id))}
+                  {convertToFa(quantityCount(cartState, data.id))}
                 </span>
               )}
-              {quantityCount(state, product.id) === 1 && isLoggedIn && (
+              {quantityCount(cartState, data.id) === 1 && isLoggedIn && (
                 <button
-                  onClick={() => dispatch(removeItem(product))}
+                  onClick={() => dispatch(removeItem(data))}
                   className={quantityCountButtonStyle}
                 >
                   {trashIcon}
                 </button>
               )}
-              {quantityCount(state, product.id) > 1 && isLoggedIn && (
+              {quantityCount(cartState, data.id) > 1 && isLoggedIn && (
                 <button
-                  onClick={() => dispatch(decrease(product))}
+                  onClick={() => dispatch(decrease(data))}
                   className={quantityCountButtonStyle}
                 >
                   -

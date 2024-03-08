@@ -4,7 +4,7 @@ import backgroundImg from "../../images/successful-payment-Background.svg";
 import { Link } from "react-router-dom";
 
 // Functions
-import { convertToFa } from "../helper/functions";
+import { convertToFa } from "../../helper/functions";
 
 const SuccessfulPayment = () => {
   return (

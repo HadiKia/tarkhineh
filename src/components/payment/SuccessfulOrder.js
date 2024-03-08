@@ -3,7 +3,7 @@ import paymentImg from "../../images/successful-payment.svg";
 import { Link } from "react-router-dom";
 
 // Functions
-import { convertToFa } from "../helper/functions";
+import { convertToFa } from "../../helper/functions";
 
 const SuccessfulOrder = () => {
   return (

@@ -5,14 +5,12 @@ import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import showToast from "../helper/showToast";
-
-// Actions
-import { setLoginStatus } from "../redux/auth/authActions";
+import showToast from "../../helper/showToast";
 
 // Icons
 import { logo } from "../../icons/headerIcons";
 import { closeIcon } from "../../icons/mobileMenuIcons";
+import { setLoginStatus } from "../../features/auth/authSlice";
 
 // Styles
 const dialogBgStyle = "fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm";
@@ -62,11 +60,7 @@ const SignUp = ({ isOpen, closeModal }) => {
   };
 
   const handleClick = () => {
-    if (
-      formik.isValid &&
-      formik.values.name &&
-      formik.values.phoneNumber
-    ) {
+    if (formik.isValid && formik.values.name && formik.values.phoneNumber) {
       setIsLoading(true);
 
       setTimeout(() => {
@@ -163,8 +157,7 @@ const SignUp = ({ isOpen, closeModal }) => {
                     type="submit"
                     variant="contained"
                     className={
-                      formik.values.name &&
-                      formik.values.phoneNumber
+                      formik.values.name && formik.values.phoneNumber
                         ? `${dialogButtonStyle} !bg-[#417F56] !text-white`
                         : dialogButtonStyle
                     }

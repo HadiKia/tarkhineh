@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createQueryObject } from "../helper/functions";
+import { createQueryObject } from "../../helper/functions";
 // Icons
 import { searchIcon } from "../../icons/homePageIcons";
 import { searchDesktopIcon } from "../../icons/foodsPageIcons";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 
 // URLs
-import { headerURLs } from "../helper/URLs";
+import { headerURLs } from "../../helper/URLs";
 
 // images
 import TopFrame from "../../images/top-frame.png";

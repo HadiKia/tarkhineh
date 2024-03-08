@@ -7,11 +7,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import Cart from "./Cart";
 import EmptyShoppingCart from "./EmptyShoppingCart";
 
-// Actions
-import { clear } from "../redux/cart/cartAction";
 
 // Functions
-import { convertToFa } from "../helper/functions";
+import { convertToFa } from "../../helper/functions";
 
 // Icons
 import {
@@ -27,6 +25,7 @@ import {
   walletIcon,
 } from "../../icons/shopCartIcons";
 import { closeIcon } from "../../icons/mobileMenuIcons";
+import { clear } from "../../features/cart/cartSlice";
 
 // Styles
 export const containerStyle =
@@ -161,7 +160,7 @@ const ShopCart = () => {
                       </button>
                       <button
                         onClick={() => {
-                          dispatch(clear());
+                          dispatch(clear(state));
                           closeModal();
                         }}
                         className={`${dialogButtonStyle} text-[#C30000] border-[#FFF2F2] bg-[#FFF2F2]`}

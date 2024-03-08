@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts } from "../../features/product/productSlice";
 import Banner from "../shared/Banner";
 import Food from "./Food";
 import Category from "../shared/Category";
 import { RotatingLines } from "react-loader-spinner";
-
 import {
   filterProducts,
   searchProducts,
   getInitialQuery,
-} from "../helper/functions";
+} from "../../helper/functions";
 
-// Redux
-import { fetchProducts } from "../redux/products/productsAction";
-
-// images
 import notFoundImg from "../../images/match-not-found.png";
 
 // styles
@@ -31,24 +27,24 @@ export const notFoundResultsStyle =
 
 const Foods = () => {
   const dispatch = useDispatch();
-  const productsState = useSelector((state) => state.productsState);
+  const { products, loading, error } = useSelector((state) => state.product);
   const [displayed, setDisplayed] = useState([]);
   const [query, setQuery] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (!productsState.products.length) dispatch(fetchProducts());
+    dispatch(fetchProducts());
     document.title = "منو";
-  }, [dispatch, productsState.products.length]);
+  }, []);
 
   useEffect(() => {
-    setDisplayed(productsState.products);
+    setDisplayed(products);
     setQuery(getInitialQuery(searchParams));
-  }, [productsState]);
+  }, [products]);
 
   useEffect(() => {
     setSearchParams(query);
-    let finalProducts = searchProducts(productsState.products, query.search);
+    let finalProducts = searchProducts(products, query.search);
     finalProducts = filterProducts(finalProducts, query.category);
 
     setDisplayed(finalProducts);
@@ -79,7 +75,7 @@ const Foods = () => {
       </div>
 
       {/* products */}
-      {productsState.loading ? (
+      {!displayed.length && loading && (
         <>
           <div className="min-h-[calc(100vh_-_535px)] flex justify-center">
             <RotatingLines
@@ -91,17 +87,9 @@ const Foods = () => {
             />
           </div>
         </>
-      ) : productsState.error ? (
-        <h2 className="h-screen">{productsState.error}</h2>
-      ) : displayed.length ? (
-        <div className="container max-w-[1224px] mx-auto min-h-[calc(100vh_-_530px)] md:min-h-[calc(100vh_-_700px)] ">
-          <div className={mainContainerStyle}>
-            {displayed.map((product) => (
-              <Food key={product.id} productData={product} />
-            ))}
-          </div>
-        </div>
-      ) : query.search && (
+      )}
+      {error && <h2 className="h-screen">{error}</h2>}
+      {!displayed.length && !loading && query.search && (
         <div className={notFoundResultsStyle}>
           <h3>موردی با این مشخصات پیدا نکردیم!</h3>
           <img
@@ -111,6 +99,13 @@ const Foods = () => {
           />
         </div>
       )}
+      <div className="container max-w-[1224px] mx-auto min-h-[calc(100vh_-_530px)] md:min-h-[calc(100vh_-_700px)] ">
+        <div className={mainContainerStyle}>
+          {displayed.map((product) => (
+            <Food key={product.id} productData={product} />
+          ))}
+        </div>
+      </div>
     </>
   );
 };
