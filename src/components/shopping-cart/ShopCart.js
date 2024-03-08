@@ -214,7 +214,7 @@ const ShopCart = () => {
                     >
                       <span>سبد خرید</span>
                       <span className="text-sm">
-                        {convertToFa(cartState.itemsCounter)}
+                        ({convertToFa(cartState.itemsCounter)})
                       </span>
                     </div>
                     <button

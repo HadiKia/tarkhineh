@@ -2,10 +2,9 @@ import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { clear } from "../../features/cart/cartSlice";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import FactorCart from "./FactorCart";
-
 
 // Functions
 import { convertToFa } from "../../helper/functions";
@@ -63,7 +62,7 @@ export const settlementCardButtonStyle =
 
 const Factor = ({ shippingCost, list }) => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.cartState);
+  const cartState = useSelector((state) => state.cart);
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -128,7 +127,7 @@ const Factor = ({ shippingCost, list }) => {
                     </button>
                     <button
                       onClick={() => {
-                        dispatch(clear);
+                        dispatch(clear(cartState));
                         closeModal();
                       }}
                       className={`${dialogButtonStyle} text-[#C30000] border-[#FFF2F2] bg-[#FFF2F2]`}
@@ -143,35 +142,37 @@ const Factor = ({ shippingCost, list }) => {
         </Dialog>
       </Transition>
 
-      <div className={state.itemsCounter > 0 ? mainDivStyle : ""}>
+      <div className={cartState.itemsCounter > 0 ? mainDivStyle : ""}>
         <div className={settlementCardCartStyle}>
           <div className={`${settlementCardPriceDivStyle} !text-[#353535]`}>
             <span>سبد خرید</span>
-            <span className="text-sm">({convertToFa(state.itemsCounter)})</span>
+            <span className="text-sm">
+              ({convertToFa(cartState.itemsCounter)})
+            </span>
           </div>
           <button
             onClick={() => {
-              if (state.itemsCounter > 0) openModal();
+              if (cartState.itemsCounter > 0) openModal();
             }}
             className={
-              state.itemsCounter > 0 ? "text-[#353535]" : "text-[#CBCBCB]"
+              cartState.itemsCounter > 0 ? "text-[#353535]" : "text-[#CBCBCB]"
             }
           >
             {trashDesktopIcon}
           </button>
         </div>
-        <div className={state.itemsCounter > 0 ? cartDivStyle : ""}>
-          {state.selectedItems.map((item) => (
+        <div className={cartState.itemsCounter > 0 ? cartDivStyle : ""}>
+          {cartState.selectedItems.map((item) => (
             <FactorCart key={item.id} data={item} />
           ))}
         </div>
 
-        {state.itemsCounter > 0 && (
+        {cartState.itemsCounter > 0 && (
           <div className={settlementCardStyle}>
             <div className={settlementCardDiscountStyle}>
               <span>تخفیف محصولات</span>
               <div className={settlementCardPriceDivStyle}>
-                <span>{convertToFa(state.discount)}</span>
+                <span>{convertToFa(cartState.discount)}</span>
                 <span>تومان</span>
               </div>
             </div>
@@ -207,9 +208,9 @@ const Factor = ({ shippingCost, list }) => {
               <span>مبلغ قابل پرداخت</span>
               <div className={payableDivStyle}>
                 {list.length ? (
-                  <span>{convertToFa(state.total + shippingCost)}</span>
+                  <span>{convertToFa(cartState.total + shippingCost)}</span>
                 ) : (
-                  <span>{convertToFa(state.total)}</span>
+                  <span>{convertToFa(cartState.total)}</span>
                 )}
                 <span>تومان</span>
               </div>
