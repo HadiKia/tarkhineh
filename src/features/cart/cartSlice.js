@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { sumPrice, sumQuantity } from "../../helper/functions"
+import { sumPrice, sumDiscount, sumQuantity } from "../../helper/functions";
 
 const initialState = {
   selectedItems: [],
@@ -17,6 +17,7 @@ const cartSlice = createSlice({
       if (!state.selectedItems.find((i) => i.id === action.payload.id)) {
         state.selectedItems.push({ ...action.payload, quantity: 1 });
         state.total = sumPrice(state.selectedItems);
+        state.discount = sumDiscount(state.selectedItems);
         state.itemsCounter = sumQuantity(state.selectedItems);
         state.checkout = false;
       }
@@ -27,6 +28,7 @@ const cartSlice = createSlice({
       );
       state.selectedItems = newSelectedItems;
       state.total = sumPrice(state.selectedItems);
+      state.discount = sumDiscount(state.selectedItems);
       state.itemsCounter = sumQuantity(state.selectedItems);
     },
     increase: (state, action) => {
@@ -35,6 +37,7 @@ const cartSlice = createSlice({
       );
       state.selectedItems[increaseIndex].quantity++;
       state.total = sumPrice(state.selectedItems);
+      state.discount = sumDiscount(state.selectedItems);
       state.itemsCounter = sumQuantity(state.selectedItems);
     },
     decrease: (state, action) => {
@@ -43,6 +46,7 @@ const cartSlice = createSlice({
       );
       state.selectedItems[decreaseIndex].quantity--;
       state.total = sumPrice(state.selectedItems);
+      state.discount = sumDiscount(state.selectedItems);
       state.itemsCounter = sumQuantity(state.selectedItems);
     },
     checkout: (state) => {

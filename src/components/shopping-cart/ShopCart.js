@@ -2,11 +2,9 @@ import React, { useEffect, Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-
-// Components
+import { clear } from "../../features/cart/cartSlice";
 import Cart from "./Cart";
 import EmptyShoppingCart from "./EmptyShoppingCart";
-
 
 // Functions
 import { convertToFa } from "../../helper/functions";
@@ -25,7 +23,6 @@ import {
   walletIcon,
 } from "../../icons/shopCartIcons";
 import { closeIcon } from "../../icons/mobileMenuIcons";
-import { clear } from "../../features/cart/cartSlice";
 
 // Styles
 export const containerStyle =
@@ -76,9 +73,13 @@ const settlementCardButtonStyle =
   "bg-[#417F56] text-white rounded py-2 text-xs font-medium flex items-center justify-center gap-x-1 md:text-base";
 
 const ShopCart = () => {
-  const state = useSelector((state) => state.cartState);
-  const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
+  useEffect(() => {
+    document.title = "سبد خرید";
+  }, []);
+
   const dispatch = useDispatch();
+  const cartState = useSelector((state) => state.cart);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -90,10 +91,6 @@ const ShopCart = () => {
     setIsOpen(true);
   }
 
-  useEffect(() => {
-    document.title = "سبد خرید";
-  }, []);
-
   return (
     <div className={containerStyle}>
       <div className={headerStyle}>
@@ -101,10 +98,10 @@ const ShopCart = () => {
         <span className="pl-2">سبد خرید</span>
         <button
           onClick={() => {
-            if (state.itemsCounter > 0) openModal();
+            if (cartState.itemsCounter > 0) openModal();
           }}
           className={
-            state.itemsCounter > 0 ? "text-[#353535]" : "text-[#CBCBCB]"
+            cartState.itemsCounter > 0 ? "text-[#353535]" : "text-[#CBCBCB]"
           }
         >
           {trashIcon}
@@ -160,7 +157,7 @@ const ShopCart = () => {
                       </button>
                       <button
                         onClick={() => {
-                          dispatch(clear(state));
+                          dispatch(clear(cartState));
                           closeModal();
                         }}
                         className={`${dialogButtonStyle} text-[#C30000] border-[#FFF2F2] bg-[#FFF2F2]`}
@@ -199,17 +196,17 @@ const ShopCart = () => {
       </div>
       {isLoggedIn ? (
         <>
-          {state.itemsCounter === 0 ? (
+          {cartState.itemsCounter === 0 ? (
             <EmptyShoppingCart />
           ) : (
-            <div className={state.itemsCounter > 0 ? mainDivStyle : ""}>
-              <div className={state.itemsCounter > 0 ? cartDivStyle : ""}>
-                {state.selectedItems.map((item) => (
+            <div className={cartState.itemsCounter > 0 ? mainDivStyle : ""}>
+              <div className={cartState.itemsCounter > 0 ? cartDivStyle : ""}>
+                {cartState.selectedItems.map((item) => (
                   <Cart key={item.id} data={item} />
                 ))}
               </div>
 
-              {state.itemsCounter > 0 && (
+              {cartState.itemsCounter > 0 && (
                 <div className={settlementCardStyle}>
                   <div className={settlementCardCartStyle}>
                     <div
@@ -217,15 +214,15 @@ const ShopCart = () => {
                     >
                       <span>سبد خرید</span>
                       <span className="text-sm">
-                        ({convertToFa(state.itemsCounter)})
+                        {convertToFa(cartState.itemsCounter)}
                       </span>
                     </div>
                     <button
                       onClick={() => {
-                        if (state.itemsCounter > 0) openModal();
+                        if (cartState.itemsCounter > 0) openModal();
                       }}
                       className={
-                        state.itemsCounter > 0
+                        cartState.itemsCounter > 0
                           ? "text-[#353535]"
                           : "text-[#CBCBCB]"
                       }
@@ -237,7 +234,7 @@ const ShopCart = () => {
                   <div className={settlementCardDiscountStyle}>
                     <span>تخفیف محصولات</span>
                     <div className={settlementCardPriceDivStyle}>
-                      <span>{convertToFa(state.discount)}</span>
+                      <span>{convertToFa(cartState.discount)}</span>
                       <span>تومان</span>
                     </div>
                   </div>
@@ -266,7 +263,7 @@ const ShopCart = () => {
                   <div className={payableStyle}>
                     <span>مبلغ قابل پرداخت</span>
                     <div className={payableDivStyle}>
-                      <span>{convertToFa(state.total)}</span>
+                      <span>{convertToFa(cartState.total)}</span>
                       <span>تومان</span>
                     </div>
                   </div>

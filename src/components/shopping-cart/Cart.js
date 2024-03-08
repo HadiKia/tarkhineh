@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import { ratingDesktop } from "../menu/Food";
 
+// actions
+import { decrease, increase, removeItem } from "../../features/cart/cartSlice";
 
 // Function
 import { convertToFa } from "../../helper/functions";
 
 // Icons
 import { trashIcon, trashDesktopIcon } from "../../icons/shopCartIcons";
-import { decrease, increase, removeItem } from "../../features/cart/cartSlice";
 
 // Styles
 const boxStyle =

@@ -113,14 +113,41 @@ const getInitialQuery = (searchParams) => {
   return query;
 };
 
+const sumItems = (items) => {
+  const itemsCounter = items.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+  const total = items.reduce(
+    (total, product) => total + product.discountedPrice * product.quantity,
+    0
+  );
+  const discount = items.reduce(
+    (total, product) =>
+      total + (product.price - product.discountedPrice) * product.quantity,
+    0
+  );
+  return { itemsCounter, total, discount };
+};
+
 const sumPrice = (products) => {
   return products.reduce(
-    (total, product) => total + product.price * product.quantity,
+    (total, product) =>
+      total + (product.price - product.discountedPrice) * product.quantity,
     0
   );
 };
+
+const sumDiscount = (products) => {
+  return products.reduce(
+    (total, product) =>
+      total + (product.price - product.discountedPrice) * product.quantity,
+    0
+  );
+};
+
 const sumQuantity = (products) => {
-  return products.reduce((counter, product) => counter + product.quantity, 0);
+  return products.reduce((total, product) => total + product.quantity, 0);
 };
 
 export {
@@ -134,5 +161,6 @@ export {
   isInFavorite,
   quantityCount,
   sumPrice,
-  sumQuantity
+  sumDiscount,
+  sumQuantity,
 };
