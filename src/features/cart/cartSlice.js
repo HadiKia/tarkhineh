@@ -55,18 +55,18 @@ const cartSlice = createSlice({
         total: state.total,
         date: new Date(),
       };
+      state.purchaseHistory = [...state.purchaseHistory, newPurchase];
       state.selectedItems = [];
       state.itemsCounter = 0;
       state.total = 0;
       state.checkout = true;
-      state.purchaseHistory = [...state.purchaseHistory, newPurchase];
     },
     clear: (state) => {
       state.selectedItems = [];
       state.itemsCounter = 0;
       state.total = 0;
       state.checkout = false;
-      state.purchaseHistory = [...state.purchaseHistory];
+      state.purchaseHistory = [];
     },
   },
 });

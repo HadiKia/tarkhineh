@@ -2,16 +2,12 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../../features/cart/cartSlice";
 import showToast from "../../helper/showToast";
 import "react-toastify/dist/ReactToastify.css";
 
 // functions
-import {
-  convertToFa,
-  isInCart,
-  isInFavorite,
-} from "../../helper/functions";
-
+import { convertToFa, isInCart, isInFavorite } from "../../helper/functions";
 
 // icons
 import {
@@ -53,14 +49,14 @@ export const ratingDesktop = {
 const Favorite = ({ productData }) => {
   const { title, discountedPrice, image, slug, id } = productData;
 
-  const state = useSelector((state) => state.cartState);
-  const favorite = useSelector((state) => state.favoriteState);
-  const isLoggedIn = useSelector((state) => state.authState.isLoggedIn);
+  const state = useSelector((state) => state.cart);
+  const favorite = useSelector((state) => state.favorite);
+  const isLoggedIn = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const addToCart = () => {
     if (isLoggedIn) {
-      dispatch({ type: "ADD_ITEM", payload: productData });
+      dispatch(addItem(productData));
       showToast("محصول به سبد خرید اضافه شد", "success");
     } else {
       showToast("شما ابتدا باید وارد شوید", "error");

@@ -26,8 +26,8 @@ const liTitleDivITemStyle =
 const ulItemStyle =
   "flex overflow-auto overflow-y-hidden gap-x-2 pb-1 md:pb-4 md:gap-x-3";
 const liItemStyle =
-  "h-[132px] md:h-[170px] border rounded-lg border-[#CBCBCB] overflow-hidden text-xs text-[#353535] flex flex-col items-center justify-between gap-y-1 pb-2 md:text-sm";
-const itemImgStyle = "w-[90px] h-[70px] md:w-[150px] md:h-[110px]";
+  "border rounded-lg border-[#CBCBCB] overflow-hidden text-xs text-[#353535] flex flex-col items-center justify-between gap-y-1 pb-2 md:text-sm";
+const itemImgStyle = "w-[90px] md:w-[150px]";
 const itemQuantityStyle =
   "absolute left-1 bottom-1 bg-[#E5F2E9] text-[#417F56] px-[3px] rounded font-medium   md:px-1";
 const itemTitleStyle = "w-[90px] text-center font-medium md:w-[150px]";
@@ -37,9 +37,7 @@ moment.loadPersian({ usePersianDigits: true, dialect: "persian-modern" });
 moment.locale("fa");
 
 const OrderHistory = () => {
-  const purchaseHistory = useSelector(
-    (state) => state.cartState.purchaseHistory
-  );
+  const { purchaseHistory } = useSelector((state) => state.cart);
 
   useEffect(() => {
     document.title = "تاریخچه سفارشات";
@@ -64,13 +62,13 @@ const OrderHistory = () => {
 
         {purchaseHistory.length ? (
           <ul>
-            {purchaseHistory.reverse().map((order, index) => (
+            {purchaseHistory.map((order, index) => (
               <li key={index} className={liMainStyle}>
                 <div className={liTitleDivStyle}>
                   <div className={liTitleDivITemStyle}>
                     <span className="md:scale-110">{calendarIcon}</span>
                     <span>
-                      تاریخ: 
+                      تاریخ:
                       {moment(order.date).format(
                         " dddd jYYYY/jMM/jDD - ساعت: HH:mm "
                       )}
@@ -83,8 +81,8 @@ const OrderHistory = () => {
                 </div>
 
                 <ul className={ulItemStyle}>
-                  {order.items.map((item, itemIndex) => (
-                    <li key={itemIndex}>
+                  {order.items.map((item) => (
+                    <li key={item.id}>
                       <div className={liItemStyle}>
                         <div className="relative">
                           <img

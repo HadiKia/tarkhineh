@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Provider } from "react-redux";
 import Layout from "./components/layout";
 import HomePage from "./components/home/HomePage";
 import Foods from "./components/menu/Foods";
@@ -20,9 +19,8 @@ import Profile from "./dashboard/profile/Profile";
 import ProfileAddress from "./dashboard/address/ProfileAddress";
 import Franchise from "./components/franchise/Franchise";
 import OrderHistory from "./dashboard/orderHistory/OrderHistory";
-
-import { ToastContainer } from "react-toastify";
 import ScrollToTop from "./helper/ScrollToTop";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -44,10 +42,10 @@ const App = () => {
           <Route path="/rules" element={<Rules />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/dashboard/profile" element={<Profile />} /> */}
-          {/* <Route path="/dashboard/order-history" element={<OrderHistory />} /> */}
-          {/* <Route path="/dashboard/favorites" element={<Favorites />} /> */}
-          {/* <Route path="/dashboard/address" element={<ProfileAddress />} /> */}
+          <Route path="/dashboard/profile" element={<Profile />} />
+          <Route path="/dashboard/order-history" element={<OrderHistory />} />
+          <Route path="/dashboard/favorites" element={<Favorites />} />
+          <Route path="/dashboard/address" element={<ProfileAddress />} />
           <Route path="/franchise" element={<Franchise />} />
           <Route path="/*" element={<Navigate to="/home" />} />
         </Routes>

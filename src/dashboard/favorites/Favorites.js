@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
-import {
-  filterProducts,
-  searchProducts,
-  getInitialQuery,
-} from "../../helper/functions";
+import SearchProduct from "../../components/shared/SearchProduct";
 
 // Components
 import SideBar from "../SideBar";
 import EmptyFavorites from "./EmptyFavorites";
 import Favorite from "./Favorite";
 import Category from "../../components/shared/Category";
+
+// functions
+import {
+  filterProducts,
+  searchProducts,
+  getInitialQuery,
+} from "../../helper/functions";
 
 // Images
 import notFoundImg from "../../images/match-not-found.png";
@@ -26,31 +29,28 @@ import {
   mainContainerStyle,
   notFoundResultsStyle,
 } from "../../components/menu/Foods";
-import SearchProduct from "../../components/shared/SearchProduct";
 
 const Favorites = () => {
-  const productsState = useSelector((state) => state.favorite);
   const [displayed, setDisplayed] = useState([]);
+  const { selectedItems } = useSelector((state) => state.favorite);
 
   const [query, setQuery] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     document.title = "علاقمندی ها";
-    setDisplayed(productsState.selectedItems);
+    setDisplayed(selectedItems);
     setQuery(getInitialQuery(searchParams));
-  }, [productsState]);
+  }, [selectedItems]);
 
   useEffect(() => {
     setSearchParams(query);
-    let finalProducts = searchProducts(
-      productsState.selectedItems,
-      query.search
-    );
+    let finalProducts = searchProducts(selectedItems, query.search);
     finalProducts = filterProducts(finalProducts, query.category);
 
     setDisplayed(finalProducts);
   }, [query]);
+ 
 
   return (
     <div className="container max-w-[1224px] mx-auto px-5 min-h-[calc(100vh_-_239px)] md:min-h-[calc(100vh_-_434px)] md:flex md:gap-x-6">
@@ -99,6 +99,7 @@ const Favorites = () => {
             </div>
           )
         )}
+        
 
         {!displayed.length && !query.search && <EmptyFavorites />}
       </div>

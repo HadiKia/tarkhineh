@@ -88,7 +88,11 @@ const Foods = () => {
           </div>
         </>
       )}
-      {error && <h2 className="h-screen">{error}</h2>}
+      {error && (
+        <h2 className="container max-w-[1224px] mx-auto h-screen text-2xl">
+          {error}
+        </h2>
+      )}
       {!displayed.length && !loading && query.search && (
         <div className={notFoundResultsStyle}>
           <h3>موردی با این مشخصات پیدا نکردیم!</h3>
