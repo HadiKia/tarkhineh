@@ -62,46 +62,49 @@ const OrderHistory = () => {
 
         {purchaseHistory.length ? (
           <ul>
-            {purchaseHistory.map((order, index) => (
-              <li key={index} className={liMainStyle}>
-                <div className={liTitleDivStyle}>
-                  <div className={liTitleDivITemStyle}>
-                    <span className="md:scale-110">{calendarIcon}</span>
-                    <span>
-                      تاریخ:
-                      {moment(order.date).format(
-                        " dddd jYYYY/jMM/jDD - ساعت: HH:mm "
-                      )}
-                    </span>
+            {purchaseHistory
+              .slice()
+              .reverse()
+              .map((order, index) => (
+                <li key={index} className={liMainStyle}>
+                  <div className={liTitleDivStyle}>
+                    <div className={liTitleDivITemStyle}>
+                      <span className="md:scale-110">{calendarIcon}</span>
+                      <span>
+                        تاریخ:
+                        {moment(order.date).format(
+                          " dddd jYYYY/jMM/jDD - ساعت: HH:mm "
+                        )}
+                      </span>
+                    </div>
+                    <div className={liTitleDivITemStyle}>
+                      <span className="md:scale-110">{wallet2Icon}</span>
+                      <span>مجموع قیمت : {convertToFa(order.total)} تومان</span>
+                    </div>
                   </div>
-                  <div className={liTitleDivITemStyle}>
-                    <span className="md:scale-110">{wallet2Icon}</span>
-                    <span>مجموع قیمت : {convertToFa(order.total)} تومان</span>
-                  </div>
-                </div>
 
-                <ul className={ulItemStyle}>
-                  {order.items.map((item) => (
-                    <li key={item.id}>
-                      <div className={liItemStyle}>
-                        <div className="relative">
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className={itemImgStyle}
-                          />
-                          <span className={itemQuantityStyle}>
-                            {enToFa(item.quantity)}×
-                          </span>
+                  <ul className={ulItemStyle}>
+                    {order.items.map((item) => (
+                      <li key={item.id}>
+                        <div className={liItemStyle}>
+                          <div className="relative">
+                            <img
+                              src={item.image}
+                              alt={item.title}
+                              className={itemImgStyle}
+                            />
+                            <span className={itemQuantityStyle}>
+                              {enToFa(item.quantity)}×
+                            </span>
+                          </div>
+                          <p className={itemTitleStyle}>{item.title}</p>
+                          <p>{convertToFa(item.price)} تومان</p>
                         </div>
-                        <p className={itemTitleStyle}>{item.title}</p>
-                        <p>{convertToFa(item.price)} تومان</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
           </ul>
         ) : (
           <div className="md:mt-2 mb-10">

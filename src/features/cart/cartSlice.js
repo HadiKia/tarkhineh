@@ -53,7 +53,7 @@ const cartSlice = createSlice({
       const newPurchase = {
         items: state.selectedItems,
         total: state.total,
-        date: new Date(),
+        date: new Date().toISOString(),
       };
       state.purchaseHistory = [...state.purchaseHistory, newPurchase];
       state.selectedItems = [];
