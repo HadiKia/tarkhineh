@@ -1,11 +1,3 @@
-const headerURLs = {
-  home: "https://tarkhineh-app.liara.run/home",
-  menu: "https://tarkhineh-app.liara.run/menu",
-  aboutUs: "https://tarkhineh-app.liara.run/about-us",
-  contactUs: "https://tarkhineh-app.liara.run/contact-us",
-  franchise: "https://tarkhineh-app.liara.run/franchise",
-};
-
 const headerButtonURLs = [
   "https://tarkhineh-app.liara.run/cart",
   "https://tarkhineh-app.liara.run/completion-of-information",
@@ -24,4 +16,4 @@ const sideBarURLs = {
   address: "https://tarkhineh-app.liara.run/dashboard/address",
 };
 
-export { headerURLs, headerButtonURLs, sideBarURLs };
+export { headerButtonURLs, sideBarURLs };

@@ -3,12 +3,13 @@ import MobileMenu from "./MobileMenu";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SignUp from "../shared/SignUp";
+import { pages } from "../../constants/list";
 
 // functions
 import { convertToFa } from "../../helper/functions";
 
 // URLs
-import { headerURLs, headerButtonURLs } from "../../helper/URLs";
+import { headerButtonURLs } from "../../constants/URLs";
 
 // icons
 import {
@@ -27,13 +28,11 @@ const headerStyle =
 const ulStyle = "flex items-center md:gap-x-5 lg:gap-x-6";
 const liStyle =
   "text-[#717171] text-sm lg:text-lg border-b border-[#ffffff00] py-1 duration-500";
-const liActiveStyle =
-  "text-[#417F56] text-sm lg:text-lg border-b py-1 border-[#417F56] font-bold duration-500";
+const liActiveStyle = `${liStyle} !text-[#417F56] !border-[#417F56] font-bold`;
 const linkBoxStyle = "flex items-center gap-x-2.5 md:gap-x-[0.5em] justify-end";
 const linkBoxItemStyle =
   "p-[0.25em] md:p-[0.5em] bg-[#E5F2E9] text-[#417F56] rounded md:rounded-md scale-[1.2] md:scale-100 relative duration-300";
-const linkBoxItemActiveStyle =
-  "p-[0.25em] md:p-[0.5em] bg-[#417F56] text-white rounded md:rounded-md scale-[1.2] md:scale-100 relative duration-300";
+const linkBoxItemActiveStyle = `${linkBoxItemStyle} !bg-[#417F56] !text-white`;
 const itemsCounterStyle =
   "absolute -top-1 -right-1.5 text-[10px] text-white bg-[#61AE7B] rounded-full px-1  md:right-0.5 md:top-0.5 font-medium";
 
@@ -68,51 +67,19 @@ const Header = () => {
 
         <div className="hidden md:block">
           <ul className={ulStyle}>
-            <li
-              className={
-                window.location.href === headerURLs.home
-                  ? liActiveStyle
-                  : liStyle
-              }
-            >
-              <Link to="/">صفحه اصلی</Link>
-            </li>
-            <li
-              className={
-                window.location.href === headerURLs.menu
-                  ? liActiveStyle
-                  : liStyle
-              }
-            >
-              <Link to="/menu">منو</Link>
-            </li>
-            <li
-              className={
-                window.location.href === headerURLs.franchise
-                  ? liActiveStyle
-                  : liStyle
-              }
-            >
-              <Link to="/franchise">اعطای نمایندگی</Link>
-            </li>
-            <li
-              className={
-                window.location.href === headerURLs.aboutUs
-                  ? liActiveStyle
-                  : liStyle
-              }
-            >
-              <Link to="/about-us">درباره ما</Link>
-            </li>
-            <li
-              className={
-                window.location.href === headerURLs.contactUs
-                  ? liActiveStyle
-                  : liStyle
-              }
-            >
-              <Link to="/contact-us">تماس با ما</Link>
-            </li>
+            {pages.map((item) => (
+              <li
+                key={item.id}
+                className={
+                  window.location.href ===
+                  `https://tarkhineh-app.liara.run/${item.url}`
+                    ? liActiveStyle
+                    : liStyle
+                }
+              >
+                <Link to={item.url}>{item.type}</Link>
+              </li>
+            ))}
           </ul>
         </div>
 
