@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://gifted-headscarf-hare.cyclic.cloud/",
+  baseURL: "https://hadikia.github.io/tarkhineh-api/db.json",
 });
 
 api.interceptors.response.use(
