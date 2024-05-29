@@ -63,7 +63,7 @@ const FoodDetails = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const data = useSelector((store) =>
-    store.product.products.find((item) => item.slug === slug)
+    store.product.products.foods?.find((item) => item.slug === slug)
   );
   const cartState = useSelector((state) => state.cart);
   const favorite = useSelector((state) => state.favorite);

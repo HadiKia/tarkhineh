@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const fetchProducts = createAsyncThunk("product/fetchProducts", () => {
-  return api.get("/foods");
+  return api.get();
 });
 
 const productsSlice = createSlice({

@@ -27,7 +27,11 @@ export const notFoundResultsStyle =
 
 const Foods = () => {
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.product);
+  const {
+    products: { foods },
+    loading,
+    error,
+  } = useSelector((state) => state.product);
   const [displayed, setDisplayed] = useState([]);
   const [query, setQuery] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,13 +42,13 @@ const Foods = () => {
   }, []);
 
   useEffect(() => {
-    setDisplayed(products);
+    setDisplayed(foods);
     setQuery(getInitialQuery(searchParams));
-  }, [products]);
+  }, [foods]);
 
   useEffect(() => {
     setSearchParams(query);
-    let finalProducts = searchProducts(products, query.search);
+    let finalProducts = searchProducts(foods, query.search);
     finalProducts = filterProducts(finalProducts, query.category);
 
     setDisplayed(finalProducts);
@@ -75,7 +79,7 @@ const Foods = () => {
       </div>
 
       {/* products */}
-      {!displayed.length && loading && (
+      {!displayed?.length && loading && (
         <>
           <div className="min-h-[calc(100vh_-_535px)] flex justify-center">
             <RotatingLines
@@ -93,7 +97,7 @@ const Foods = () => {
           {error}
         </h2>
       )}
-      {!displayed.length && !loading && query.search && (
+      {!displayed?.length && !loading && query.search && (
         <div className={notFoundResultsStyle}>
           <h3>موردی با این مشخصات پیدا نکردیم!</h3>
           <img
@@ -105,7 +109,7 @@ const Foods = () => {
       )}
       <div className="container max-w-[1224px] mx-auto min-h-[calc(100vh_-_530px)] md:min-h-[calc(100vh_-_700px)] ">
         <div className={mainContainerStyle}>
-          {displayed.map((product) => (
+          {displayed?.map((product) => (
             <Food key={product.id} productData={product} />
           ))}
         </div>
