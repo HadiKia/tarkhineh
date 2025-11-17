@@ -3,7 +3,7 @@ import api from "../../services/config";
 
 const initialState = {
   loading: false,
-  products: [],
+  products: { foods: [] },
   error: "",
 };
 
@@ -25,7 +25,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.loading = false;
-      state.products = [];
+      state.products = { foods: [] };
       state.error = action.error.message;
     });
   },
