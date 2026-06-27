@@ -1,0 +1,1 @@
+export type { SendOTPFormValues } from "@/validations/auth";
