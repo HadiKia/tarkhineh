@@ -1,1 +1,1 @@
-export type { SendOTPFormValues } from "@/validations/auth";
+export type { SendOTPFormValues, CheckOTPFormValues } from "@/validations/auth";
