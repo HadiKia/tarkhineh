@@ -9,12 +9,14 @@ type SendOTPFormProps = {
   register: UseFormRegister<SendOTPFormValues>;
   errors: FieldErrors<SendOTPFormValues>;
   onSubmit: ComponentProps<"form">["onSubmit"];
+  isLoading: boolean;
 };
 
 const SendOTPForm = ({
   register,
   errors,
   onSubmit,
+  isLoading,
 }: SendOTPFormProps) => {
   return (
     <div className="pt-10">
@@ -28,7 +30,7 @@ const SendOTPForm = ({
           {...register("phoneNumber")}
         />
 
-        <Button type="submit" >
+        <Button type="submit" isLoading={isLoading}>
           ورود
         </Button>
       </form>
