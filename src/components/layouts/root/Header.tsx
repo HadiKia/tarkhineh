@@ -2,8 +2,9 @@ import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
 import { Button } from "@/components/ui/button";
-import { SearchNormal1, ShoppingCart, User } from "iconsax-reactjs";
+import { SearchNormal1, ShoppingCart } from "iconsax-reactjs";
 import Link from "next/link";
+import UserMenu from "./UserMenu";
 
 export default function Header() {
   return (
@@ -29,23 +30,13 @@ export default function Header() {
             <SearchNormal1 className="w-4 h-4 lg:w-6 lg:h-6" />
           </Button>
 
-          <Button
-            variant="secondary"
-            asChild
-            className="p-1 lg:p-2"
-          >
+          <Button variant="secondary" asChild className="p-1 lg:p-2">
             <Link href="/cart" aria-label="سبد خرید">
               <ShoppingCart className="w-4 h-4 lg:w-6 lg:h-6" />
             </Link>
           </Button>
 
-          <Button
-            variant="secondary"
-            aria-label="پروفایل کاربری"
-            className="p-1 lg:p-2"
-          >
-            <User className="w-4 h-4 lg:w-6 lg:h-6" />
-          </Button>
+          <UserMenu />
         </div>
       </div>
     </header>

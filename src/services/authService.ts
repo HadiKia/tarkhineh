@@ -8,3 +8,7 @@ export function getOTP(data: SendOTPFormValues) {
 export function checkOTP(data: CheckOTPFormValues) {
   return http.post("/user/check-otp", data).then(({ data }) => data.data);
 }
+
+export function getUserProfile() {
+  return http.get("/user/profile").then(({ data }) => data.data);
+}

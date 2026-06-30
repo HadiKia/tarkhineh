@@ -23,16 +23,18 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" className={cn("antialiased", estedadFont.variable, "font-sans", inter.variable)}>
       <body>
-        <Header />
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-        <Footer />
-        <Toaster
-          richColors
-          position="top-center"
-          toastOptions={{
-            className: "font-sans",
-          }}
-        />
+        <ReactQueryProvider>
+          <Header />
+          {children}
+          <Footer />
+          <Toaster
+            richColors
+            position="top-center"
+            toastOptions={{
+              className: "font-sans",
+            }}
+          />
+        </ReactQueryProvider>
       </body>
     </html>
   );

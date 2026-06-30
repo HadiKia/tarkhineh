@@ -2,7 +2,7 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
 
@@ -11,6 +11,7 @@ import { CheckOTPFormValues } from "@/types";
 import { checkOTP, getOTP } from "@/services/authService";
 import { ApiError } from "@/types";
 import CheckOTPForm from "./CheckOTPForm";
+import { useRouter } from "next/navigation";
 
 type CheckOTPFormContainerProps = {
   setStep: Dispatch<SetStateAction<number>>;
@@ -18,6 +19,7 @@ type CheckOTPFormContainerProps = {
   time: number;
   isTimerActive: boolean;
   onResend: () => void;
+  onSuccess?: () => void;
 };
 
 export default function CheckOTPFormContainer({
@@ -26,7 +28,11 @@ export default function CheckOTPFormContainer({
   time,
   isTimerActive,
   onResend,
+  onSuccess,
 }: CheckOTPFormContainerProps) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
   const { isPending: isCheckPending, mutateAsync: checkOTPMutate } =
     useMutation({ mutationFn: checkOTP });
 
@@ -47,8 +53,15 @@ export default function CheckOTPFormContainer({
     formData,
   ) => {
     try {
-      const data = await checkOTPMutate(formData);
-      toast.success(data.message);
+      const { message, user } = await checkOTPMutate(formData);
+      toast.success(message);
+      await queryClient.invalidateQueries({ queryKey: ["get-user"] });
+      onSuccess?.();
+      if (user.isActive) {
+        router.push("/");
+      } else {
+        router.push("/profile/complete-profile");
+      }
     } catch (error) {
       const err = error as ApiError;
       toast.error(err.response?.data?.message);

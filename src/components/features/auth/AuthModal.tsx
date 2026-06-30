@@ -1,19 +1,26 @@
 "use client";
-import CheckOTPFormContainer from "@/components/features/auth/CheckOTPFormContainer";
-import SendOTPFormContainer from "@/components/features/auth/SendOTPFormContainer";
-import { RESEND_OTP_TIME } from "@/constants/auth";
-import { useCallback, useEffect, useState } from "react";
 
-export default function AuthPage() {
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
+import SendOTPFormContainer from "./SendOTPFormContainer";
+import CheckOTPFormContainer from "./CheckOTPFormContainer";
+import { RESEND_OTP_TIME } from "@/constants/auth";
+import { useCallback, useEffect } from "react";
+
+type AuthModalProps = {
+  open: boolean;
+  onClose: () => void;
+};
+
+export default function AuthModal({ open, onClose }: AuthModalProps) {
   const [step, setStep] = useState(1);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isTimerActive, setIsTimerActive] = useState(false);
   const [time, setTime] = useState(RESEND_OTP_TIME);
-
-  const startTimer = useCallback(() => {
-    setTime(RESEND_OTP_TIME);
-    setIsTimerActive(true);
-  }, []);
+  const [isTimerActive, setIsTimerActive] = useState(false);
 
   useEffect(() => {
     if (!isTimerActive) return;
@@ -32,7 +39,22 @@ export default function AuthPage() {
     return () => clearInterval(timer);
   }, [isTimerActive]);
 
-  const renderSteps = () => {
+  const startTimer = useCallback(() => {
+    setTime(RESEND_OTP_TIME);
+    setIsTimerActive(true);
+  }, []);
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => {
+      setStep(1);
+      setPhoneNumber("");
+      setIsTimerActive(false);
+      setTime(RESEND_OTP_TIME);
+    }, 300);
+  };
+
+  const renderStep = () => {
     switch (step) {
       case 1:
         return (
@@ -51,6 +73,7 @@ export default function AuthPage() {
             time={time}
             isTimerActive={isTimerActive}
             onResend={startTimer}
+            onSuccess={handleClose}
           />
         );
       default:
@@ -58,5 +81,12 @@ export default function AuthPage() {
     }
   };
 
-  return renderSteps();
+  return (
+    <Dialog open={open} onOpenChange={handleClose}>
+      <DialogContent>
+        <DialogTitle>ورود / ثبت‌نام</DialogTitle>
+        {renderStep()}
+      </DialogContent>
+    </Dialog>
+  );
 }
