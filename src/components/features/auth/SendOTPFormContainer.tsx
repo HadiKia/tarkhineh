@@ -22,7 +22,7 @@ export default function SendOTPFormContainer({
   setStep,
   setPhoneNumber,
   phoneNumber,
-  onOTPSent
+  onOTPSent,
 }: SendOTPFormContainerProps) {
   const { isPending, mutateAsync } = useMutation({
     mutationFn: getOTP,
@@ -31,16 +31,17 @@ export default function SendOTPFormContainer({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SendOTPFormValues>({
     resolver: yupResolver(sendOTPSchema),
     defaultValues: { phoneNumber },
+    mode: "onChange",
   });
 
   const sendOTPHandler: SubmitHandler<SendOTPFormValues> = async (formData) => {
     try {
       const data = await mutateAsync(formData);
-      toast.success(data.message);
+      toast.success(data.message, {duration: 6000});
       setPhoneNumber(formData.phoneNumber);
       onOTPSent();
       setStep(2);
@@ -56,6 +57,7 @@ export default function SendOTPFormContainer({
       errors={errors}
       onSubmit={handleSubmit(sendOTPHandler)}
       isLoading={isPending}
+      isValid={isValid}
     />
   );
 }

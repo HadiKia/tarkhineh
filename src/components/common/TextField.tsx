@@ -48,7 +48,7 @@ const TextField = ({
 
       {(description || error) && (
         <FieldDescription aria-invalid={hasError}>
-          <InfoCircle className="h-3 w-3" />
+          <InfoCircle className="h-4 w-4" />
           {error || description}
         </FieldDescription>
       )}

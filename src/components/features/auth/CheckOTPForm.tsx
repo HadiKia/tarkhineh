@@ -10,14 +10,16 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { CheckOTPFormValues } from "@/types";
-import { Clock } from "iconsax-reactjs";
+import { ArrowRight, ArrowRight2, Clock } from "iconsax-reactjs";
 import { formatTime } from "@/utils/timeFormatter";
+import { toPersianDigits } from "@/utils/numberFormatter";
 
 type CheckOTPFormProps = {
   control: Control<CheckOTPFormValues>;
   errors: FieldErrors<CheckOTPFormValues>;
   onSubmit: ComponentProps<"form">["onSubmit"];
   isLoading: boolean;
+  isValid: boolean;
   onEditPhone: () => void;
   time: number;
   isTimerActive: boolean;
@@ -29,20 +31,34 @@ const CheckOTPForm = ({
   errors,
   onSubmit,
   isLoading,
+  isValid,
   onEditPhone,
   time,
   isTimerActive,
   onResend,
 }: CheckOTPFormProps) => {
-  const otpValue = useWatch({ control, name: "otp" });
-  const isOtpComplete = otpValue?.length === 6;
-  const hasOtpError = !!errors.otp && !!otpValue;
   const phoneNumber = useWatch({ control, name: "phoneNumber" });
+  const otpValue = useWatch({ control, name: "otp" });
+
+  const hasOtpError = otpValue?.length === 6 && !!errors.otp;
 
   return (
-    <div className="p-4 grid place-items-center max-w-lg mx-auto">
-      <p>کد ارسال شده به {phoneNumber} را وارد کنید</p>
-      <form onSubmit={onSubmit}>
+    <div className="flex flex-col items-center w-full">
+      <Button
+        onClick={onEditPhone}
+        variant="ghost"
+        className="absolute top-4 inset-s-6 md:top-6 hover:bg-transparent -mr-2 -mt-2 md:-mt-1.5 text-gray-7"
+      >
+        <ArrowRight2 className="w-5! h-5! md:w-6! md:h-6!" />
+        <span className="sr-only">Close</span>
+      </Button>
+      <h3 className="font-bold text-gray-8 text-base mb-6 md:mb-2 md:font-normal">
+        کد تائید
+      </h3>
+      <p className="text-sm md:text-xs text-gray-7 mb-6 text-center">
+        کد تایید پنج‌رقمی به شماره {toPersianDigits(phoneNumber)} ارسال شد.
+      </p>
+      <form onSubmit={onSubmit} className="w-full">
         <Field dir="ltr" className="w-full font-sans!">
           <Controller
             name="otp"
@@ -99,10 +115,11 @@ const CheckOTPForm = ({
         <Button
           type="submit"
           isLoading={isLoading}
-          disabled={!isOtpComplete}
-          className="w-full"
+          disabled={!isValid}
+          className="mt-4 w-full"
         >
-          ثبت کد
+          <span className="md:hidden">تائید</span>
+          <span className="hidden md:block">ثبت کد</span>
         </Button>
       </form>
     </div>

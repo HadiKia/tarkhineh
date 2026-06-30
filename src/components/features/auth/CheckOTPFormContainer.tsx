@@ -42,11 +42,12 @@ export default function CheckOTPFormContainer({
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
   } = useForm<CheckOTPFormValues>({
     resolver: yupResolver(checkOTPSchema),
     defaultValues: { otp: "", phoneNumber },
+    mode: "onChange",
   });
 
   const checkOTPHandler: SubmitHandler<CheckOTPFormValues> = async (
@@ -86,6 +87,7 @@ export default function CheckOTPFormContainer({
       errors={errors}
       onSubmit={handleSubmit(checkOTPHandler)}
       isLoading={isCheckPending || isResendPending}
+      isValid={isValid}
       onEditPhone={() => setStep(1)}
       time={time}
       isTimerActive={isTimerActive}
