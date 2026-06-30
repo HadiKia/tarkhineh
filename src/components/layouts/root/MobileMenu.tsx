@@ -18,7 +18,7 @@ export default function MobileMenu() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <button aria-label="باز کردن منو" className="p-2 text-primary‌ cursor-pointer">
+        <button aria-label="باز کردن منو" className="p-2 text-primary! cursor-pointer">
           <HamburgerMenu size={24} className="-my-2" />
         </button>
       </SheetTrigger>

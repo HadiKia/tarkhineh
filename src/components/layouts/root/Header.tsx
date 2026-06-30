@@ -25,12 +25,12 @@ export default function Header() {
           <Button
             variant="secondary"
             aria-label="جستجو"
-            className="hidden lg:flex p-1 lg:p-2"
+            className="hidden lg:flex p-1 lg:p-1.75"
           >
             <SearchNormal1 className="w-4 h-4 lg:w-6 lg:h-6" />
           </Button>
 
-          <Button variant="secondary" asChild className="p-1 lg:p-2">
+          <Button variant="secondary" asChild className="p-1 lg:p-1.75">
             <Link href="/cart" aria-label="سبد خرید">
               <ShoppingCart className="w-4 h-4 lg:w-6 lg:h-6" />
             </Link>

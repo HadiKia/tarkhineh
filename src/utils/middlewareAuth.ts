@@ -7,19 +7,26 @@ export async function middlewareAuth(
   const accessToken = req.cookies.get("accessToken");
   const refreshToken = req.cookies.get("refreshToken");
 
-  const options: RequestInit = {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      Cookie: `${accessToken?.name}=${accessToken?.value}; ${refreshToken?.name}=${refreshToken?.value}`,
-    },
-  };
+  try {
+    const options: RequestInit = {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Cookie: `${accessToken?.name}=${accessToken?.value}; ${refreshToken?.name}=${refreshToken?.value}`,
+      },
+    };
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/user/profile`,
-    options,
-  );
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/profile`,
+      options,
+    );
 
-  const body = await res.json();
-  return body?.data as User | undefined;
+    if (!res.ok) return undefined;
+
+    const { data } = await res.json();
+    const { user } = data || {};
+    return user as User | undefined;
+  } catch {
+    return undefined;
+  }
 }
