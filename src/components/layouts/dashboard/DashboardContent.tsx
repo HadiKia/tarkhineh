@@ -14,7 +14,7 @@ export default function DashboardContent({ children }: DashboardContentProps) {
   const isDashboardHome = pathname === "/panel";
 
   return (
-    <div className="max-w-306 mx-auto">
+    <div className="max-w-306 mx-auto px-5 xl:px-0 py-6 lg:py-12">
       {/* Desktop */}
       <div className="hidden lg:grid grid-cols-12 gap-6">
         <aside className="col-span-3">

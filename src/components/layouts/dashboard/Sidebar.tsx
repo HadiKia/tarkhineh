@@ -5,6 +5,11 @@ import { sidebarConfig } from "./sidebar.config";
 import Link from "next/link";
 import { useGetUser } from "@/hooks/useAuth";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { LogoutCurve } from "iconsax-reactjs";
+import Image from "next/image";
+import { toPersianDigits } from "@/utils/numberFormatter";
+import SidebarSkeleton from "./SidebarSkeleton";
 
 export default function Sidebar() {
   const { data, isLoading } = useGetUser();
@@ -13,12 +18,35 @@ export default function Sidebar() {
 
   const pathname = usePathname();
 
-  if (isLoading || !user) {
+  if (isLoading) {
+    return <SidebarSkeleton />;
+  }
+
+  if (!user) {
     return null;
   }
 
   return (
-    <div className="space-y-4">
+    <div className="lg:px-2 lg:py-4 lg:border lg:border-gray-4 lg:rounded-lg">
+      <div className="pb-2 border-b border-gray-6 mb-2 flex items-center gap-x-2 xl:gap-x-6">
+        <div className="relative w-12 h-12 lg:w-22 lg:h-22 shrink-0 rounded-full border border-gray-4">
+          <Image
+            src={user.avatarUrl || "/images/dashboard/profile.png"}
+            alt="profile"
+            fill
+            className="rounded-full object-cover"
+          />
+        </div>
+        <div className="flex min-w-0 flex-col gap-y-1">
+          <span className="text-sm lg:text-base text-gray-8 line-clamp-2 wrap-break-word">
+            {user.name || "کاربر ترخینه"}
+          </span>
+          <span className="text-xs lg:text-sm text-gray-7">
+            {toPersianDigits(user.phoneNumber)}
+          </span>
+        </div>
+      </div>
+
       {sidebarConfig[user.role].map(({ id, children, path, Icon }) => {
         const isActive = pathname === path;
 
@@ -27,19 +55,33 @@ export default function Sidebar() {
             key={id}
             href={path}
             className={cn(
-              isActive ? "text-primary! font-medium" : "text-gray-8",
-              "flex items-center",
+              "flex items-center gap-x-1 text-xs lg:text-sm px-1.5 border-2 border-transparent py-2.5 lg:py-1.25 lg:mb-1 ",
+              isActive
+                ? "text-primary font-medium border-r-primary text-sm lg:text-base"
+                : "text-gray-8 lg:py-1.75 ",
             )}
           >
             <Icon
               variant={isActive ? "Bold" : "Outline"}
-              className={cn(isActive ? "text-primary" : "text-gray-8")}
+              className={cn(
+                "w-4 h-4 ",
+                isActive ? "text-primary lg:w-5 lg:h-5" : "text-gray-8",
+              )}
             />
 
             {children}
           </Link>
         );
       })}
+
+      <Button
+        type="button"
+        variant="link"
+        className="text-error w-full justify-start gap-x-1! px-2 py-2.75 lg:py-2 text-xs lg:text-sm font-normal"
+      >
+        <LogoutCurve className="lg:w-4! lg:h-4!" />
+        خروج
+      </Button>
     </div>
   );
 }

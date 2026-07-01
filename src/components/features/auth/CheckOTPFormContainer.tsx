@@ -61,7 +61,7 @@ export default function CheckOTPFormContainer({
       if (user.isActive) {
         router.push("/");
       } else {
-        router.push("/profile/complete-profile");
+        router.push("/profile");
       }
     } catch (error) {
       const err = error as ApiError;
