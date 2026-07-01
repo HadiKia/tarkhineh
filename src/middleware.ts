@@ -12,6 +12,10 @@ type AccessControlRoute = {
 
 const accessControl: AccessControlRoute[] = [
   {
+    path: "/panel",
+    authRequired: true,
+  },
+  {
     path: "/profile",
     authRequired: true,
   },
@@ -59,5 +63,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*", "/admin/:path*"],
+  matcher: ["/panel/:path*", "/profile/:path*", "/admin/:path*"],
 };
