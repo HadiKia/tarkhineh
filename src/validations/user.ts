@@ -1,6 +1,9 @@
 import * as yup from "yup";
-
-const MAX_FILE_SIZE = 20 * 1024 * 1024;
+import {
+  MAX_AVATAR_FILE_SIZE,
+  MAX_AVATAR_FILE_SIZE_MESSAGE,
+} from "@/constants/upload";
+import { toPersianDigits } from "@/utils/numberFormatter";
 
 export const profileSchema = yup.object({
   phoneNumber: yup
@@ -16,10 +19,10 @@ export const profileSchema = yup.object({
     .default(null)
     .test(
       "fileSize",
-      "حجم فایل انتخاب شده باید کمتر از ۲۰ مگابایت باشد",
+      toPersianDigits(MAX_AVATAR_FILE_SIZE_MESSAGE),
       (value) => {
         if (!value || typeof value === "string") return true;
-        return value.size <= MAX_FILE_SIZE;
+        return value.size <= MAX_AVATAR_FILE_SIZE;
       },
     ),
 });

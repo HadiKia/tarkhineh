@@ -3,11 +3,13 @@ import type { FieldErrors, FieldValues } from "react-hook-form";
 import type { ChangeEvent, InputHTMLAttributes } from "react";
 import { FolderAdd, Trash } from "iconsax-reactjs";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 type FileInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "onChange" | "name"
 > & {
+  disabled?: boolean;
   label: string;
   name: string;
   placeholder?: string;
@@ -22,6 +24,7 @@ type FileInputProps = Omit<
 };
 
 function FileInput({
+  disabled,
   accept,
   label,
   placeholder,
@@ -54,7 +57,10 @@ function FileInput({
               href={previewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block w-full h-27.5 lg:h-47.5 overflow-hidden rounded-md"
+              className={cn(
+                "group relative block w-full h-27.5 lg:h-47.5 overflow-hidden rounded-md transition-opacity duration-300 ease-linear",
+                disabled && "pointer-events-none opacity-60",
+              )}
             >
               <Image
                 fill
@@ -71,40 +77,51 @@ function FileInput({
               </div>
             </a>
           </div>
-          <div className="flex items-center justify-between">
-            {hasError && (
-              <span className="text-xs text-error">
-                {errors?.[name]?.message as string}
-              </span>
-            )}
-            {onRemove && (
-              <Button
-                type="button"
-                variant="destructive"
-                onClick={onRemove}
-                className="ms-auto p-1 lg:p-1.75"
-              >
-                <Trash className="size-4 lg:size-6" />
-              </Button>
-            )}
-          </div>
+
+          {onRemove && (
+            <Button
+              type="button"
+              variant="destructive"
+              disabled={disabled}
+              onClick={disabled ? undefined : onRemove}
+              className={cn(
+                "ms-auto p-1 lg:p-1.75",
+                disabled && "opacity-60 pointer-events-none",
+              )}
+            >
+              <Trash className="size-4 lg:size-6" />
+            </Button>
+          )}
         </div>
       ) : (
-        <label htmlFor={`file-upload-${name}`} className={inputClasses}>
-          <FolderAdd className="size-8 lg:size-14" />
-          <span className="text-xs lg:text-base">{placeholder}</span>
-          <input
-            accept={accept}
-            id={`file-upload-${name}`}
-            type="file"
-            className="sr-only"
-            name={name}
-            dir={dir}
-            onChange={onChange}
-            {...rest}
-            disabled={!!previewUrl}
-          />
-        </label>
+        <>
+          <label
+            htmlFor={`file-upload-${name}`}
+            className={cn(
+              inputClasses,
+              disabled && "pointer-events-none opacity-60",
+            )}
+          >
+            <FolderAdd className="size-8 lg:size-14" />
+            <span className="text-xs lg:text-base">{placeholder}</span>
+            <input
+              accept={accept}
+              id={`file-upload-${name}`}
+              type="file"
+              className="sr-only"
+              name={name}
+              dir={dir}
+              onChange={onChange}
+              {...rest}
+              disabled={disabled || !!previewUrl}
+            />
+          </label>
+          {hasError && (
+            <span className="text-xs text-error">
+              {errors?.[name]?.message as string}
+            </span>
+          )}
+        </>
       )}
     </div>
   );

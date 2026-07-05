@@ -8,11 +8,15 @@ import TextField from "@/components/common/TextField";
 import FileInput from "@/components/common/FileInput";
 import { Button } from "@/components/ui/button";
 import { ProfileFormValues } from "@/validations/user";
+import { Edit } from "iconsax-reactjs";
 
 type ProfileFormProps = {
   register: UseFormRegister<ProfileFormValues>;
   errors: FieldErrors<ProfileFormValues>;
   onSubmit: ComponentProps<"form">["onSubmit"];
+  isEditing: boolean;
+  onEdit: () => void;
+  onCancel: () => void;
   isLoading: boolean;
   isValid: boolean;
   isFetchingUser: boolean;
@@ -25,6 +29,9 @@ const ProfileForm = ({
   register,
   errors,
   onSubmit,
+  isEditing,
+  onEdit,
+  onCancel,
   isLoading,
   isValid,
   isFetchingUser,
@@ -35,7 +42,7 @@ const ProfileForm = ({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col gap-4 lg:gap-6 lg:grid lg:grid-cols-2 max-w-179.5 mx-auto lg:pt-8"
+      className="flex flex-col gap-4 lg:gap-6 lg:grid lg:grid-cols-2 max-w-179.5 mx-auto lg:py-8"
     >
       <TextField
         id="phoneNumber"
@@ -50,6 +57,7 @@ const ProfileForm = ({
         id="name"
         label="نام"
         placeholder=" "
+        disabled={!isEditing}
         error={errors.name?.message}
         {...register("name")}
       />
@@ -58,6 +66,7 @@ const ProfileForm = ({
         type="email"
         label="ایمیل"
         placeholder=" "
+        disabled={!isEditing}
         error={errors.email?.message}
         {...register("email")}
       />
@@ -65,6 +74,7 @@ const ProfileForm = ({
         id="biography"
         label="بیوگرافی (اختیاری)"
         placeholder=" "
+        disabled={!isEditing}
         error={errors.biography?.message}
         {...register("biography")}
       />
@@ -78,17 +88,45 @@ const ProfileForm = ({
         onChange={onAvatarChange}
         onRemove={onAvatarRemove}
         errors={errors}
+        disabled={!isEditing}
         wrapperClassName="lg:col-span-2"
       />
 
-      <Button
-        type="submit"
-        isLoading={isLoading}
-        disabled={!isValid || isFetchingUser}
-        className="w-full lg:col-start-2 mt-4 lg:mt-0"
-      >
-        ذخیره اطلاعات
-      </Button>
+      {!isEditing ? (
+        <Button
+          type="button"
+          variant="outline"
+          onClick={(e) => {
+            e.preventDefault();
+            console.log("edit clicked");
+            onEdit();
+          }}
+          className="mx-auto lg:col-span-2 lg:w-69.5"
+        >
+          <Edit />
+          ویرایش اطلاعات شخصی
+        </Button>
+      ) : (
+        <div className="flex w-full items-center justify-between gap-4 lg:col-start-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            className="flex-1"
+          >
+            انصراف
+          </Button>
+
+          <Button
+            type="submit"
+            isLoading={isLoading}
+            disabled={!isValid || isFetchingUser}
+            className="flex-1"
+          >
+            ذخیره اطلاعات
+          </Button>
+        </div>
+      )}
     </form>
   );
 };
