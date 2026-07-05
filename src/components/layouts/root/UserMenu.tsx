@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import AuthModal from "@/components/features/auth/AuthModal";
+import LogoutModal from "@/components/features/auth/LogoutModal";
 import { useGetUser } from "@/hooks/useAuth";
 import Link from "next/link";
 import { sidebarConfig } from "../dashboard/sidebar.config";
@@ -18,6 +19,7 @@ import { cn } from "@/lib/utils";
 
 export default function UserMenu() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const { data, isLoading } = useGetUser();
   const user = data?.user;
 
@@ -52,6 +54,7 @@ export default function UserMenu() {
   }
 
   return (
+    <>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
@@ -90,11 +93,17 @@ export default function UserMenu() {
             </DropdownMenuItem>
           );
         })}
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="destructive" onClick={() => setIsLogoutModalOpen(true)}>
           <LogoutCurve />
           خروج
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+
+    <LogoutModal
+      open={isLogoutModalOpen}
+      onClose={() => setIsLogoutModalOpen(false)}
+    />
+    </>
   );
 }

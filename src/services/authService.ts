@@ -1,4 +1,9 @@
-import { SendOTPFormValues, CheckOTPFormValues, UpdateProfileResponse, UpdateProfilePayload } from "@/types";
+import {
+  SendOTPFormValues,
+  CheckOTPFormValues,
+  UpdateProfileResponse,
+  UpdateProfilePayload,
+} from "@/types";
 import http from "./httpService";
 
 export function getOTP(data: SendOTPFormValues) {
@@ -30,4 +35,8 @@ export function updateProfile(payload: UpdateProfilePayload) {
   return http
     .patch<UpdateProfileResponse>("/user/update", body)
     .then(({ data }) => data);
+}
+
+export function logout() {
+  return http.post("/user/logout");
 }

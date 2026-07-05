@@ -10,8 +10,12 @@ import { LogoutCurve } from "iconsax-reactjs";
 import Image from "next/image";
 import { toPersianDigits } from "@/utils/numberFormatter";
 import SidebarSkeleton from "./SidebarSkeleton";
+import { useState } from "react";
+import LogoutModal from "@/components/features/auth/LogoutModal";
 
 export default function Sidebar() {
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
   const { data, isLoading } = useGetUser();
 
   const user = data?.user;
@@ -74,6 +78,7 @@ export default function Sidebar() {
       })}
 
       <Button
+        onClick={() => setIsLogoutModalOpen(true)}
         type="button"
         variant="link"
         className="text-error w-full justify-start gap-x-1! px-2 py-2.75 lg:py-2 text-xs lg:text-sm font-normal"
@@ -81,6 +86,11 @@ export default function Sidebar() {
         <LogoutCurve className="lg:w-4! lg:h-4!" />
         خروج
       </Button>
+
+      <LogoutModal
+        open={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+      />
     </div>
   );
 }
