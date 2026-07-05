@@ -1,15 +1,12 @@
-import Link from "next/link";
+import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
+import ProfileFormContainer from "@/components/features/profile/ProfileFormContainer";
 
 const Profile = () => {
   return (
-    <div className=" flex">
-      <Link
-        href="/panel"
-        className="mb-6 inline-flex items-center gap-2 text-primary"
-      >
-        <span>بازگشت</span>
-      </Link>
-      <span>Profile</span>
+    <div>
+      <DashboardHeader title="پروفایل من" />
+
+      <ProfileFormContainer />
     </div>
   );
 };

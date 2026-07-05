@@ -21,7 +21,7 @@ export default function DashboardContent({ children }: DashboardContentProps) {
           <Sidebar />
         </aside>
 
-        <main className="col-span-9">{children}</main>
+        <section className="col-span-9 lg:p-6 lg:border lg:border-gray-4 lg:rounded-lg">{children}</section>
       </div>
 
       {/* Mobile */}

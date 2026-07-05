@@ -29,14 +29,13 @@ export default function Sidebar() {
   return (
     <div className="lg:px-2 lg:py-4 lg:border lg:border-gray-4 lg:rounded-lg">
       <div className="pb-2 border-b border-gray-6 mb-2 flex items-center gap-x-2 xl:gap-x-6">
-        <div className="relative w-12 h-12 lg:w-22 lg:h-22 shrink-0 rounded-full border border-gray-4">
-          <Image
-            src={user.avatarUrl || "/images/dashboard/profile.png"}
-            alt="profile"
-            fill
-            className="rounded-full object-cover"
-          />
-        </div>
+        <Image
+          src={user.avatarUrl || "/images/dashboard/profile.png"}
+          alt="profile"
+          width={88}
+          height={88}
+          className="h-12 w-12 lg:h-22 lg:w-22 rounded-full object-cover border border-gray-4 shrink-0"
+        />
         <div className="flex min-w-0 flex-col gap-y-1">
           <span className="text-sm lg:text-base text-gray-8 line-clamp-2 wrap-break-word">
             {user.name || "کاربر ترخینه"}

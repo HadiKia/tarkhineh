@@ -28,18 +28,19 @@ const TextField = ({
         focus-within:[&>label]:bg-background
         focus-within:[&>label]:text-[10px]
         lg:focus-within:[&>label]:text-xs
+        focus-within:[&>label]:text-gray-7
         has-[input:not(:placeholder-shown)]:[&>label]:top-0
         has-[input:not(:placeholder-shown)]:[&>label]:-mt-1.75
         lg:has-[input:not(:placeholder-shown)]:[&>label]:-mt-2
         has-[input:not(:placeholder-shown)]:[&>label]:bg-background
         has-[input:not(:placeholder-shown)]:[&>label]:text-[10px]
         lg:has-[input:not(:placeholder-shown)]:[&>label]:text-xs
-        
+        has-[input:not(:placeholder-shown)]:[&>label]:text-gray-7
       "
     >
       <FieldLabel
         htmlFor={id}
-        className="absolute top-1.75 ms-4 px-1 text-xs lg:text-base font-normal w-fit! transition-all duration-300 ease-linear"
+        className="absolute top-1.75 ms-4 px-1 text-xs lg:text-base text-gray-4 font-normal w-fit! transition-all duration-300 ease-linear z-1"
       >
         {label}
       </FieldLabel>

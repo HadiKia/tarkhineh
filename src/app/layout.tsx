@@ -22,10 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl" className={cn("antialiased", estedadFont.variable, "font-sans", inter.variable)}>
-      <body>
+      <body className="min-h-dvh flex flex-col">
         <ReactQueryProvider>
           <Header />
-          {children}
+          <main className="flex-1">{children}</main>
           <Footer />
           <Toaster
             richColors

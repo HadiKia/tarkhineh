@@ -35,8 +35,11 @@ export type UpdateProfilePayload = {
   email: string;
   phoneNumber?: string;
   biography?: string;
+  avatarUrl?: File | string | null;
 };
 
 export type UpdateProfileResponse = {
-  message: string;
+  data: {
+    message: string;
+  };
 };

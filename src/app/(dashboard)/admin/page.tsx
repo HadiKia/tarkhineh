@@ -1,14 +1,9 @@
-import Link from "next/link";
+import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 
 const AdminPage = () => {
   return (
-    <div className=" flex">
-      <Link
-        href="/panel"
-        className="mb-6 inline-flex items-center gap-2 text-primary"
-      >
-        <span>بازگشت</span>
-      </Link>
+    <div>
+      <DashboardHeader title="مدیریت" />
       <span>AdminPage</span>
     </div>
   );
