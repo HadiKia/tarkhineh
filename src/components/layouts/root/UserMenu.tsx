@@ -25,11 +25,11 @@ export default function UserMenu() {
 
   const pathname = usePathname();
   const isDashboard =
-    pathname.startsWith("/profile") || pathname.startsWith("/admin");
+    pathname.startsWith("/profile") || pathname.startsWith("/admin") || pathname.startsWith("/panel");;
 
     if (isLoading) {
   return (
-    <div className="w-10 h-6.5 lg:w-14.5 lg:h-10 rounded-sm lg:rounded-lg bg-gray-2 animate-pulse" />
+    <div className="size-6.5 lg:size-10 rounded-sm lg:rounded-lg bg-gray-2 animate-pulse" />
   );
 }
 

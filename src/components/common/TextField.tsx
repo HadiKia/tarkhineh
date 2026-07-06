@@ -1,12 +1,17 @@
+"use client"
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { InfoCircle } from "iconsax-reactjs";
+import TextFieldSkeleton from "./TextFieldSkeleton";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 type TextFieldProps = React.ComponentProps<typeof Input> & {
   id: string;
   label: string;
   description?: string;
   error?: string;
+  loading?: boolean;
 };
 
 const TextField = ({
@@ -14,9 +19,26 @@ const TextField = ({
   label,
   description,
   error,
+  loading,
   ...inputProps
 }: TextFieldProps) => {
+  const [enableTransition, setEnableTransition] = useState(false);
+
   const hasError = Boolean(error);
+
+    useEffect(() => {
+    if (!loading) {
+      requestAnimationFrame(() => {
+        setEnableTransition(true);
+      });
+    }
+  }, [loading]);
+
+  if (loading) {
+    return <TextFieldSkeleton />;
+  }
+
+
 
   return (
     <Field
@@ -40,7 +62,12 @@ const TextField = ({
     >
       <FieldLabel
         htmlFor={id}
-        className="absolute top-1.75 ms-4 px-1 text-xs lg:text-base text-gray-4 font-normal w-fit! transition-all duration-300 ease-linear z-1"
+        className={cn(
+          "absolute top-1.75 ms-4 px-1 text-xs lg:text-base text-gray-4 font-normal w-fit! transition-all duration-300 ease-linear z-1",
+          enableTransition
+            ? "transition-all duration-300 ease-linear"
+            : "transition-none",
+        )}
       >
         {label}
       </FieldLabel>

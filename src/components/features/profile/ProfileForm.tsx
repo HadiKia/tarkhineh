@@ -52,6 +52,7 @@ const ProfileForm = ({
         disabled
         error={errors.phoneNumber?.message}
         {...register("phoneNumber")}
+        loading={isFetchingUser}
       />
       <TextField
         id="name"
@@ -60,6 +61,7 @@ const ProfileForm = ({
         disabled={!isEditing}
         error={errors.name?.message}
         {...register("name")}
+        loading={isFetchingUser}
       />
       <TextField
         id="email"
@@ -69,6 +71,7 @@ const ProfileForm = ({
         disabled={!isEditing}
         error={errors.email?.message}
         {...register("email")}
+        loading={isFetchingUser}
       />
       <TextField
         id="biography"
@@ -77,6 +80,7 @@ const ProfileForm = ({
         disabled={!isEditing}
         error={errors.biography?.message}
         {...register("biography")}
+        loading={isFetchingUser}
       />
 
       <FileInput
@@ -89,6 +93,7 @@ const ProfileForm = ({
         onRemove={onAvatarRemove}
         errors={errors}
         disabled={!isEditing}
+        loading={isFetchingUser}
         wrapperClassName="lg:col-span-2"
       />
 
@@ -101,7 +106,8 @@ const ProfileForm = ({
             console.log("edit clicked");
             onEdit();
           }}
-          className="mx-auto lg:col-span-2 lg:w-69.5"
+          isLoading={isFetchingUser}
+          className="mx-auto lg:col-span-2 w-38.5 lg:w-69.5 "
         >
           <Edit />
           ویرایش اطلاعات شخصی

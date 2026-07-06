@@ -4,6 +4,7 @@ import type { ChangeEvent, InputHTMLAttributes } from "react";
 import { FolderAdd, Trash } from "iconsax-reactjs";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import FileInputSkeleton from "./FileInputSkeleton";
 
 type FileInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -21,6 +22,7 @@ type FileInputProps = Omit<
   wrapperClassName?: string;
   errors?: FieldErrors<FieldValues>;
   previewUrl?: string | null;
+  loading?: boolean;
 };
 
 function FileInput({
@@ -37,9 +39,14 @@ function FileInput({
   errors,
   previewUrl,
   wrapperClassName,
+  loading,
   ...rest
 }: FileInputProps) {
   const hasError = !!errors?.[name];
+
+  if (loading) {
+    return <FileInputSkeleton />;
+  }
 
   const inputClasses = [
     "border border-gray-4 rounded-sm lg:rounded-lg grid place-items-center gap-y-3 py-6 lg:py-12 text-gray-7 [&_svg]:text-gray-7 hover:text-gray-8 hover:[&_svg]:text-primary hover:border-primary transition-all duration-300 ease-linear cursor-pointer",
