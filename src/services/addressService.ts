@@ -12,3 +12,9 @@ export function addAddress(payload: CreateAddressPayload) {
     .post<CreateAddressResponse>("/user/addresses", payload)
     .then(({ data }) => data);
 }
+
+export function deleteAddress(id: string) {
+  return http
+    .delete<{ data: { message: string } }>("/user/addresses/" + id)
+    .then(({ data }) => data);
+}
