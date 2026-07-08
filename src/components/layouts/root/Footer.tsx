@@ -106,6 +106,7 @@ const Footer = () => {
           <Button
             variant="outline"
             className="
+              bg-transparent
               text-gray-1
               border-gray-7
               w-45
