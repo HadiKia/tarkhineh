@@ -12,8 +12,8 @@ import {
 import TextField from "@/components/common/TextField";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Textarea } from "@/components/ui/textarea";
 import { AddressFormValues } from "@/validations/address";
+import TextArea from "@/components/common/TextArea";
 
 type AddressFormProps = {
   control: Control<AddressFormValues>;
@@ -73,7 +73,7 @@ const AddressForm = ({
         <>
           <TextField
             id="receiverName"
-            label="نام و نام خانوادگی تحویل‌گیرنده"
+            label="نام و نام‌خانوادگی تحویل گیرنده"
             placeholder=" "
             error={errors.receiverName?.message}
             {...register("receiverName")}
@@ -88,20 +88,14 @@ const AddressForm = ({
         </>
       )}
 
-      <div className="flex flex-col gap-1">
-        <Textarea
-          id="address"
-          placeholder=" "
-          className="min-h-32"
-          aria-invalid={Boolean(errors.address?.message)}
-          {...register("address")}
-        />
-        {errors.address?.message && (
-          <span className="text-xs font-normal text-destructive">
-            {errors.address.message}
-          </span>
-        )}
-      </div>
+      <TextArea
+        id="address"
+        label="آدرس دقیق شما"
+        placeholder=" "
+        className="min-h-32 lg:min-h-40"
+        error={errors.address?.message}
+        {...register("address")}
+      />
 
       <div className="flex w-full items-center justify-between gap-4 mt-3 md:mt-0">
         <Button
