@@ -1,29 +1,38 @@
 "use client";
 
+import { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "sonner";
 
-import { addAddress } from "@/services/addressService";
+import { addAddress, updateAddress } from "@/services/addressService";
 import { addressSchema, AddressFormValues } from "@/validations/address";
-import { ApiError, CreateAddressPayload } from "@/types";
+import { ApiError, CreateAddressPayload, Address } from "@/types";
 import AddressForm from "./AddressForm";
 
 type AddressFormContainerProps = {
   onClose: () => void;
+  address?: Address;
 };
 
-const AddressFormContainer = ({ onClose }: AddressFormContainerProps) => {
+const AddressFormContainer = ({
+  onClose,
+  address,
+}: AddressFormContainerProps) => {
+  const isEditing = Boolean(address);
   const queryClient = useQueryClient();
-  const { isPending, mutateAsync } = useMutation({ mutationFn: addAddress });
+  const { isPending, mutateAsync } = useMutation({
+    mutationFn: (payload: CreateAddressPayload) =>
+      isEditing ? updateAddress(address!._id, payload) : addAddress(payload),
+  });
 
   const {
     control,
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isDirty, isValid },
   } = useForm<AddressFormValues>({
     resolver: yupResolver(addressSchema),
     defaultValues: {
@@ -36,6 +45,19 @@ const AddressFormContainer = ({ onClose }: AddressFormContainerProps) => {
     },
     mode: "onChange",
   });
+
+  useEffect(() => {
+    if (address) {
+      reset({
+        title: address.title,
+        isSelfReceiver: address.isSelfReceiver,
+        phoneNumber: address.phoneNumber ?? "",
+        receiverName: address.receiverName ?? "",
+        receiverPhoneNumber: address.receiverPhoneNumber ?? "",
+        address: address.address,
+      });
+    }
+  }, [address, reset]);
 
   const handleCancel = () => {
     reset();
@@ -55,7 +77,7 @@ const AddressFormContainer = ({ onClose }: AddressFormContainerProps) => {
       const { data } = await mutateAsync(payload);
       toast.success(data.message);
       await queryClient.invalidateQueries({ queryKey: ["get-addresses"] });
-      
+
       reset();
       onClose();
     } catch (error) {
@@ -63,6 +85,8 @@ const AddressFormContainer = ({ onClose }: AddressFormContainerProps) => {
       toast.error(err.response?.data?.message);
     }
   };
+
+  const isSubmitDisabled = isEditing ? !isDirty || !isValid : !isValid;
 
   return (
     <AddressForm
@@ -72,7 +96,8 @@ const AddressFormContainer = ({ onClose }: AddressFormContainerProps) => {
       onSubmit={handleSubmit(submitHandler)}
       onCancel={handleCancel}
       isLoading={isPending}
-      isValid={isValid}
+      isSubmitDisabled={isSubmitDisabled}
+      isEditing={isEditing}
     />
   );
 };

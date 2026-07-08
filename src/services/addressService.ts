@@ -18,3 +18,12 @@ export function deleteAddress(id: string) {
     .delete<{ data: { message: string } }>("/user/addresses/" + id)
     .then(({ data }) => data);
 }
+
+export function updateAddress(
+  id: string,
+  payload: CreateAddressPayload,
+) {
+  return http
+    .patch<{ data: { message: string } }>("/user/addresses/" + id, payload)
+    .then(({ data }) => data);
+}

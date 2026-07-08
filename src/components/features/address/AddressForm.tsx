@@ -22,7 +22,8 @@ type AddressFormProps = {
   onSubmit: ComponentProps<"form">["onSubmit"];
   onCancel: () => void;
   isLoading: boolean;
-  isValid: boolean;
+  isSubmitDisabled: boolean;
+  isEditing?: boolean;
 };
 
 const AddressForm = ({
@@ -32,7 +33,8 @@ const AddressForm = ({
   onSubmit,
   onCancel,
   isLoading,
-  isValid,
+  isSubmitDisabled,
+  isEditing = false,
 }: AddressFormProps) => {
   const isSelfReceiver = useWatch({ control, name: "isSelfReceiver" });
 
@@ -110,10 +112,10 @@ const AddressForm = ({
         <Button
           type="submit"
           isLoading={isLoading}
-          disabled={!isValid}
+          disabled={isSubmitDisabled}
           className="flex-1"
         >
-          ثبت آدرس
+          {isEditing ? "ذخیره تغییرات" : "ثبت آدرس"}
         </Button>
       </div>
     </form>

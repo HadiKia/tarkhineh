@@ -11,12 +11,14 @@ import { AddCircle } from "iconsax-reactjs";
 import AddressList from "@/components/features/address/AddressList";
 import AddressListSkeleton from "@/components/features/address/AddressListSkeleton";
 import { Button } from "@/components/ui/button";
+import type { Address } from "@/types";
 
 const ADD_ADDRESS_HREF = "/profile/addresses/add-address";
 
 const Addresses = () => {
   const { data, isFetching } = useGetAddresses();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingAddress, setEditingAddress] = useState<Address | null>(null);
 
   const addresses = data?.addresses ?? [];
 
@@ -29,7 +31,10 @@ const Addresses = () => {
           <AddressListSkeleton />
         ) : addresses.length > 0 ? (
           <>
-            <AddressList addresses={addresses} />
+            <AddressList
+              addresses={addresses}
+              onEdit={(address) => setEditingAddress(address)}
+            />
 
             <Button
               type="button"
@@ -72,6 +77,12 @@ const Addresses = () => {
       </div>
 
       <AddressModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+      <AddressModal
+        open={editingAddress !== null}
+        onClose={() => setEditingAddress(null)}
+        address={editingAddress ?? undefined}
+      />
     </>
   );
 };

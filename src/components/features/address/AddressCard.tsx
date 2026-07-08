@@ -1,18 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 import type { Address } from "@/types/address";
 import { formatPhone } from "@/utils/numberFormatter";
 import { Edit2, Trash } from "iconsax-reactjs";
-import DeleteAddressModal from "./DeleteAddressModal";
 import { Button } from "@/components/ui/button";
+import DeleteAddressModal from "./DeleteAddressModal";
+
+const EDIT_ADDRESS_BASE = "/profile/addresses/edit-address";
 
 type AddressCardProps = {
   address: Address;
+  onEdit?: (address: Address) => void;
 };
 
-const AddressCard = ({ address }: AddressCardProps) => {
+const AddressCard = ({ address, onEdit }: AddressCardProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const {
@@ -33,7 +37,26 @@ const AddressCard = ({ address }: AddressCardProps) => {
         <div className="flex items-start justify-between gap-2 text-gray-8">
           <p className="w-full text-xs lg:text-sm ">{fullAddress}</p>
           <div className="flex items-center gap-3">
-            <Edit2 className="size-4 lg:size-6" />
+            <Button
+              type="button"
+              variant="ghost"
+              asChild
+              className="p-0 hover:bg-transparent lg:hidden"
+            >
+              <Link href={`${EDIT_ADDRESS_BASE}/${_id}`}>
+                <Edit2 className="size-4" />
+              </Link>
+            </Button>
+
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => onEdit?.(address)}
+              className="hidden lg:block p-0 hover:bg-transparent"
+            >
+              <Edit2 className="size-6" />
+            </Button>
+
             <Button
               type="button"
               variant="ghost"
