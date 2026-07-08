@@ -2,15 +2,22 @@
 
 import { type ChangeEvent } from "react";
 import { type ComponentProps } from "react";
-import { type FieldErrors, type UseFormRegister } from "react-hook-form";
+import {
+  Controller,
+  type Control,
+  type FieldErrors,
+  type UseFormRegister,
+} from "react-hook-form";
 
 import TextField from "@/components/common/TextField";
 import FileInput from "@/components/common/FileInput";
 import { Button } from "@/components/ui/button";
 import { ProfileFormValues } from "@/validations/user";
+import { formatPhone } from "@/utils/numberFormatter";
 import { Edit } from "iconsax-reactjs";
 
 type ProfileFormProps = {
+  control: Control<ProfileFormValues>;
   register: UseFormRegister<ProfileFormValues>;
   errors: FieldErrors<ProfileFormValues>;
   onSubmit: ComponentProps<"form">["onSubmit"];
@@ -26,6 +33,7 @@ type ProfileFormProps = {
 };
 
 const ProfileForm = ({
+  control,
   register,
   errors,
   onSubmit,
@@ -44,15 +52,22 @@ const ProfileForm = ({
       onSubmit={onSubmit}
       className="flex flex-col gap-4 lg:gap-6 lg:grid lg:grid-cols-2 max-w-179.5 mx-auto lg:py-8"
     >
-      <TextField
-        id="phoneNumber"
-        label="شماره موبایل"
-        placeholder=" "
-        readOnly
-        disabled
-        error={errors.phoneNumber?.message}
-        {...register("phoneNumber")}
-        loading={isFetchingUser}
+      <Controller
+        control={control}
+        name="phoneNumber"
+        render={({ field }) => (
+          <TextField
+            id="phoneNumber"
+            label="شماره موبایل"
+            placeholder=" "
+            readOnly
+            disabled
+            error={errors.phoneNumber?.message}
+            {...field}
+            value={formatPhone(field.value ?? "")}
+            loading={isFetchingUser}
+          />
+        )}
       />
       <TextField
         id="name"

@@ -3,11 +3,10 @@ import ProfileFormContainer from "@/components/features/profile/ProfileFormConta
 
 const Profile = () => {
   return (
-    <div>
+    <>
       <DashboardHeader title="پروفایل من" />
-
       <ProfileFormContainer />
-    </div>
+    </>
   );
 };
 

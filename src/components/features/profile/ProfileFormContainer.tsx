@@ -24,6 +24,7 @@ const ProfileFormContainer = () => {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
   const {
+    control,
     register,
     handleSubmit,
     reset,
@@ -142,6 +143,7 @@ const ProfileFormContainer = () => {
 
   return (
     <ProfileForm
+      control={control}
       register={register}
       errors={errors}
       onSubmit={handleSubmit(submitHandler)}
