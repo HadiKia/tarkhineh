@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogoutCurve } from "iconsax-reactjs";
 import Image from "next/image";
-import { toPersianDigits } from "@/utils/numberFormatter";
+import { formatPhone } from "@/utils/numberFormatter";
 import SidebarSkeleton from "./SidebarSkeleton";
 import { useState } from "react";
 import LogoutModal from "@/components/features/auth/LogoutModal";
@@ -45,7 +45,7 @@ export default function Sidebar() {
             {user.name || "کاربر ترخینه"}
           </span>
           <span className="text-xs lg:text-sm text-gray-7">
-            {toPersianDigits(user.phoneNumber)}
+            {formatPhone(user.phoneNumber)}
           </span>
         </div>
       </div>

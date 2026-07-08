@@ -12,7 +12,7 @@ export default function SidebarSkeleton() {
       </div>
 
       <div className="space-y-2">
-        {Array.from({ length: 5 }).map((_, index) => (
+        {[...Array(5)].map((_, index) => (
           <div key={index} className="h-8 rounded-sm lg:rounded-lg bg-gray-2" />
         ))}
       </div>
