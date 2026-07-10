@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { formatCategoryDate, productTypeLabels } from "@/constants/categories";
 import { Category, ProductCategoryType } from "@/types";
 import Link from "next/link";
+import DeleteCategoryModal from "./DeleteCategoryModal";
 
 type CategoriesTableProps = {
   categories: Category[];
@@ -26,6 +27,9 @@ type CategoryTableRow = Category & {
 
 const CategoriesTable = ({ categories }: CategoriesTableProps) => {
   const [expanded, setExpanded] = useState<ExpandedState>({});
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null,
+  );
 
   const tableData = useMemo<CategoryTableRow[]>(() => {
     const mealCourses = categories.filter(
@@ -149,7 +153,16 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
       {
         id: "delete",
         header: "حذف",
-        cell: () => <span className="text-xs text-gray-7">حذف</span>,
+        cell: ({ row }) => (
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => setSelectedCategory(row.original)}
+            className="h-auto p-0 text-xs text-destructive hover:bg-transparent"
+          >
+            حذف
+          </Button>
+        ),
       },
     ],
     [],
@@ -166,49 +179,59 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
   });
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-2 bg-background">
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-center">
-          <thead className="bg-gray-1">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className="p-2 text-xs font-semibold text-gray-7"
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className={
-                  row.depth === 0
-                    ? "border-t border-gray-2"
-                    : "border-t border-gray-1 bg-gray-0"
-                }
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="p-2 text-sm">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <>
+      <div className="overflow-hidden rounded-lg border border-gray-2 bg-background">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-center">
+            <thead className="bg-gray-1">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      key={header.id}
+                      className="p-2 text-xs font-semibold text-gray-7"
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className={
+                    row.depth === 0
+                      ? "border-t border-gray-2"
+                      : "border-t border-gray-1 bg-gray-0"
+                  }
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="p-2 text-sm">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+      <DeleteCategoryModal
+        open={selectedCategory !== null}
+        onClose={() => setSelectedCategory(null)}
+        categoryId={selectedCategory?._id ?? ""}
+      />
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import {
   createCategory,
+  deleteCategory,
   getCategories,
   getCategoryById,
   updateCategory,
@@ -50,4 +51,9 @@ export const useGetCategory = (id: string) =>
 export const useUpdateCategory = (id: string) =>
   useMutation({
     mutationFn: (payload: UpdateCategoryPayload) => updateCategory(id, payload),
+  });
+
+export const useDeleteCategory = (id: string) =>
+  useMutation({
+    mutationFn: () => deleteCategory(id),
   });
