@@ -5,8 +5,7 @@ import type { Address } from "@/types/address";
 import { formatPhone } from "@/utils/numberFormatter";
 import { Edit2, Trash } from "iconsax-reactjs";
 import { Button } from "@/components/ui/button";
-
-const EDIT_ADDRESS_BASE = "/profile/addresses/edit-address";
+import { EDIT_ADDRESS_PATH } from "@/constants/address";
 
 type AddressCardProps = {
   address: Address;
@@ -38,7 +37,7 @@ const AddressCard = ({ address, onEdit, onDelete }: AddressCardProps) => {
             asChild
             className="p-0 hover:bg-transparent lg:hidden"
           >
-            <Link href={`${EDIT_ADDRESS_BASE}/${_id}`}>
+            <Link href={`${EDIT_ADDRESS_PATH}/${_id}`}>
               <Edit2 className="size-4" />
             </Link>
           </Button>

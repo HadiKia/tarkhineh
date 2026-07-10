@@ -13,8 +13,7 @@ import AddressList from "@/components/features/address/AddressList";
 import AddressListSkeleton from "@/components/features/address/AddressListSkeleton";
 import { Button } from "@/components/ui/button";
 import type { Address } from "@/types";
-
-const ADD_ADDRESS_HREF = "/profile/addresses/add-address";
+import { ADD_ADDRESS_PATH } from "@/constants/address";
 
 const Addresses = () => {
   const { data, isFetching } = useGetAddresses();
@@ -45,7 +44,7 @@ const Addresses = () => {
               asChild
               className="mt-6 mx-auto w-38 flex lg:hidden"
             >
-              <Link href={ADD_ADDRESS_HREF}>افزودن آدرس جدید</Link>
+              <Link href={ADD_ADDRESS_PATH}>افزودن آدرس جدید</Link>
             </Button>
 
             <Button
@@ -64,7 +63,7 @@ const Addresses = () => {
             action={
               <>
                 <Button variant="outline" asChild className="w-38 lg:hidden">
-                  <Link href={ADD_ADDRESS_HREF}>افزودن آدرس</Link>
+                  <Link href={ADD_ADDRESS_PATH}>افزودن آدرس</Link>
                 </Button>
                 <Button
                   variant="outline"

@@ -8,6 +8,7 @@ import TextFieldSkeleton from "@/components/common/TextFieldSkeleton";
 import TextAreaSkeleton from "@/components/common/TextAreaSkeleton";
 import EmptyState from "@/components/common/EmptyState";
 import { useGetAddresses } from "@/hooks/useAddress";
+import { PROFILE_ADDRESSES_PATH } from "@/constants/address";
 
 const EditAddress = () => {
   const router = useRouter();
@@ -33,14 +34,14 @@ const EditAddress = () => {
     content = (
       <AddressFormContainer
         address={address}
-        onClose={() => router.push("/profile/addresses")}
+        onClose={() => router.push(PROFILE_ADDRESSES_PATH)}
       />
     );
   }
 
   return (
     <>
-      <DashboardHeader title="ویرایش آدرس" backHref="/profile/addresses" />
+      <DashboardHeader title="ویرایش آدرس" backHref={PROFILE_ADDRESSES_PATH} />
       {content}
     </>
   );
