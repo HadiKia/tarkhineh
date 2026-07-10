@@ -23,5 +23,6 @@ export const sidebarConfig: Record<UserRole, SidebarLinkItem[]> = {
   ADMIN: [
     ...BASE_LINKS,
     { id: 5, children: "پنل مدیریت", path: "/admin", Icon: Setting2 },
+    { id: 6, children: "دسته‌بندی ها", path: "/admin/categories", Icon: Setting2 },
   ],
 };
