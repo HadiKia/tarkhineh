@@ -38,6 +38,7 @@ type CategoryFormProps = {
   onCancel: () => void;
   isLoading: boolean;
   isSubmitDisabled: boolean;
+  isEditing?: boolean;
 };
 
 export function CategoryForm({
@@ -48,6 +49,7 @@ export function CategoryForm({
   onCancel,
   isLoading,
   isSubmitDisabled,
+  isEditing = false,
 }: CategoryFormProps) {
   const productType = useWatch({ control, name: "productType" });
   const parent = useWatch({ control, name: "parent" });
@@ -191,7 +193,7 @@ export function CategoryForm({
           disabled={isSubmitDisabled}
           className="flex-1"
         >
-          ایجاد دسته‌بندی
+          {isEditing ? "ذخیره تغییرات" : "ایجاد دسته‌بندی"}
         </Button>
       </div>
     </form>

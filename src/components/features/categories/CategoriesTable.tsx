@@ -14,6 +14,7 @@ import { ChevronDownIcon, ChevronLeftIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatCategoryDate, productTypeLabels } from "@/constants/categories";
 import { Category, ProductCategoryType } from "@/types";
+import Link from "next/link";
 
 type CategoriesTableProps = {
   categories: Category[];
@@ -132,7 +133,18 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
       {
         id: "edit",
         header: "ویرایش",
-        cell: () => <span className="text-xs text-gray-7">ویرایش</span>,
+        cell: ({ row }) => (
+          <Button
+            type="button"
+            variant="ghost"
+            asChild
+            className="h-auto p-0 text-xs text-primary hover:bg-transparent"
+          >
+            <Link href={`/admin/categories/edit-category/${row.original._id}`}>
+              ویرایش
+            </Link>
+          </Button>
+        ),
       },
       {
         id: "delete",

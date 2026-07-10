@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -10,8 +11,9 @@ import { ADMIN_CATEGORIES_PATH } from "@/constants/categories";
 import {
   categoryQueryKeys,
   useCreateCategory,
+  useUpdateCategory,
 } from "@/hooks/useCategories";
-import type { ApiError } from "@/types";
+import type { ApiError, Category } from "@/types";
 import { ProductCategoryType } from "@/types";
 import {
   categorySchema,
@@ -20,17 +22,27 @@ import {
 } from "@/validations/category";
 import CategoryForm from "./CategoryForm";
 
-const CategoryFormContainer = () => {
+type CategoryFormContainerProps = {
+  category?: Category;
+};
+
+const CategoryFormContainer = ({ category }: CategoryFormContainerProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { isPending, mutateAsync } = useCreateCategory();
+
+  const isEditing = Boolean(category);
+
+  const createMutation = useCreateCategory();
+  const updateMutation = useUpdateCategory(category?._id ?? "");
+
+  const { isPending } = isEditing ? updateMutation : createMutation;
 
   const {
     control,
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isDirty, isValid },
   } = useForm<CategoryFormValues>({
     resolver: yupResolver(categorySchema),
     defaultValues: {
@@ -43,23 +55,54 @@ const CategoryFormContainer = () => {
     mode: "onChange",
   });
 
+  useEffect(() => {
+    if (!category) return;
+
+    reset({
+      title: category.title,
+      englishTitle: category.englishTitle,
+      productType: category.productType as ProductCategoryType,
+      parent: category.parentId ?? "",
+      description: category.description,
+    });
+  }, [category, reset]);
+
   const handleCancel = () => {
     reset();
+
     router.push(ADMIN_CATEGORIES_PATH);
   };
 
   const submitHandler: SubmitHandler<CategoryFormValues> = async (formData) => {
     try {
-      const { message } = await mutateAsync(toCreateCategoryPayload(formData));
-      toast.success(message);
-      await queryClient.invalidateQueries({ queryKey: categoryQueryKeys.all });
+      const payload = toCreateCategoryPayload(formData);
+
+      const response = isEditing
+        ? await updateMutation.mutateAsync(payload)
+        : await createMutation.mutateAsync(payload);
+
+      toast.success(response.message);
+
+      await queryClient.invalidateQueries({
+        queryKey: categoryQueryKeys.all,
+      });
+
       reset();
+
       router.push(ADMIN_CATEGORIES_PATH);
     } catch (error) {
       const err = error as ApiError;
-      toast.error(err.response?.data?.message ?? "ایجاد دسته‌بندی انجام نشد");
+
+      toast.error(
+        err.response?.data?.message ??
+          (isEditing
+            ? "ویرایش دسته‌بندی انجام نشد"
+            : "ایجاد دسته‌بندی انجام نشد"),
+      );
     }
   };
+
+  const isSubmitDisabled = isEditing ? !isDirty || !isValid : !isValid;
 
   return (
     <CategoryForm
@@ -69,7 +112,8 @@ const CategoryFormContainer = () => {
       onSubmit={handleSubmit(submitHandler)}
       onCancel={handleCancel}
       isLoading={isPending}
-      isSubmitDisabled={!isValid}
+      isSubmitDisabled={isSubmitDisabled}
+      isEditing={isEditing}
     />
   );
 };
