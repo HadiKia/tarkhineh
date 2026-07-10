@@ -7,15 +7,15 @@ import AddressFormContainer from "@/components/features/address/AddressFormConta
 import TextFieldSkeleton from "@/components/common/TextFieldSkeleton";
 import TextAreaSkeleton from "@/components/common/TextAreaSkeleton";
 import EmptyState from "@/components/common/EmptyState";
-import { useGetAddresses } from "@/hooks/useAddress";
+import { useGetAddress, useGetAddresses } from "@/hooks/useAddress";
 import { PROFILE_ADDRESSES_PATH } from "@/constants/address";
 
 const EditAddress = () => {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
-  const { data, isFetching } = useGetAddresses();
+  const { data, isFetching } = useGetAddress(id);
 
-  const address = data?.addresses.find((a) => a._id === id);
+const address = data?.address;
 
   let content: React.ReactNode;
 

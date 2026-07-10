@@ -7,6 +7,12 @@ export function getAddresses() {
     .then(({ data }) => data.data);
 }
 
+export function getAddress(id: string) {
+  return http
+    .get<{ data: { address: Address } }>(`/user/addresses/${id}`)
+    .then(({ data }) => data.data);
+}
+
 export function addAddress(payload: CreateAddressPayload) {
   return http
     .post<CreateAddressResponse>("/user/addresses", payload)

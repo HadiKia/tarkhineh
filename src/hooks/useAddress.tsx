@@ -1,4 +1,4 @@
-import { getAddresses } from "@/services/addressService";
+import { getAddress, getAddresses } from "@/services/addressService";
 import { Address } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
@@ -12,5 +12,13 @@ export const useGetAddresses = () =>
     queryFn: getAddresses,
     refetchOnWindowFocus: true,
     staleTime: 1000 * 60 * 5,
+    retry: false,
+  });
+
+export const useGetAddress = (id: string) =>
+  useQuery({
+    queryKey: ["address", id],
+    queryFn: () => getAddress(id),
+    enabled: Boolean(id),
     retry: false,
   });
