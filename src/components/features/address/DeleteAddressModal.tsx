@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { deleteAddress } from "@/services/addressService";
+import { addressQueryKeys, useDeleteAddress } from "@/hooks/useAddress";
 import { ApiError } from "@/types";
 
 type DeleteAddressModalProps = {
@@ -25,15 +25,15 @@ const DeleteAddressModal = ({
   addressId,
 }: DeleteAddressModalProps) => {
   const queryClient = useQueryClient();
-  const { isPending, mutateAsync } = useMutation({
-    mutationFn: () => deleteAddress(addressId),
-  });
+  const { isPending, mutateAsync } = useDeleteAddress(addressId);
 
   const handleDelete = async () => {
     try {
       const { data } = await mutateAsync();
       toast.success(data.message);
-      await queryClient.invalidateQueries({ queryKey: ["get-addresses"] });
+      await queryClient.invalidateQueries({
+        queryKey: addressQueryKeys.all,
+      });
       onClose();
     } catch (error) {
       const err = error as ApiError;

@@ -1,14 +1,32 @@
-import { getAddress, getAddresses } from "@/services/addressService";
-import { Address } from "@/types";
-import { useQuery } from "@tanstack/react-query";
+import {
+  addAddress,
+  deleteAddress,
+  getAddress,
+  getAddresses,
+  updateAddress,
+} from "@/services/addressService";
+import type { Address, CreateAddressPayload } from "@/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 type GetAddressesResponse = {
   addresses: Address[];
 };
 
+export const addressQueryKeys = {
+  all: ["addresses"] as const,
+
+  lists: () => [...addressQueryKeys.all, "list"] as const,
+
+  list: () => [...addressQueryKeys.lists()] as const,
+
+  details: () => [...addressQueryKeys.all, "detail"] as const,
+
+  detail: (id: string) => [...addressQueryKeys.details(), id] as const,
+};
+
 export const useGetAddresses = () =>
   useQuery<GetAddressesResponse>({
-    queryKey: ["get-addresses"],
+    queryKey: addressQueryKeys.list(),
     queryFn: getAddresses,
     refetchOnWindowFocus: true,
     staleTime: 1000 * 60 * 5,
@@ -17,8 +35,23 @@ export const useGetAddresses = () =>
 
 export const useGetAddress = (id: string) =>
   useQuery({
-    queryKey: ["address", id],
+    queryKey: addressQueryKeys.detail(id),
     queryFn: () => getAddress(id),
     enabled: Boolean(id),
     retry: false,
+  });
+
+export const useCreateAddress = () =>
+  useMutation({
+    mutationFn: (payload: CreateAddressPayload) => addAddress(payload),
+  });
+
+export const useUpdateAddress = (id: string) =>
+  useMutation({
+    mutationFn: (payload: CreateAddressPayload) => updateAddress(id, payload),
+  });
+
+export const useDeleteAddress = (id: string) =>
+  useMutation({
+    mutationFn: () => deleteAddress(id),
   });

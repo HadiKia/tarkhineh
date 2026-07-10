@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "sonner";
-
-import { addAddress, updateAddress } from "@/services/addressService";
+import {
+  addressQueryKeys,
+  useCreateAddress,
+  useUpdateAddress,
+} from "@/hooks/useAddress";
 import { addressSchema, AddressFormValues } from "@/validations/address";
 import { ApiError, CreateAddressPayload, Address } from "@/types";
 import AddressForm from "./AddressForm";
@@ -22,10 +25,10 @@ const AddressFormContainer = ({
 }: AddressFormContainerProps) => {
   const isEditing = Boolean(address);
   const queryClient = useQueryClient();
-  const { isPending, mutateAsync } = useMutation({
-    mutationFn: (payload: CreateAddressPayload) =>
-      isEditing ? updateAddress(address!._id, payload) : addAddress(payload),
-  });
+  const createMutation = useCreateAddress();
+  const updateMutation = useUpdateAddress(address?._id ?? "");
+
+  const { isPending } = isEditing ? updateMutation : createMutation;
 
   const {
     control,
@@ -74,9 +77,13 @@ const AddressFormContainer = ({
         receiverPhoneNumber: formData.receiverPhoneNumber,
         address: formData.address,
       };
-      const { data } = await mutateAsync(payload);
-      toast.success(data.message);
-      await queryClient.invalidateQueries({ queryKey: ["get-addresses"] });
+      const response = isEditing
+        ? await updateMutation.mutateAsync(payload)
+        : await createMutation.mutateAsync(payload);
+      toast.success(response.data.message);
+      await queryClient.invalidateQueries({
+        queryKey: addressQueryKeys.all,
+      });
 
       reset();
       onClose();
