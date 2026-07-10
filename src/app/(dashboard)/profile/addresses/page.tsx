@@ -6,6 +6,7 @@ import Link from "next/link";
 import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 import EmptyState from "@/components/common/EmptyState";
 import AddressModal from "@/components/features/address/AddressModal";
+import DeleteAddressModal from "@/components/features/address/DeleteAddressModal";
 import { useGetAddresses } from "@/hooks/useAddress";
 import { AddCircle } from "iconsax-reactjs";
 import AddressList from "@/components/features/address/AddressList";
@@ -19,6 +20,7 @@ const Addresses = () => {
   const { data, isFetching } = useGetAddresses();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
+  const [deletingAddress, setDeletingAddress] = useState<Address | null>(null);
 
   const addresses = data?.addresses ?? [];
 
@@ -34,6 +36,7 @@ const Addresses = () => {
             <AddressList
               addresses={addresses}
               onEdit={(address) => setEditingAddress(address)}
+              onDelete={(address) => setDeletingAddress(address)}
             />
 
             <Button
@@ -82,6 +85,12 @@ const Addresses = () => {
         open={editingAddress !== null}
         onClose={() => setEditingAddress(null)}
         address={editingAddress ?? undefined}
+      />
+
+      <DeleteAddressModal
+        open={deletingAddress !== null}
+        onClose={() => setDeletingAddress(null)}
+        addressId={deletingAddress?._id ?? ""}
       />
     </>
   );
