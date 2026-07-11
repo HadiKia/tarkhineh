@@ -9,7 +9,7 @@ import { ADD_CATEGORY_PATH } from "@/constants/categories";
 import { useGetCategories } from "@/hooks/useCategories";
 import { CategoryType } from "@/types";
 import { isPersistedCategory } from "@/utils/category";
-import { AddCircle } from "iconsax-reactjs";
+import { Add, AddCircle } from "iconsax-reactjs";
 import Link from "next/link";
 import { useMemo } from "react";
 
@@ -29,9 +29,19 @@ const Categories = () => {
 
       <Button
         type="button"
+        variant="default"
+        className="lg:hidden absolute inset-e-0 -top-1"
+        asChild
+      >
+        <Link href={ADD_CATEGORY_PATH}>
+          <Add />{" "}
+        </Link>
+      </Button>
+      <Button
+        type="button"
         variant="link"
         asChild
-        className="absolute inset-e-0 top-0 gap-0.5! text-xs!"
+        className="hidden lg:flex absolute inset-e-0 top-0 gap-0.5! text-xs!"
       >
         <Link href={ADD_CATEGORY_PATH}>
           <AddCircle className="size-4" />
