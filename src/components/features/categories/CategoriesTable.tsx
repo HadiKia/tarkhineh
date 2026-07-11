@@ -9,13 +9,18 @@ import {
   type ColumnDef,
   type ExpandedState,
 } from "@tanstack/react-table";
-import { ChevronDownIcon, ChevronLeftIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { formatCategoryDate, productTypeLabels } from "@/constants/categories";
+import {
+  EDIT_CATEGORY_PATH,
+  formatCategoryDate,
+  productTypeLabels,
+} from "@/constants/categories";
 import { Category, ProductCategoryType } from "@/types";
 import Link from "next/link";
 import DeleteCategoryModal from "./DeleteCategoryModal";
+import { cn } from "@/lib/utils";
+import { ArrowLeft2, Edit, Trash } from "iconsax-reactjs";
 
 type CategoriesTableProps = {
   categories: Category[];
@@ -51,57 +56,87 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
     () => [
       {
         accessorKey: "title",
-        header: "عنوان",
-        cell: ({ row, getValue }) => (
-          <div
-            className="flex items-center gap-2"
-            style={{ paddingInlineStart: `${row.depth * 24}px` }}
-          >
-            {row.getCanExpand() ? (
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={row.getToggleExpandedHandler()}
-                className="h-7 w-7 shrink-0 p-0"
-                aria-label={row.getIsExpanded() ? "بستن" : "باز کردن"}
-              >
-                {row.getIsExpanded() ? (
-                  <ChevronDownIcon className="size-4" />
-                ) : (
-                  <ChevronLeftIcon className="size-4" />
-                )}
-              </Button>
-            ) : (
-              <span className="size-7 shrink-0" />
-            )}
-            <span
-              className="font-medium text-gray-10"
-              onClick={row.getToggleExpandedHandler()}
-            >
-              {getValue<string>()}
-            </span>
+        header: () => (
+          <div className="flex items-center">
+            <div className="size-7.5 shrink-0" />
+            <span className="w-full">عنوان</span>
           </div>
         ),
+        cell: ({ row, getValue }) => {
+          const isSubRow = row.depth > 0;
+
+          return (
+            <div
+              onClick={
+                row.getCanExpand() ? row.getToggleExpandedHandler() : undefined
+              }
+              className={cn(
+                "flex items-center",
+                row.getCanExpand() && "cursor-pointer",
+              )}
+            >
+              {row.getCanExpand() ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="p-1 text-gray-8 hover:bg-transparent"
+                  aria-label={row.getIsExpanded() ? "بستن" : "باز کردن"}
+                >
+                  <ArrowLeft2
+                    className={cn(
+                      "size-5 transition-transform duration-300 ease-linear",
+                      row.getIsExpanded() && "-rotate-90",
+                    )}
+                  />
+                </Button>
+              ) : (
+                <span className="size-7.5 shrink-0" />
+              )}
+
+              <span
+                className={cn(
+                  "min-w-0 flex-1 font-medium",
+                  isSubRow ? "text-gray-7 text-xs" : "text-gray-8 text-sm",
+                )}
+              >
+                {getValue<string>()}
+              </span>
+            </div>
+          );
+        },
       },
       {
         accessorKey: "englishTitle",
         header: "عنوان انگلیسی",
+        size: 100,
         cell: ({ getValue }) => (
-          <span className="block text-xs text-gray-6" dir="ltr">
+          <span
+            className="block max-w-25 truncate text-xs text-gray-7"
+            dir="ltr"
+          >
             {getValue<string>()}
           </span>
         ),
       },
       {
         accessorKey: "productType",
+        size: 100,
         header: "نوع",
         cell: ({ row }) => {
           const productType = row.original.productType;
+          const isSubRow = row.depth > 0;
 
           if (!productType || productType === "static_filter") return "-";
 
           return (
-            <span className="rounded-md bg-gray-1 px-2 py-1 text-xs text-gray-7">
+            <span
+              className={cn(
+                "rounded-lg px-2 py-0.5 text-xs font-medium",
+                isSubRow
+                  ? "bg-secondary text-primary"
+                  : "bg-primary text-white",
+              )}
+            >
               {productTypeLabels[productType]}
             </span>
           );
@@ -111,7 +146,7 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
         accessorKey: "description",
         header: "توضیحات",
         cell: ({ getValue }) => (
-          <span className="line-clamp-2 text-xs leading-6 text-gray-7 lg:text-sm w-full  ">
+          <span className="mx-auto block max-w-40 truncate text-center text-xs text-gray-7">
             {getValue<string>()}
           </span>
         ),
@@ -119,6 +154,7 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
       {
         accessorKey: "createdAt",
         header: "تاریخ ایجاد",
+        size: 80,
         cell: ({ getValue }) => (
           <span className="text-xs text-gray-7">
             {formatCategoryDate(getValue<string>())}
@@ -128,6 +164,7 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
       {
         accessorKey: "updatedAt",
         header: "آخرین تغییر",
+        size: 80,
         cell: ({ getValue }) => (
           <span className="text-xs text-gray-7">
             {formatCategoryDate(getValue<string>())}
@@ -137,15 +174,11 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
       {
         id: "edit",
         header: "ویرایش",
+        size: 60,
         cell: ({ row }) => (
-          <Button
-            type="button"
-            variant="ghost"
-            asChild
-            className="h-auto p-0 text-xs text-primary hover:bg-transparent"
-          >
-            <Link href={`/admin/categories/edit-category/${row.original._id}`}>
-              ویرایش
+          <Button type="button" variant="secondary" asChild className="p-1">
+            <Link href={`${EDIT_CATEGORY_PATH}/${row.original._id}`}>
+              <Edit className="size-5" />
             </Link>
           </Button>
         ),
@@ -153,14 +186,15 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
       {
         id: "delete",
         header: "حذف",
+        size: 60,
         cell: ({ row }) => (
           <Button
             type="button"
-            variant="ghost"
+            variant="destructive"
             onClick={() => setSelectedCategory(row.original)}
-            className="h-auto p-0 text-xs text-destructive hover:bg-transparent"
+            className="p-1"
           >
-            حذف
+            <Trash className="size-5" />
           </Button>
         ),
       },
@@ -180,16 +214,19 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
 
   return (
     <>
-      <div className="overflow-hidden rounded-lg border border-gray-2 bg-background">
+      <div className="overflow-hidden rounded-lg bg-background">
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-center">
-            <thead className="bg-gray-1">
+          <table className="min-w-full w-max">
+            <thead className="bg-gray-2">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
                       className="p-2 text-xs font-semibold text-gray-7"
+                      style={{
+                        width: header.getSize(),
+                      }}
                     >
                       {header.isPlaceholder
                         ? null
@@ -206,14 +243,16 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
               {table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className={
+                  className={cn(
+                    "transition-colors",
+                    row.getIsExpanded() ? "bg-gray-1" : "hover:bg-gray-1",
                     row.depth === 0
-                      ? "border-t border-gray-2"
-                      : "border-t border-gray-1 bg-gray-0"
-                  }
+                      ? "border-t border-gray-3"
+                      : "border-t border-gray-2",
+                  )}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="p-2 text-sm">
+                    <td key={cell.id} className="p-2 text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
