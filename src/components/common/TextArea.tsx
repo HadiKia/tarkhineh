@@ -12,6 +12,7 @@ type TextAreaProps = React.ComponentProps<typeof Textarea> & {
   description?: string;
   error?: string;
   loading?: boolean;
+  wrapperClassName?: string;
 };
 
 const TextArea = ({
@@ -20,6 +21,7 @@ const TextArea = ({
   description,
   error,
   loading,
+  wrapperClassName,
   ...textareaProps
 }: TextAreaProps) => {
   const [enableTransition, setEnableTransition] = useState(false);
@@ -39,9 +41,10 @@ const TextArea = ({
   }
 
   return (
-    <Field
-      data-invalid={hasError}
-      className="
+    <div className={`${wrapperClassName} `}>
+      <Field
+        data-invalid={hasError}
+        className="
         focus-within:[&>label]:top-0
         focus-within:[&>label]:-mt-1.75
         lg:focus-within:[&>label]:-mt-2
@@ -57,28 +60,29 @@ const TextArea = ({
         lg:has-[textarea:not(:placeholder-shown)]:[&>label]:text-xs
         has-[textarea:not(:placeholder-shown)]:[&>label]:text-gray-7
       "
-    >
-      <FieldLabel
-        htmlFor={id}
-        className={cn(
-          "absolute top-1.75 ms-4 px-1 text-xs lg:text-base text-gray-4 font-normal w-fit! transition-all duration-300 ease-linear z-1",
-          enableTransition
-            ? "transition-all duration-300 ease-linear"
-            : "transition-none",
-        )}
       >
-        {label}
-      </FieldLabel>
+        <FieldLabel
+          htmlFor={id}
+          className={cn(
+            "absolute top-1.75 ms-4 px-1 text-xs lg:text-base text-gray-4 font-normal w-fit! transition-all duration-300 ease-linear z-1",
+            enableTransition
+              ? "transition-all duration-300 ease-linear"
+              : "transition-none",
+          )}
+        >
+          {label}
+        </FieldLabel>
 
-      <Textarea id={id} aria-invalid={Boolean(error)} {...textareaProps} />
+        <Textarea id={id} aria-invalid={Boolean(error)} {...textareaProps} />
 
-      {(description || error) && (
-        <FieldDescription aria-invalid={hasError}>
-          <InfoCircle className="h-4 w-4" />
-          {error || description}
-        </FieldDescription>
-      )}
-    </Field>
+        {(description || error) && (
+          <FieldDescription aria-invalid={hasError}>
+            <InfoCircle className="h-4 w-4" />
+            {error || description}
+          </FieldDescription>
+        )}
+      </Field>
+    </div>
   );
 };
 
