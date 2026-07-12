@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -45,27 +44,23 @@ const CategoryFormContainer = ({ category }: CategoryFormContainerProps) => {
     formState: { errors, isDirty, isValid },
   } = useForm<CategoryFormValues>({
     resolver: yupResolver(categorySchema),
-    defaultValues: {
-      title: "",
-      englishTitle: "",
-      productType: ProductCategoryType.MEAL_COURSE,
-      parent: "",
-      description: "",
-    },
+    values: category
+      ? {
+          title: category.title,
+          englishTitle: category.englishTitle,
+          productType: category.productType as ProductCategoryType,
+          parent: category.parentId ?? "",
+          description: category.description,
+        }
+      : {
+          title: "",
+          englishTitle: "",
+          productType: ProductCategoryType.MEAL_COURSE,
+          parent: "",
+          description: "",
+        },
     mode: "onChange",
   });
-
-  useEffect(() => {
-    if (!category) return;
-
-    reset({
-      title: category.title,
-      englishTitle: category.englishTitle,
-      productType: category.productType as ProductCategoryType,
-      parent: category.parentId ?? "",
-      description: category.description,
-    });
-  }, [category, reset]);
 
   const handleCancel = () => {
     reset();

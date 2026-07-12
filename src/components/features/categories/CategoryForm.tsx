@@ -8,20 +8,19 @@ import {
   type UseFormRegister,
   useWatch,
 } from "react-hook-form";
-import { ChevronDownIcon } from "lucide-react";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import TextArea from "@/components/common/TextArea";
 import TextField from "@/components/common/TextField";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { useGetCategories } from "@/hooks/useCategories";
-import { cn } from "@/lib/utils";
 import { isPersistedCategory } from "@/utils/category";
 import { CategoryFormValues } from "@/validations/category";
 import {
@@ -52,7 +51,6 @@ export function CategoryForm({
   isEditing = false,
 }: CategoryFormProps) {
   const productType = useWatch({ control, name: "productType" });
-  const parent = useWatch({ control, name: "parent" });
 
   const { data: mealCourseCategoriesData } = useGetCategories({
     type: CategoryType.PRODUCT,
@@ -61,12 +59,12 @@ export function CategoryForm({
 
   const mealCourseCategories =
     mealCourseCategoriesData?.categories.filter(isPersistedCategory) ?? [];
-  const selectedParentTitle = mealCourseCategories.find(
-    (category) => category._id === parent,
-  )?.title;
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-3 md:gap-4">
+    <form
+      onSubmit={onSubmit}
+      className="flex flex-col gap-4 lg:gap-6 lg:grid lg:grid-cols-2 max-w-179.5 mx-auto lg:py-8"
+    >
       <TextField
         id="title"
         label="عنوان فارسی"
@@ -86,36 +84,26 @@ export function CategoryForm({
       <Controller
         control={control}
         name="productType"
-        render={({ field: { value, onChange } }) => (
+        render={({ field }) => (
           <Field data-invalid={Boolean(errors.productType)}>
-            <FieldLabel>نوع دسته‌بندی محصول</FieldLabel>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className={cn(
-                    "h-11 w-full justify-between text-xs lg:text-sm",
-                    errors.productType && "border-destructive",
-                  )}
-                  aria-invalid={Boolean(errors.productType)}
-                >
-                  {PRODUCT_CATEGORY_TYPES.find((item) => item.value === value)
-                    ?.label ?? "انتخاب کنید"}
-                  <ChevronDownIcon className="size-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-[var(--radix-dropdown-menu-trigger-width)]">
+            <FieldLabel className="text-xs text-gray-7 font-normal">
+              نوع دسته‌بندی محصول
+            </FieldLabel>
+
+            <Select value={field.value} onValueChange={field.onChange}>
+              <SelectTrigger aria-invalid={Boolean(errors.productType)}>
+                <SelectValue placeholder="انتخاب کنید" />
+              </SelectTrigger>
+
+              <SelectContent position="popper" side="bottom">
                 {PRODUCT_CATEGORY_TYPES.map((item) => (
-                  <DropdownMenuItem
-                    key={item.value}
-                    onClick={() => onChange(item.value)}
-                  >
+                  <SelectItem key={item.value} value={item.value}>
                     {item.label}
-                  </DropdownMenuItem>
+                  </SelectItem>
                 ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              </SelectContent>
+            </Select>
+
             {errors.productType?.message && (
               <FieldDescription aria-invalid>
                 {errors.productType.message}
@@ -129,35 +117,26 @@ export function CategoryForm({
         <Controller
           control={control}
           name="parent"
-          render={({ field: { onChange } }) => (
+          render={({ field }) => (
             <Field data-invalid={Boolean(errors.parent)}>
-              <FieldLabel>وعده غذایی</FieldLabel>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className={cn(
-                      "h-11 w-full justify-between text-xs lg:text-sm",
-                      errors.parent && "border-destructive",
-                    )}
-                    aria-invalid={Boolean(errors.parent)}
-                  >
-                    {selectedParentTitle ?? "انتخاب کنید"}
-                    <ChevronDownIcon className="size-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-[var(--radix-dropdown-menu-trigger-width)]">
+              <FieldLabel className="text-xs text-gray-7 font-normal">
+                وعده غذایی
+              </FieldLabel>
+
+              <Select value={field.value || ""} onValueChange={field.onChange}>
+                <SelectTrigger aria-invalid={Boolean(errors.parent)}>
+                  <SelectValue placeholder="انتخاب کنید" />
+                </SelectTrigger>
+
+                <SelectContent position="popper" side="bottom">
                   {mealCourseCategories.map((category) => (
-                    <DropdownMenuItem
-                      key={category._id}
-                      onClick={() => onChange(category._id)}
-                    >
+                    <SelectItem key={category._id} value={category._id}>
                       {category.title}
-                    </DropdownMenuItem>
+                    </SelectItem>
                   ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                </SelectContent>
+              </Select>
+
               {errors.parent?.message && (
                 <FieldDescription aria-invalid>
                   {errors.parent.message}
@@ -172,15 +151,16 @@ export function CategoryForm({
         id="description"
         label="توضیحات"
         placeholder=" "
+        wrapperClassName="lg:col-span-2 lg:mt-4"
         className="min-h-28"
         error={errors.description?.message}
         {...register("description")}
       />
 
-      <div className="mt-3 flex w-full items-center justify-between gap-4 md:mt-0">
+      <div className="flex w-full items-center justify-between gap-4 lg:col-start-2">
         <Button
           type="button"
-          variant="link"
+          variant="outline"
           onClick={onCancel}
           className="flex-1"
         >
