@@ -19,11 +19,14 @@ const EditCategory = () => {
 
   if (isFetching) {
     content = (
-      <div className="flex flex-col gap-3 md:gap-4">
+      <div className="flex flex-col gap-4 lg:gap-6 lg:grid lg:grid-cols-2 max-w-179.5 mx-auto lg:py-8">
         <TextFieldSkeleton />
         <TextFieldSkeleton />
         <TextFieldSkeleton />
-        <TextAreaSkeleton />
+        <TextFieldSkeleton />
+        <div className="lg:col-span-2">
+          <TextAreaSkeleton />
+        </div>
       </div>
     );
   } else if (!data?.category) {
