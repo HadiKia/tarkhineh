@@ -79,7 +79,7 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
                 <Button
                   type="button"
                   variant="ghost"
-                  className="p-1 text-gray-8 hover:bg-transparent"
+                  className="p-1 text-gray-8"
                   aria-label={row.getIsExpanded() ? "بستن" : "باز کردن"}
                 >
                   <ArrowLeft2

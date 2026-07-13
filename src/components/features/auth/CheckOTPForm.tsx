@@ -47,7 +47,7 @@ const CheckOTPForm = ({
       <Button
         onClick={onEditPhone}
         variant="ghost"
-        className="absolute top-4 inset-s-6 md:top-6 hover:bg-transparent -mr-2 -mt-2 md:-mt-1.5 text-gray-7"
+        className="absolute top-4 inset-s-6 md:top-6 -mr-2 -mt-2 md:-mt-1.5 text-gray-7"
       >
         <ArrowRight2 className="w-5! h-5! md:w-6! md:h-6!" />
         <span className="sr-only">Close</span>

@@ -35,7 +35,7 @@ const AddressCard = ({ address, onEdit, onDelete }: AddressCardProps) => {
             type="button"
             variant="ghost"
             asChild
-            className="p-0 hover:bg-transparent lg:hidden"
+            className="p-0 lg:hidden"
           >
             <Link href={`${EDIT_ADDRESS_PATH}/${_id}`}>
               <Edit2 className="size-4" />
@@ -46,7 +46,7 @@ const AddressCard = ({ address, onEdit, onDelete }: AddressCardProps) => {
             type="button"
             variant="ghost"
             onClick={() => onEdit?.(address)}
-            className="hidden lg:block p-0 hover:bg-transparent"
+            className="hidden lg:block p-0"
           >
             <Edit2 className="size-6" />
           </Button>
@@ -55,7 +55,7 @@ const AddressCard = ({ address, onEdit, onDelete }: AddressCardProps) => {
             type="button"
             variant="ghost"
             onClick={() => onDelete?.(address)}
-            className="p-0 hover:bg-transparent"
+            className="p-0"
           >
             <Trash className="size-4 lg:size-6" />
           </Button>
