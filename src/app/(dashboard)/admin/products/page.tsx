@@ -1,7 +1,7 @@
 "use client";
 
-import ProductsTable from "@/components/features/products/ProductsTable";
-import ProductsTableSkeleton from "@/components/features/products/ProductsTableSkeleton";
+import ProductsTable from "@/components/features/products/admin/ProductsTable";
+import ProductsTableSkeleton from "@/components/features/products/admin/ProductsTableSkeleton";
 import EmptyState from "@/components/common/EmptyState";
 import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 import { Button } from "@/components/ui/button";
