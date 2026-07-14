@@ -58,32 +58,30 @@ function FileInput({
   return (
     <div className={`${wrapperClassName} `}>
       {previewUrl ? (
-        <div className="flex flex-col gap-y-2">
-          <div className="border border-gray-4 rounded-sm lg:rounded-lg flex items-start gap-x-4 lg:gap-x-6 w-full">
-            <a
-              href={previewUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "group relative block w-full h-27.5 lg:h-47.5 overflow-hidden rounded-md transition-opacity duration-300 ease-linear",
-                disabled && "pointer-events-none opacity-60",
-              )}
-            >
-              <Image
-                fill
-                src={previewUrl}
-                alt={label}
-                sizes="(min-width: 1024px) 768px, 100vw"
-                className="object-cover object-center transition-all duration-300 ease-linear group-hover:scale-105"
-              />
+        <div className="border border-gray-4 rounded-sm lg:rounded-lg flex items-start gap-x-4 lg:gap-x-6 w-full relative">
+          <a
+            href={previewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "group relative block w-full h-27.5 lg:h-47.5 overflow-hidden rounded-md transition-opacity duration-300 ease-linear",
+              disabled && "pointer-events-none opacity-60",
+            )}
+          >
+            <Image
+              fill
+              src={previewUrl}
+              alt={label}
+              sizes="(min-width: 1024px) 768px, 100vw"
+              className="object-cover object-center transition-all duration-300 ease-linear group-hover:scale-105"
+            />
 
-              <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 ease-linear group-hover:bg-black/30">
-                <span className="text-xs font-medium text-white opacity-0 transition-all duration-300 ease-linear group-hover:opacity-100">
-                  مشاهده
-                </span>
-              </div>
-            </a>
-          </div>
+            <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 ease-linear group-hover:bg-black/20">
+              <span className="text-xs font-semibold text-white opacity-0 transition-all duration-300 ease-linear group-hover:opacity-100">
+                مشاهده
+              </span>
+            </div>
+          </a>
 
           {onRemove && (
             <Button
@@ -92,7 +90,7 @@ function FileInput({
               disabled={disabled}
               onClick={disabled ? undefined : onRemove}
               className={cn(
-                "ms-auto p-1 lg:p-1.75",
+                "absolute top-2 inset-e-2 hover:bg-error-extraLight p-1 lg:p-1.75",
                 disabled && "opacity-60 pointer-events-none",
               )}
             >
