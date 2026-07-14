@@ -5,6 +5,7 @@ import {
   Heart,
   Location,
   Setting2,
+  Shop,
   User,
   Wallet2,
 } from "iconsax-reactjs";
@@ -47,6 +48,12 @@ const ADMIN_LINKS: SidebarLinkItem[] = [
     children: "دسته‌بندی‌ها",
     path: "/admin/categories",
     Icon: Category2,
+  },
+   {
+    id: 7,
+    children: "محصولات",
+    path: "/admin/products",
+    Icon: Shop,
   },
 ];
 
