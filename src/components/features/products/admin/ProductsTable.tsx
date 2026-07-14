@@ -66,8 +66,9 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
       {
         accessorKey: "title",
         header: "عنوان",
+        size: 100,
         cell: ({ getValue }) => (
-          <span className="text-sm font-medium text-gray-8">
+          <span className="text-sm font-medium text-gray-8 break-all line-clamp-3">
             {getValue<string>()}
           </span>
         ),
@@ -76,7 +77,7 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
         accessorFn: (row) => row.category?.title ?? "-",
         id: "category",
         header: "دسته‌بندی",
-        size: 100,
+        size: 90,
         cell: ({ getValue }) => (
           <span className="text-xs text-gray-7">{getValue<string>()}</span>
         ),
@@ -94,10 +95,12 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
       {
         accessorKey: "offPrice",
         header: "قیمت نهایی",
-        size: 100,
+        size: 90,
         cell: ({ getValue }) => (
           <span className="text-xs font-medium text-primary">
-            {formatPrice(getValue<number>())} تومان
+            {getValue<number>() > 0
+              ? `${formatPrice(getValue<number>())} تومان`
+              : "رایگان"}
           </span>
         ),
       },
@@ -119,7 +122,7 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
       {
         accessorKey: "countInStock",
         header: "موجودی",
-        size: 20,
+        size: 50,
         cell: ({ getValue }) => (
           <span className="text-xs font-medium text-primary">
             {toPersianDigits(getValue<number>())}
@@ -186,7 +189,7 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
   return (
     <>
       <div className="overflow-hidden rounded-lg bg-background">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto scrollbar-thin">
           <table className="min-w-full w-max">
             <thead className="bg-gray-2">
               {table.getHeaderGroups().map((headerGroup) => (
