@@ -306,7 +306,7 @@ export function ProductForm({
         )}
       />
 
-      <div className="flex w-full items-center justify-between gap-4 lg:col-span-2">
+      <div className="flex w-full items-center justify-between gap-4 lg:col-start-2">
         <Button
           type="button"
           variant="outline"
