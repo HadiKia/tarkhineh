@@ -27,6 +27,14 @@ const EditProduct = () => {
         </div>
         <TextFieldSkeleton />
         <TextFieldSkeleton />
+        <div className="lg:col-span-2">
+          <TextFieldSkeleton />
+        </div>
+
+        <div className="lg:col-span-2 flex flex-col gap-4 lg:gap-6 lg:grid lg:grid-cols-2">
+          <TextAreaSkeleton />
+          <TextAreaSkeleton />
+        </div>
         <TextFieldSkeleton />
         <TextFieldSkeleton />
         <TextFieldSkeleton />
@@ -41,10 +49,7 @@ const EditProduct = () => {
 
   return (
     <>
-      <DashboardHeader
-        title="ویرایش محصول"
-        backHref={ADMIN_PRODUCTS_PATH}
-      />
+      <DashboardHeader title="ویرایش محصول" backHref={ADMIN_PRODUCTS_PATH} />
       {content}
     </>
   );
