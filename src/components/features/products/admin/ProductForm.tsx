@@ -4,6 +4,7 @@ import type { ComponentProps } from "react";
 import {
   Controller,
   type Control,
+  type FieldError,
   type FieldErrors,
   type UseFormRegister,
   useWatch,
@@ -20,6 +21,7 @@ import TextField from "@/components/common/TextField";
 import FileInput from "@/components/common/FileInput";
 import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
+import { MAX_PRODUCT_IMAGE_SIZE } from "@/constants/upload";
 import { useGetCategories } from "@/hooks/useCategories";
 import { isPersistedCategory } from "@/utils/category";
 import { ProductFormValues } from "@/validations/product";
@@ -61,6 +63,7 @@ export function ProductForm({
 }: ProductFormProps) {
   const mealCourse = useWatch({ control, name: "mealCourse" });
   const slideCount = useWatch({ control, name: "slideCount" });
+  const images = useWatch({ control, name: "images" });
 
   const { data: mealCourseData } = useGetCategories({
     type: CategoryType.PRODUCT,
@@ -246,16 +249,16 @@ export function ProductForm({
                     errors={
                       errors.images?.[i]
                         ? { [`images-${i}`]: errors.images[i] }
-                        : undefined
+                        : errors.images?.message &&
+                            images?.[i] &&
+                            typeof images[i] !== "string" &&
+                            images[i].size > MAX_PRODUCT_IMAGE_SIZE
+                          ? { [`images-${i}`]: { message: errors.images.message } as FieldError }
+                          : undefined
                     }
                   />
                 ))}
               </div>
-              {errors.images?.message && (
-                <FieldDescription aria-invalid className="mt-2">
-                  {errors.images.message}
-                </FieldDescription>
-              )}
             </Field>
           )}
         />
