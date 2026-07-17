@@ -91,6 +91,6 @@ export const PRODUCT_CATEGORY_TYPES: { value: ProductCategoryType; label: string
 ];
 
 export const STATIC_FILTERS: { value: StaticProductFilter; label: string }[] = [
-  { value: "popular", label: "پرفروش‌ترین‌ها" },
-  { value: "economic", label: "ارزان‌ترین‌ها" },
+  { value: "popular", label: "پرفروش‌ترین" },
+  { value: "economic", label: "اقتصادی‌ترین" },
 ];
