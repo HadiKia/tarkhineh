@@ -11,7 +11,7 @@ import type {
   CreateCategoryPayload,
   UpdateCategoryPayload,
 } from "@/types";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 export const categoryQueryKeys = {
   all: ["categories"] as const,
@@ -56,4 +56,12 @@ export const useUpdateCategory = (id: string) =>
 export const useDeleteCategory = (id: string) =>
   useMutation({
     mutationFn: () => deleteCategory(id),
+  });
+
+export const useSuspenseCategories = (params?: CategoryListParams) =>
+  useSuspenseQuery<CategoryListResult>({
+    queryKey: categoryQueryKeys.list(params),
+    queryFn: () => getCategories(params),
+    staleTime: 1000 * 60 * 5,
+    retry: false,
   });

@@ -12,7 +12,6 @@ import {
 
 interface CategoryFilterContainerProps {
   mealCourses: CategoryListItem[];
-  isLoadingMealCourses: boolean;
   selectedMealCourse: string | null;
   selectedFoodGroup: string | null;
   onSelectMealCourse: (englishTitle: string | null) => void;
@@ -25,7 +24,6 @@ function isPersistedCategory(category: CategoryListItem): category is Category {
 
 export default function CategoryFilterContainer({
   mealCourses,
-  isLoadingMealCourses,
   selectedMealCourse,
   selectedFoodGroup,
   onSelectMealCourse,
@@ -61,14 +59,12 @@ export default function CategoryFilterContainer({
   const handleMealCourseSelect = (englishTitle: string) => {
     if (selectedMealCourse === englishTitle) {
       onSelectMealCourse(null);
-      onSelectFoodGroup(null);
       return;
     }
 
     onSelectMealCourse(englishTitle);
-    onSelectFoodGroup(null);
   };
-
+  
   const handleFoodGroupSelect = (englishTitle: string) => {
     if (selectedFoodGroup === englishTitle) {
       onSelectFoodGroup(null);
@@ -82,8 +78,6 @@ export default function CategoryFilterContainer({
     <CategoryFilter
       mealCourses={mealCourses}
       foodGroups={foodGroupData?.categories ?? []}
-      isLoadingMealCourses={isLoadingMealCourses}
-      isLoadingFoodGroups={isLoadingFoodGroups}
       hasSelectedMealCourse={!!selectedMealCourseId}
       selectedMealCourse={selectedMealCourse}
       selectedFoodGroup={selectedFoodGroup}

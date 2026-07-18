@@ -1,81 +1,68 @@
-"use client";
+import { Suspense } from "react";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useGetCategories } from "@/hooks/useCategories";
-import { CategoryType, ProductCategoryType } from "@/types";
-import { useGetProducts } from "@/hooks/useProducts";
-import ProductGrid from "@/components/features/products/public/ProductGrid";
-import HeroCarousel from "@/components/sections/hero/HeroCarousel";
+import MenuProvider from "@/contexts/MenuContext";
 import { HERO_SLIDES } from "@/constants/menuHero";
-import CategoryFilterContainer from "@/components/features/products/public/CategoryFilterContainer";
+import { productQueryKeys } from "@/hooks/useProducts";
+import { categoryQueryKeys } from "@/hooks/useCategories";
+import { getProducts } from "@/services/productService";
+import { getCategories } from "@/services/categoryService";
+import { CategoryType, ProductCategoryType } from "@/types";
 
-export default function MenuPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+import HeroCarousel from "@/components/sections/hero/HeroCarousel";
+import CategoryFilterSection from "@/components/sections/menu/CategoryFilterSection";
+import ProductGridSection from "@/components/sections/menu/ProductGridSection";
+import CategoryFilterSkeleton from "@/components/sections/menu/CategoryFilterSkeleton";
+import ProductGridSkeleton from "@/components/sections/menu/ProductGridSkeleton";
 
-  const [selectedMealCourse, setSelectedMealCourse] = useState<string | null>(
-    () => searchParams.get("mealCourse"),
-  );
+export default async function MenuPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mealCourse?: string; foodGroup?: string }>;
+}) {
+  const params = await searchParams;
+  const queryClient = new QueryClient();
 
-  const [selectedFoodGroup, setSelectedFoodGroup] = useState<string | null>(
-    () => searchParams.get("foodGroup"),
-  );
-
-  const { data: mealCourseData, isLoading: loadingMealCourses } =
-    useGetCategories({
-      type: CategoryType.PRODUCT,
-      productType: ProductCategoryType.MEAL_COURSE,
-    });
-
-  useEffect(() => {
-    if (mealCourseData?.categories?.length && selectedMealCourse === null) {
-      setSelectedMealCourse(mealCourseData.categories[0].englishTitle);
-    }
-  }, [mealCourseData, selectedMealCourse]);
-
-  const updateParams = (meal: string | null, food: string | null) => {
-    const params = new URLSearchParams();
-    if (meal) params.set("mealCourse", meal);
-    if (food) params.set("foodGroup", food);
-    router.replace(`/menu?${params.toString()}`);
-  };
-
-  const handleSelectMealCourse = (englishTitle: string | null) => {
-    setSelectedMealCourse(englishTitle);
-    setSelectedFoodGroup(null);
-    updateParams(englishTitle, null);
-  };
-
-  const handleSelectFoodGroup = (englishTitle: string | null) => {
-    setSelectedFoodGroup(englishTitle);
-    updateParams(selectedMealCourse, englishTitle);
-  };
-
-  const { data: productData, isLoading: loadingProducts } = useGetProducts({
-    mealCourse: selectedMealCourse ?? undefined,
-    foodGroup: selectedFoodGroup ?? undefined,
-  });
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: categoryQueryKeys.list({
+        type: CategoryType.PRODUCT,
+        productType: ProductCategoryType.MEAL_COURSE,
+      }),
+      queryFn: () =>
+        getCategories({
+          type: CategoryType.PRODUCT,
+          productType: ProductCategoryType.MEAL_COURSE,
+        }),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: productQueryKeys.list({
+        mealCourse: params.mealCourse,
+        foodGroup: params.foodGroup,
+      }),
+      queryFn: () =>
+        getProducts({
+          mealCourse: params.mealCourse,
+          foodGroup: params.foodGroup,
+        }),
+    }),
+  ]);
 
   return (
     <>
       <HeroCarousel slides={HERO_SLIDES} />
-      <CategoryFilterContainer
-        mealCourses={mealCourseData?.categories ?? []}
-        isLoadingMealCourses={loadingMealCourses}
-        selectedMealCourse={selectedMealCourse}
-        selectedFoodGroup={selectedFoodGroup}
-        onSelectMealCourse={handleSelectMealCourse}
-        onSelectFoodGroup={handleSelectFoodGroup}
-      />
 
-      {loadingProducts ? (
-        <div className="flex items-center justify-center py-12">
-          <p className="text-sm text-gray-5">در حال بارگذاری محصولات...</p>
-        </div>
-      ) : (
-        <ProductGrid products={productData?.products ?? []} />
-      )}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <MenuProvider>
+          <Suspense fallback={<CategoryFilterSkeleton />}>
+            <CategoryFilterSection />
+          </Suspense>
+
+          <Suspense fallback={<ProductGridSkeleton />}>
+            <ProductGridSection />
+          </Suspense>
+        </MenuProvider>
+      </HydrationBoundary>
     </>
   );
 }

@@ -12,7 +12,7 @@ import type {
   ProductResult,
   UpdateProductPayload,
 } from "@/types";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 export const productQueryKeys = {
   all: ["products"] as const,
@@ -53,4 +53,12 @@ export const useUpdateProduct = (id: string) =>
 export const useDeleteProduct = (id: string) =>
   useMutation({
     mutationFn: () => deleteProduct(id),
+  });
+
+export const useSuspenseProducts = (params?: ProductListParams) =>
+  useSuspenseQuery<ProductListResult>({
+    queryKey: productQueryKeys.list(params),
+    queryFn: () => getProducts(params),
+    staleTime: 1000 * 60 * 5,
+    retry: false,
   });
