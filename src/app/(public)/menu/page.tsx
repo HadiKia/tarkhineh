@@ -25,6 +25,7 @@ type MenuSearchParams = {
   mealCourse?: string;
   foodGroup?: string;
   search?: string;
+  sort?: string;
 };
 
 export default async function MenuPage({
@@ -54,12 +55,14 @@ export default async function MenuPage({
         search: params.search,
         mealCourse: params.mealCourse,
         foodGroup: params.foodGroup,
+        sort: params.sort,
       }),
       queryFn: () =>
         getProducts({
           search: params.search,
           mealCourse: params.mealCourse,
           foodGroup: params.foodGroup,
+          sort: params.sort,
         }),
     }),
   ]);

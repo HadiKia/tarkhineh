@@ -10,21 +10,27 @@ import { useEffect, useState } from "react";
 interface CategoryFilterProps {
   mealCourses: CategoryListItem[];
   foodGroups: CategoryListItem[];
+  staticFilters: CategoryListItem[];
   hasSelectedMealCourse: boolean;
   selectedMealCourse: string | null;
   selectedFoodGroup: string | null;
+  selectedSort: string | null;
   onSelectMealCourse: (englishTitle: string) => void;
   onSelectFoodGroup: (englishTitle: string) => void;
+  onSelectStaticFilter: (englishTitle: string) => void;
 }
 
 export default function CategoryFilter({
   mealCourses,
   foodGroups,
+  staticFilters,
   hasSelectedMealCourse,
   selectedMealCourse,
   selectedFoodGroup,
+  selectedSort,
   onSelectMealCourse,
   onSelectFoodGroup,
+  onSelectStaticFilter,
 }: CategoryFilterProps) {
   const mealCoursesDrag = useHorizontalDrag();
   const foodGroupsDrag = useHorizontalDrag();
@@ -46,7 +52,7 @@ export default function CategoryFilter({
     resizeObserver.observe(el);
 
     return () => resizeObserver.disconnect();
-  }, [foodGroups, foodGroupsDrag]);
+  }, [foodGroups, staticFilters, foodGroupsDrag]);
 
   return (
     <div className="flex flex-col gap-y-2 lg:gap-y-4">
@@ -128,6 +134,37 @@ export default function CategoryFilter({
                     {category.title}
 
                     {selectedFoodGroup === category.englishTitle ? (
+                      <CheckIcon className="size-3 lg:size-4" />
+                    ) : (
+                      <ArrowLeft2 className="size-3 lg:size-4" />
+                    )}
+                  </button>
+                ))}
+
+                {staticFilters.map((filter) => (
+                  <button
+                    key={filter.englishTitle}
+                    type="button"
+                    onClick={(e) => {
+                      if (foodGroupsDrag.isDragging.current.isDragging) {
+                        e.preventDefault();
+                        return;
+                      }
+
+                      onSelectStaticFilter(filter.englishTitle);
+                    }}
+                    className={cn(
+                      "flex shrink-0 items-center gap-x-1",
+                      "select-none rounded-lg px-2 py-1",
+                      "text-xs transition-colors duration-300 ease-linear lg:rounded-full lg:text-base",
+                      selectedSort === filter.englishTitle
+                        ? "pointer-events-none bg-tint-1 text-primary"
+                        : "cursor-pointer bg-gray-2 text-gray-8",
+                    )}
+                  >
+                    {filter.title}
+
+                    {selectedSort === filter.englishTitle ? (
                       <CheckIcon className="size-3 lg:size-4" />
                     ) : (
                       <ArrowLeft2 className="size-3 lg:size-4" />

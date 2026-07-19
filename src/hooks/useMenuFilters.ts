@@ -8,10 +8,12 @@ export default function useMenuFilters(defaultMealCourse?: string | null) {
     selectedMealCourse,
     selectedFoodGroup,
     selectedSearch,
+    selectedSort,
 
     setSelectedMealCourse,
     setSelectedFoodGroup,
     setSelectedSearch,
+    setSelectedSort,
 
     updateParams,
   } = useMenuUrlState();
@@ -25,24 +27,41 @@ export default function useMenuFilters(defaultMealCourse?: string | null) {
     (englishTitle: string | null) => {
       setSelectedMealCourse(englishTitle);
       setSelectedFoodGroup(null);
+      setSelectedSort(null);
 
       updateParams({
         mealCourse: englishTitle,
         foodGroup: null,
+        sort: null,
       });
     },
-    [setSelectedMealCourse, setSelectedFoodGroup, updateParams],
+    [setSelectedMealCourse, setSelectedFoodGroup, setSelectedSort, updateParams],
   );
 
   const onSelectFoodGroup = useCallback(
     (englishTitle: string | null) => {
       setSelectedFoodGroup(englishTitle);
+      setSelectedSort(null);
 
       updateParams({
         foodGroup: englishTitle,
+        sort: null,
       });
     },
-    [setSelectedFoodGroup, updateParams],
+    [setSelectedFoodGroup, setSelectedSort, updateParams],
+  );
+
+  const onSelectSort = useCallback(
+    (englishTitle: string | null) => {
+      setSelectedSort(englishTitle);
+      setSelectedFoodGroup(null);
+
+      updateParams({
+        sort: englishTitle,
+        foodGroup: null,
+      });
+    },
+    [setSelectedSort, setSelectedFoodGroup, updateParams],
   );
 
   const onSearch = useCallback(
@@ -62,9 +81,11 @@ export default function useMenuFilters(defaultMealCourse?: string | null) {
       resolvedMealCourse,
       selectedFoodGroup,
       selectedSearch,
+      selectedSort,
 
       onSelectMealCourse,
       onSelectFoodGroup,
+      onSelectSort,
       onSearch,
     }),
     [
@@ -72,9 +93,11 @@ export default function useMenuFilters(defaultMealCourse?: string | null) {
       resolvedMealCourse,
       selectedFoodGroup,
       selectedSearch,
+      selectedSort,
 
       onSelectMealCourse,
       onSelectFoodGroup,
+      onSelectSort,
       onSearch,
     ],
   );

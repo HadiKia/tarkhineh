@@ -7,6 +7,7 @@ type MenuFilters = {
   mealCourse?: string | null;
   foodGroup?: string | null;
   search?: string | null;
+  sort?: string | null;
 };
 
 export default function useMenuUrlState() {
@@ -25,10 +26,15 @@ export default function useMenuUrlState() {
     searchParams.get("search"),
   );
 
+  const [selectedSort, setSelectedSort] = useState<string | null>(() =>
+    searchParams.get("sort"),
+  );
+
   useEffect(() => {
     setSelectedMealCourse(searchParams.get("mealCourse"));
     setSelectedFoodGroup(searchParams.get("foodGroup"));
     setSelectedSearch(searchParams.get("search"));
+    setSelectedSort(searchParams.get("sort"));
   }, [searchParams]);
 
   const updateParams = useCallback(
@@ -59,6 +65,14 @@ export default function useMenuUrlState() {
         }
       }
 
+      if ("sort" in updates) {
+        if (updates.sort) {
+          params.set("sort", updates.sort);
+        } else {
+          params.delete("sort");
+        }
+      }
+
       router.replace(params.size ? `/menu?${params.toString()}` : "/menu", {
         scroll: false,
       });
@@ -70,10 +84,12 @@ export default function useMenuUrlState() {
     selectedMealCourse,
     selectedFoodGroup,
     selectedSearch,
+    selectedSort,
 
     setSelectedMealCourse,
     setSelectedFoodGroup,
     setSelectedSearch,
+    setSelectedSort,
 
     updateParams,
   };

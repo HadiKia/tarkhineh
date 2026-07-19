@@ -5,13 +5,14 @@ import { useSuspenseProducts } from "@/hooks/useProducts";
 import ProductGrid from "@/components/features/products/public/ProductGrid";
 
 export default function ProductGridSection() {
-  const { resolvedMealCourse, selectedFoodGroup, selectedSearch } =
+  const { resolvedMealCourse, selectedFoodGroup, selectedSearch, selectedSort } =
     useMenuContext();
 
   const { data: productData } = useSuspenseProducts({
     mealCourse: resolvedMealCourse ?? undefined,
     foodGroup: selectedFoodGroup ?? undefined,
     search: selectedSearch ?? undefined,
+    sort: selectedSort ?? undefined,
   });
 
   const products = productData?.products ?? [];

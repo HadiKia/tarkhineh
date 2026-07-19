@@ -14,9 +14,11 @@ export interface MenuContextValue {
   resolvedMealCourse: string | null;
   selectedFoodGroup: string | null;
   selectedSearch: string | null;
+  selectedSort: string | null;
 
   onSelectMealCourse: (englishTitle: string | null) => void;
   onSelectFoodGroup: (englishTitle: string | null) => void;
+  onSelectSort: (englishTitle: string | null) => void;
   onSearch: (value: string | null) => void;
 }
 

@@ -9,8 +9,10 @@ export default function CategoryFilterSection() {
   const {
     resolvedMealCourse,
     selectedFoodGroup,
+    selectedSort,
     onSelectMealCourse,
     onSelectFoodGroup,
+    onSelectSort,
   } = useMenuContext();
 
   const { data: mealCourseData } = useSuspenseCategories({
@@ -23,8 +25,10 @@ export default function CategoryFilterSection() {
       mealCourses={mealCourseData?.categories ?? []}
       selectedMealCourse={resolvedMealCourse}
       selectedFoodGroup={selectedFoodGroup}
+      selectedSort={selectedSort}
       onSelectMealCourse={onSelectMealCourse}
       onSelectFoodGroup={onSelectFoodGroup}
+      onSelectSort={onSelectSort}
     />
   );
 }
