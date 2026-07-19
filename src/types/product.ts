@@ -21,10 +21,18 @@ export interface Product {
   updatedAt: string;
 }
 
+export interface Pagination {
+  page: number;
+  limit: number;
+  totalCount: number;
+  totalPages: number;
+}
+
 export interface ProductListResponse {
   statusCode: number;
   data: {
     products: Product[];
+    pagination: Pagination;
   };
 }
 
@@ -37,6 +45,8 @@ export type ProductListParams = {
   type?: string;
   mealCourse?: string;
   foodGroup?: string;
+  page?: number;
+  limit?: number;
 };
 
 export interface ProductResponse {

@@ -1,8 +1,11 @@
 "use client";
 
+import { useHorizontalDrag } from "@/hooks/useHorizontalDrag";
+import { cn } from "@/lib/utils";
 import { type CategoryListItem } from "@/types";
 import { ArrowLeft2 } from "iconsax-reactjs";
 import { CheckIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface CategoryFilterProps {
   mealCourses: CategoryListItem[];
@@ -23,20 +26,61 @@ export default function CategoryFilter({
   onSelectMealCourse,
   onSelectFoodGroup,
 }: CategoryFilterProps) {
+  const mealCoursesDrag = useHorizontalDrag();
+  const foodGroupsDrag = useHorizontalDrag();
+
+  const [showEndFade, setShowEndFade] = useState(false);
+
+  useEffect(() => {
+    const el = foodGroupsDrag.ref.current;
+
+    if (!el) return;
+
+    const updateFade = () => {
+      setShowEndFade(el.scrollWidth > el.clientWidth);
+    };
+
+    updateFade();
+
+    const resizeObserver = new ResizeObserver(updateFade);
+    resizeObserver.observe(el);
+
+    return () => resizeObserver.disconnect();
+  }, [foodGroups, foodGroupsDrag]);
+
   return (
-    <div className="flex flex-col gap-y-2 lg:gap-y-4 mb-3 lg:mb-12">
+    <div className="flex flex-col gap-y-2 lg:gap-y-4">
       <div className="bg-gray-2">
-        <div className="mx-auto max-w-306 flex items-center gap-x-4 overflow-x-auto px-4 xl:px-0 lg:gap-x-8">
+        <div
+          ref={mealCoursesDrag.ref}
+          {...mealCoursesDrag.handlers}
+          className={cn(
+            "mx-auto max-w-306",
+            "flex items-center gap-x-4",
+            "overflow-x-auto scrollbar-none",
+            "px-4 lg:gap-x-8 xl:px-0",
+            "active:cursor-grabbing",
+            "touch-pan-x select-none",
+          )}
+        >
           {mealCourses.map((category) => (
             <button
               key={category.englishTitle}
               type="button"
-              onClick={() => onSelectMealCourse(category.englishTitle)}
-              className={`shrink-0 border-b lg:border-b-2 transition-colors duration-300 ease-linear select-none ${
+              onClick={(e) => {
+                if (mealCoursesDrag.isDragging.current.isDragging) {
+                  e.preventDefault();
+                  return;
+                }
+
+                onSelectMealCourse(category.englishTitle);
+              }}
+              className={cn(
+                "shrink-0 select-none border-b transition-colors duration-300 ease-linear lg:border-b-2",
                 selectedMealCourse === category.englishTitle
-                  ? "text-sm lg:text-xl font-medium lg:font-bold text-primary border-b-primary py-2.5 lg:pb-4 lg:pt-4.5 pointer-events-none"
-                  : "text-xs lg:text-xl text-gray-7 border-b-transparent py-3 lg:pb-4 lg:pt-4.5 cursor-pointer"
-              }`}
+                  ? "pointer-events-none border-b-primary py-2.5 text-sm font-medium text-primary lg:pb-4 lg:pt-4.5 lg:text-xl lg:font-bold"
+                  : "cursor-pointer border-b-transparent py-3 text-xs text-gray-7 lg:pb-4 lg:pt-4.5 lg:text-xl",
+              )}
             >
               {category.title}
             </button>
@@ -44,29 +88,58 @@ export default function CategoryFilter({
         </div>
       </div>
 
-      <div>
+      <div className="h-6 lg:h-8">
         {hasSelectedMealCourse && (
-          <div className="mx-auto max-w-306 flex items-center gap-x-2 overflow-x-auto scrollbar-none px-4 xl:px-0 ">
-            {foodGroups.map((category) => (
-              <button
-                key={category.englishTitle}
-                type="button"
-                onClick={() => onSelectFoodGroup(category.englishTitle)}
-                className={`shrink-0 flex items-center gap-x-1 text-xs lg:text-base py-1 px-2 rounded-lg lg:rounded-full transition-colors duration-300 ease-linear select-none ${
-                  selectedFoodGroup === category.englishTitle
-                    ? "bg-tint-1 text-primary pointer-events-none "
-                    : "bg-gray-2 text-gray-8 cursor-pointer"
-                }`}
-              >
-                {category.title}
-
-                {selectedFoodGroup === category.englishTitle ? (
-                  <CheckIcon className="size-3 lg:size-4" />
-                ) : (
-                  <ArrowLeft2 className="size-3 lg:size-4" />
+          <div>
+            <div className="mx-auto max-w-306 flex">
+              <div
+                ref={foodGroupsDrag.ref}
+                {...foodGroupsDrag.handlers}
+                className={cn(
+                  "min-w-0 lg:max-w-lg xl:max-w-2xl",
+                  "flex items-center gap-x-2",
+                  "overflow-x-auto scrollbar-none",
+                  "px-4 xl:px-0",
+                  "active:cursor-grabbing",
+                  "touch-pan-x select-none",
                 )}
-              </button>
-            ))}
+              >
+                {foodGroups.map((category) => (
+                  <button
+                    key={category.englishTitle}
+                    type="button"
+                    onClick={(e) => {
+                      if (foodGroupsDrag.isDragging.current.isDragging) {
+                        e.preventDefault();
+                        return;
+                      }
+
+                      onSelectFoodGroup(category.englishTitle);
+                    }}
+                    className={cn(
+                      "flex shrink-0 items-center gap-x-1",
+                      "select-none rounded-lg px-2 py-1",
+                      "text-xs transition-colors duration-300 ease-linear lg:rounded-full lg:text-base",
+                      selectedFoodGroup === category.englishTitle
+                        ? "pointer-events-none bg-tint-1 text-primary"
+                        : "cursor-pointer bg-gray-2 text-gray-8",
+                    )}
+                  >
+                    {category.title}
+
+                    {selectedFoodGroup === category.englishTitle ? (
+                      <CheckIcon className="size-3 lg:size-4" />
+                    ) : (
+                      <ArrowLeft2 className="size-3 lg:size-4" />
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {showEndFade && (
+                <div className="pointer-events-none sticky inset-y-0 inset-e-0 hidden h-8 w-5 translate-x-5 bg-linear-to-r from-white to-transparent lg:block" />
+              )}
+            </div>
           </div>
         )}
       </div>

@@ -11,11 +11,13 @@ interface MenuProviderProps {
 export interface MenuContextValue {
   selectedMealCourse: string | null;
   selectedFoodGroup: string | null;
+  selectedSearch: string | null;
 
   initializeMealCourse: (englishTitle: string) => void;
 
   onSelectMealCourse: (englishTitle: string | null) => void;
   onSelectFoodGroup: (englishTitle: string | null) => void;
+  onSearch: (value: string | null) => void;
 }
 
 const MenuContext = createContext<MenuContextValue | null>(null);

@@ -15,12 +15,14 @@ export function getProducts(params?: ProductListParams) {
   if (params?.type) searchParams.append("type", params.type);
   if (params?.mealCourse) searchParams.append("mealCourse", params.mealCourse);
   if (params?.foodGroup) searchParams.append("foodGroup", params.foodGroup);
+  if (params?.page) searchParams.append("page", String(params.page));
+  if (params?.limit) searchParams.append("limit", String(params.limit));
 
   const queryString = searchParams.toString();
   const url = `/product/list${queryString ? `?${queryString}` : ""}`;
 
   return http
-    .get<{ data: { products: ProductListResult["products"] } }>(url)
+    .get<{ data: ProductListResult }>(url)
     .then(({ data }) => data.data);
 }
 
