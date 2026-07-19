@@ -3,7 +3,7 @@
 import { useCallback, useMemo } from "react";
 import useMenuUrlState from "./useMenuUrlState";
 
-export default function useMenuFilters() {
+export default function useMenuFilters(defaultMealCourse?: string | null) {
   const {
     selectedMealCourse,
     selectedFoodGroup,
@@ -16,11 +16,9 @@ export default function useMenuFilters() {
     updateParams,
   } = useMenuUrlState();
 
-  const initializeMealCourse = useCallback(
-    (englishTitle: string) => {
-      setSelectedMealCourse((current) => current ?? englishTitle);
-    },
-    [setSelectedMealCourse],
+  const resolvedMealCourse = useMemo(
+    () => selectedMealCourse ?? defaultMealCourse ?? null,
+    [selectedMealCourse, defaultMealCourse],
   );
 
   const onSelectMealCourse = useCallback(
@@ -61,10 +59,9 @@ export default function useMenuFilters() {
   return useMemo(
     () => ({
       selectedMealCourse,
+      resolvedMealCourse,
       selectedFoodGroup,
       selectedSearch,
-
-      initializeMealCourse,
 
       onSelectMealCourse,
       onSelectFoodGroup,
@@ -72,10 +69,9 @@ export default function useMenuFilters() {
     }),
     [
       selectedMealCourse,
+      resolvedMealCourse,
       selectedFoodGroup,
       selectedSearch,
-
-      initializeMealCourse,
 
       onSelectMealCourse,
       onSelectFoodGroup,

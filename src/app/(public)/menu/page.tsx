@@ -11,7 +11,7 @@ import { productQueryKeys } from "@/hooks/useProducts";
 import { categoryQueryKeys } from "@/hooks/useCategories";
 import { getProducts } from "@/services/productService";
 import { getCategories } from "@/services/categoryService";
-import { CategoryType, ProductCategoryType } from "@/types";
+import { CategoryType, ProductCategoryType, type CategoryListResult } from "@/types";
 
 import HeroCarousel from "@/components/sections/hero/HeroCarousel";
 import CategoryFilterSection from "@/components/sections/menu/CategoryFilterSection";
@@ -64,12 +64,21 @@ export default async function MenuPage({
     }),
   ]);
 
+  const categoriesData = queryClient.getQueryData<CategoryListResult>(
+    categoryQueryKeys.list({
+      type: CategoryType.PRODUCT,
+      productType: ProductCategoryType.MEAL_COURSE,
+    }),
+  );
+  const defaultMealCourse =
+    categoriesData?.categories?.[0]?.englishTitle ?? null;
+
   return (
     <>
       <HeroCarousel slides={HERO_SLIDES} />
 
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <MenuProvider>
+        <MenuProvider defaultMealCourse={defaultMealCourse}>
           <div className="mb-3.5 flex flex-col gap-y-3 lg:mb-12 lg:gap-y-0">
             <Suspense fallback={<CategoryFilterSkeleton />}>
               <CategoryFilterSection />

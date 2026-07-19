@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useMenuContext } from "@/contexts/MenuContext";
 import { useSuspenseCategories } from "@/hooks/useCategories";
 import { CategoryType, ProductCategoryType } from "@/types";
@@ -8,9 +7,8 @@ import CategoryFilterContainer from "@/components/features/products/public/Categ
 
 export default function CategoryFilterSection() {
   const {
-    selectedMealCourse,
+    resolvedMealCourse,
     selectedFoodGroup,
-    initializeMealCourse,
     onSelectMealCourse,
     onSelectFoodGroup,
   } = useMenuContext();
@@ -20,20 +18,10 @@ export default function CategoryFilterSection() {
     productType: ProductCategoryType.MEAL_COURSE,
   });
 
-  const firstMealCourse = mealCourseData?.categories?.[0];
-
-  useEffect(() => {
-    if (!firstMealCourse || selectedMealCourse !== null) {
-      return;
-    }
-
-    initializeMealCourse(firstMealCourse.englishTitle);
-  }, [firstMealCourse, selectedMealCourse, initializeMealCourse]);
-
   return (
     <CategoryFilterContainer
       mealCourses={mealCourseData?.categories ?? []}
-      selectedMealCourse={selectedMealCourse}
+      selectedMealCourse={resolvedMealCourse}
       selectedFoodGroup={selectedFoodGroup}
       onSelectMealCourse={onSelectMealCourse}
       onSelectFoodGroup={onSelectFoodGroup}

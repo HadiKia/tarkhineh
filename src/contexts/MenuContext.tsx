@@ -6,14 +6,14 @@ import useMenuFilters from "@/hooks/useMenuFilters";
 
 interface MenuProviderProps {
   children: ReactNode;
+  defaultMealCourse?: string | null;
 }
 
 export interface MenuContextValue {
   selectedMealCourse: string | null;
+  resolvedMealCourse: string | null;
   selectedFoodGroup: string | null;
   selectedSearch: string | null;
-
-  initializeMealCourse: (englishTitle: string) => void;
 
   onSelectMealCourse: (englishTitle: string | null) => void;
   onSelectFoodGroup: (englishTitle: string | null) => void;
@@ -22,8 +22,11 @@ export interface MenuContextValue {
 
 const MenuContext = createContext<MenuContextValue | null>(null);
 
-export default function MenuProvider({ children }: MenuProviderProps) {
-  const value = useMenuFilters();
+export default function MenuProvider({
+  children,
+  defaultMealCourse,
+}: MenuProviderProps) {
+  const value = useMenuFilters(defaultMealCourse);
 
   return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>;
 }
