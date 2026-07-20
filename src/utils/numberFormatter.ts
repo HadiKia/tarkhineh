@@ -14,3 +14,7 @@ export function formatPhone(phone: string): string {
 
   return `\u2066${toPersianDigits(formatted)}\u2069`;
 }
+
+export function formatPrice(price: number): string {
+  return new Intl.NumberFormat("fa-IR").format(price);
+}
