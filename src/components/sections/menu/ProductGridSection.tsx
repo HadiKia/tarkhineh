@@ -4,6 +4,7 @@ import { useMenuContext } from "@/contexts/MenuContext";
 import { useSuspenseProducts } from "@/hooks/useProducts";
 import ProductGrid from "@/components/features/products/public/ProductGrid";
 import EmptyState from "@/components/common/EmptyState";
+import EmptySearch from "@/components/common/SearchNotFound";
 
 export default function ProductGridSection() {
   const {
@@ -24,7 +25,7 @@ export default function ProductGridSection() {
 
   if (products.length === 0) {
     return selectedSearch ? (
-      <p>{`نتیجه‌ای برای «${selectedSearch}» یافت نشد`}</p>
+      <EmptySearch title={`نتیجه‌ای برای «${selectedSearch}» یافت نشد.`} />
     ) : (
       <EmptyState title="محصولی یافت نشد." />
     );
