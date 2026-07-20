@@ -1,5 +1,6 @@
 import { Product } from "@/types";
 import ProductCard from "./ProductCard";
+import EmptyState from "@/components/common/EmptyState";
 
 interface ProductGridProps {
   products: Product[];
@@ -7,11 +8,7 @@ interface ProductGridProps {
 
 export default function ProductGrid({ products }: ProductGridProps) {
   if (products.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <p className="text-sm text-gray-5">محصولی یافت نشد</p>
-      </div>
-    );
+    return <EmptyState title="محصولی یافت نشد." />;
   }
 
   return (
