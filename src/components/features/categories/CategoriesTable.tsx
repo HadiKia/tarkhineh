@@ -13,7 +13,6 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   EDIT_CATEGORY_PATH,
-  formatCategoryDate,
   productTypeLabels,
 } from "@/constants/categories";
 import { Category, ProductCategoryType } from "@/types";
@@ -21,6 +20,7 @@ import Link from "next/link";
 import DeleteCategoryModal from "./DeleteCategoryModal";
 import { cn } from "@/lib/utils";
 import { ArrowLeft2, Edit, Trash } from "iconsax-reactjs";
+import { formatDate } from "@/utils/numberFormatter";
 
 type CategoriesTableProps = {
   categories: Category[];
@@ -157,7 +157,7 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
         size: 80,
         cell: ({ getValue }) => (
           <span className="text-xs text-gray-7">
-            {formatCategoryDate(getValue<string>())}
+            {formatDate(getValue<string>())}
           </span>
         ),
       },
@@ -167,7 +167,7 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
         size: 80,
         cell: ({ getValue }) => (
           <span className="text-xs text-gray-7">
-            {formatCategoryDate(getValue<string>())}
+            {formatDate(getValue<string>())}
           </span>
         ),
       },

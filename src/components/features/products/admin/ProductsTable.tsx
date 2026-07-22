@@ -15,23 +15,15 @@ import { EDIT_PRODUCT_PATH } from "@/constants/products";
 import { Product } from "@/types";
 import { Edit, Trash } from "iconsax-reactjs";
 import DeleteProductModal from "./DeleteProductModal";
-import { toPersianDigits } from "@/utils/numberFormatter";
+import {
+  formatDate,
+  formatPrice,
+  toPersianDigits,
+} from "@/utils/numberFormatter";
 
 type ProductsTableProps = {
   products: Product[];
 };
-
-function formatPrice(price: number): string {
-  return new Intl.NumberFormat("fa-IR").format(price);
-}
-
-function formatDate(date: string): string {
-  return new Intl.DateTimeFormat("fa-IR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date(date));
-}
 
 const ProductsTable = ({ products }: ProductsTableProps) => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
