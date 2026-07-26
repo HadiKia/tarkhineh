@@ -98,7 +98,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 lg:gap-5">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="flex flex-1 items-center gap-2">
             <Button
               type="button"
@@ -107,7 +107,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             >
               <Heart />
             </Button>
-            <ProductRating />
+            <ProductRating product={product} />
           </div>
 
           <Button

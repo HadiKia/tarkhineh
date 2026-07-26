@@ -4,12 +4,15 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  rateProduct,
 } from "@/services/productService";
 import type {
   CreateProductPayload,
   ProductListParams,
   ProductListResult,
   ProductResult,
+  RateProductPayload,
+  RateProductResponse,
   UpdateProductPayload,
 } from "@/types";
 import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
@@ -53,6 +56,11 @@ export const useUpdateProduct = (id: string) =>
 export const useDeleteProduct = (id: string) =>
   useMutation({
     mutationFn: () => deleteProduct(id),
+  });
+
+export const useRateProduct = (productId: string) =>
+  useMutation<RateProductResponse, Error, RateProductPayload>({
+    mutationFn: (payload) => rateProduct(productId, payload),
   });
 
 export const useSuspenseProducts = (params?: ProductListParams) =>

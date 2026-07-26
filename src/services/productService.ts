@@ -3,6 +3,8 @@ import {
   ProductListParams,
   ProductListResult,
   ProductResult,
+  RateProductPayload,
+  RateProductResponse,
   UpdateProductPayload,
 } from "@/types";
 import http from "./httpService";
@@ -92,5 +94,11 @@ export function updateProduct(id: string, payload: UpdateProductPayload) {
 export function deleteProduct(id: string) {
   return http
     .delete<{ data: { message: string } }>(`/admin/product/remove/${id}`)
+    .then(({ data }) => data.data);
+}
+
+export function rateProduct(id: string, payload: RateProductPayload) {
+  return http
+    .post<{ data: RateProductResponse }>(`/product/rate/${id}`, payload)
     .then(({ data }) => data.data);
 }

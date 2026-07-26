@@ -16,11 +16,11 @@ type IconElementProps = {
 const ratingVariants = cva('transition-colors', {
   variants: {
     variant: {
-      default: 'text-foreground fill-current',
+      default: 'text-warning-light fill-current',
       destructive: 'text-destructive fill-current',
       outline: 'text-muted-foreground fill-transparent stroke-current',
       secondary: 'text-muted-foreground fill-current',
-      yellow: 'fill-current text-amber-600 dark:text-amber-400'
+      yellow: 'fill-current text-warning-light'
     }
   },
   defaultVariants: {
@@ -32,7 +32,6 @@ const ratingVariants = cva('transition-colors', {
 const RATING_DEFAULTS = {
   precision: 1,
   maxStars: 5,
-  size: 20,
   variant: 'default' as const,
   icon: (
     <StarIcon />
@@ -42,7 +41,7 @@ const RATING_DEFAULTS = {
 // Types
 interface RatingItemProps extends React.ComponentProps<'label'> {
   variant?: VariantProps<typeof ratingVariants>['variant']
-  size: number
+  iconClassName?: string
   value: number
   hoveredValue: number | null
   point: number
@@ -61,7 +60,6 @@ interface RatingProps extends React.ComponentProps<'div'> {
   defaultValue?: number
   name?: string
   max?: number
-  size?: number
   icon?: React.ReactElement<IconElementProps>
   variant?: VariantProps<typeof ratingVariants>['variant']
   readOnly?: boolean
@@ -73,8 +71,8 @@ interface RatingProps extends React.ComponentProps<'div'> {
 
 // Rating Item Component
 function RatingItem({
-  size,
   variant = 'default',
+  iconClassName,
   value,
   point,
   hoveredValue,
@@ -100,23 +98,17 @@ function RatingItem({
 
   const icons = React.useMemo(() => {
     const emptyIcon = React.cloneElement(Icon, {
-      size,
-      className: cn(
-        'fill-muted-foreground/20 stroke-muted-foreground/10 text-muted-foreground/10',
-        variant === 'yellow' &&
-          'fill-amber-600/30 stroke-amber-600/10 text-amber-600/10 dark:fill-amber-400/30 dark:stroke-amber-400/10'
-      ),
+      className: cn('text-warning-light', iconClassName),
       'aria-hidden': 'true'
     })
 
     const fullIcon = React.cloneElement(Icon, {
-      size,
-      className: cn(ratingVariants({ variant })),
+      className: cn(ratingVariants({ variant }), iconClassName),
       'aria-hidden': 'true'
     })
 
     return { emptyIcon, fullIcon }
-  }, [Icon, size, variant])
+  }, [Icon, variant, iconClassName])
 
   const getRatingPoint = React.useCallback(
     (event: React.MouseEvent<HTMLLabelElement>) => {
@@ -200,7 +192,6 @@ function Rating({
   defaultValue = 0,
   name,
   max = RATING_DEFAULTS.maxStars,
-  size = RATING_DEFAULTS.size,
   icon: Icon = RATING_DEFAULTS.icon,
   variant = RATING_DEFAULTS.variant,
   className,
@@ -323,8 +314,7 @@ function Rating({
       data-readonly={readOnly}
       className={cn(
         'focus-visible:ring-ring/50 flex gap-px focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-        disabled && 'opacity-50',
-        className
+        disabled && 'opacity-50'
       )}
       aria-label={readOnly ? `${value} of ${max} stars` : 'Rating'}
       {...props}
@@ -335,7 +325,7 @@ function Rating({
           data-slot='rating-star'
           className={cn(
             'relative',
-            isInteractive && 'transition-transform hover:scale-110',
+            isInteractive && 'transition-transform',
             disabled && 'cursor-not-allowed'
           )}
           aria-disabled={disabled}
@@ -350,9 +340,9 @@ function Rating({
               point={point}
               precision={precision}
               readOnly={readOnly}
-              size={size}
               value={value}
               variant={variant}
+              iconClassName={className}
               Icon={Icon}
               onMouseLeave={() => setHoveredValue(0)}
               onValueHover={handleValueHover}

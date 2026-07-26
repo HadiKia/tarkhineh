@@ -1,6 +1,14 @@
 import { ID } from "./api";
 import { Category } from "./category";
 
+export interface Review {
+  _id: ID;
+  user: ID;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Product {
   _id: ID;
   title: string;
@@ -17,6 +25,7 @@ export interface Product {
   countInStock: number;
   likesCount: number;
   isLiked: boolean;
+  reviews: Review[];
   createdAt: string;
   updatedAt: string;
 }
@@ -71,3 +80,13 @@ export interface CreateProductPayload {
 }
 
 export type UpdateProductPayload = CreateProductPayload;
+
+export interface RateProductPayload {
+  rating: number;
+}
+
+export interface RateProductResponse {
+  message: string;
+  rating: number;
+  numReviews: number;
+}
