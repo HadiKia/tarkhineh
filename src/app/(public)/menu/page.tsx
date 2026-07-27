@@ -11,7 +11,11 @@ import { productQueryKeys } from "@/hooks/useProducts";
 import { categoryQueryKeys } from "@/hooks/useCategories";
 import { getProducts } from "@/services/productService";
 import { getCategories } from "@/services/categoryService";
-import { CategoryType, ProductCategoryType, type CategoryListResult } from "@/types";
+import {
+  CategoryType,
+  ProductCategoryType,
+  type CategoryListResult,
+} from "@/types";
 
 import HeroCarousel from "@/components/sections/hero/HeroCarousel";
 import CategoryFilterSection from "@/components/sections/menu/CategoryFilterSection";
@@ -37,35 +41,18 @@ export default async function MenuPage({
 
   const queryClient = new QueryClient();
 
-  await Promise.all([
-    queryClient.prefetchQuery({
-      queryKey: categoryQueryKeys.list({
+  // Prefetch categories first to resolve the default meal course.
+  await queryClient.prefetchQuery({
+    queryKey: categoryQueryKeys.list({
+      type: CategoryType.PRODUCT,
+      productType: ProductCategoryType.MEAL_COURSE,
+    }),
+    queryFn: () =>
+      getCategories({
         type: CategoryType.PRODUCT,
         productType: ProductCategoryType.MEAL_COURSE,
       }),
-      queryFn: () =>
-        getCategories({
-          type: CategoryType.PRODUCT,
-          productType: ProductCategoryType.MEAL_COURSE,
-        }),
-    }),
-
-    queryClient.prefetchQuery({
-      queryKey: productQueryKeys.list({
-        search: params.search,
-        mealCourse: params.mealCourse,
-        foodGroup: params.foodGroup,
-        sort: params.sort,
-      }),
-      queryFn: () =>
-        getProducts({
-          search: params.search,
-          mealCourse: params.mealCourse,
-          foodGroup: params.foodGroup,
-          sort: params.sort,
-        }),
-    }),
-  ]);
+  });
 
   const categoriesData = queryClient.getQueryData<CategoryListResult>(
     categoryQueryKeys.list({
@@ -75,6 +62,29 @@ export default async function MenuPage({
   );
   const defaultMealCourse =
     categoriesData?.categories?.[0]?.englishTitle ?? null;
+
+  // Resolve the meal course used by both SSR and the client.
+  // URL parameter has priority; otherwise use the first category.
+  const effectiveMealCourse =
+    params.mealCourse ?? defaultMealCourse ?? undefined;
+
+  // Prefetch products using the resolved meal course so the SSR query
+  // matches the client query during hydration.
+  await queryClient.prefetchQuery({
+    queryKey: productQueryKeys.list({
+      search: params.search,
+      mealCourse: effectiveMealCourse,
+      foodGroup: params.foodGroup,
+      sort: params.sort,
+    }),
+    queryFn: () =>
+      getProducts({
+        search: params.search,
+        mealCourse: effectiveMealCourse,
+        foodGroup: params.foodGroup,
+        sort: params.sort,
+      }),
+  });
 
   return (
     <>
