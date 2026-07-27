@@ -67,12 +67,16 @@ export default function ProductLike({ product }: ProductLikeProps) {
       onClick={handleLike}
       className={cn(
         "size-4 shrink-0 p-0 lg:absolute lg:top-2 lg:inset-e-4 lg:size-6",
-        isLiked
-          ? "text-error-light hover:text-error-light"
-          : "text-gray-7 hover:text-gray-7",
       )}
     >
-      <Heart variant={isLiked ? "Bold" : "Outline"} />
+      <Heart
+        variant={isLiked ? "Bold" : "Outline"}
+        className={cn(
+          isLiked
+            ? "text-error-light hover:text-error-light"
+            : "text-gray-7 hover:text-gray-7",
+        )}
+      />
     </Button>
   );
 }
