@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import ProductRating from "./ProductRating";
 import { cn } from "@/lib/utils";
 import ProductLike from "./ProductLike";
+import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
@@ -40,30 +41,36 @@ export default function ProductCard({ product }: ProductCardProps) {
     offPrice,
     discount,
     countInStock,
+    slug,
   } = product;
 
   const hasDiscount = discount > 0;
   const isFree = offPrice <= 0;
   const isOutOfStock = countInStock === 0;
+  const productHref = `/menu/${slug}`;
 
   return (
     <article className="flex overflow-hidden rounded-sm border border-gray-4 bg-white transition-opacity lg:rounded-lg">
       <div className="relative w-23 shrink-0 lg:w-42.5">
-        <Image
-          src={mainImageUrl ?? "/images/empty/placeholder.png"}
-          alt={title}
-          fill
-          sizes="(min-width:1024px) 170px, 92px"
-          className={cn("object-cover", isOutOfStock && "grayscale")}
-        />
+        <Link href={productHref}>
+          <Image
+            src={mainImageUrl ?? "/images/empty/placeholder.png"}
+            alt={title}
+            fill
+            sizes="(min-width:1024px) 170px, 92px"
+            className={cn("object-cover", isOutOfStock && "grayscale")}
+          />
+        </Link>
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col justify-between gap-2 p-2 lg:relative lg:gap-2.75 lg:ps-8 lg:pe-4">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <h3 className="wrap-break-word line-clamp-1 text-xs font-semibold text-gray-8 lg:line-clamp-2 lg:text-xl">
-              {title}
-            </h3>
+            <Link href={productHref}>
+              <h3 className="lg:pe-6 wrap-break-word line-clamp-1 text-xs font-semibold text-gray-8 lg:line-clamp-2 lg:text-xl">
+                {title}
+              </h3>
+            </Link>
           </div>
 
           {hasDiscount && (

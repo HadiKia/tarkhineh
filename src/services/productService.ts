@@ -42,6 +42,19 @@ export function getProductById(id: string) {
     .then(({ data }) => data.data);
 }
 
+export function getProductBySlug(
+  slug: string,
+  options?: { cookieHeader?: string },
+) {
+  return http
+    .get<{ data: ProductResult }>(`/product/slug/${slug}`, {
+      headers: options?.cookieHeader
+        ? { Cookie: options.cookieHeader }
+        : undefined,
+    })
+    .then(({ data }) => data.data);
+}
+
 export function createProduct(payload: CreateProductPayload) {
   const body = new FormData();
   body.append("title", payload.title);

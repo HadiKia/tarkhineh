@@ -1,6 +1,7 @@
 import {
   getProducts,
   getProductById,
+  getProductBySlug,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -26,6 +27,8 @@ export const productQueryKeys = {
     [...productQueryKeys.lists(), params ?? {}] as const,
   details: () => [...productQueryKeys.all, "detail"] as const,
   detail: (id: string) => [...productQueryKeys.details(), id] as const,
+  slugs: () => [...productQueryKeys.all, "slug"] as const,
+  bySlug: (slug: string) => [...productQueryKeys.slugs(), slug] as const,
 };
 
 export const useGetProducts = (params?: ProductListParams) =>
