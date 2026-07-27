@@ -90,3 +90,9 @@ export interface RateProductResponse {
   rating: number;
   numReviews: number;
 }
+
+export interface LikeProductResponse {
+  message: string;
+  isLiked: boolean;
+  likesCount: number;
+}

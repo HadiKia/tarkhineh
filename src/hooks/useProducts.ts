@@ -5,9 +5,11 @@ import {
   updateProduct,
   deleteProduct,
   rateProduct,
+  likeProduct,
 } from "@/services/productService";
 import type {
   CreateProductPayload,
+  LikeProductResponse,
   ProductListParams,
   ProductListResult,
   ProductResult,
@@ -61,6 +63,11 @@ export const useDeleteProduct = (id: string) =>
 export const useRateProduct = (productId: string) =>
   useMutation<RateProductResponse, Error, RateProductPayload>({
     mutationFn: (payload) => rateProduct(productId, payload),
+  });
+
+  export const useLikeProduct = (productId: string) =>
+  useMutation<LikeProductResponse, Error>({
+    mutationFn: () => likeProduct(productId),
   });
 
 export const useSuspenseProducts = (params?: ProductListParams) =>

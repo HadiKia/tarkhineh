@@ -1,5 +1,6 @@
 import {
   CreateProductPayload,
+  LikeProductResponse,
   ProductListParams,
   ProductListResult,
   ProductResult,
@@ -9,7 +10,10 @@ import {
 } from "@/types";
 import http from "./httpService";
 
-export function getProducts(params?: ProductListParams) {
+export function getProducts(
+  params?: ProductListParams,
+  options?: { cookieHeader?: string },
+) {
   const searchParams = new URLSearchParams();
   if (params?.search) searchParams.append("search", params.search);
   if (params?.category) searchParams.append("category", params.category);
@@ -24,7 +28,11 @@ export function getProducts(params?: ProductListParams) {
   const url = `/product/list${queryString ? `?${queryString}` : ""}`;
 
   return http
-    .get<{ data: ProductListResult }>(url)
+    .get<{ data: ProductListResult }>(url, {
+      headers: options?.cookieHeader
+        ? { Cookie: options.cookieHeader }
+        : undefined,
+    })
     .then(({ data }) => data.data);
 }
 
@@ -47,10 +55,9 @@ export function createProduct(payload: CreateProductPayload) {
   payload.images.forEach((img) => body.append("images", img));
 
   return http
-    .post<{ data: { message: string; product: ProductResult["product"] } }>(
-      "/admin/product/add",
-      body
-    )
+    .post<{
+      data: { message: string; product: ProductResult["product"] };
+    }>("/admin/product/add", body)
     .then(({ data }) => data.data);
 }
 
@@ -84,10 +91,7 @@ export function updateProduct(id: string, payload: UpdateProductPayload) {
   }
 
   return http
-    .patch<{ data: { message: string } }>(
-      `/admin/product/update/${id}`,
-      body
-    )
+    .patch<{ data: { message: string } }>(`/admin/product/update/${id}`, body)
     .then(({ data }) => data.data);
 }
 
@@ -100,5 +104,11 @@ export function deleteProduct(id: string) {
 export function rateProduct(id: string, payload: RateProductPayload) {
   return http
     .post<{ data: RateProductResponse }>(`/product/rate/${id}`, payload)
+    .then(({ data }) => data.data);
+}
+
+export function likeProduct(id: string) {
+  return http
+    .post<{ data: LikeProductResponse }>(`/product/like/${id}`)
     .then(({ data }) => data.data);
 }

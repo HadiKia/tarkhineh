@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 import {
   dehydrate,
   HydrationBoundary,
@@ -41,6 +42,10 @@ export default async function MenuPage({
 
   const queryClient = new QueryClient();
 
+  // Forward browser cookies to preserve authenticated SSR state.
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.toString();
+
   // Prefetch categories first to resolve the default meal course.
   await queryClient.prefetchQuery({
     queryKey: categoryQueryKeys.list({
@@ -78,12 +83,15 @@ export default async function MenuPage({
       sort: params.sort,
     }),
     queryFn: () =>
-      getProducts({
-        search: params.search,
-        mealCourse: effectiveMealCourse,
-        foodGroup: params.foodGroup,
-        sort: params.sort,
-      }),
+      getProducts(
+        {
+          search: params.search,
+          mealCourse: effectiveMealCourse,
+          foodGroup: params.foodGroup,
+          sort: params.sort,
+        },
+        { cookieHeader },
+      ),
   });
 
   return (

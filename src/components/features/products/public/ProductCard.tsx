@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Heart } from "iconsax-reactjs";
 
 import { Product } from "@/types";
 import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
@@ -7,6 +6,7 @@ import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
 import { Button } from "@/components/ui/button";
 import ProductRating from "./ProductRating";
 import { cn } from "@/lib/utils";
+import ProductLike from "./ProductLike";
 
 interface ProductCardProps {
   product: Product;
@@ -100,13 +100,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex flex-1 items-center gap-2">
-            <Button
-              type="button"
-              variant="ghost"
-              className="shrink-0 p-0 text-gray-7 hover:text-gray-7 size-4 lg:absolute lg:top-2 lg:inset-e-4 lg:size-6"
-            >
-              <Heart />
-            </Button>
+            <ProductLike product={product} />
             <ProductRating product={product} />
           </div>
 
