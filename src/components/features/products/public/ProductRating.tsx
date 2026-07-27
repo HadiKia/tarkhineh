@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { Rating } from "@/components/ui/rating";
 import { useGetUser } from "@/hooks/useAuth";
-import { useRateProduct } from "@/hooks/useProducts";
+import { productQueryKeys, useRateProduct } from "@/hooks/useProducts";
 import { Product } from "@/types";
 
 interface ProductRatingProps {
@@ -13,13 +14,19 @@ interface ProductRatingProps {
 }
 
 export default function ProductRating({ product }: ProductRatingProps) {
+  const queryClient = useQueryClient();
   const { data: userData } = useGetUser();
 
   const isAuthenticated = Boolean(userData?.user);
   const rateMutation = useRateProduct(product._id);
 
-  const initialRating = product.rating;
-  const [localRating, setLocalRating] = useState(initialRating);
+  const [localRating, setLocalRating] = useState(product.rating);
+
+  useEffect(() => {
+    if (!rateMutation.isPending) {
+      setLocalRating(product.rating);
+    }
+  }, [product.rating, rateMutation.isPending]);
 
   const handleValueChange = useCallback(
     (value: number) => {
@@ -34,6 +41,8 @@ export default function ProductRating({ product }: ProductRatingProps) {
         return;
       }
 
+      const previousRating = product.rating;
+
       setLocalRating(value);
 
       rateMutation.mutate(
@@ -42,15 +51,18 @@ export default function ProductRating({ product }: ProductRatingProps) {
           onSuccess: ({ rating, message }) => {
             setLocalRating(rating);
             toast.success(message);
+            queryClient.invalidateQueries({
+              queryKey: productQueryKeys.all,
+            });
           },
           onError: (error) => {
-            setLocalRating(initialRating);
+            setLocalRating(previousRating);
             toast.error(error.message);
           },
         },
       );
     },
-    [initialRating, isAuthenticated, localRating, rateMutation],
+    [isAuthenticated, localRating, product.rating, rateMutation],
   );
 
   return (
