@@ -68,7 +68,7 @@ export const useRateProduct = (productId: string) =>
     mutationFn: (payload) => rateProduct(productId, payload),
   });
 
-  export const useLikeProduct = (productId: string) =>
+export const useLikeProduct = (productId: string) =>
   useMutation<LikeProductResponse, Error>({
     mutationFn: () => likeProduct(productId),
   });
@@ -77,6 +77,14 @@ export const useSuspenseProducts = (params?: ProductListParams) =>
   useSuspenseQuery<ProductListResult>({
     queryKey: productQueryKeys.list(params),
     queryFn: () => getProducts(params),
+    staleTime: 1000 * 60 * 5,
+    retry: false,
+  });
+
+export const useSuspenseProductBySlug = (slug: string) =>
+  useSuspenseQuery<ProductResult>({
+    queryKey: productQueryKeys.bySlug(slug),
+    queryFn: () => getProductBySlug(slug),
     staleTime: 1000 * 60 * 5,
     retry: false,
   });
