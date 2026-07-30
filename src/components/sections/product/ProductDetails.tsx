@@ -8,6 +8,7 @@ import { ArrowRight, ShoppingCart } from "iconsax-reactjs";
 import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
 import ProductRating from "@/components/features/products/public/ProductRating";
 import ProductDiscountBadge from "@/components/features/products/public/ProductDiscountBadge";
+import useMoveBack from "@/hooks/useMoveBack";
 
 interface ProductDetailsProps {
   product: Product;
@@ -29,6 +30,9 @@ export default function ProductDetails({
     category,
     numReviews,
   } = product;
+
+  const moveBack = useMoveBack();
+
   const { mealCourseTitle, mealCourseEnglishTitle, foodGroupEnglishTitle } =
     productBreadcrumbData;
 
@@ -66,7 +70,7 @@ export default function ProductDetails({
     <div className=" mb-6 md:pb-12">
       <div className="bg-primary">
         <div className="max-w-306 mx-auto px-4 xl:px-0 py-2 lg:py-3 flex items-center justify-between">
-          <Button variant="link" className="text-white px-0">
+          <Button onClick={moveBack} variant="link" className="text-white px-0">
             <ArrowRight className="size-6" />
           </Button>
           <h2 className="flex-1 text-center text-white text-xl font-bold lg:text-2xl">
