@@ -7,29 +7,11 @@ import ProductLike from "@/components/features/products/public/ProductLike";
 import { ArrowRight, ShoppingCart } from "iconsax-reactjs";
 import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
 import ProductRating from "@/components/features/products/public/ProductRating";
+import ProductDiscountBadge from "@/components/features/products/public/ProductDiscountBadge";
 
 interface ProductDetailsProps {
   product: Product;
   productBreadcrumbData: ProductBreadcrumbData;
-}
-
-interface DiscountBadgeProps {
-  price: number;
-  discount: number;
-}
-
-function DiscountBadge({ price, discount }: DiscountBadgeProps) {
-  return (
-    <>
-      <span className="text-xs text-gray-5 line-through lg:text-base">
-        {formatPrice(price)}
-      </span>
-
-      <span className="rounded-lg bg-error-extraLight px-2 py-0.5 text-xs font-medium text-error">
-        {toPersianDigits(discount)}%
-      </span>
-    </>
-  );
 }
 
 export default function ProductDetails({
@@ -139,9 +121,11 @@ export default function ProductDetails({
                 <h5 className="text-sm lg:text-lg text-gray-8">قیمت</h5>
                 <div className="flex flex-col items-center">
                   {hasDiscount && (
-                    <div className="flex items-center gap-2">
-                      <DiscountBadge price={price} discount={discount} />
-                    </div>
+                    <ProductDiscountBadge
+                      price={price}
+                      discount={discount}
+                      className="flex items-center gap-2"
+                    />
                   )}
 
                   {isFree ? (

@@ -8,28 +8,10 @@ import ProductRating from "./ProductRating";
 import { cn } from "@/lib/utils";
 import ProductLike from "./ProductLike";
 import Link from "next/link";
+import ProductDiscountBadge from "./ProductDiscountBadge";
 
 interface ProductCardProps {
   product: Product;
-}
-
-interface DiscountBadgeProps {
-  price: number;
-  discount: number;
-}
-
-function DiscountBadge({ price, discount }: DiscountBadgeProps) {
-  return (
-    <>
-      <span className="text-xs text-gray-5 line-through lg:text-base">
-        {formatPrice(price)}
-      </span>
-
-      <span className="rounded-lg bg-error-extraLight px-2 py-0.5 text-xs font-medium text-error">
-        {toPersianDigits(discount)}%
-      </span>
-    </>
-  );
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -74,9 +56,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {hasDiscount && (
-            <div className="flex shrink-0 items-center gap-2 lg:hidden">
-              <DiscountBadge price={price} discount={discount} />
-            </div>
+            <ProductDiscountBadge
+              price={price}
+              discount={discount}
+              className="flex shrink-0 items-center gap-2 lg:hidden"
+            />
           )}
         </div>
 
@@ -89,9 +73,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           <div className="lg:min-h-13 flex shrink-0 flex-col items-end justify-center">
             {hasDiscount && (
-              <div className="hidden items-center gap-2 lg:flex">
-                <DiscountBadge price={price} discount={discount} />
-              </div>
+              <ProductDiscountBadge
+                price={price}
+                discount={discount}
+                className="hidden items-center gap-2 lg:flex"
+              />
             )}
 
             {isFree ? (
@@ -107,7 +93,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex flex-1 items-center gap-2">
-            <ProductLike product={product} />
+            <ProductLike
+              product={product}
+              className="size-4 lg:absolute lg:top-2 lg:inset-e-4 lg:size-6"
+            />
             <ProductRating product={product} />
           </div>
 
