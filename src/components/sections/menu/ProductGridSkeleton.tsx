@@ -1,6 +1,6 @@
 export default function ProductGridSkeleton() {
   return (
-    <div className="mx-auto max-w-306 px-4 xl:px-0 flex flex-col lg:grid lg:grid-cols-2 gap-3 lg:gap-6 mb-6 mb:pb-12">
+    <div className="mx-auto max-w-306 px-4 xl:px-0 flex flex-col lg:grid lg:grid-cols-2 gap-3 lg:gap-6 mb-6 md:pb-12">
       {[...Array(4)].map((_, index) => (
         <div
           key={index}
