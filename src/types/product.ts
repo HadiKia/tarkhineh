@@ -96,3 +96,10 @@ export interface LikeProductResponse {
   isLiked: boolean;
   likesCount: number;
 }
+
+export type ProductBreadcrumbData = {
+  mealCourseTitle: string | null;
+  mealCourseEnglishTitle: string | null;
+  foodGroupTitle: string;
+  foodGroupEnglishTitle: string;
+};

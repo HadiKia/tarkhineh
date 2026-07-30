@@ -13,9 +13,10 @@ import type { Product } from "@/types";
 
 interface ProductLikeProps {
   product: Product;
+  className?: string;
 }
 
-export default function ProductLike({ product }: ProductLikeProps) {
+export default function ProductLike({ product, className }: ProductLikeProps) {
   const queryClient = useQueryClient();
   const { data: userData } = useGetUser();
 
@@ -57,7 +58,7 @@ export default function ProductLike({ product }: ProductLikeProps) {
         toast.error(error.message);
       },
     });
-  }, [isAuthenticated, likeMutation, product.isLiked, queryClient]);
+  }, [isAuthenticated, isLiked, likeMutation, queryClient]);
 
   return (
     <Button
@@ -65,9 +66,7 @@ export default function ProductLike({ product }: ProductLikeProps) {
       variant="ghost"
       disabled={likeMutation.isPending}
       onClick={handleLike}
-      className={cn(
-        "size-4 shrink-0 p-0 lg:absolute lg:top-2 lg:inset-e-4 lg:size-6",
-      )}
+      className={cn("p-0", className)}
     >
       <Heart
         variant={isLiked ? "Bold" : "Outline"}

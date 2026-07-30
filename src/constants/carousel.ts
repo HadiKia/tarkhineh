@@ -5,3 +5,9 @@ export const DEFAULT_CAROUSEL_OPTIONS: CarouselOptions = {
   direction: "rtl",
   align: "start",
 };
+
+export const PRODUCT_CAROUSEL_OPTIONS: CarouselOptions = {
+  loop: false,
+  direction: "rtl",
+  align: "center",
+};
