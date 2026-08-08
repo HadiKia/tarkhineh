@@ -14,9 +14,14 @@ import type { Product } from "@/types";
 interface ProductLikeProps {
   product: Product;
   className?: string;
+  onSuccess?: (isLiked: boolean) => void;
 }
 
-export default function ProductLike({ product, className }: ProductLikeProps) {
+export default function ProductLike({
+  product,
+  className,
+  onSuccess,
+}: ProductLikeProps) {
   const queryClient = useQueryClient();
   const { data: userData } = useGetUser();
 
@@ -49,6 +54,8 @@ export default function ProductLike({ product, className }: ProductLikeProps) {
       onSuccess: ({ message, isLiked: serverIsLiked }) => {
         setIsLiked(serverIsLiked);
         toast.success(message);
+        onSuccess?.(serverIsLiked);
+        queryClient.invalidateQueries({ queryKey: ["get-user"] });
         queryClient.invalidateQueries({
           queryKey: productQueryKeys.all,
         });
@@ -58,7 +65,7 @@ export default function ProductLike({ product, className }: ProductLikeProps) {
         toast.error(error.message);
       },
     });
-  }, [isAuthenticated, isLiked, likeMutation, queryClient]);
+  }, [isAuthenticated, isLiked, likeMutation, onSuccess, queryClient]);
 
   return (
     <Button

@@ -1,4 +1,5 @@
 import { ID, ISODateString } from "./api";
+import type { Product } from "./product";
 
 export type UserRole = "ADMIN" | "USER";
 
@@ -22,7 +23,7 @@ export type User = {
   role: UserRole;
   isVerifiedPhoneNumber: boolean;
   isActive: boolean;
-  likedProducts: ID[];
+  likedProducts: Product[];
   Products: ID[];
   cart: UserCart;
   resetLink: string | null;

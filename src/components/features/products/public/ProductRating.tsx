@@ -11,9 +11,13 @@ import { Product } from "@/types";
 
 interface ProductRatingProps {
   product: Product;
+  onSuccess?: (rating: number) => void;
 }
 
-export default function ProductRating({ product }: ProductRatingProps) {
+export default function ProductRating({
+  product,
+  onSuccess,
+}: ProductRatingProps) {
   const queryClient = useQueryClient();
   const { data: userData } = useGetUser();
 
@@ -51,6 +55,7 @@ export default function ProductRating({ product }: ProductRatingProps) {
           onSuccess: ({ rating, message }) => {
             setLocalRating(rating);
             toast.success(message);
+            onSuccess?.(rating);
             queryClient.invalidateQueries({
               queryKey: productQueryKeys.all,
             });
@@ -62,7 +67,7 @@ export default function ProductRating({ product }: ProductRatingProps) {
         },
       );
     },
-    [isAuthenticated, localRating, product.rating, rateMutation],
+    [isAuthenticated, localRating, onSuccess, product.rating, rateMutation, queryClient],
   );
 
   return (

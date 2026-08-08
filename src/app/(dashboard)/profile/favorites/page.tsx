@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 import EmptyState from "@/components/common/EmptyState";
-import { getUserProfile } from "@/services/authService";
+import FavoriteProductGrid from "@/components/features/products/favorites/FavoriteProductGrid";
 import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { getUserProfile } from "@/services/authService";
 
 export default async function ProfileFavoritesPage() {
   const cookieStore = await cookies();
@@ -16,7 +17,9 @@ export default async function ProfileFavoritesPage() {
     <div className="relative">
       <DashboardHeader title="علاقمندی‌ها" />
 
-      {!likedProducts.length && (
+      {likedProducts.length > 0 ? (
+        <FavoriteProductGrid products={likedProducts} />
+      ) : (
         <EmptyState
           title="شما در حال حاضر هیچ محصولی را به علاقه‌مندی‌ها اضافه نکرده‌اید!"
           action={
