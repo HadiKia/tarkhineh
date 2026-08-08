@@ -9,7 +9,7 @@ type GetUserResponse = {
 export const useGetUser = () =>
   useQuery<GetUserResponse>({
     queryKey: ["get-user"],
-    queryFn: getUserProfile,
+    queryFn: () => getUserProfile(),
     refetchOnWindowFocus: true,
     staleTime: 1000 * 60 * 5,
     retry: false,

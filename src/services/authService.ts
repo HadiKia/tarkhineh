@@ -14,8 +14,14 @@ export function checkOTP(data: CheckOTPFormValues) {
   return http.post("/user/check-otp", data).then(({ data }) => data.data);
 }
 
-export function getUserProfile() {
-  return http.get("/user/profile").then(({ data }) => data.data);
+export function getUserProfile(options?: { cookieHeader?: string }) {
+  return http
+    .get("/user/profile", {
+      headers: options?.cookieHeader
+        ? { Cookie: options.cookieHeader }
+        : undefined,
+    })
+    .then(({ data }) => data.data);
 }
 
 export function updateProfile(payload: UpdateProfilePayload) {
