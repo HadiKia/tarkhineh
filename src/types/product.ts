@@ -14,7 +14,7 @@ export interface Product {
   title: string;
   description: string;
   slug: string;
-  category: Pick<Category, "_id" | "title" | "englishTitle">;
+  category: Pick<Category, "_id" | "title" | "englishTitle" | "parentId">;
   imageUrls: string[];
   mainImageUrl: string | null;
   price: number;
