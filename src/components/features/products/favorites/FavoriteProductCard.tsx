@@ -72,7 +72,7 @@ export default function FavoriteProductCard({
           />
         </div>
 
-        <div className="flex flex-wrap items-center justify-between mb-2 lg:mb-6 ">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-2 lg:mb-6 ">
           <div className="md:hidden">
             <Popover>
               <PopoverTrigger asChild>
