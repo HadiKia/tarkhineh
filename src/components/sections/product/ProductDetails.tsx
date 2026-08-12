@@ -5,7 +5,8 @@ import ProductGallery from "@/components/features/products/public/ProductGallery
 import { Button } from "@/components/ui/button";
 import ProductAddToCart from "@/components/features/products/public/ProductAddToCart";
 import ProductLike from "@/components/features/products/public/ProductLike";
-import { ArrowRight, ShoppingCart } from "iconsax-reactjs";
+import { ArrowRight } from "iconsax-reactjs";
+import CartButton from "@/components/features/cart/CartButton";
 import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
 import ProductRating from "@/components/features/products/public/ProductRating";
 import ProductDiscountBadge from "@/components/features/products/public/ProductDiscountBadge";
@@ -93,12 +94,16 @@ export default function ProductDetails({
               <h1 className="text-base lg:text-2xl text-gray-8 font-bold">
                 {title}
               </h1>
-              <div className="flex items-center gap-4 relative">
+              <div className="flex items-center gap-4  relative">
                 <ProductLike
                   product={product}
                   className="size-6 [&_svg:not([class*='size-'])]:size-6 "
                 />
-                <ShoppingCart className="size-6 text-gray-7" />
+                <CartButton
+                  variant="link"
+                  className="p-0 lg:p-2 lg:-m-2 text-gray-7"
+                  iconClassName="size-6"
+                />
               </div>
             </div>
 
