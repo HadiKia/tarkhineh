@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import ProductDiscountBadge from "@/components/features/products/public/ProductDiscountBadge";
 import ProductLike from "@/components/features/products/public/ProductLike";
-import { Button } from "@/components/ui/button";
+import ProductAddToCart from "@/components/features/products/public/ProductAddToCart";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
@@ -133,9 +133,7 @@ export default function FavoriteProductCard({
           </div>
         </div>
 
-        <Button type="button" disabled={isOutOfStock}>
-          {isOutOfStock ? "ناموجود" : "افزودن به سبد خرید"}
-        </Button>
+        <ProductAddToCart product={product} />
       </div>
     </article>
   );

@@ -19,6 +19,7 @@ import type {
   UpdateProductPayload,
 } from "@/types";
 import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { addToCart, removeFromCart } from "@/services/cartService";
 
 export const productQueryKeys = {
   all: ["products"] as const,
@@ -71,6 +72,16 @@ export const useRateProduct = (productId: string) =>
 export const useLikeProduct = (productId: string) =>
   useMutation<LikeProductResponse, Error>({
     mutationFn: () => likeProduct(productId),
+  });
+
+export const useAddToCart = (productId: string) =>
+  useMutation({
+    mutationFn: () => addToCart(productId),
+  });
+
+export const useRemoveFromCart = (productId: string) =>
+  useMutation({
+    mutationFn: () => removeFromCart(productId),
   });
 
 export const useSuspenseProducts = (params?: ProductListParams) =>

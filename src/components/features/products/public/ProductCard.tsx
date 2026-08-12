@@ -1,14 +1,14 @@
 import Image from "next/image";
 
 import { Product } from "@/types";
-import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
+import { formatPrice } from "@/utils/numberFormatter";
 
-import { Button } from "@/components/ui/button";
 import ProductRating from "./ProductRating";
 import { cn } from "@/lib/utils";
 import ProductLike from "./ProductLike";
 import Link from "next/link";
 import ProductDiscountBadge from "./ProductDiscountBadge";
+import ProductAddToCart from "./ProductAddToCart";
 
 interface ProductCardProps {
   product: Product;
@@ -100,13 +100,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             <ProductRating product={product} />
           </div>
 
-          <Button
-            type="button"
-            disabled={isOutOfStock}
+          <ProductAddToCart
+            product={product}
             className={cn("flex-1 xl:min-w-61", isOutOfStock && "min-w-28.75")}
-          >
-            {isOutOfStock ? "ناموجود" : "افزودن به سبد خرید"}
-          </Button>
+          />
         </div>
       </div>
     </article>

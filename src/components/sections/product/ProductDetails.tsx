@@ -3,6 +3,7 @@ import type { Product, ProductBreadcrumbData } from "@/types";
 import Breadcrumbs from "@/components/common/BreadCrumbs";
 import ProductGallery from "@/components/features/products/public/ProductGallery";
 import { Button } from "@/components/ui/button";
+import ProductAddToCart from "@/components/features/products/public/ProductAddToCart";
 import ProductLike from "@/components/features/products/public/ProductLike";
 import { ArrowRight, ShoppingCart } from "iconsax-reactjs";
 import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
@@ -26,7 +27,6 @@ export default function ProductDetails({
     price,
     offPrice,
     discount,
-    countInStock,
     category,
     numReviews,
   } = product;
@@ -64,7 +64,6 @@ export default function ProductDetails({
 
   const hasDiscount = discount > 0;
   const isFree = offPrice <= 0;
-  const isOutOfStock = countInStock === 0;
 
   return (
     <div className=" mb-6 md:pb-12">
@@ -146,13 +145,13 @@ export default function ProductDetails({
               </div>
             </div>
 
-            <Button
-              type="button"
-              disabled={isOutOfStock}
-              className="mx-auto block lg:me-0 min-w-38 lg:min-w-61"
-            >
-              {isOutOfStock ? "ناموجود" : "افزودن به سبد خرید"}
-            </Button>
+            <div className="flex justify-center lg:justify-end">
+              <ProductAddToCart
+                product={product}
+                showQuantityControls
+                className="min-w-38 lg:min-w-61"
+              />
+            </div>
           </div>
         </div>
       </div>
