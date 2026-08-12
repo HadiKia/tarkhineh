@@ -22,16 +22,15 @@ export default function CartHeaderButton() {
     <Button
       variant={isCartRoute ? "default" : "secondary"}
       asChild
-      className="p-1 lg:p-1.75"
     >
       <Link
         href="/cart"
         aria-label={`سبد خرید${cartItemCount ? `، ${cartItemCount} آیتم` : ""}`}
         className="relative"
       >
-        <ShoppingCart className="w-4 h-4 lg:w-6 lg:h-6" />
+        <ShoppingCart />
         {cartItemCount > 0 && (
-          <span className="absolute -top-2 inset-e-4 lg:top-0 lg:inset-e-auto lg:inset-s-0 flex min-w-4 items-center justify-center rounded-full bg-tint-6 px-1 text-xs text-white">
+          <span className="absolute -top-1.5 -inset-s-1.5 lg:top-0 lg:inset-e-auto lg:inset-s-0 flex min-w-4 items-center justify-center rounded-full bg-tint-6 px-1 text-xs text-white">
             {toPersianDigits(cartItemCount)}
           </span>
         )}

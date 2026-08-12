@@ -29,7 +29,7 @@ export default function UserMenu() {
 
     if (isLoading) {
   return (
-    <div className="size-6.5 lg:size-10 rounded-sm lg:rounded-lg bg-gray-2 animate-pulse" />
+    <div className="size-8 lg:size-10 rounded-sm lg:rounded-lg bg-gray-2 animate-pulse" />
   );
 }
 
@@ -39,10 +39,9 @@ export default function UserMenu() {
         <Button
           variant="secondary"
           aria-label="پروفایل کاربری"
-          className="p-1 lg:p-1.75"
           onClick={() => setIsAuthModalOpen(true)}
         >
-          <User className="w-4 h-4 lg:w-6 lg:h-6" />
+          <User />
         </Button>
 
         <AuthModal
@@ -60,9 +59,9 @@ export default function UserMenu() {
         <Button
           variant={isDashboard ? "default" : "secondary"}
           aria-label="پروفایل کاربری"
-          className="p-1 lg:p-1.75 gap-0.5! lg:items-end"
+          className="lg:items-end gap-0.5!"
         >
-          <User className="w-4 h-4 lg:w-6 lg:h-6" />
+          <User />
           <ArrowDown2 className="w-3! h-3! lg:w-4! lg:h-4!" />
         </Button>
       </DropdownMenuTrigger>
