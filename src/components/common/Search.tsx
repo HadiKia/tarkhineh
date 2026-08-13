@@ -55,7 +55,7 @@ export default function Search({
             variant="ghost"
             onClick={handleClear}
             aria-label="Clear search"
-            className="absolute inset-y-0 inset-e-2 w-fit! text-gray-8"
+            className="absolute inset-y-0 inset-e-2 w-fit!"
           >
             <XIcon className="size-4 lg:size-6" />
           </Button>
@@ -64,7 +64,7 @@ export default function Search({
             type="submit"
             variant="ghost"
             aria-label="Search"
-            className="absolute inset-y-0 inset-e-2 w-fit! text-gray-8"
+            className="absolute inset-y-0 inset-e-2 w-fit!"
           >
             <SearchNormal className="size-4 lg:size-6" />
           </Button>
