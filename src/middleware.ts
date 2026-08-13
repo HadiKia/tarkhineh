@@ -20,6 +20,14 @@ const accessControl: AccessControlRoute[] = [
     authRequired: true,
   },
   {
+    path: "/cart/completion-of-information",
+    authRequired: true,
+  },
+  {
+    path: "/cart/payment",
+    authRequired: true,
+  },
+  {
     path: "/admin",
     authRequired: true,
     role: "ADMIN",
@@ -63,5 +71,11 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/panel/:path*", "/profile/:path*", "/admin/:path*"],
+  matcher: [
+    "/panel/:path*",
+    "/profile/:path*",
+    "/admin/:path*",
+    "/cart/completion-of-information/:path*",
+    "/cart/payment/:path*",
+  ],
 };
