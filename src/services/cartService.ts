@@ -16,3 +16,9 @@ export function removeFromCart(productId: string) {
     .post<AddToCartResponse>("/cart/remove", { productId })
     .then(({ data }) => data.data);
 }
+
+export function clearCart() {
+  return http
+    .delete<AddToCartResponse>("/cart")
+    .then(({ data }) => data.data);
+}

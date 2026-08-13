@@ -19,7 +19,7 @@ import type {
   UpdateProductPayload,
 } from "@/types";
 import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { addToCart, removeFromCart } from "@/services/cartService";
+import { addToCart, clearCart, removeFromCart } from "@/services/cartService";
 
 export const productQueryKeys = {
   all: ["products"] as const,
@@ -82,6 +82,11 @@ export const useAddToCart = (productId: string) =>
 export const useRemoveFromCart = (productId: string) =>
   useMutation({
     mutationFn: () => removeFromCart(productId),
+  });
+
+export const useClearCart = () =>
+  useMutation({
+    mutationFn: clearCart,
   });
 
 export const useSuspenseProducts = (params?: ProductListParams) =>
