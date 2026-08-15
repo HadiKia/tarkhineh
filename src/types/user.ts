@@ -13,6 +13,32 @@ export type UserCart = {
   coupon: string | null;
 };
 
+export type CartProductDetail = {
+  _id: ID;
+  slug: string;
+  title: string;
+  description: string;
+  mainImageUrl: string | null;
+  rating: number;
+  numReviews: number;
+  countInStock: number;
+  price: number;
+  offPrice: number;
+  discount: number;
+  quantity: number;
+};
+
+export type CartPayDetail = {
+  totalProductDiscount: number;
+  totalProductPrice: number;
+  totalPrice: number;
+};
+
+export type CartDetail = {
+  productDetail: CartProductDetail[];
+  payDetail: CartPayDetail | null;
+};
+
 export type User = {
   _id: ID;
   name?: string;

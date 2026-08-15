@@ -33,7 +33,9 @@ export default function ProductAddToCart({
   const isOutOfStock = product.countInStock === 0;
   const [quantityOverride, setQuantityOverride] = useState<number | null>(null);
   const isHydrated = useHydrated();
-  const cartItem = userData?.user?.cart?.products?.find(
+  const cartItem = userData?.cart?.productDetail.find(
+    ({ _id }) => _id === product._id,
+  ) ?? userData?.user?.cart?.products?.find(
     ({ productId }) => productId === product._id,
   );
   const quantity = isHydrated

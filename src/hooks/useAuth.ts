@@ -1,9 +1,10 @@
 import { getUserProfile } from "@/services/authService";
-import { User } from "@/types";
+import { CartDetail, User } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
 type GetUserResponse = {
   user: User;
+  cart?: CartDetail;
 };
 
 export const useGetUser = () =>

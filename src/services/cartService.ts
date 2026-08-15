@@ -17,6 +17,12 @@ export function removeFromCart(productId: string) {
     .then(({ data }) => data.data);
 }
 
+export function removeProductFromCart(productId: string) {
+  return http
+    .delete<AddToCartResponse>(`/cart/product/${productId}`)
+    .then(({ data }) => data.data);
+}
+
 export function clearCart() {
   return http
     .delete<AddToCartResponse>("/cart")

@@ -24,7 +24,7 @@ export default function CartButton({
   const { data: userData } = useGetUser();
   const isHydrated = useHydrated();
   const cartItemCount = isHydrated
-    ? (userData?.user?.cart?.products ?? []).length
+    ? (userData?.cart?.productDetail ?? userData?.user?.cart?.products ?? []).length
     : 0;
 
   return (
