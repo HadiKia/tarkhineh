@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import { Product } from "@/types";
-import { formatPrice } from "@/utils/numberFormatter";
 
 import ProductRating from "./ProductRating";
 import { cn } from "@/lib/utils";
@@ -9,6 +8,7 @@ import ProductLike from "./ProductLike";
 import Link from "next/link";
 import ProductDiscountBadge from "./ProductDiscountBadge";
 import ProductAddToCart from "./ProductAddToCart";
+import ProductPrice from "@/components/features/products/public/ProductPrice";
 
 interface ProductCardProps {
   product: Product;
@@ -27,7 +27,6 @@ export default function ProductCard({ product }: ProductCardProps) {
   } = product;
 
   const hasDiscount = discount > 0;
-  const isFree = offPrice <= 0;
   const isOutOfStock = countInStock === 0;
   const productHref = `/menu/${slug}`;
 
@@ -71,24 +70,15 @@ export default function ProductCard({ product }: ProductCardProps) {
             </p>
           </div>
 
-          <div className="lg:min-h-13 flex shrink-0 flex-col items-end justify-center">
-            {hasDiscount && (
-              <ProductDiscountBadge
-                price={price}
-                discount={discount}
-                className="hidden items-center gap-2 lg:flex"
-              />
-            )}
-
-            {isFree ? (
-              <span className="text-gray-8 lg:text-lg">رایگان</span>
-            ) : (
-              <div className="flex items-center gap-2 text-xs text-gray-8 lg:gap-1 lg:text-lg">
-                <span>{formatPrice(offPrice)}</span>
-                <span>تومان</span>
-              </div>
-            )}
-          </div>
+          <ProductPrice
+            price={price}
+            offPrice={offPrice}
+            discount={discount}
+            className="lg:min-h-13 shrink-0 items-end justify-center"
+            discountClassName="hidden lg:flex"
+            freeClassName="lg:text-lg"
+            amountClassName="gap-2 text-xs lg:gap-1 lg:text-lg"
+          />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">

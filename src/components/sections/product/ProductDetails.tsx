@@ -7,9 +7,9 @@ import ProductAddToCart from "@/components/features/products/public/ProductAddTo
 import ProductLike from "@/components/features/products/public/ProductLike";
 import { ArrowRight } from "iconsax-reactjs";
 import CartButton from "@/components/features/cart/CartButton";
-import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
+import { toPersianDigits } from "@/utils/numberFormatter";
 import ProductRating from "@/components/features/products/public/ProductRating";
-import ProductDiscountBadge from "@/components/features/products/public/ProductDiscountBadge";
+import ProductPrice from "@/components/features/products/public/ProductPrice";
 import useMoveBack from "@/hooks/useMoveBack";
 
 interface ProductDetailsProps {
@@ -63,8 +63,6 @@ export default function ProductDetails({
     },
   ];
 
-  const hasDiscount = discount > 0;
-  const isFree = offPrice <= 0;
 
   return (
     <div className=" mb-6 md:pb-12">
@@ -127,26 +125,14 @@ export default function ProductDetails({
               </div>
               <div className="flex items-center justify-between pb-2">
                 <h5 className="text-sm lg:text-lg text-gray-8">قیمت</h5>
-                <div className="flex flex-col items-center">
-                  {hasDiscount && (
-                    <ProductDiscountBadge
-                      price={price}
-                      discount={discount}
-                      className="flex items-center gap-2"
-                    />
-                  )}
-
-                  {isFree ? (
-                    <span className="text-gray-8 text-sm lg:text-lg">
-                      رایگان
-                    </span>
-                  ) : (
-                    <div className="flex items-center gap-2 text-sm text-gray-8 lg:gap-1 lg:text-lg">
-                      <span>{formatPrice(offPrice)}</span>
-                      <span>تومان</span>
-                    </div>
-                  )}
-                </div>
+                <ProductPrice
+                  price={price}
+                  offPrice={offPrice}
+                  discount={discount}
+                  className="items-center"
+                  amountClassName="gap-2 text-sm lg:gap-1 lg:text-lg"
+                  freeClassName="text-sm lg:text-lg"
+                />
               </div>
             </div>
 

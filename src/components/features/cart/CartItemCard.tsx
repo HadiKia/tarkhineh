@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Add, Minus, Trash } from "iconsax-reactjs";
 import { toast } from "sonner";
 
-import ProductDiscountBadge from "@/components/features/products/public/ProductDiscountBadge";
+import ProductPrice from "@/components/features/products/public/ProductPrice";
 import ProductRating from "@/components/features/products/public/ProductRating";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,8 +42,6 @@ export default function CartItemCard({ product }: CartItemCardProps) {
     addMutation.isPending ||
     decreaseMutation.isPending ||
     deleteMutation.isPending;
-  const hasDiscount = discount > 0;
-  const isFree = offPrice <= 0;
   const productHref = `/menu/${slug}`;
 
   const invalidateCart = () =>
@@ -91,14 +89,10 @@ export default function CartItemCard({ product }: CartItemCardProps) {
             </h2>
           </Link>
           <div className="lg:hidden">
-            {isFree ? (
-              <span className="text-xs text-gray-7 lg:text-lg">رایگان</span>
-            ) : (
-              <div className="flex items-center gap-1.5 text-xs text-gray-7 lg:text-lg">
-                <span>{formatPrice(offPrice)}</span>
-                <span>تومان</span>
-              </div>
-            )}
+            <div className="flex items-center gap-1.5 text-xs text-gray-7 lg:text-lg">
+              <span>{formatPrice(offPrice)}</span>
+              <span>تومان</span>
+            </div>
           </div>
           <Button
             type="button"
@@ -191,23 +185,14 @@ export default function CartItemCard({ product }: CartItemCardProps) {
             </div>
           </div>
 
-          <div className="flex flex-col items-end">
-            {hasDiscount && (
-              <ProductDiscountBadge
-                price={price}
-                discount={discount}
-                className="flex items-center gap-2"
-              />
-            )}
-            {isFree ? (
-              <span className="text-sm text-gray-8 md:text-lg">رایگان</span>
-            ) : (
-              <div className="flex items-center gap-1 text-sm text-gray-8 md:text-lg">
-                <span>{formatPrice(offPrice)}</span>
-                <span>تومان</span>
-              </div>
-            )}
-          </div>
+          <ProductPrice
+            price={price}
+            offPrice={offPrice}
+            discount={discount}
+            className="items-end"
+            freeClassName="text-sm md:text-lg"
+            amountClassName="text-sm md:text-lg"
+          />
         </div>
       </div>
     </article>

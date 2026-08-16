@@ -4,12 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import ProductDiscountBadge from "@/components/features/products/public/ProductDiscountBadge";
+import ProductPrice from "@/components/features/products/public/ProductPrice";
 import ProductLike from "@/components/features/products/public/ProductLike";
 import ProductAddToCart from "@/components/features/products/public/ProductAddToCart";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
-import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
+import { toPersianDigits } from "@/utils/numberFormatter";
 import ProductRating from "@/components/features/products/public/ProductRating";
 import {
   Popover,
@@ -38,8 +38,6 @@ export default function FavoriteProductCard({
     numReviews,
   } = product;
 
-  const hasDiscount = discount > 0;
-  const isFree = offPrice <= 0;
   const isOutOfStock = countInStock === 0;
   const productHref = `/menu/${slug}`;
 
@@ -113,24 +111,14 @@ export default function FavoriteProductCard({
             />
           </div>
 
-          <div className="flex flex-col justify-end gap-1">
-            {hasDiscount && (
-              <ProductDiscountBadge
-                price={price}
-                discount={discount}
-                className="flex items-center gap-2"
-              />
-            )}
-
-            {isFree ? (
-              <span className="text-xs text-gray-8 lg:text-base">رایگان</span>
-            ) : (
-              <div className="flex items-center gap-1 text-xs text-gray-8 lg:text-base">
-                <span>{formatPrice(offPrice)}</span>
-                <span>تومان</span>
-              </div>
-            )}
-          </div>
+          <ProductPrice
+            price={price}
+            offPrice={offPrice}
+            discount={discount}
+            className="justify-end gap-1"
+            freeClassName="text-xs lg:text-base"
+            amountClassName="text-xs lg:text-base"
+          />
         </div>
 
         <ProductAddToCart product={product} />
