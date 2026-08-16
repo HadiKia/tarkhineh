@@ -38,7 +38,7 @@ export default function CartSummary({
         </Button>
       </div>
       <div className="flex flex-col text-sm">
-        <div className="flex items-center justify-between pb-3 lg:py-3 lg:py-4 border-b lg:border-y border-gray-4">
+        <div className="flex items-center justify-between pb-3 lg:py-4 border-b lg:border-y border-gray-4">
           <span className="text-gray-8">تخفیف محصولات</span>
           <div className="text-gray-7 flex items-center gap-1">
             <span>{formatPrice(discount)}</span>

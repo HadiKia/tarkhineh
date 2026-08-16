@@ -7,12 +7,17 @@ import useHydrated from "@/hooks/useHydrated";
 import Link from "next/link";
 import CartItemsList from "@/components/features/cart/CartItemsList";
 import CartSummary from "@/components/features/cart/CartSummary";
+import CartPageSkeleton from "@/components/features/cart/CartPageSkeleton";
 
 export default function CartPage() {
-  const { data } = useGetUser();
+  const { data, isLoading } = useGetUser();
   const isHydrated = useHydrated();
   const products = data?.cart?.productDetail ?? [];
   const hasCart = isHydrated && products.length > 0;
+
+  if (!isHydrated || isLoading) {
+    return <CartPageSkeleton />;
+  }
 
   if (!hasCart) {
     return (
