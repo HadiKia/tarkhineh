@@ -8,8 +8,10 @@ import {
   type ColumnDef,
 } from "@tanstack/react-table";
 import { Edit, Trash } from "iconsax-reactjs";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { EDIT_BRANCH_PATH } from "@/constants/branches";
 import type { Branch } from "@/types";
 
 type BranchesTableProps = {
@@ -77,9 +79,11 @@ const BranchesTable = ({ branches }: BranchesTableProps) => {
         id: "edit",
         header: "ویرایش",
         size: 60,
-        cell: () => (
-          <Button type="button" variant="secondary" className="p-1">
-            <Edit className="size-5" />
+        cell: ({ row }) => (
+          <Button type="button" variant="secondary" asChild className="p-1">
+            <Link href={`${EDIT_BRANCH_PATH}/${row.original._id}`}>
+              <Edit className="size-5" />
+            </Link>
           </Button>
         ),
       },

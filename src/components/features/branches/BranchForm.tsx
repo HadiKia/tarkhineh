@@ -18,6 +18,7 @@ type BranchFormProps = {
   onCancel: () => void;
   isLoading: boolean;
   isSubmitDisabled: boolean;
+  isEditing?: boolean;
 };
 
 const BranchForm = ({
@@ -27,6 +28,7 @@ const BranchForm = ({
   onCancel,
   isLoading,
   isSubmitDisabled,
+  isEditing = false,
 }: BranchFormProps) => {
   return (
     <form
@@ -96,7 +98,7 @@ const BranchForm = ({
           disabled={isSubmitDisabled}
           className="flex-1"
         >
-          ایجاد شعبه
+          {isEditing ? "ذخیره تغییرات" : "ایجاد شعبه"}
         </Button>
       </div>
     </form>

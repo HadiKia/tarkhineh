@@ -20,6 +20,8 @@ export interface BranchListResponse {
 
 export type BranchListResult = BranchListResponse["data"];
 
+export type BranchResult = BranchResponse["data"];
+
 export interface CreateBranchPayload {
   title: string;
   phoneNumber1: string;
@@ -27,6 +29,8 @@ export interface CreateBranchPayload {
   address: string;
   workingHours: string;
 }
+
+export type UpdateBranchPayload = CreateBranchPayload;
 
 export interface BranchResponse {
   statusCode: number;

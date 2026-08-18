@@ -1,12 +1,24 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { createBranch, getBranches } from "@/services/branchService";
-import type { CreateBranchPayload, BranchListResult } from "@/types";
+import {
+  createBranch,
+  getBranchById,
+  getBranches,
+  updateBranch,
+} from "@/services/branchService";
+import type {
+  BranchListResult,
+  BranchResult,
+  CreateBranchPayload,
+  UpdateBranchPayload,
+} from "@/types";
 
 export const branchQueryKeys = {
   all: ["branches"] as const,
   lists: () => [...branchQueryKeys.all, "list"] as const,
   list: () => [...branchQueryKeys.lists()] as const,
+  details: () => [...branchQueryKeys.all, "detail"] as const,
+  detail: (id: string) => [...branchQueryKeys.details(), id] as const,
 };
 
 export const useGetBranches = () =>
@@ -21,4 +33,17 @@ export const useGetBranches = () =>
 export const useCreateBranch = () =>
   useMutation({
     mutationFn: (payload: CreateBranchPayload) => createBranch(payload),
+  });
+
+export const useGetBranch = (id: string) =>
+  useQuery<BranchResult>({
+    queryKey: branchQueryKeys.detail(id),
+    queryFn: () => getBranchById(id),
+    enabled: Boolean(id),
+    retry: false,
+  });
+
+export const useUpdateBranch = (id: string) =>
+  useMutation({
+    mutationFn: (payload: UpdateBranchPayload) => updateBranch(id, payload),
   });
