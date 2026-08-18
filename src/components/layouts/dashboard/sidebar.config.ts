@@ -49,11 +49,17 @@ const ADMIN_LINKS: SidebarLinkItem[] = [
     path: "/admin/categories",
     Icon: Category2,
   },
-   {
+  {
     id: 7,
     children: "محصولات",
     path: "/admin/products",
     Icon: Shop,
+  },
+  {
+    id: 8,
+    children: "شعبه‌ها",
+    path: "/admin/branches",
+    Icon: Location,
   },
 ];
 
