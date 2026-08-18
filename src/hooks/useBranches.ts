@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   createBranch,
+  deleteBranch,
   getBranchById,
   getBranches,
   updateBranch,
@@ -46,4 +47,9 @@ export const useGetBranch = (id: string) =>
 export const useUpdateBranch = (id: string) =>
   useMutation({
     mutationFn: (payload: UpdateBranchPayload) => updateBranch(id, payload),
+  });
+
+export const useDeleteBranch = (id: string) =>
+  useMutation({
+    mutationFn: () => deleteBranch(id),
   });

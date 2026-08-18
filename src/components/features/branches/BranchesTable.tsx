@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -13,12 +13,15 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { EDIT_BRANCH_PATH } from "@/constants/branches";
 import type { Branch } from "@/types";
+import DeleteBranchModal from "./DeleteBranchModal";
 
 type BranchesTableProps = {
   branches: Branch[];
 };
 
 const BranchesTable = ({ branches }: BranchesTableProps) => {
+  const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
+
   const columns = useMemo<ColumnDef<Branch>[]>(
     () => [
       {
@@ -91,8 +94,13 @@ const BranchesTable = ({ branches }: BranchesTableProps) => {
         id: "delete",
         header: "حذف",
         size: 60,
-        cell: () => (
-          <Button type="button" variant="destructive" className="p-1">
+        cell: ({ row }) => (
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={() => setSelectedBranch(row.original)}
+            className="p-1"
+          >
             <Trash className="size-5" />
           </Button>
         ),
@@ -108,46 +116,56 @@ const BranchesTable = ({ branches }: BranchesTableProps) => {
   });
 
   return (
-    <div className="overflow-hidden rounded-lg bg-background">
-      <div className="overflow-x-auto scrollbar-thin">
-        <table className="min-w-full w-max">
-          <thead className="bg-gray-2">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className="p-2 py-3.75 text-xs font-semibold text-gray-7"
-                    style={{ width: header.getSize() }}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className="border-t border-gray-3 transition-colors hover:bg-gray-1"
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="p-2 text-center">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <>
+      <div className="overflow-hidden rounded-lg bg-background">
+        <div className="overflow-x-auto scrollbar-thin">
+          <table className="min-w-full w-max">
+            <thead className="bg-gray-2">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      key={header.id}
+                      className="p-2 py-3.75 text-xs font-semibold text-gray-7"
+                      style={{ width: header.getSize() }}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="border-t border-gray-3 transition-colors hover:bg-gray-1"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="p-2 text-center">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+      <DeleteBranchModal
+        open={selectedBranch !== null}
+        onClose={() => setSelectedBranch(null)}
+        branchId={selectedBranch?._id ?? ""}
+      />
+    </>
   );
 };
 

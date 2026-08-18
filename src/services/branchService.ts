@@ -36,3 +36,9 @@ export function updateBranch(id: string, payload: UpdateBranchPayload) {
     )
     .then(({ data }) => data.data);
 }
+
+export function deleteBranch(id: string) {
+  return http
+    .delete<{ data: { message: string } }>(`/admin/branch/remove/${id}`)
+    .then(({ data }) => data.data);
+}
