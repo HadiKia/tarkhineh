@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
 import ReactQueryProvider from "../providers/ReactQueryProvider";
+import BranchProvider from "@/contexts/BranchContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -24,16 +25,18 @@ export default function RootLayout({
     <html lang="fa" dir="rtl" className={cn("antialiased", estedadFont.variable, "font-sans", inter.variable)}>
       <body className="min-h-dvh flex flex-col">
         <ReactQueryProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <Toaster
-            richColors
-            position="top-center"
-            toastOptions={{
-              className: "font-sans",
-            }}
-          />
+          <BranchProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <Toaster
+              richColors
+              position="top-center"
+              toastOptions={{
+                className: "font-sans",
+              }}
+            />
+          </BranchProvider>
         </ReactQueryProvider>
       </body>
     </html>
