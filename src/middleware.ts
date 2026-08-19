@@ -35,6 +35,11 @@ const accessControl: AccessControlRoute[] = [
   },
 ];
 
+function withRefreshedCookies(response: NextResponse, cookies: string[]) {
+  cookies.forEach((cookie) => response.headers.append("set-cookie", cookie));
+  return response;
+}
+
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -47,27 +52,44 @@ export async function middleware(req: NextRequest) {
   }
 
   let user;
+  let refreshedCookies: string[] = [];
   if (matchedRoute.authRequired || matchedRoute.redirectIfAuthed) {
-    user = await middlewareAuth(req);
+    const authResult = await middlewareAuth(req);
+    user = authResult.user;
+    refreshedCookies = authResult.setCookies;
   }
 
+  const response = withRefreshedCookies(
+    NextResponse.next(),
+    refreshedCookies,
+  );
+
   if (matchedRoute.redirectIfAuthed && user) {
-    return NextResponse.redirect(
-      new URL(matchedRoute.redirectIfAuthed, req.nextUrl),
+    return withRefreshedCookies(
+      NextResponse.redirect(
+        new URL(matchedRoute.redirectIfAuthed, req.nextUrl),
+      ),
+      refreshedCookies,
     );
   }
 
   if (matchedRoute.authRequired && !user) {
-    return NextResponse.redirect(new URL("/", req.nextUrl));
-  }
-
-  if (matchedRoute.role && user?.role !== matchedRoute.role) {
-    return NextResponse.redirect(
-      new URL(matchedRoute.redirectIfUnauthorizedRole || "/", req.nextUrl),
+    return withRefreshedCookies(
+      NextResponse.redirect(new URL("/", req.nextUrl)),
+      refreshedCookies,
     );
   }
 
-  return NextResponse.next();
+  if (matchedRoute.role && user?.role !== matchedRoute.role) {
+    return withRefreshedCookies(
+      NextResponse.redirect(
+        new URL(matchedRoute.redirectIfUnauthorizedRole || "/", req.nextUrl),
+      ),
+      refreshedCookies,
+    );
+  }
+
+  return response;
 }
 
 export const config = {

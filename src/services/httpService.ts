@@ -9,6 +9,22 @@ const app = axios.create({
   withCredentials: true,
 });
 
+let refreshPromise: Promise<unknown> | null = null;
+
+function refreshAccessToken() {
+  if (!refreshPromise) {
+    refreshPromise = axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/refresh-token`, {
+        withCredentials: true,
+      })
+      .finally(() => {
+        refreshPromise = null;
+      });
+  }
+
+  return refreshPromise;
+}
+
 app.interceptors.request.use(
   (res) => res,
   (err) => Promise.reject(err),
@@ -17,19 +33,19 @@ app.interceptors.request.use(
 app.interceptors.response.use(
   (res) => res,
   async (err: AxiosError) => {
-    console.log(err);
     const originalConfig = err.config as RetryAxiosRequestConfig;
+
     // 401 => NOT AUTHORIZED
-    if (err.response?.status === 401 && !originalConfig?._retry) {
+    if (
+      err.response?.status === 401 &&
+      originalConfig &&
+      !originalConfig._retry &&
+      !originalConfig.url?.includes("/user/refresh-token")
+    ) {
       originalConfig._retry = true;
       try {
-        const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/user/refresh-token`,
-          {
-            withCredentials: true,
-          },
-        );
-        if (data) return app(originalConfig);
+        await refreshAccessToken();
+        return app(originalConfig);
       } catch (error) {
         return Promise.reject(error);
       }
