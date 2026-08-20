@@ -37,10 +37,7 @@ export default function NavLinks({
           <Fragment key={link.href}>
             {link.href === "/franchise" && (
               <li className={cn(itemClassName)}>
-                <BranchSelector
-                  isMobile={showIcons}
-                  onSelect={onLinkClick}
-                />
+                <BranchSelector isMobile={showIcons} onSelect={onLinkClick} />
               </li>
             )}
             <li className={cn(itemClassName)}>
@@ -48,7 +45,7 @@ export default function NavLinks({
                 href={link.href}
                 onClick={onLinkClick}
                 className={cn(
-                  "flex items-center gap-1 text-xs transition-all duration-200 ease-linear mb-2 lg:text-xl lg:border-b lg:border-transparent lg:pb-1 lg:-mb-1",
+                  "flex items-center gap-1 text-xs transition-all duration-200 ease-linear mb-2 lg:text-xl lg:border-b lg:border-transparent lg:pb-1 lg:-mb-1 outline-none",
                   "hover:text-primary",
                   active
                     ? "text-primary text-sm font-medium lg:font-bold lg:border-primary"

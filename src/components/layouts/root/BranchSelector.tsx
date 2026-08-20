@@ -90,7 +90,7 @@ const BranchSelector = ({
           type="button"
           aria-label="انتخاب شعبه"
           className={cn(
-            "flex items-center gap-2 transition-all duration-200 ease-linear lg:text-xl lg:border-b lg:border-transparent lg:pb-1 lg:-mb-1 cursor-pointer",
+            "flex items-center gap-2 transition-all duration-200 ease-linear lg:text-xl lg:border-b lg:border-transparent lg:pb-1 lg:-mb-1 cursor-pointer outline-none",
             "text-gray-7 hover:text-gray-8",
           )}
         >
