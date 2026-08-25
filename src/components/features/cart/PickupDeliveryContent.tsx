@@ -1,12 +1,17 @@
 "use client";
 
 import { useBranchContext } from "@/contexts/BranchContext";
+import PickupDeliveryContentSkeleton from "@/components/features/cart/PickupDeliveryContentSkeleton";
 import { Location } from "iconsax-reactjs";
 
 export default function PickupDeliveryContent() {
-  const { selectedBranch } = useBranchContext();
+  const { selectedBranch, isLoading } = useBranchContext();
   const { title, address, phoneNumber1, phoneNumber2, workingHours } =
     selectedBranch ?? {};
+
+  if (isLoading) {
+    return <PickupDeliveryContentSkeleton />;
+  }
 
   return (
     <section
