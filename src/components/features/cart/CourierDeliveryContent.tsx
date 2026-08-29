@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import EmptyState from "@/components/common/EmptyState";
 import AddressModal from "@/components/features/address/AddressModal";
@@ -10,6 +10,7 @@ import { AddCircle, Location } from "iconsax-reactjs";
 import AddressList from "@/components/features/address/AddressList";
 import AddressListSkeleton from "@/components/features/address/AddressListSkeleton";
 import { Button } from "@/components/ui/button";
+import { useCartCheckout } from "@/contexts/CartCheckoutContext";
 import type { Address } from "@/types";
 
 export default function CourierDeliveryContent() {
@@ -17,11 +18,23 @@ export default function CourierDeliveryContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
   const [deletingAddress, setDeletingAddress] = useState<Address | null>(null);
-  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
-    null,
-  );
+  const { selectedAddressId: checkoutAddressId, setSelectedAddressId } =
+    useCartCheckout();
 
-  const addresses = data?.addresses ?? [];
+  const addresses = useMemo(() => data?.addresses ?? [], [data?.addresses]);
+
+  useEffect(() => {
+    setSelectedAddressId((currentAddressId) => {
+      if (
+        currentAddressId &&
+        addresses.some(({ _id }) => _id === currentAddressId)
+      ) {
+        return currentAddressId;
+      }
+
+      return addresses[0]?._id ?? null;
+    });
+  }, [addresses, setSelectedAddressId]);
 
   return (
     <>
@@ -37,7 +50,7 @@ export default function CourierDeliveryContent() {
             addresses={addresses}
             onEdit={(address) => setEditingAddress(address)}
             onDelete={(address) => setDeletingAddress(address)}
-            selectedAddressId={selectedAddressId}
+            selectedAddressId={checkoutAddressId}
             onSelect={(address) => setSelectedAddressId(address._id)}
             editMode="modal"
           />

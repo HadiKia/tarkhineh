@@ -6,6 +6,7 @@ import Link from "next/link";
 import ClearCartModal from "@/components/features/cart/ClearCartModal";
 import CartSummaryItems from "@/components/features/cart/CartSummaryItems";
 import { Button } from "@/components/ui/button";
+import { useCartCheckout } from "@/contexts/CartCheckoutContext";
 import type { CartPayDetail, CartProductDetail } from "@/types";
 import { formatPrice, toPersianDigits } from "@/utils/numberFormatter";
 import { ArrowLeft2, Card, TickCircle, Trash, Warning2 } from "iconsax-reactjs";
@@ -45,10 +46,16 @@ export default function CartSummary({
   variant = "cart",
 }: CartSummaryProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { deliveryMethod, selectedAddressId, courierDeliveryFee } =
+    useCartCheckout();
   const isCartVariant = variant === "cart";
   const action = actionConfig[variant];
   const discount = payDetail?.totalProductDiscount ?? 0;
-  const payable = payDetail?.totalProductPrice ?? 0;
+  const shippingCost =
+    !isCartVariant && deliveryMethod === "courier" && selectedAddressId
+      ? courierDeliveryFee
+      : 0;
+  const payable = (payDetail?.totalProductPrice ?? 0) + shippingCost;
 
   return (
     <aside
@@ -84,22 +91,26 @@ export default function CartSummary({
             <span>تومان</span>
           </div>
         </div>
-        <div className="flex flex-col gap-y-2 py-3 lg:py-4 border-b border-gray-4">
-          <div className="flex items-center justify-between">
-            <span className="text-gray-8">هزینه ارسال</span>
-            <div className="text-gray-7 flex items-center gap-1">
-              <span>۰</span>
-              <span>تومان</span>
+        {deliveryMethod === "courier" && (
+          <div className="flex flex-col gap-y-2 py-3 lg:py-4 border-b border-gray-4">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-8">هزینه ارسال</span>
+              <div className="text-gray-7 flex items-center gap-1">
+                <span>{formatPrice(shippingCost)}</span>
+                <span>تومان</span>
+              </div>
             </div>
+            {shippingCost === 0 && (
+              <div className="flex items-start gap-2 text-warning">
+                <Warning2 className="size-4 lg:size-6 shrink-0" />
+                <span className="text-xs">
+                  هزینه ارسال در ادامه بر اساس آدرس، زمان و نحوه ارسال انتخابی شما
+                  محاسبه و به این مبلغ اضافه خواهد شد.
+                </span>
+              </div>
+            )}
           </div>
-          <div className="flex items-start gap-2 text-warning">
-            <Warning2 className="size-4 lg:size-6 shrink-0" />
-            <span className="text-xs">
-              هزینه ارسال در ادامه بر اساس آدرس، زمان و نحوه ارسال انتخابی شما
-              محاسبه و به این مبلغ اضافه خواهد شد.
-            </span>
-          </div>
-        </div>
+        )}
         <div className="flex items-center justify-between py-3 lg:py-4 font-semibold">
           <span>مبلغ قابل پرداخت</span>
           <div className="text-primary flex items-center gap-1">

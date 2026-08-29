@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, type ElementType } from "react";
+import { type ElementType } from "react";
 
 import CourierDeliveryContent from "@/components/features/cart/CourierDeliveryContent";
 import PickupDeliveryContent from "@/components/features/cart/PickupDeliveryContent";
+import {
+  useCartCheckout,
+  type DeliveryMethod,
+} from "@/contexts/CartCheckoutContext";
 import { ShoppingBag, Truck } from "iconsax-reactjs";
-
-type DeliveryMethod = "courier" | "pickup";
 
 type DeliveryMethodOption = {
   label: string;
@@ -31,8 +33,7 @@ const deliveryMethods: DeliveryMethodOption[] = [
 ];
 
 export default function CartDeliveryMethod() {
-  const [deliveryMethod, setDeliveryMethod] =
-    useState<DeliveryMethod>("courier");
+  const { deliveryMethod, setDeliveryMethod } = useCartCheckout();
   return (
     <section className="lg:col-span-8 xl:col-span-7 flex flex-col gap-3 lg:gap-6">
       <div className="rounded-lg border border-gray-4 p-4 lg:px-6 lg:py-8 flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
