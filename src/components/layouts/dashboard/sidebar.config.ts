@@ -2,6 +2,7 @@ import type { ComponentType, SVGProps } from "react";
 import type { UserRole } from "@/types";
 import {
   Category2,
+  DiscountShape,
   Heart,
   Location,
   Setting2,
@@ -60,6 +61,12 @@ const ADMIN_LINKS: SidebarLinkItem[] = [
     children: "شعبه‌ها",
     path: "/admin/branches",
     Icon: Location,
+  },
+  {
+    id: 9,
+    children: "کدهای تخفیف",
+    path: "/admin/coupons",
+    Icon: DiscountShape,
   },
 ];
 

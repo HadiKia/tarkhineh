@@ -6,3 +6,4 @@ export * from "./category";
 export * from "./product";
 export * from "./hero";
 export * from "./branch";
+export * from "./coupon";
