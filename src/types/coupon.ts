@@ -35,3 +35,12 @@ export type Coupon = {
 export type CouponListResult = {
   coupons: Coupon[];
 };
+
+export type CreateCouponPayload = {
+  code: string;
+  amount: number;
+  usageLimit: number;
+  type: CouponType;
+  categoryIds: string[];
+  expireDate: string;
+};

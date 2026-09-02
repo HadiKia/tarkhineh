@@ -50,17 +50,11 @@ export default function CouponsTable({ coupons }: CouponsTableProps) {
         header: "مقدار",
         size: 100,
         cell: ({ row }) => (
-          <>
-            {row.original.type === "percent" ? (
-              <span className="rounded-lg px-2 py-0.5 text-xs font-medium bg-error-extraLight text-error">
-                {toPersianDigits(row.original.amount)}٪
-              </span>
-            ) : (
-              <span className="text-xs text-gray-7">
-                {formatPrice(row.original.amount)} تومان
-              </span>
-            )}
-          </>
+          <span className="rounded-lg px-2 py-0.5 text-xs font-medium bg-error-extraLight text-error">
+            {row.original.type === "percent"
+              ? `${toPersianDigits(row.original.amount)}٪`
+              : `${formatPrice(row.original.amount)} تومان`}
+          </span>
         ),
       },
       {

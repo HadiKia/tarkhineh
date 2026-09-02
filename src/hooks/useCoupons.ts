@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { getCoupons } from "@/services/couponService";
-import type { CouponListResult } from "@/types";
+import { createCoupon, getCoupons } from "@/services/couponService";
+import type { CouponListResult, CreateCouponPayload } from "@/types";
 
 export const couponQueryKeys = {
   all: ["coupons"] as const,
@@ -16,4 +16,9 @@ export const useGetCoupons = () =>
     refetchOnWindowFocus: true,
     staleTime: 1000 * 60 * 5,
     retry: false,
+  });
+
+export const useCreateCoupon = () =>
+  useMutation({
+    mutationFn: (payload: CreateCouponPayload) => createCoupon(payload),
   });
