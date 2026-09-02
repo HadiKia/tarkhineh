@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   createCoupon,
+  deleteCoupon,
   getCouponById,
   getCoupons,
   updateCoupon,
@@ -46,4 +47,9 @@ export const useGetCoupon = (id: string) =>
 export const useUpdateCoupon = (id: string) =>
   useMutation({
     mutationFn: (payload: UpdateCouponPayload) => updateCoupon(id, payload),
+  });
+
+export const useDeleteCoupon = (id: string) =>
+  useMutation({
+    mutationFn: () => deleteCoupon(id),
   });

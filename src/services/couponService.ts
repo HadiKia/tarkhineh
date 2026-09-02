@@ -29,3 +29,9 @@ export function updateCoupon(id: string, payload: UpdateCouponPayload) {
     .patch<{ data: { message: string } }>(`/admin/coupon/update/${id}`, payload)
     .then(({ data }) => data.data);
 }
+
+export function deleteCoupon(id: string) {
+  return http
+    .delete<{ data: { message: string } }>(`/admin/coupon/remove/${id}`)
+    .then(({ data }) => data.data);
+}

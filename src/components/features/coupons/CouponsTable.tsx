@@ -7,6 +7,7 @@ import {
   useReactTable,
   type ColumnDef,
 } from "@tanstack/react-table";
+import { useState } from "react";
 import { Edit, Trash } from "iconsax-reactjs";
 
 import { EDIT_COUPON_PATH, couponTypeLabels } from "@/constants/coupons";
@@ -18,6 +19,29 @@ import {
   formatPrice,
   toPersianDigits,
 } from "@/utils/numberFormatter";
+import DeleteCouponModal from "./DeleteCouponModal";
+
+function CouponDeleteAction({ couponId }: { couponId: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button
+        type="button"
+        variant="destructive"
+        className="p-1"
+        onClick={() => setOpen(true)}
+      >
+        <Trash className="size-5" />
+      </Button>
+      <DeleteCouponModal
+        open={open}
+        onClose={() => setOpen(false)}
+        couponId={couponId}
+      />
+    </>
+  );
+}
 
 type CouponsTableProps = {
   coupons: Coupon[];
@@ -108,15 +132,7 @@ export default function CouponsTable({ coupons }: CouponsTableProps) {
         id: "delete",
         header: "حذف",
         size: 60,
-        cell: () => (
-          <Button
-            type="button"
-            variant="destructive"
-            className="cursor-default p-1"
-          >
-            <Trash className="size-5" />
-          </Button>
-        ),
+        cell: ({ row }) => <CouponDeleteAction couponId={row.original._id} />,
       },
     ],
     [],
