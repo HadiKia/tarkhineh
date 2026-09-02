@@ -9,9 +9,10 @@ import {
 } from "@tanstack/react-table";
 import { Edit, Trash } from "iconsax-reactjs";
 
-import { couponTypeLabels } from "@/constants/coupons";
+import { EDIT_COUPON_PATH, couponTypeLabels } from "@/constants/coupons";
 import { Button } from "@/components/ui/button";
 import type { Coupon } from "@/types";
+import Link from "next/link";
 import {
   formatDate,
   formatPrice,
@@ -64,7 +65,7 @@ export default function CouponsTable({ coupons }: CouponsTableProps) {
         cell: ({ row }) => (
           <div className="flex items-center justify-center gap-2 text-xs text-gray-7 ">
             <span>{toPersianDigits(row.original.usageCount)}</span>
-            <span>استفاده شده از</span>
+            <span>استفاده از</span>
             <span>{toPersianDigits(row.original.usageLimit)}</span>
           </div>
         ),
@@ -95,13 +96,11 @@ export default function CouponsTable({ coupons }: CouponsTableProps) {
         id: "edit",
         header: "ویرایش",
         size: 60,
-        cell: () => (
-          <Button
-            type="button"
-            variant="secondary"
-            className="cursor-default p-1"
-          >
-            <Edit className="size-5" />
+        cell: ({ row }) => (
+          <Button asChild variant="secondary" className="p-1">
+            <Link href={`${EDIT_COUPON_PATH}/${row.original._id}`}>
+              <Edit className="size-5" />
+            </Link>
           </Button>
         ),
       },

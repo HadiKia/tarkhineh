@@ -7,18 +7,30 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
 import { ADMIN_COUPONS_PATH } from "@/constants/coupons";
-import { useCreateCoupon, couponQueryKeys } from "@/hooks/useCoupons";
+import {
+  couponQueryKeys,
+  useCreateCoupon,
+  useUpdateCoupon,
+} from "@/hooks/useCoupons";
 import { useGetCategories } from "@/hooks/useCategories";
-import type { ApiError, Category } from "@/types";
+import type { ApiError, Category, Coupon } from "@/types";
 import { CategoryType, ProductCategoryType } from "@/types";
 import { isPersistedCategory } from "@/utils/category";
 import { couponSchema, type CouponFormValues } from "@/validations/coupon";
 import CouponForm from "./CouponForm";
 
-export default function CouponFormContainer() {
+type CouponFormContainerProps = {
+  coupon?: Coupon;
+};
+
+export default function CouponFormContainer({
+  coupon,
+}: CouponFormContainerProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const isEditing = Boolean(coupon);
   const createMutation = useCreateCoupon();
+  const updateMutation = useUpdateCoupon(coupon?._id ?? "");
   const { data: categoryData } = useGetCategories({ type: CategoryType.PRODUCT });
 
   const categories = (categoryData?.categories.filter(isPersistedCategory) ?? []).filter(
@@ -32,17 +44,26 @@ export default function CouponFormContainer() {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isDirty, isValid },
   } = useForm<CouponFormValues>({
     resolver: yupResolver(couponSchema),
-    defaultValues: {
-      code: "",
-      type: "percent",
-      amount: 1,
-      usageLimit: 1,
-      categoryIds: [],
-      expireDate: "",
-    },
+    values: coupon
+      ? {
+          code: coupon.code,
+          type: coupon.type,
+          amount: coupon.amount,
+          usageLimit: coupon.usageLimit,
+          categoryIds: coupon.categoryIds.map(({ _id }) => _id),
+          expireDate: coupon.expireDate,
+        }
+      : {
+          code: "",
+          type: "percent",
+          amount: 1,
+          usageLimit: 1,
+          categoryIds: [],
+          expireDate: "",
+        },
     mode: "onChange",
   });
 
@@ -53,16 +74,28 @@ export default function CouponFormContainer() {
 
   const submitHandler: SubmitHandler<CouponFormValues> = async (formData) => {
     try {
-      const response = await createMutation.mutateAsync(formData);
+      const response = isEditing
+        ? await updateMutation.mutateAsync(formData)
+        : await createMutation.mutateAsync(formData);
       toast.success(response.message);
       await queryClient.invalidateQueries({ queryKey: couponQueryKeys.all });
       reset();
       router.push(ADMIN_COUPONS_PATH);
     } catch (error) {
       const err = error as ApiError;
-      toast.error(err.response?.data?.message ?? "ایجاد کد تخفیف انجام نشد");
+      toast.error(
+        err.response?.data?.message ??
+          (isEditing
+            ? "ویرایش کد تخفیف انجام نشد"
+            : "ایجاد کد تخفیف انجام نشد"),
+      );
     }
   };
+
+  const isLoading = isEditing
+    ? updateMutation.isPending
+    : createMutation.isPending;
+  const isSubmitDisabled = isEditing ? !isDirty || !isValid : !isValid;
 
   return (
     <CouponForm
@@ -72,8 +105,9 @@ export default function CouponFormContainer() {
       categories={categories}
       onSubmit={handleSubmit(submitHandler)}
       onCancel={handleCancel}
-      isLoading={createMutation.isPending}
-      isSubmitDisabled={!isValid}
+      isLoading={isLoading}
+      isSubmitDisabled={isSubmitDisabled}
+      isEditing={isEditing}
     />
   );
 }

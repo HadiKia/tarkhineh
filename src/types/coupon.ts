@@ -44,3 +44,5 @@ export type CreateCouponPayload = {
   categoryIds: string[];
   expireDate: string;
 };
+
+export type UpdateCouponPayload = Partial<CreateCouponPayload>;

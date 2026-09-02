@@ -61,6 +61,7 @@ type CouponFormProps = {
   onCancel: () => void;
   isLoading: boolean;
   isSubmitDisabled: boolean;
+  isEditing: boolean;
 };
 
 export default function CouponForm({
@@ -72,6 +73,7 @@ export default function CouponForm({
   onCancel,
   isLoading,
   isSubmitDisabled,
+  isEditing,
 }: CouponFormProps) {
   const categoryComboboxAnchor = useComboboxAnchor();
 
@@ -335,7 +337,7 @@ export default function CouponForm({
           disabled={isSubmitDisabled}
           className="flex-1"
         >
-          ایجاد کد تخفیف
+          {isEditing ? "ویرایش کد تخفیف" : "ایجاد کد تخفیف"}
         </Button>
       </div>
     </form>
