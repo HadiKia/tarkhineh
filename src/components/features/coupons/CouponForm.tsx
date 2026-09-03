@@ -95,60 +95,64 @@ export default function CouponForm({
         control={control}
         name="type"
         render={({ field }) => (
-          <Field data-invalid={Boolean(errors.type)}>
-            <FieldLabel className="text-xs font-normal text-gray-7">
+          <Field
+            data-invalid={Boolean(errors.type)}
+            className=""
+          >
+            <FieldLabel className="absolute ms-4 px-1 w-fit! top-0 -mt-1.75 lg:-mt-2 bg-background text-[10px] lg:text-xs text-gray-7 font-normal">
               نوع کد تخفیف
             </FieldLabel>
-            <div className="flex items-center gap-4">
-              {(
-                Object.entries(couponTypeLabels) as [
-                  CouponFormValues["type"],
-                  string,
-                ][]
-              ).map(([value, label]) => {
-                const isSelected = field.value === value;
+            <div className=" rounded-lg border border-gray-4 px-4 py-1.75 flex gap-2 items-center">
+                {(
+              Object.entries(couponTypeLabels) as [
+                CouponFormValues["type"],
+                string,
+              ][]
+            ).map(([value, label]) => {
+              const isSelected = field.value === value;
 
-                return (
-                  <label
-                    key={value}
-                    className="flex cursor-pointer items-center gap-1 text-xs text-gray-8 lg:text-sm"
-                  >
-                    <input
-                      type="radio"
-                      value={value}
-                      checked={isSelected}
-                      onChange={() => field.onChange(value)}
-                      className="sr-only"
-                    />
+              return (
+                <label
+                  key={value}
+                  className="w-full flex cursor-pointer items-center gap-2 text-xs lg:text-base text-gray-8"
+                >
+                  <input
+                    type="radio"
+                    value={value}
+                    checked={isSelected}
+                    onChange={() => field.onChange(value)}
+                    className="sr-only"
+                  />
 
-                    {isSelected ? (
-                      <svg
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="none"
-                      >
-                        <circle cx="8" cy="8" r="7.5" stroke="#cbcbcb" />
-                        <circle cx="8" cy="8" r="6" fill="#00ba88" />
-                      </svg>
-                    ) : (
-                      <svg
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="none"
-                      >
-                        <circle cx="8" cy="8" r="7.5" stroke="#cbcbcb" />
-                      </svg>
-                    )}
+                  {isSelected ? (
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="none"
+                    >
+                      <circle cx="8" cy="8" r="7.5" stroke="#cbcbcb" />
+                      <circle cx="8" cy="8" r="6" fill="#00ba88" />
+                    </svg>
+                  ) : (
+                    <svg
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="none"
+                    >
+                      <circle cx="8" cy="8" r="7.5" stroke="#cbcbcb" />
+                    </svg>
+                  )}
 
-                    {label}
-                  </label>
-                );
-              })}
+                  {label}
+                </label>
+              );
+            })}
             </div>
+          
             {errors.type?.message && (
               <FieldDescription aria-invalid>
                 {errors.type.message}
@@ -187,7 +191,7 @@ export default function CouponForm({
           <Field data-invalid={Boolean(errors.expireDate)}>
             <FieldLabel
               htmlFor="expireDate"
-              className="text-xs font-normal text-gray-7"
+              className="absolute ms-4 px-1 w-fit! top-0 -mt-1.75 lg:-mt-2 bg-background text-[10px] lg:text-xs text-gray-7 font-normal"
             >
               تاریخ انقضا
             </FieldLabel>
@@ -264,9 +268,6 @@ export default function CouponForm({
               data-invalid={Boolean(errors.categoryIds)}
               className="lg:col-span-2"
             >
-              <FieldLabel className="text-xs font-normal text-gray-7">
-                دسته‌بندی‌های مشمول
-              </FieldLabel>
               <Combobox<Category, true>
                 multiple
                 autoHighlight
