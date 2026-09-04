@@ -2,6 +2,7 @@
 
 import EmptyState from "@/components/common/EmptyState";
 import CartSummary from "@/components/features/cart/CartSummary";
+import PaymentStepContent from "@/components/features/cart/PaymentStepContent";
 import { useGetUser } from "@/hooks/useAuth";
 import useHydrated from "@/hooks/useHydrated";
 
@@ -16,9 +17,7 @@ export default function PaymentPage() {
 
   return (
     <div className="grid grid-cols-1 items-start gap-3 lg:grid-cols-12 lg:gap-6">
-      <section className="lg:col-span-8 xl:col-span-7 flex flex-col gap-3 lg:gap-6">
-        content
-      </section>
+     <PaymentStepContent />
       <CartSummary
         payDetail={data?.cart?.payDetail ?? null}
         itemCount={products.length}
