@@ -51,6 +51,10 @@ export default function CartSummary({
   const isCartVariant = variant === "cart";
   const action = actionConfig[variant];
   const discount = payDetail?.totalProductDiscount ?? 0;
+  const couponDiscount =
+    payDetail != null && payDetail.totalOffAmount != null
+      ? Math.max(0, payDetail.totalOffAmount - discount)
+      : 0;
   const shippingCost =
     !isCartVariant && deliveryMethod === "courier" && selectedAddressId
       ? courierDeliveryFee
@@ -111,6 +115,19 @@ export default function CartSummary({
             )}
           </div>
         )}
+
+        {!!couponDiscount && (
+          <div className="flex flex-col gap-y-2 py-3 lg:py-4 border-b border-gray-4">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-8">کد تخفیف</span>
+              <div className="text-error-light flex items-center gap-1">
+                <span>{formatPrice(couponDiscount)}</span>
+                <span>تومان</span>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center justify-between py-3 lg:py-4 font-semibold">
           <span>مبلغ قابل پرداخت</span>
           <div className="text-primary flex items-center gap-1">

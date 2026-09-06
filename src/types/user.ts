@@ -32,11 +32,14 @@ export type CartPayDetail = {
   totalProductDiscount: number;
   totalProductPrice: number;
   totalPrice: number;
+  totalOffAmount: number;
+  totalGrossPrice: number;
 };
 
 export type CartDetail = {
   productDetail: CartProductDetail[];
   payDetail: CartPayDetail | null;
+  coupon: { code: string; _id: string } | null;
 };
 
 export type User = {
