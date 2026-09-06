@@ -20,6 +20,7 @@ export default function CompletionOfInformationPage() {
       <CartDeliveryMethod />
       <CartSummary
         payDetail={data?.cart?.payDetail ?? null}
+        coupon={data?.cart?.coupon ?? null}
         itemCount={products.length}
         products={products}
         variant="checkout"

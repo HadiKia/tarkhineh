@@ -36,7 +36,11 @@ export default function CartPage() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 items-start p-6 border border-gray-4 rounded-lg lg:p-0 lg:rounded-none lg:border-none">
       <CartItemsList products={products} />
-      <CartSummary payDetail={data?.cart?.payDetail ?? null} itemCount={products.length} />
+      <CartSummary
+        payDetail={data?.cart?.payDetail ?? null}
+        coupon={data?.cart?.coupon ?? null}
+        itemCount={products.length}
+      />
     </div>
   );
 }

@@ -34,6 +34,7 @@ const actionConfig = {
 
 type CartSummaryProps = {
   payDetail: CartPayDetail | null;
+  coupon?: { code: string; _id: string } | null;
   itemCount: number;
   products?: CartProductDetail[];
   variant?: CartSummaryVariant;
@@ -41,6 +42,7 @@ type CartSummaryProps = {
 
 export default function CartSummary({
   payDetail,
+  coupon = null,
   itemCount,
   products = [],
   variant = "cart",
@@ -59,7 +61,11 @@ export default function CartSummary({
     !isCartVariant && deliveryMethod === "courier" && selectedAddressId
       ? courierDeliveryFee
       : 0;
-  const payable = (payDetail?.totalProductPrice ?? 0) + shippingCost;
+  const hasCoupon = !!coupon?.code;
+  const payable = Math.max(
+    0,
+    (payDetail?.totalPrice ?? payDetail?.totalProductPrice ?? 0) + shippingCost,
+  );
 
   return (
     <aside
@@ -116,7 +122,7 @@ export default function CartSummary({
           </div>
         )}
 
-        {!!couponDiscount && (
+        {!!hasCoupon && (
           <div className="flex flex-col gap-y-2 py-3 lg:py-4 border-b border-gray-4">
             <div className="flex items-center justify-between">
               <span className="text-gray-8">کد تخفیف</span>
