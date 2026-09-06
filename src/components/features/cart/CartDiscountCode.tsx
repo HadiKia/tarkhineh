@@ -4,13 +4,18 @@ import { useEffect, useState } from "react";
 import TextField from "@/components/common/TextField";
 import { Button } from "@/components/ui/button";
 import { useGetUser } from "@/hooks/useAuth";
-import { useAddCouponToCart } from "@/hooks/useCart";
+import {
+  useAddCouponToCart,
+  useRemoveCouponFromCart,
+} from "@/hooks/useCart";
 import { isAxiosError } from "axios";
 import { DiscountShape, Trash } from "iconsax-reactjs";
 
 export default function CartDiscountCode() {
   const { data } = useGetUser();
-  const { mutate, isPending } = useAddCouponToCart();
+  const { mutate: addCoupon, isPending: isAdding } = useAddCouponToCart();
+  const { mutate: removeCoupon, isPending: isRemoving } =
+    useRemoveCouponFromCart();
 
   const appliedCode = data?.cart?.coupon?.code ?? "";
 
@@ -30,7 +35,7 @@ export default function CartDiscountCode() {
     if (!code) return;
 
     setError(undefined);
-    mutate(code, {
+    addCoupon(code, {
       onError: (err) => {
         let message = "خطا در اعمال کد تخفیف";
         if (isAxiosError(err)) {
@@ -43,6 +48,26 @@ export default function CartDiscountCode() {
       },
       onSuccess: () => {
         setError(undefined);
+      },
+    });
+  };
+
+  const handleRemove = () => {
+    setError(undefined);
+    removeCoupon(undefined, {
+      onSuccess: () => {
+        setCouponCode("");
+        setError(undefined);
+      },
+      onError: (err) => {
+        let message = "خطا در حذف کد تخفیف";
+        if (isAxiosError(err)) {
+          const data = err.response?.data as { message?: string } | undefined;
+          if (data?.message) message = data.message;
+        } else if (err instanceof Error && err.message) {
+          message = err.message;
+        }
+        setError(message);
       },
     });
   };
@@ -70,11 +95,21 @@ export default function CartDiscountCode() {
         <Button
           className="lg:w-25"
           disabled={isEmpty}
-          isLoading={isPending}
+          isLoading={isAdding}
           onClick={handleSubmit}
         >
           ثبت کد
         </Button>
+        {!!appliedCode && (
+          <Button
+            variant="destructive"
+            isLoading={isRemoving}
+            onClick={handleRemove}
+            aria-label="حذف کد تخفیف"
+          >
+            <Trash />
+          </Button>
+        )}
       </div>
     </div>
   );
