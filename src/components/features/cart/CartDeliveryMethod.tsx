@@ -37,7 +37,7 @@ export default function CartDeliveryMethod() {
   return (
     <section className="lg:col-span-8 xl:col-span-7 flex flex-col gap-3 lg:gap-6">
       <div className="rounded-lg border border-gray-4 p-4 lg:px-6 lg:py-8 flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-        <h3 className="flex items-center gap-1 pb-2 border-b border-gray-4 mb-2 lg:border-none lg:mb-0 text-sm lg:text-base text-gray-8">
+        <h3 className="flex items-center gap-1 pb-2 border-b border-gray-4 mb-2 lg:border-none lg:pb-0 lg:mb-0 text-sm lg:text-base text-gray-8">
           <Truck className="size-4 lg:size-6" />
           روش تحویل سفارش
         </h3>

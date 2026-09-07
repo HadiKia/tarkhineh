@@ -19,7 +19,7 @@ type PaymentMethodOption = {
 
 const paymentMethods: PaymentMethodOption[] = [
   {
-    label: "خرید آنلاین",
+    label: "پرداخت اینترنتی",
     value: "online",
     description: "توسط پیک رستوران ارسال شود.",
     icon: CardPos,
@@ -27,7 +27,7 @@ const paymentMethods: PaymentMethodOption[] = [
   {
     label: "پرداخت در محل",
     value: "inPerson",
-    description: "پرداخت به صورت حضوری.",
+    description: "تحویل حضوری در شعبه",
     icon: Wallet2,
   },
 ];
