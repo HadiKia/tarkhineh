@@ -14,15 +14,19 @@ export type DeliveryMethod = "courier" | "pickup";
 
 export type PaymentMethod = "online" | "inPerson";
 
+export type PaymentGateway = "saman" | "mellat" | "parsian";
+
 const COURIER_DELIVERY_FEE = 100_000;
 
 type CartCheckoutContextValue = {
   deliveryMethod: DeliveryMethod;
   paymentMethod: PaymentMethod;
+  paymentGateway: PaymentGateway;
   selectedAddressId: string | null;
   courierDeliveryFee: number;
   setDeliveryMethod: (method: DeliveryMethod) => void;
   setPaymentMethod: (method: PaymentMethod) => void;
+  setPaymentGateway: (gateway: PaymentGateway) => void;
   setSelectedAddressId: Dispatch<SetStateAction<string | null>>;
 };
 
@@ -38,6 +42,8 @@ export default function CartCheckoutProvider({
   const [deliveryMethod, setDeliveryMethod] =
     useState<DeliveryMethod>("courier");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("online");
+  const [paymentGateway, setPaymentGateway] =
+    useState<PaymentGateway>("saman");
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
     null,
   );
@@ -46,13 +52,15 @@ export default function CartCheckoutProvider({
     () => ({
       deliveryMethod,
       paymentMethod,
+      paymentGateway,
       selectedAddressId,
       courierDeliveryFee: COURIER_DELIVERY_FEE,
       setDeliveryMethod,
       setPaymentMethod,
+      setPaymentGateway,
       setSelectedAddressId,
     }),
-    [deliveryMethod, paymentMethod, selectedAddressId],
+    [deliveryMethod, paymentMethod, paymentGateway, selectedAddressId],
   );
 
   return (
