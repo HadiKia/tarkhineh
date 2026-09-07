@@ -1,6 +1,7 @@
 "use client";
 
 import { useBranchContext } from "@/contexts/BranchContext";
+import CartSectionTitle from "@/components/features/cart/CartSectionTitle";
 import PickupDeliveryContentSkeleton from "@/components/features/cart/PickupDeliveryContentSkeleton";
 import { Location } from "iconsax-reactjs";
 
@@ -18,10 +19,9 @@ export default function PickupDeliveryContent() {
       aria-label="اطلاعات تحویل حضوری"
       className="rounded-lg border border-gray-4 p-4 lg:px-6 lg:py-4"
     >
-      <h3 className="flex items-center gap-1 pb-2 border-b border-gray-4 mb-4 lg:mb-3 text-sm lg:text-base text-gray-8">
-        <Location className="size-4 lg:size-6" />
+      <CartSectionTitle icon={Location} variant="stacked">
         {title}
-      </h3>
+      </CartSectionTitle>
 
       <div className="flex flex-col gap-2 text-xs lg:text-sm text-gray-7 px-3 lg:px-0">
         <p>{address}</p>

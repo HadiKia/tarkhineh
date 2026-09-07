@@ -2,13 +2,14 @@
 
 import { type ElementType } from "react";
 
+import CartSectionTitle from "@/components/features/cart/CartSectionTitle";
 import InPersonPurchaseContent from "@/components/features/cart/InPersonPurchaseContent";
 import OnlinePurchaseContent from "@/components/features/cart/OnlinePurchaseContent";
 import {
   useCartCheckout,
   type PaymentMethod,
 } from "@/contexts/CartCheckoutContext";
-import { Card, CardPos, ShoppingBag, Truck, Wallet2 } from "iconsax-reactjs";
+import { CardPos, Wallet2, WalletMoney } from "iconsax-reactjs";
 
 type PaymentMethodOption = {
   label: string;
@@ -37,10 +38,7 @@ export default function CartPaymentMethod() {
   return (
     <section className="flex flex-col gap-3 lg:gap-6">
       <div className="rounded-lg border border-gray-4 p-4 lg:px-6 lg:py-8 flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-        <h3 className="flex items-center gap-1 pb-2 border-b border-gray-4 mb-2 lg:border-none lg:mb-0 text-sm lg:text-base text-gray-8">
-          <Card className="size-4 lg:size-6" />
-          روش پرداخت
-        </h3>
+        <CartSectionTitle icon={WalletMoney}>روش پرداخت</CartSectionTitle>
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-evenly flex-1">
           {paymentMethods.map((method) => {
             const isSelected = paymentMethod === method.value;

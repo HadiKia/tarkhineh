@@ -7,6 +7,7 @@ import AddressModal from "@/components/features/address/AddressModal";
 import DeleteAddressModal from "@/components/features/address/DeleteAddressModal";
 import { useGetAddresses } from "@/hooks/useAddress";
 import { AddCircle, Location } from "iconsax-reactjs";
+import CartSectionTitle from "@/components/features/cart/CartSectionTitle";
 import AddressList from "@/components/features/address/AddressList";
 import AddressListSkeleton from "@/components/features/address/AddressListSkeleton";
 import { Button } from "@/components/ui/button";
@@ -39,10 +40,9 @@ export default function CourierDeliveryContent() {
   return (
     <>
       <div className="relative rounded-lg border border-gray-4 p-4 lg:px-6 lg:py-4">
-        <h3 className="flex items-center gap-1 pb-2 border-b border-gray-4 mb-4 lg:mb-3 text-sm lg:text-base text-gray-8">
-          <Location className="size-4 lg:size-6" />
+        <CartSectionTitle icon={Location} variant="stacked">
           آدرس‌ها
-        </h3>
+        </CartSectionTitle>
         {isFetching ? (
           <AddressListSkeleton />
         ) : addresses.length > 0 ? (

@@ -1,5 +1,6 @@
 "use client";
 
+import CartSectionTitle from "@/components/features/cart/CartSectionTitle";
 import { useCartCheckout } from "@/contexts/CartCheckoutContext";
 import { cn } from "@/lib/utils";
 import { Card } from "iconsax-reactjs";
@@ -16,10 +17,7 @@ export default function OnlinePurchaseContent() {
 
   return (
     <div className="rounded-lg border border-gray-4 p-4 lg:p-6 flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
-      <h3 className="flex items-center gap-1 lg:gap-2 pb-2 border-b border-gray-4 mb-2 lg:border-none lg:pb-0 lg:mb-0 text-sm lg:text-base text-gray-8">
-        <Card className="size-4 lg:size-6" />
-        درگاه پرداخت
-      </h3>
+      <CartSectionTitle icon={Card}>درگاه پرداخت</CartSectionTitle>
 
       <div className="flex flex-col items-center justify-center gap-2 flex-1">
         <div

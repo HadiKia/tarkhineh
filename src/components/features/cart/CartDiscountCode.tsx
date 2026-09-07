@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import TextField from "@/components/common/TextField";
+import CartSectionTitle from "@/components/features/cart/CartSectionTitle";
 import { Button } from "@/components/ui/button";
 import { useGetUser } from "@/hooks/useAuth";
 import {
@@ -74,10 +75,7 @@ export default function CartDiscountCode() {
 
   return (
     <div className="rounded-lg border border-gray-4 p-4 lg:px-6 lg:py-8 flex flex-col gap-2 lg:flex-row lg:items-stretch lg:justify-start lg:gap-10">
-      <h3 className="flex items-center gap-1 pb-2 border-b border-gray-4 mb-2 lg:border-none lg:pb-0 lg:mb-0 text-sm lg:text-base text-gray-8">
-        <DiscountShape className="size-4 lg:size-6" />
-        ثبت کد تخفیف
-      </h3>
+      <CartSectionTitle icon={DiscountShape}>ثبت کد تخفیف</CartSectionTitle>
 
       <div className="flex items-start gap-4">
         <TextField
