@@ -26,7 +26,7 @@ export default function CartSectionTitle({
   return (
     <h3
       className={cn(
-        "flex items-center gap-1 lg:gap-2 pb-2 border-b border-gray-4 text-sm lg:text-base text-gray-8",
+        "flex items-center gap-1 lg:gap-2 pb-2 border-b border-gray-4 text-sm lg:text-base text-gray-8 shrink-0",
         variantClasses[variant],
         className,
       )}
