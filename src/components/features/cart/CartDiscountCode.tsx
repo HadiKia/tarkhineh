@@ -74,7 +74,7 @@ export default function CartDiscountCode() {
   };
 
   return (
-    <div className="rounded-lg border border-gray-4 p-4 lg:px-6 lg:py-8 flex flex-col gap-2 lg:flex-row lg:items-stretch lg:justify-start lg:gap-10">
+    <div className="rounded-lg border border-gray-4 p-4 lg:p-6 flex flex-col gap-2 lg:flex-row lg:items-stretch lg:justify-start lg:gap-10">
       <CartSectionTitle icon={DiscountShape}>ثبت کد تخفیف</CartSectionTitle>
 
       <div className="flex items-start gap-4">
