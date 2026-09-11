@@ -1,17 +1,22 @@
 "use client";
 
 import EmptyState from "@/components/common/EmptyState";
+import CartCompletionOfInformationPageSkeleton from "@/components/features/cart/CartCompletionOfInformationPageSkeleton";
 import CartDeliveryMethod from "@/components/features/cart/CartDeliveryMethod";
 import CartSummary from "@/components/features/cart/CartSummary";
 import { useGetUser } from "@/hooks/useAuth";
 import useHydrated from "@/hooks/useHydrated";
 
 export default function CompletionOfInformationPage() {
-  const { data } = useGetUser();
+  const { data, isLoading } = useGetUser();
   const isHydrated = useHydrated();
   const products = data?.cart?.productDetail ?? [];
 
-  if (isHydrated && products.length === 0) {
+  if (!isHydrated || isLoading) {
+    return <CartCompletionOfInformationPageSkeleton />;
+  }
+
+  if (products.length === 0) {
     return <EmptyState title="سبد خرید شما خالی است!" />;
   }
 
