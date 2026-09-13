@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  useEffect,
   useContext,
   useMemo,
   useState,
@@ -17,6 +18,32 @@ export type PaymentMethod = "online" | "inPerson";
 export type PaymentGateway = "saman" | "mellat" | "parsian";
 
 const COURIER_DELIVERY_FEE = 100_000;
+const CART_CHECKOUT_STORAGE_KEY = "tarkhineh-cart-checkout";
+
+type PersistedCartCheckoutState = {
+  deliveryMethod: DeliveryMethod;
+  paymentMethod: PaymentMethod;
+  paymentGateway: PaymentGateway;
+  selectedAddressId: string | null;
+};
+
+const isPersistedCartCheckoutState = (
+  value: unknown,
+): value is PersistedCartCheckoutState => {
+  if (!value || typeof value !== "object") return false;
+
+  const state = value as Record<string, unknown>;
+
+  return (
+    (state.deliveryMethod === "courier" || state.deliveryMethod === "pickup") &&
+    (state.paymentMethod === "online" || state.paymentMethod === "inPerson") &&
+    (state.paymentGateway === "saman" ||
+      state.paymentGateway === "mellat" ||
+      state.paymentGateway === "parsian") &&
+    (state.selectedAddressId === null ||
+      typeof state.selectedAddressId === "string")
+  );
+};
 
 type CartCheckoutContextValue = {
   deliveryMethod: DeliveryMethod;
@@ -47,6 +74,78 @@ export default function CartCheckoutProvider({
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
     null,
   );
+  const [isStorageLoaded, setIsStorageLoaded] = useState(false);
+
+  useEffect(() => {
+    const storedState = window.localStorage.getItem(CART_CHECKOUT_STORAGE_KEY);
+    let parsedStoredState: PersistedCartCheckoutState | null = null;
+
+    if (storedState) {
+      try {
+        const parsedState: unknown = JSON.parse(storedState);
+
+        if (isPersistedCartCheckoutState(parsedState)) {
+          parsedStoredState = parsedState;
+        }
+      } catch {
+        window.localStorage.removeItem(CART_CHECKOUT_STORAGE_KEY);
+      }
+    }
+
+    queueMicrotask(() => {
+      if (parsedStoredState) {
+        setDeliveryMethod(parsedStoredState.deliveryMethod);
+        setPaymentMethod(parsedStoredState.paymentMethod);
+        setPaymentGateway(parsedStoredState.paymentGateway);
+        setSelectedAddressId(parsedStoredState.selectedAddressId);
+      }
+
+      setIsStorageLoaded(true);
+    });
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== CART_CHECKOUT_STORAGE_KEY || !event.newValue) return;
+
+      try {
+        const parsedState: unknown = JSON.parse(event.newValue);
+
+        if (isPersistedCartCheckoutState(parsedState)) {
+          setDeliveryMethod(parsedState.deliveryMethod);
+          setPaymentMethod(parsedState.paymentMethod);
+          setPaymentGateway(parsedState.paymentGateway);
+          setSelectedAddressId(parsedState.selectedAddressId);
+        }
+      } catch {
+        // Ignore malformed state from another tab.
+      }
+    };
+
+    window.addEventListener("storage", handleStorage);
+
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
+  useEffect(() => {
+    if (!isStorageLoaded) return;
+
+    const state: PersistedCartCheckoutState = {
+      deliveryMethod,
+      paymentMethod,
+      paymentGateway,
+      selectedAddressId,
+    };
+
+    window.localStorage.setItem(
+      CART_CHECKOUT_STORAGE_KEY,
+      JSON.stringify(state),
+    );
+  }, [
+    deliveryMethod,
+    paymentMethod,
+    paymentGateway,
+    selectedAddressId,
+    isStorageLoaded,
+  ]);
 
   const value = useMemo(
     () => ({
