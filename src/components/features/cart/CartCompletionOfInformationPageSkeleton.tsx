@@ -1,3 +1,4 @@
+import TextAreaSkeleton from "@/components/common/TextAreaSkeleton";
 import AddressListSkeleton from "../address/AddressListSkeleton";
 import CartCheckoutSummarySkeleton from "./CartCheckoutSummarySkeleton";
 
@@ -20,6 +21,8 @@ function CartDeliveryMethodSkeleton() {
         </div>
         <AddressListSkeleton />
       </div>
+
+      <TextAreaSkeleton />
     </section>
   );
 }
