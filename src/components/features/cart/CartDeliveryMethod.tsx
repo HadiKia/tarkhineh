@@ -36,7 +36,7 @@ const deliveryMethods: DeliveryMethodOption[] = [
 export default function CartDeliveryMethod() {
   const { deliveryMethod, setDeliveryMethod } = useCartCheckout();
   return (
-    <section className="lg:col-span-8 xl:col-span-7 flex flex-col gap-3 lg:gap-6">
+    <>
       <div className="rounded-lg border border-gray-4 p-4 lg:px-6 lg:py-8 flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
         <CartSectionTitle icon={Truck}>روش تحویل سفارش</CartSectionTitle>
 
@@ -92,6 +92,6 @@ export default function CartDeliveryMethod() {
 
       {deliveryMethod === "courier" && <CourierDeliveryContent />}
       {deliveryMethod === "pickup" && <PickupDeliveryContent />}
-    </section>
+    </>
   );
 }

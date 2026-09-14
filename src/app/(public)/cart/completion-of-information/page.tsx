@@ -1,6 +1,7 @@
 "use client";
 
 import EmptyState from "@/components/common/EmptyState";
+import TextArea from "@/components/common/TextArea";
 import CartCompletionOfInformationPageSkeleton from "@/components/features/cart/CartCompletionOfInformationPageSkeleton";
 import CartDeliveryMethod from "@/components/features/cart/CartDeliveryMethod";
 import CartSummary from "@/components/features/cart/CartSummary";
@@ -22,7 +23,15 @@ export default function CompletionOfInformationPage() {
 
   return (
     <div className="grid grid-cols-1 items-start gap-3 lg:grid-cols-12 lg:gap-6">
+      <section className="lg:col-span-8 xl:col-span-7 flex flex-col gap-3 lg:gap-6">
       <CartDeliveryMethod />
+       <TextArea
+        id="order-notes"
+        label=""
+        placeholder="توضیحات سفارش (اختیاری)"
+        className="min-h-28.5 rounded-lg p-4 lg:px-6"
+      />
+      </section>
       <CartSummary
         payDetail={data?.cart?.payDetail ?? null}
         coupon={data?.cart?.coupon ?? null}
