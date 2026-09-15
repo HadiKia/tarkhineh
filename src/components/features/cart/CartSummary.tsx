@@ -48,8 +48,12 @@ export default function CartSummary({
   variant = "cart",
 }: CartSummaryProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { deliveryMethod, selectedAddressId, courierDeliveryFee } =
-    useCartCheckout();
+  const {
+    deliveryMethod,
+    selectedAddressId,
+    courierDeliveryFee,
+    isDeliveryStepComplete,
+  } = useCartCheckout();
   const isCartVariant = variant === "cart";
   const action = actionConfig[variant];
   const discount = payDetail?.totalProductDiscount ?? 0;
@@ -66,6 +70,7 @@ export default function CartSummary({
     0,
     (payDetail?.totalPrice ?? payDetail?.totalProductPrice ?? 0) + shippingCost,
   );
+  const isActionDisabled = variant === "checkout" && !isDeliveryStepComplete;
 
   return (
     <aside
@@ -142,15 +147,26 @@ export default function CartSummary({
           </div>
         </div>
       </div>
-      <Button
-        asChild
-        className={cn("w-full", !isCartVariant && "flex-row-reverse")}
-      >
-        <Link href={action.href}>
+      {isActionDisabled ? (
+        <Button
+          type="button"
+          disabled
+          className={cn("w-full", !isCartVariant && "flex-row-reverse")}
+        >
           <span>{action.label}</span>
           <action.icon />
-        </Link>
-      </Button>
+        </Button>
+      ) : (
+        <Button
+          asChild
+          className={cn("w-full", !isCartVariant && "flex-row-reverse")}
+        >
+          <Link href={action.href}>
+            <span>{action.label}</span>
+            <action.icon />
+          </Link>
+        </Button>
+      )}
       <ClearCartModal
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}

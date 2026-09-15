@@ -21,7 +21,7 @@ const COURIER_DELIVERY_FEE = 100_000;
 const CART_CHECKOUT_STORAGE_KEY = "tarkhineh-cart-checkout";
 
 type PersistedCartCheckoutState = {
-  deliveryMethod: DeliveryMethod;
+  deliveryMethod: DeliveryMethod | null;
   paymentMethod: PaymentMethod;
   paymentGateway: PaymentGateway;
   selectedAddressId: string | null;
@@ -35,7 +35,9 @@ const isPersistedCartCheckoutState = (
   const state = value as Record<string, unknown>;
 
   return (
-    (state.deliveryMethod === "courier" || state.deliveryMethod === "pickup") &&
+    (state.deliveryMethod === null ||
+      state.deliveryMethod === "courier" ||
+      state.deliveryMethod === "pickup") &&
     (state.paymentMethod === "online" || state.paymentMethod === "inPerson") &&
     (state.paymentGateway === "saman" ||
       state.paymentGateway === "mellat" ||
@@ -46,11 +48,12 @@ const isPersistedCartCheckoutState = (
 };
 
 type CartCheckoutContextValue = {
-  deliveryMethod: DeliveryMethod;
+  deliveryMethod: DeliveryMethod | null;
   paymentMethod: PaymentMethod;
   paymentGateway: PaymentGateway;
   selectedAddressId: string | null;
   courierDeliveryFee: number;
+  isDeliveryStepComplete: boolean;
   setDeliveryMethod: (method: DeliveryMethod) => void;
   setPaymentMethod: (method: PaymentMethod) => void;
   setPaymentGateway: (gateway: PaymentGateway) => void;
@@ -67,7 +70,7 @@ export default function CartCheckoutProvider({
   children: ReactNode;
 }) {
   const [deliveryMethod, setDeliveryMethod] =
-    useState<DeliveryMethod>("courier");
+    useState<DeliveryMethod | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("online");
   const [paymentGateway, setPaymentGateway] =
     useState<PaymentGateway>("saman");
@@ -147,6 +150,10 @@ export default function CartCheckoutProvider({
     isStorageLoaded,
   ]);
 
+  const isDeliveryStepComplete =
+    deliveryMethod === "pickup" ||
+    (deliveryMethod === "courier" && selectedAddressId !== null);
+
   const value = useMemo(
     () => ({
       deliveryMethod,
@@ -154,12 +161,19 @@ export default function CartCheckoutProvider({
       paymentGateway,
       selectedAddressId,
       courierDeliveryFee: COURIER_DELIVERY_FEE,
+      isDeliveryStepComplete,
       setDeliveryMethod,
       setPaymentMethod,
       setPaymentGateway,
       setSelectedAddressId,
     }),
-    [deliveryMethod, paymentMethod, paymentGateway, selectedAddressId],
+    [
+      deliveryMethod,
+      paymentMethod,
+      paymentGateway,
+      selectedAddressId,
+      isDeliveryStepComplete,
+    ],
   );
 
   return (

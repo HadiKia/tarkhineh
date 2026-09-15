@@ -4,11 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { cartSteps, isCartStepPath } from "@/constants/cartSteps";
+import { useCartCheckout } from "@/contexts/CartCheckoutContext";
 import useCartStatus from "@/hooks/useCartStatus";
 
 export default function CartSteps() {
   const pathname = usePathname();
   const { isGuest, hasCartItems } = useCartStatus();
+  const { isDeliveryStepComplete } = useCartCheckout();
 
   const currentIndex = cartSteps.findIndex((step, index) =>
     isCartStepPath(pathname, step.href, index),
@@ -19,9 +21,12 @@ export default function CartSteps() {
     <nav aria-label="مراحل سبد خرید">
       <div className="hidden items-center lg:flex max-w-182.5 mx-auto mb-10">
         {cartSteps.map((step, index) => {
+          const isStepDisabled =
+            (isGuest && index > 0) ||
+            (index === cartSteps.length - 1 && !isDeliveryStepComplete);
           const stepClassName = cn(
             "flex items-center gap-1 whitespace-nowrap text-sm text-gray-4",
-            isGuest && index > 0 && "cursor-default",
+            isStepDisabled && "cursor-default",
             index === 0 && "pe-2 py-1",
             index > 0 && index < cartSteps.length - 1 && "px-2 py-1",
             index === cartSteps.length - 1 && "ps-2 py-1",
@@ -38,7 +43,7 @@ export default function CartSteps() {
               key={step.href}
               className="flex flex-1 items-center last:flex-none"
             >
-              {isGuest && index > 0 ? (
+              {isStepDisabled ? (
                 <span aria-disabled="true" className={stepClassName}>
                   <step.icon className={stepIconClassName} />
                   {step.label}
