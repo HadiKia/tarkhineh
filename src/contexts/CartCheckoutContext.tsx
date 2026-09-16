@@ -5,6 +5,7 @@ import {
   useEffect,
   useContext,
   useMemo,
+  useCallback,
   useState,
   type Dispatch,
   type ReactNode,
@@ -25,6 +26,7 @@ type PersistedCartCheckoutState = {
   paymentMethod: PaymentMethod;
   paymentGateway: PaymentGateway;
   selectedAddressId: string | null;
+  orderNote?: string;
 };
 
 const isPersistedCartCheckoutState = (
@@ -43,7 +45,8 @@ const isPersistedCartCheckoutState = (
       state.paymentGateway === "mellat" ||
       state.paymentGateway === "parsian") &&
     (state.selectedAddressId === null ||
-      typeof state.selectedAddressId === "string")
+      typeof state.selectedAddressId === "string") &&
+    (state.orderNote === undefined || typeof state.orderNote === "string")
   );
 };
 
@@ -52,12 +55,15 @@ type CartCheckoutContextValue = {
   paymentMethod: PaymentMethod;
   paymentGateway: PaymentGateway;
   selectedAddressId: string | null;
+  orderNote: string;
   courierDeliveryFee: number;
   isDeliveryStepComplete: boolean;
   setDeliveryMethod: (method: DeliveryMethod) => void;
   setPaymentMethod: (method: PaymentMethod) => void;
   setPaymentGateway: (gateway: PaymentGateway) => void;
   setSelectedAddressId: Dispatch<SetStateAction<string | null>>;
+  setOrderNote: (note: string) => void;
+  resetCheckout: () => void;
 };
 
 const CartCheckoutContext = createContext<CartCheckoutContextValue | null>(
@@ -77,6 +83,7 @@ export default function CartCheckoutProvider({
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
     null,
   );
+  const [orderNote, setOrderNote] = useState("");
   const [isStorageLoaded, setIsStorageLoaded] = useState(false);
 
   useEffect(() => {
@@ -101,6 +108,7 @@ export default function CartCheckoutProvider({
         setPaymentMethod(parsedStoredState.paymentMethod);
         setPaymentGateway(parsedStoredState.paymentGateway);
         setSelectedAddressId(parsedStoredState.selectedAddressId);
+        setOrderNote(parsedStoredState.orderNote ?? "");
       }
 
       setIsStorageLoaded(true);
@@ -117,6 +125,7 @@ export default function CartCheckoutProvider({
           setPaymentMethod(parsedState.paymentMethod);
           setPaymentGateway(parsedState.paymentGateway);
           setSelectedAddressId(parsedState.selectedAddressId);
+          setOrderNote(parsedState.orderNote ?? "");
         }
       } catch {
         // Ignore malformed state from another tab.
@@ -136,6 +145,7 @@ export default function CartCheckoutProvider({
       paymentMethod,
       paymentGateway,
       selectedAddressId,
+      orderNote,
     };
 
     window.localStorage.setItem(
@@ -147,8 +157,18 @@ export default function CartCheckoutProvider({
     paymentMethod,
     paymentGateway,
     selectedAddressId,
+    orderNote,
     isStorageLoaded,
   ]);
+
+  const resetCheckout = useCallback(() => {
+    setDeliveryMethod(null);
+    setPaymentMethod("online");
+    setPaymentGateway("saman");
+    setSelectedAddressId(null);
+    setOrderNote("");
+    window.localStorage.removeItem(CART_CHECKOUT_STORAGE_KEY);
+  }, []);
 
   const isDeliveryStepComplete =
     deliveryMethod === "pickup" ||
@@ -160,19 +180,24 @@ export default function CartCheckoutProvider({
       paymentMethod,
       paymentGateway,
       selectedAddressId,
+      orderNote,
       courierDeliveryFee: COURIER_DELIVERY_FEE,
       isDeliveryStepComplete,
       setDeliveryMethod,
       setPaymentMethod,
       setPaymentGateway,
       setSelectedAddressId,
+      setOrderNote,
+      resetCheckout,
     }),
     [
       deliveryMethod,
       paymentMethod,
       paymentGateway,
       selectedAddressId,
+      orderNote,
       isDeliveryStepComplete,
+      resetCheckout,
     ],
   );
 

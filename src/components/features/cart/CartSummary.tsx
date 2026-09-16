@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import ClearCartModal from "@/components/features/cart/ClearCartModal";
 import CartSummaryItems from "@/components/features/cart/CartSummaryItems";
+import PlaceOrderButton from "@/components/features/cart/PlaceOrderButton";
 import { Button } from "@/components/ui/button";
 import { useCartCheckout } from "@/contexts/CartCheckoutContext";
 import type { CartPayDetail, CartProductDetail } from "@/types";
@@ -71,6 +72,10 @@ export default function CartSummary({
     (payDetail?.totalPrice ?? payDetail?.totalProductPrice ?? 0) + shippingCost,
   );
   const isActionDisabled = variant === "checkout" && !isDeliveryStepComplete;
+  const actionClassName = cn(
+    "w-full",
+    !isCartVariant && "flex-row-reverse",
+  );
 
   return (
     <aside
@@ -147,11 +152,13 @@ export default function CartSummary({
           </div>
         </div>
       </div>
-      {isActionDisabled ? (
+      {variant === "payment" ? (
+        <PlaceOrderButton className={actionClassName} />
+      ) : isActionDisabled ? (
         <Button
           type="button"
           disabled
-          className={cn("w-full", !isCartVariant && "flex-row-reverse")}
+          className={actionClassName}
         >
           <span>{action.label}</span>
           <action.icon />
@@ -159,7 +166,7 @@ export default function CartSummary({
       ) : (
         <Button
           asChild
-          className={cn("w-full", !isCartVariant && "flex-row-reverse")}
+          className={actionClassName}
         >
           <Link href={action.href}>
             <span>{action.label}</span>

@@ -28,6 +28,10 @@ const accessControl: AccessControlRoute[] = [
     authRequired: true,
   },
   {
+    path: "/payment",
+    authRequired: true,
+  },
+  {
     path: "/admin",
     authRequired: true,
     role: "ADMIN",
@@ -99,5 +103,6 @@ export const config = {
     "/admin/:path*",
     "/cart/completion-of-information/:path*",
     "/cart/payment/:path*",
+    "/payment/:path*",
   ],
 };
