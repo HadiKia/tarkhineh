@@ -1,4 +1,7 @@
 import type { ID, ISODateString } from "./api";
+import type { Address } from "./address";
+import type { Branch } from "./branch";
+import type { CartDetail } from "./user";
 import type {
   DeliveryMethod,
   PaymentGateway,
@@ -18,13 +21,22 @@ export type PaymentResult = {
   _id: ID;
   invoiceNumber?: string;
   amount: number;
+  paymentMethod?: PaymentMethod;
+  paymentGateway?: PaymentGateway;
+  description?: string;
+  paymentDate?: string;
   status: "UNCOMPLETED" | "COMPLETED";
   isPaid: boolean;
   createdAt: ISODateString;
+  cart?: CartDetail;
   checkout?: {
     deliveryMethod: DeliveryMethod;
     shippingCost: number;
     note: string;
+    address?: Address | null;
+    branch?: Branch | null;
+    paymentMethod?: PaymentMethod;
+    paymentGateway?: PaymentGateway | null;
   };
 };
 

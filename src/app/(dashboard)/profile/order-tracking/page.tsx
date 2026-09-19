@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 
 import EmptyState from "@/components/common/EmptyState";
+import OrderTrackingSection from "@/components/features/orders/OrderTrackingSection";
 import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 import { Button } from "@/components/ui/button";
 import { getUserProfile } from "@/services/authService";
@@ -12,14 +13,12 @@ export default async function ProfileOrderTrackingsPage() {
   const data = await getUserProfile({ cookieHeader });
   const payments = data?.payments ?? [];
 
-  console.log("Order tracking data:", data);
-
   return (
     <>
       <DashboardHeader title="سفارشات" />
 
       {payments.length > 0 ? (
-        <p>content</p>
+        <OrderTrackingSection payments={payments} />
       ) : (
         <EmptyState
           title="شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!"
