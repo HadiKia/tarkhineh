@@ -44,7 +44,7 @@ export default function PlaceOrderButton({
       const { payment, message } = await mutation.mutateAsync({
         deliveryMethod,
         addressId: deliveryMethod === "courier" ? selectedAddressId : null,
-        branchId: deliveryMethod === "pickup" ? selectedBranchId : null,
+        branchId: selectedBranchId,
         note: orderNote,
         paymentMethod,
         paymentGateway: paymentMethod === "online" ? paymentGateway : null,

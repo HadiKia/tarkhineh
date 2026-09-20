@@ -11,6 +11,7 @@ export default async function ProfileOrderTrackingsPage() {
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
   const data = await getUserProfile({ cookieHeader });
+  const userName = data?.user?.name;
   const payments = data?.payments ?? [];
 
   return (
@@ -18,7 +19,7 @@ export default async function ProfileOrderTrackingsPage() {
       <DashboardHeader title="سفارشات" />
 
       {payments.length > 0 ? (
-        <OrderTrackingSection payments={payments} />
+        <OrderTrackingSection payments={payments} userName={userName} />
       ) : (
         <EmptyState
           title="شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!"

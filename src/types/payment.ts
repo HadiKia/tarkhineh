@@ -11,7 +11,7 @@ import type {
 export type CreatePaymentPayload = {
   deliveryMethod: DeliveryMethod;
   addressId?: ID | null;
-  branchId?: ID | null;
+  branchId: ID;
   note?: string;
   paymentMethod: PaymentMethod;
   paymentGateway?: PaymentGateway | null;
@@ -21,7 +21,7 @@ export type PaymentResult = {
   _id: ID;
   invoiceNumber?: string;
   amount: number;
-  paymentMethod?: PaymentMethod;
+  paymentMethod: PaymentMethod;
   paymentGateway?: PaymentGateway;
   description?: string;
   paymentDate?: string;
@@ -35,7 +35,6 @@ export type PaymentResult = {
     note: string;
     address?: Address | null;
     branch?: Branch | null;
-    paymentMethod?: PaymentMethod;
     paymentGateway?: PaymentGateway | null;
   };
 };
