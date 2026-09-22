@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import EmptyState from "@/components/common/EmptyState";
 import OrderTrackingSection from "@/components/features/orders/OrderTrackingSection";
@@ -7,7 +8,30 @@ import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 import { Button } from "@/components/ui/button";
 import { getUserProfile } from "@/services/authService";
 
-export default async function ProfileOrderTrackingsPage() {
+type OrderTrackingSearchParams = {
+  deliveryMethod?: string;
+};
+
+const ALLOWED_PARAMS = new Set(["deliveryMethod"]);
+const ALLOWED_DELIVERY_METHODS = new Set(["courier", "pickup"]);
+
+export default async function ProfileOrderTrackingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<OrderTrackingSearchParams>;
+}) {
+  const params = await searchParams;
+  const hasUnknownParams = Object.keys(params).some(
+    (key) => !ALLOWED_PARAMS.has(key),
+  );
+  const hasInvalidDeliveryMethod =
+    params.deliveryMethod !== undefined &&
+    !ALLOWED_DELIVERY_METHODS.has(params.deliveryMethod);
+
+  if (hasUnknownParams || hasInvalidDeliveryMethod) {
+    redirect("/profile/order-tracking");
+  }
+
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
   const data = await getUserProfile({ cookieHeader });
