@@ -37,7 +37,8 @@ export type PaymentResult = {
   paymentMethod: PaymentMethod;
   paymentGateway?: PaymentGateway;
   description?: string;
-  paymentDate?: string;
+  refId?: string;
+  paymentDate?: ISODateString;
   status: "UNCOMPLETED" | "COMPLETED";
   orderStatus?: OrderStatus;
   isPaid: boolean;
@@ -71,6 +72,10 @@ export type AdminPaymentResult = PaymentResult & {
 
 export type AdminPaymentListResult = {
   payments: AdminPaymentResult[];
+};
+
+export type GetAdminPaymentResult = {
+  payment: AdminPaymentResult;
 };
 
 export type UpdateOrderStatusPayload = {

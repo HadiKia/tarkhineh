@@ -8,8 +8,13 @@ import {
   type ColumnDef,
 } from "@tanstack/react-table";
 import { Edit } from "iconsax-reactjs";
+import Link from "next/link";
 
-import { deliveryMethodLabels, getOrderStatusLabel } from "@/constants/orders";
+import {
+  ADMIN_ORDERS_PATH,
+  deliveryMethodLabels,
+  getOrderStatusLabel,
+} from "@/constants/orders";
 import { Button } from "@/components/ui/button";
 import type { AdminPaymentResult } from "@/types";
 import {
@@ -57,10 +62,14 @@ export default function OrdersTable({ payments }: OrdersTableProps) {
         accessorKey: "invoiceNumber",
         header: "شماره سفارش",
         size: 130,
-        cell: ({ getValue }) => (
-          <span className="text-xs font-medium text-gray-8" dir="ltr">
-            {getValue<string>() || "-"}
-          </span>
+        cell: ({ row }) => (
+          <Link
+            href={`${ADMIN_ORDERS_PATH}/${row.original._id}`}
+            className="text-xs font-medium text-gray-8 hover:text-primary"
+            dir="ltr"
+          >
+            {row.original.invoiceNumber || "-"}
+          </Link>
         ),
       },
       {
