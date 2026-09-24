@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
   type ColumnDef,
 } from "@tanstack/react-table";
-import { Edit2 } from "iconsax-reactjs";
+import { Edit } from "iconsax-reactjs";
 
 import { deliveryMethodLabels, getOrderStatusLabel } from "@/constants/orders";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import {
   formatPrice,
   toPersianDigits,
 } from "@/utils/numberFormatter";
+import UpdateOrderStatusModal from "./UpdateOrderStatusModal";
 
 type OrdersTableProps = {
   payments: AdminPaymentResult[];
@@ -47,6 +48,9 @@ function getOrderReceiver(payment: AdminPaymentResult) {
 }
 
 export default function OrdersTable({ payments }: OrdersTableProps) {
+  const [selectedPayment, setSelectedPayment] =
+    useState<AdminPaymentResult | null>(null);
+
   const columns = useMemo<ColumnDef<AdminPaymentResult>[]>(
     () => [
       {
@@ -142,14 +146,15 @@ export default function OrdersTable({ payments }: OrdersTableProps) {
         id: "statusAction",
         header: "تغییر وضعیت",
         size: 90,
-        cell: () => (
+        cell: ({ row }) => (
           <Button
             type="button"
             variant="secondary"
             className="p-1"
             aria-label="تغییر وضعیت سفارش"
+            onClick={() => setSelectedPayment(row.original)}
           >
-            <Edit2 className="size-5" />
+            <Edit className="size-5" />
           </Button>
         ),
       },
@@ -164,45 +169,57 @@ export default function OrdersTable({ payments }: OrdersTableProps) {
   });
 
   return (
-    <div className="overflow-hidden rounded-lg bg-background">
-      <div className="overflow-x-auto scrollbar-thin">
-        <table className="min-w-full w-max">
-          <thead className="bg-gray-2">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className="p-2 py-3.75 text-xs font-semibold text-gray-7"
-                    style={{ width: header.getSize() }}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className="border-t border-gray-3 transition-colors hover:bg-gray-1"
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="p-2 text-center">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <>
+      <div className="overflow-hidden rounded-lg bg-background">
+        <div className="overflow-x-auto scrollbar-thin">
+          <table className="min-w-full w-max">
+            <thead className="bg-gray-2">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      key={header.id}
+                      className="p-2 py-3.75 text-xs font-semibold text-gray-7"
+                      style={{ width: header.getSize() }}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="border-t border-gray-3 transition-colors hover:bg-gray-1"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="p-2 text-center">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+
+      <UpdateOrderStatusModal
+        key={selectedPayment?._id ?? "empty"}
+        open={selectedPayment !== null}
+        onClose={() => setSelectedPayment(null)}
+        payment={selectedPayment}
+      />
+    </>
   );
 }

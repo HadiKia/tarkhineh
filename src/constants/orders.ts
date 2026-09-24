@@ -15,6 +15,20 @@ export const deliveryMethodLabels: Record<DeliveryMethod, string> = {
   pickup: "تحویل حضوری",
 };
 
+export function getOrderStatusOptions(deliveryMethod: DeliveryMethod) {
+  return deliveryMethod === "pickup"
+    ? ([
+        ["PREPARING", orderStatusLabels.PREPARING],
+        ["READY_FOR_PICKUP", orderStatusLabels.READY_FOR_PICKUP],
+        ["DELIVERED", orderStatusLabels.DELIVERED],
+      ] as const)
+    : ([
+        ["PREPARING", orderStatusLabels.PREPARING],
+        ["OUT_FOR_DELIVERY", orderStatusLabels.OUT_FOR_DELIVERY],
+        ["DELIVERED", orderStatusLabels.DELIVERED],
+      ] as const);
+}
+
 export function getOrderStatusLabel(
   status: OrderStatus | undefined,
   deliveryMethod?: DeliveryMethod,

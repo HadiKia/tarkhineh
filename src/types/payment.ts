@@ -72,3 +72,12 @@ export type AdminPaymentResult = PaymentResult & {
 export type AdminPaymentListResult = {
   payments: AdminPaymentResult[];
 };
+
+export type UpdateOrderStatusPayload = {
+  orderStatus: OrderStatus;
+};
+
+export type UpdateOrderStatusResult = {
+  message: string;
+  payment: Pick<PaymentResult, "_id" | "orderStatus">;
+};

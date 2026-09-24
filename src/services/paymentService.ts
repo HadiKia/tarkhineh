@@ -3,6 +3,8 @@ import type {
   CreatePaymentPayload,
   CreatePaymentResult,
   GetPaymentResult,
+  UpdateOrderStatusPayload,
+  UpdateOrderStatusResult,
 } from "@/types";
 
 import http from "./httpService";
@@ -22,5 +24,17 @@ export function getPayment(id: string) {
 export function getAdminPayments() {
   return http
     .get<{ data: AdminPaymentListResult }>("/admin/payment/list")
+    .then(({ data }) => data.data);
+}
+
+export function updateOrderStatus(
+  id: string,
+  payload: UpdateOrderStatusPayload,
+) {
+  return http
+    .patch<{ data: UpdateOrderStatusResult }>(
+      `/admin/payment/${id}/status`,
+      payload,
+    )
     .then(({ data }) => data.data);
 }
