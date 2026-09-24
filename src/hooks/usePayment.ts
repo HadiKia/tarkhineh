@@ -1,13 +1,30 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { createPayment, getPayment } from "@/services/paymentService";
-import type { CreatePaymentPayload, GetPaymentResult } from "@/types";
+import {
+  createPayment,
+  getAdminPayments,
+  getPayment,
+} from "@/services/paymentService";
+import type {
+  AdminPaymentListResult,
+  CreatePaymentPayload,
+  GetPaymentResult,
+} from "@/types";
 
 export const paymentQueryKeys = {
   all: ["payments"] as const,
   details: () => [...paymentQueryKeys.all, "detail"] as const,
   detail: (id: string) => [...paymentQueryKeys.details(), id] as const,
 };
+
+export const useGetAdminPayments = () =>
+  useQuery<AdminPaymentListResult>({
+    queryKey: [...paymentQueryKeys.all, "admin-list"],
+    queryFn: getAdminPayments,
+    refetchOnWindowFocus: true,
+    staleTime: 1000 * 60 * 5,
+    retry: false,
+  });
 
 export const useCreatePayment = () =>
   useMutation({

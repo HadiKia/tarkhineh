@@ -1,4 +1,5 @@
 import type {
+  AdminPaymentListResult,
   CreatePaymentPayload,
   CreatePaymentResult,
   GetPaymentResult,
@@ -15,5 +16,11 @@ export function createPayment(payload: CreatePaymentPayload) {
 export function getPayment(id: string) {
   return http
     .get<{ data: GetPaymentResult }>(`/payment/${id}`)
+    .then(({ data }) => data.data);
+}
+
+export function getAdminPayments() {
+  return http
+    .get<{ data: AdminPaymentListResult }>("/admin/payment/list")
     .then(({ data }) => data.data);
 }

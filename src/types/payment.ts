@@ -8,6 +8,19 @@ import type {
   PaymentMethod,
 } from "@/contexts/CartCheckoutContext";
 
+export type OrderStatus =
+  | "PREPARING"
+  | "OUT_FOR_DELIVERY"
+  | "READY_FOR_PICKUP"
+  | "DELIVERED";
+
+export type AdminPaymentUser = {
+  _id: ID;
+  name?: string;
+  email?: string;
+  phoneNumber?: string;
+};
+
 export type CreatePaymentPayload = {
   deliveryMethod: DeliveryMethod;
   addressId?: ID | null;
@@ -26,6 +39,7 @@ export type PaymentResult = {
   description?: string;
   paymentDate?: string;
   status: "UNCOMPLETED" | "COMPLETED";
+  orderStatus?: OrderStatus;
   isPaid: boolean;
   createdAt: ISODateString;
   cart?: CartDetail;
@@ -41,9 +55,20 @@ export type PaymentResult = {
 
 export type CreatePaymentResult = {
   message: string;
-  payment: Pick<PaymentResult, "_id" | "invoiceNumber" | "amount" | "status" | "isPaid">;
+  payment: Pick<
+    PaymentResult,
+    "_id" | "invoiceNumber" | "amount" | "status" | "orderStatus" | "isPaid"
+  >;
 };
 
 export type GetPaymentResult = {
   payment: PaymentResult;
+};
+
+export type AdminPaymentResult = PaymentResult & {
+  user?: AdminPaymentUser;
+};
+
+export type AdminPaymentListResult = {
+  payments: AdminPaymentResult[];
 };

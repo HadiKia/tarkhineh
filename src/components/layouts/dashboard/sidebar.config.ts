@@ -68,6 +68,12 @@ const ADMIN_LINKS: SidebarLinkItem[] = [
     path: "/admin/coupons",
     Icon: DiscountShape,
   },
+  {
+    id: 10,
+    children: "سفارشات",
+    path: "/admin/orders",
+    Icon: Wallet2,
+  },
 ];
 
 export const sidebarConfig: Record<UserRole, SidebarLinkItem[]> = {
