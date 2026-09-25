@@ -8,6 +8,7 @@ import AdminOrderDetails from "@/components/features/orders/admin/AdminOrderDeta
 import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 import { ADMIN_ORDERS_PATH } from "@/constants/orders";
 import { useGetAdminPayment } from "@/hooks/usePayment";
+import AdminOrderDetailsSkeleton from "@/components/features/orders/admin/AdminOrderDetailsSkeleton";
 
 export default function AdminOrderDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -16,7 +17,7 @@ export default function AdminOrderDetailsPage() {
   let content: ReactNode;
 
   if (isFetching) {
-    content = <p>loading...</p>;
+    content = <AdminOrderDetailsSkeleton />;
   } else if (!data?.payment) {
     content = <EmptyState title="سفارش مورد نظر یافت نشد." />;
   } else {
