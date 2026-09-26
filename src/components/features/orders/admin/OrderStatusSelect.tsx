@@ -76,7 +76,7 @@ export default function OrderStatusSelect({
           <SelectValue placeholder="انتخاب وضعیت" />
         </SelectTrigger>
         <SelectContent position="popper">
-          {options.map(([value, label]) => (
+          {options.map(({ value, label }) => (
             <SelectItem key={value} value={value}>
               {label}
             </SelectItem>

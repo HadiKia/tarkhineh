@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { getOrderStatusOptions } from "@/constants/orders";
 import type { PaymentResult } from "@/types";
 import { cn } from "@/lib/utils";
 import {
@@ -7,7 +8,13 @@ import {
   formatPrice,
   toPersianDigits,
 } from "@/utils/numberFormatter";
-import { Calendar, ClipboardText, Location, Wallet2 } from "iconsax-reactjs";
+import {
+  Calendar,
+  ClipboardText,
+  Location,
+  ReceiptText,
+  Wallet2,
+} from "iconsax-reactjs";
 
 type OrderTrackingCardProps = {
   payment: PaymentResult;
@@ -22,9 +29,11 @@ export default function OrderTrackingCard({
     amount,
     paymentMethod,
     status,
+    orderStatus,
     isPaid,
     createdAt,
     cart,
+    invoiceNumber,
     checkout: { deliveryMethod, address, branch, note } = {},
   } = payment;
 
@@ -65,9 +74,17 @@ export default function OrderTrackingCard({
   const productDiscount = cart?.payDetail?.totalProductDiscount ?? 0;
   const totalDiscount = cart?.payDetail?.totalOffAmount ?? 0;
   const couponDiscount = Math.max(0, totalDiscount - productDiscount);
+  const hasCartItems = (cart?.productDetail?.length ?? 0) > 0;
+  const orderStatusSteps = getOrderStatusOptions(deliveryMethod ?? "courier");
+  const activeStatusIndex = Math.max(
+    orderStatusSteps.findIndex(
+      (step) => step.value === (orderStatus ?? "PREPARING"),
+    ),
+    0,
+  );
 
   return (
-    <div className="border border-gray-4 rounded-lg lg:rounded px-3 py-2 lg:px-6 lg:py-4">
+    <div className="border border-gray-4 rounded-lg lg:rounded px-3 py-2  lg:px-6 lg:py-4">
       <div className="flex items-center justify-between mb-4">
         <span className="text-xs lg:text-sm text-gray-7">
           {branch?.title ?? "-"}
@@ -80,7 +97,12 @@ export default function OrderTrackingCard({
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 text-xs text-gray-7 mb-2 lg:mb-4">
+      <div className="flex flex-col gap-2 text-xs text-gray-7 mb-4">
+        <div className="flex items-start flex-wrap gap-1">
+          <ReceiptText className="size-4" />
+          <span>شماره سفارش:</span>
+          <span>{invoiceNumber}</span>
+        </div>
         <div className="flex items-start gap-1">
           <Calendar className="size-4" />
           <span>{formatDateTime(createdAt)}</span>
@@ -108,6 +130,54 @@ export default function OrderTrackingCard({
           </div>
         )}
       </div>
+
+      <nav
+        className="mb-4 overflow-x-auto scrollbar-none"
+        aria-label="وضعیت سفارش"
+      >
+        <div className="flex min-w-max items-center">
+          {orderStatusSteps.map((step, index) => (
+            <div
+              key={step.value}
+              className="flex flex-1 items-center last:flex-none"
+            >
+              <div
+                className={cn(
+                  "flex items-center gap-1 whitespace-nowrap text-sm text-gray-4",
+                  index === 0 && "pe-1 lg:pe-2",
+                  index > 0 &&
+                    index < orderStatusSteps.length - 1 &&
+                    "px-1 lg:px-2",
+                  index === orderStatusSteps.length - 1 && "ps-1 lg:ps-2",
+                  index <= activeStatusIndex && "text-primary text-base",
+                  index === activeStatusIndex && "font-bold",
+                )}
+              >
+                <step.icon
+                  className={cn(
+                    "size-4 lg:size-6",
+                    index === activeStatusIndex && "size-6 lg:size-8",
+                  )}
+                />
+                <span className="hidden lg:block">{step.label}</span>
+              </div>
+              {index < orderStatusSteps.length - 1 && (
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "relative h-px flex-1 border-t-2 border-dashed border-gray-4",
+                    index < activeStatusIndex && "border-primary",
+                  )}
+                >
+                  {index === 0 && activeStatusIndex === 0 && hasCartItems && (
+                    <span className="absolute inset-s-0 -top-0.5 w-[51%] lg:w-[52%] border-t-2 border-dashed border-primary" />
+                  )}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </nav>
 
       <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 lg:gap-4">
         {cart?.productDetail?.map(
