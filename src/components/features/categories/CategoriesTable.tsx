@@ -131,7 +131,7 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
           return (
             <span
               className={cn(
-                "rounded-lg px-2 py-0.5 text-xs font-medium",
+                "rounded-lg px-2 py-1 text-xs",
                 isSubRow
                   ? "bg-secondary text-primary"
                   : "bg-primary text-white",

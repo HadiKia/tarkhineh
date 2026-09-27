@@ -75,7 +75,7 @@ export default function CouponsTable({ coupons }: CouponsTableProps) {
         header: "مقدار",
         size: 100,
         cell: ({ row }) => (
-          <span className="rounded-lg px-2 py-0.5 text-xs font-medium bg-error-extraLight text-error">
+          <span className="rounded-lg px-2 py-1 text-xs font-medium bg-error-extraLight text-error">
             {row.original.type === "percent"
               ? `${toPersianDigits(row.original.amount)}٪`
               : `${formatPrice(row.original.amount)} تومان`}

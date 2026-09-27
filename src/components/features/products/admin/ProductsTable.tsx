@@ -103,7 +103,7 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
         cell: ({ getValue }) => {
           const discount = getValue<number>();
           return discount > 0 ? (
-            <span className="rounded-lg px-2 py-0.5 text-xs font-medium bg-error-extraLight text-error">
+            <span className="rounded-lg px-2 py-1 text-xs font-medium bg-error-extraLight text-error">
               {toPersianDigits(discount)}%
             </span>
           ) : (
