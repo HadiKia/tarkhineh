@@ -29,13 +29,44 @@ export default function ProfileOrderTrackingsLoading() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 mb-2 lg:mb-4">
+              <div className="flex flex-col gap-2 mb-4">
                 {[...Array(3)].map((_, index) => (
                   <div key={index} className="flex items-start gap-1">
                     <div className="size-4 rounded bg-gray-2 animate-pulse" />
                     <div className="h-4 w-38 lg:w-50 rounded bg-gray-2 animate-pulse" />
                   </div>
                 ))}
+              </div>
+
+              <div className="mb-4 overflow-x-auto scrollbar-none">
+                <div className="flex min-w-max items-center">
+                  <div className="flex flex-1 items-center last:flex-none">
+                    <div className="flex items-center gap-1 whitespace-nowrap pe-1 lg:pe-2 text-primary text-base">
+                      <div className="size-4 lg:size-6 bg-gray-2 rounded animate-pulse"></div>
+                      <div className="hidden lg:block w-30 h-5 bg-gray-2 rounded animate-pulse"></div>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="relative h-px flex-1 border-t-2 border-dashed border-gray-4"
+                    ></span>
+                  </div>
+                  <div className="flex flex-1 items-center last:flex-none">
+                    <div className="flex items-center gap-1 whitespace-nowrap px-1 lg:px-2 text-primary text-base font-bold">
+                      <div className="size-4 lg:size-6 bg-gray-2 rounded animate-pulse"></div>
+                      <div className="hidden lg:block w-30 h-5 bg-gray-2 rounded animate-pulse"></div>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="relative h-px flex-1 border-t-2 border-dashed border-gray-4"
+                    ></span>
+                  </div>
+                  <div className="flex flex-1 items-center last:flex-none">
+                    <div className="flex items-center gap-1 whitespace-nowrap text-sm text-gray-4 ps-1 lg:ps-2">
+                      <div className="size-4 lg:size-6 bg-gray-2 rounded animate-pulse"></div>
+                      <div className="hidden lg:block w-30 h-5 bg-gray-2 rounded animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 lg:gap-4">
