@@ -36,7 +36,7 @@ export const couponSchema: yup.ObjectSchema<CouponFormValues> = yup.object({
     .required("ظرفیت کد تخفیف الزامی است"),
   type: yup
     .mixed<CouponType>()
-    .oneOf(["percent", "fixedProduct"], "نوع کد تخفیف صحیح نیست")
+    .oneOf(["percent", "fixedCart"], "نوع کد تخفیف صحیح نیست")
     .required("نوع کد تخفیف الزامی است"),
   categoryIds: yup
     .array()

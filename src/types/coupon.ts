@@ -1,7 +1,7 @@
 import { ID } from "./api";
 import { ProductCategoryType } from "./category";
 
-export type CouponType = "percent" | "fixedProduct";
+export type CouponType = "percent" | "fixedCart";
 
 export type CouponCategory = {
   _id: ID;

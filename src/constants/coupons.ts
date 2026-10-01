@@ -4,5 +4,5 @@ export const EDIT_COUPON_PATH = `${ADMIN_COUPONS_PATH}/edit-coupon`;
 
 export const couponTypeLabels = {
   percent: "درصدی",
-  fixedProduct: "مبلغ ثابت",
+  fixedCart: "مبلغ ثابت",
 } as const;
