@@ -5,6 +5,7 @@ import {
   DiscountShape,
   Heart,
   Location,
+  Profile2User,
   Setting2,
   Shop,
   User,
@@ -73,6 +74,12 @@ const ADMIN_LINKS: SidebarLinkItem[] = [
     children: "سفارشات",
     path: "/admin/orders",
     Icon: Wallet2,
+  },
+  {
+    id: 11,
+    children: "کاربران",
+    path: "/admin/users",
+    Icon: Profile2User,
   },
 ];
 

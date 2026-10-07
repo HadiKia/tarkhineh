@@ -60,6 +60,16 @@ export type User = {
   updatedAt: ISODateString;
 };
 
+export type UserListParams = {
+  page?: number;
+  limit?: number;
+  search?: string;
+};
+
+export type UserListResult = {
+  users: User[];
+};
+
 export type UpdateProfilePayload = {
   name: string;
   email: string;
