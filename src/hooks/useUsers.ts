@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { getUsers } from "@/services/userService";
+import { deleteUser, getUsers } from "@/services/userService";
 import type { UserListParams, UserListResult } from "@/types";
 
 export const userQueryKeys = {
@@ -17,4 +17,9 @@ export const useGetUsers = (params?: UserListParams) =>
     refetchOnWindowFocus: true,
     staleTime: 1000 * 60 * 5,
     retry: false,
+  });
+
+export const useDeleteUser = (id: string) =>
+  useMutation({
+    mutationFn: () => deleteUser(id),
   });

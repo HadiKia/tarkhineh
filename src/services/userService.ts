@@ -21,3 +21,9 @@ export function getUsers(
     })
     .then(({ data }) => data.data);
 }
+
+export function deleteUser(id: string) {
+  return http
+    .delete<{ data: { message: string } }>(`/admin/user/remove/${id}`)
+    .then(({ data }) => data.data);
+}

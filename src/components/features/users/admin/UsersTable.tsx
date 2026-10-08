@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import type { User, UserRole } from "@/types";
 import { formatDate } from "@/utils/numberFormatter";
 import { Trash } from "iconsax-reactjs";
+import DeleteUserModal from "./DeleteUserModal";
 
 const roleBadgeStyles: Record<UserRole, string> = {
   ADMIN: "bg-primary text-white",
@@ -24,6 +25,28 @@ const roleLabels: Record<UserRole, string> = {
   ADMIN: "مدیر",
   USER: "کاربر",
 };
+
+function UserDeleteAction({ userId }: { userId: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button
+        type="button"
+        variant="destructive"
+        className="p-1"
+        onClick={() => setOpen(true)}
+      >
+        <Trash className="size-5" />
+      </Button>
+      <DeleteUserModal
+        open={open}
+        onClose={() => setOpen(false)}
+        userId={userId}
+      />
+    </>
+  );
+}
 
 type UsersTableProps = {
   users: User[];
@@ -119,11 +142,7 @@ const UsersTable = ({ users }: UsersTableProps) => {
         id: "delete",
         header: "حذف",
         size: 60,
-        cell: () => (
-          <Button type="button" variant="destructive" className="p-1">
-            <Trash className="size-5" />
-          </Button>
-        ),
+        cell: ({ row }) => <UserDeleteAction userId={row.original._id} />,
       },
     ],
     [],
