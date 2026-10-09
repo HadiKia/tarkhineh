@@ -9,7 +9,7 @@ import {
 import { isAxiosError } from "axios";
 
 import MenuProvider from "@/contexts/MenuContext";
-import { HERO_SLIDES } from "@/constants/menuHero";
+import { MENU_HERO_SLIDES } from "@/constants/menuHero";
 import { productQueryKeys } from "@/hooks/useProducts";
 import { categoryQueryKeys } from "@/hooks/useCategories";
 import { getProducts } from "@/services/productService";
@@ -136,7 +136,7 @@ export default async function MenuPage({
 
   return (
     <>
-      <HeroCarousel slides={HERO_SLIDES} />
+      <HeroCarousel slides={MENU_HERO_SLIDES} />
 
       <HydrationBoundary state={dehydrate(queryClient)}>
         <MenuProvider defaultMealCourse={defaultMealCourse}>
