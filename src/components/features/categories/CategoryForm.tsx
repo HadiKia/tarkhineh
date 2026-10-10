@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import TextArea from "@/components/common/TextArea";
 import TextField from "@/components/common/TextField";
+import FileInput from "@/components/common/FileInput";
 import { Button } from "@/components/ui/button";
 
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
@@ -38,6 +39,9 @@ type CategoryFormProps = {
   isLoading: boolean;
   isSubmitDisabled: boolean;
   isEditing?: boolean;
+  imagePreview: string | null;
+  onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onImageRemove: () => void;
 };
 
 export function CategoryForm({
@@ -49,6 +53,9 @@ export function CategoryForm({
   isLoading,
   isSubmitDisabled,
   isEditing = false,
+  imagePreview,
+  onImageChange,
+  onImageRemove,
 }: CategoryFormProps) {
   const productType = useWatch({ control, name: "productType" });
 
@@ -156,6 +163,25 @@ export function CategoryForm({
         error={errors.description?.message}
         {...register("description")}
       />
+
+      {productType === ProductCategoryType.MEAL_COURSE && (
+        <Field data-invalid={Boolean(errors.image)} className="lg:col-span-2">
+          <FieldLabel className="text-xs text-gray-7 font-normal">
+            تصویر دسته‌بندی
+          </FieldLabel>
+          <FileInput
+            name="image"
+            label="تصویر دسته‌بندی"
+            placeholder="تصویر وعده غذایی را انتخاب کنید..."
+            accept="image/*"
+            isRequired
+            previewUrl={imagePreview}
+            onChange={onImageChange}
+            onRemove={onImageRemove}
+            errors={errors}
+          />
+        </Field>
+      )}
 
       <div className="flex w-full items-center justify-between gap-4 lg:col-start-2">
         <Button

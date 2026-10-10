@@ -22,6 +22,7 @@ export interface Category {
   type: CategoryType;
   productType: ProductCategoryType | "static_filter" | null;
   parentId: ID | null;
+  imageUrl: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -65,6 +66,7 @@ export interface CreateCategoryPayload {
   productType: ProductCategoryType;
   description: string;
   parent: string;
+  image: File | string | null;
 }
 
 export interface UpdateCategoryPayload {
@@ -74,6 +76,7 @@ export interface UpdateCategoryPayload {
   productType: ProductCategoryType;
   description: string;
   parent?: string;
+  image?: File | string | null;
 }
 
 export interface CategoryMessageResponse {

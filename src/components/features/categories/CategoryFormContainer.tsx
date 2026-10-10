@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -7,6 +8,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
 import { ADMIN_CATEGORIES_PATH } from "@/constants/categories";
+import { MAX_PRODUCT_IMAGE_SIZE } from "@/constants/upload";
 import {
   categoryQueryKeys,
   useCreateCategory,
@@ -36,11 +38,37 @@ const CategoryFormContainer = ({ category }: CategoryFormContainerProps) => {
 
   const { isPending } = isEditing ? updateMutation : createMutation;
 
+  const serverImage = category?.imageUrl ?? null;
+  const [preview, setPreview] = useState<{
+    url: string | null;
+    base: string | null;
+  }>({ url: serverImage, base: serverImage });
+
+  if (preview.base !== serverImage) {
+    setPreview({
+      url:
+        preview.url && preview.url.startsWith("blob:")
+          ? preview.url
+          : serverImage,
+      base: serverImage,
+    });
+  }
+  const imagePreview = preview.url;
+  const createdBlobUrlsRef = useRef<string[]>([]);
+
+  useEffect(() => {
+    const createdBlobUrls = createdBlobUrlsRef.current;
+    return () => {
+      createdBlobUrls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, []);
+
   const {
     control,
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isDirty, isValid },
   } = useForm<CategoryFormValues>({
     resolver: yupResolver(categorySchema),
@@ -51,6 +79,7 @@ const CategoryFormContainer = ({ category }: CategoryFormContainerProps) => {
           productType: category.productType as ProductCategoryType,
           parent: category.parentId ?? "",
           description: category.description,
+          image: category.imageUrl,
         }
       : {
           title: "",
@@ -58,6 +87,7 @@ const CategoryFormContainer = ({ category }: CategoryFormContainerProps) => {
           productType: ProductCategoryType.MEAL_COURSE,
           parent: "",
           description: "",
+          image: null,
         },
     mode: "onChange",
   });
@@ -66,6 +96,52 @@ const CategoryFormContainer = ({ category }: CategoryFormContainerProps) => {
     reset();
 
     router.push(ADMIN_CATEGORIES_PATH);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    setValue("image", file, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+
+    if (file.size > MAX_PRODUCT_IMAGE_SIZE) {
+      setPreview((previousPreview) => ({
+        ...previousPreview,
+        url: null,
+      }));
+
+      return;
+    }
+
+    const url = URL.createObjectURL(file);
+    createdBlobUrlsRef.current.push(url);
+
+    setPreview((previousPreview) => {
+      if (previousPreview.url && previousPreview.url.startsWith("blob:")) {
+        URL.revokeObjectURL(previousPreview.url);
+      }
+
+      return { ...previousPreview, url };
+    });
+  };
+
+  const handleImageRemove = () => {
+    setPreview((previousPreview) => {
+      if (previousPreview.url && previousPreview.url.startsWith("blob:")) {
+        URL.revokeObjectURL(previousPreview.url);
+      }
+
+      return { ...previousPreview, url: null };
+    });
+
+    setValue("image", null, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   };
 
   const submitHandler: SubmitHandler<CategoryFormValues> = async (formData) => {
@@ -109,6 +185,9 @@ const CategoryFormContainer = ({ category }: CategoryFormContainerProps) => {
       isLoading={isPending}
       isSubmitDisabled={isSubmitDisabled}
       isEditing={isEditing}
+      imagePreview={imagePreview}
+      onImageChange={handleImageChange}
+      onImageRemove={handleImageRemove}
     />
   );
 };

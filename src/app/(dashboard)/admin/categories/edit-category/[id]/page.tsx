@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 
 import EmptyState from "@/components/common/EmptyState";
+import FileInputSkeleton from "@/components/common/FileInputSkeleton";
 import TextAreaSkeleton from "@/components/common/TextAreaSkeleton";
 import TextFieldSkeleton from "@/components/common/TextFieldSkeleton";
 import CategoryFormContainer from "@/components/features/categories/CategoryFormContainer";
@@ -26,6 +27,9 @@ const EditCategory = () => {
         <TextFieldSkeleton />
         <div className="lg:col-span-2">
           <TextAreaSkeleton />
+        </div>
+        <div className="lg:col-span-2">
+          <FileInputSkeleton />
         </div>
       </div>
     );

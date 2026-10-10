@@ -1,5 +1,9 @@
 import * as yup from "yup";
 
+import {
+  MAX_PRODUCT_IMAGE_SIZE,
+  MAX_PRODUCT_IMAGE_SIZE_MESSAGE,
+} from "@/constants/upload";
 import { CategoryType, ProductCategoryType } from "@/types";
 
 export type CategoryFormValues = {
@@ -8,6 +12,7 @@ export type CategoryFormValues = {
   productType: ProductCategoryType;
   parent?: string;
   description: string;
+  image: File | string | null;
 };
 
 export const categorySchema: yup.ObjectSchema<CategoryFormValues> = yup.object({
@@ -36,6 +41,23 @@ export const categorySchema: yup.ObjectSchema<CategoryFormValues> = yup.object({
     .required("توضیحات الزامی است")
     .min(3, "توضیحات باید حداقل ۳ کاراکتر باشد")
     .max(200, "توضیحات نباید بیشتر از ۲۰۰ کاراکتر باشد"),
+  image: yup
+    .mixed<File | string>()
+    .nullable()
+    .default(null)
+    .test(
+      "required-for-meal-course",
+      "تصویر برای وعده غذایی الزامی است",
+      function (value) {
+        const { productType } = this.parent as CategoryFormValues;
+        if (productType !== ProductCategoryType.MEAL_COURSE) return true;
+        return Boolean(value);
+      },
+    )
+    .test("fileSize", MAX_PRODUCT_IMAGE_SIZE_MESSAGE, (value) => {
+      if (!value || typeof value === "string") return true;
+      return value.size <= MAX_PRODUCT_IMAGE_SIZE;
+    }),
 });
 
 export const toCreateCategoryPayload = (values: CategoryFormValues) => ({
@@ -48,4 +70,5 @@ export const toCreateCategoryPayload = (values: CategoryFormValues) => ({
       ? (values.parent ?? "")
       : "",
   description: values.description,
+  image: values.image ?? null,
 });
