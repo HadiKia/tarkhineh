@@ -73,3 +73,9 @@ export function deleteCategory(id: string) {
     .delete<{ data: { message: string } }>(`/admin/category/remove/${id}`)
     .then(({ data }) => data.data);
 }
+
+export function reorderCategories(ids: string[]) {
+  return http
+    .patch<{ data: { message: string } }>("/admin/category/reorder", { ids })
+    .then(({ data }) => data.data);
+}

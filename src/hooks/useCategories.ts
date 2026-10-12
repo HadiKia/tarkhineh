@@ -3,6 +3,7 @@ import {
   deleteCategory,
   getCategories,
   getCategoryById,
+  reorderCategories,
   updateCategory,
 } from "@/services/categoryService";
 import type {
@@ -56,6 +57,11 @@ export const useUpdateCategory = (id: string) =>
 export const useDeleteCategory = (id: string) =>
   useMutation({
     mutationFn: () => deleteCategory(id),
+  });
+
+export const useReorderCategories = () =>
+  useMutation({
+    mutationFn: (ids: string[]) => reorderCategories(ids),
   });
 
 export const useSuspenseCategories = (params?: CategoryListParams) =>

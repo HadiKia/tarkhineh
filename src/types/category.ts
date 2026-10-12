@@ -23,6 +23,7 @@ export interface Category {
   productType: ProductCategoryType | "static_filter" | null;
   parentId: ID | null;
   imageUrl: string | null;
+  order: number;
   createdAt: string;
   updatedAt: string;
 }
