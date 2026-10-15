@@ -20,19 +20,45 @@ export function getBranchById(id: string) {
 }
 
 export function createBranch(payload: CreateBranchPayload) {
+  const body = new FormData();
+  body.append("title", payload.title);
+  body.append("phoneNumber1", payload.phoneNumber1);
+  body.append("phoneNumber2", payload.phoneNumber2 ?? "");
+  body.append("address", payload.address);
+  body.append("workingHours", payload.workingHours);
+  if (payload.image instanceof File) body.append("image", payload.image);
+
   return http
     .post<{ data: { message: string; branch: Branch } }>(
       "/admin/branch/add",
-      payload,
+      body,
     )
     .then(({ data }) => data.data);
 }
 
 export function updateBranch(id: string, payload: UpdateBranchPayload) {
+  const body = new FormData();
+  body.append("title", payload.title);
+  body.append("phoneNumber1", payload.phoneNumber1);
+  body.append("phoneNumber2", payload.phoneNumber2 ?? "");
+  body.append("address", payload.address);
+  body.append("workingHours", payload.workingHours);
+
+  if (payload.image instanceof File) {
+    body.append("image", payload.image);
+  }
+  const existingImage =
+    typeof payload.image === "string"
+      ? payload.image.includes("/uploads/")
+        ? payload.image.substring(payload.image.indexOf("/uploads/") + 1)
+        : payload.image
+      : "";
+  body.append("existingImage", existingImage);
+
   return http
     .patch<{ data: { message: string; branch: Branch } }>(
       `/admin/branch/update/${id}`,
-      payload,
+      body,
     )
     .then(({ data }) => data.data);
 }

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useParams } from "next/navigation";
 
 import EmptyState from "@/components/common/EmptyState";
+import FileInputSkeleton from "@/components/common/FileInputSkeleton";
 import TextAreaSkeleton from "@/components/common/TextAreaSkeleton";
 import TextFieldSkeleton from "@/components/common/TextFieldSkeleton";
 import BranchFormContainer from "@/components/features/branches/BranchFormContainer";
@@ -26,6 +27,9 @@ const EditBranch = () => {
         <TextFieldSkeleton />
         <div className="lg:col-span-2">
           <TextAreaSkeleton />
+        </div>
+        <div className="lg:col-span-2">
+          <FileInputSkeleton />
         </div>
       </div>
     );

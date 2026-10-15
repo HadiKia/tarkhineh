@@ -7,6 +7,7 @@ export interface Branch {
   phoneNumber2: string | null;
   address: string;
   workingHours: string;
+  imageUrl: string | null;
   createdAt: ISODateString;
   updatedAt: ISODateString;
 }
@@ -28,6 +29,7 @@ export interface CreateBranchPayload {
   phoneNumber2?: string;
   address: string;
   workingHours: string;
+  image: File | string | null;
 }
 
 export type UpdateBranchPayload = CreateBranchPayload;

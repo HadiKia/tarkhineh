@@ -1,5 +1,10 @@
 import * as yup from "yup";
 
+import {
+  MAX_PRODUCT_IMAGE_SIZE,
+  MAX_PRODUCT_IMAGE_SIZE_MESSAGE,
+} from "@/constants/upload";
+
 const phoneNumberSchema = yup
   .string()
   .trim()
@@ -33,6 +38,17 @@ export const branchSchema: yup.ObjectSchema<BranchFormValues> = yup.object({
     .required("ساعات کاری الزامی است")
     .min(3, "ساعات کاری باید حداقل ۳ کاراکتر باشد")
     .max(200, "ساعات کاری نباید بیشتر از ۲۰۰ کاراکتر باشد"),
+  image: yup
+    .mixed<File | string>()
+    .nullable()
+    .default(null)
+    .test("required-image", "تصویر برای شعبه الزامی است", (value) =>
+      Boolean(value),
+    )
+    .test("fileSize", MAX_PRODUCT_IMAGE_SIZE_MESSAGE, (value) => {
+      if (!value || typeof value === "string") return true;
+      return value.size <= MAX_PRODUCT_IMAGE_SIZE;
+    }),
 });
 
 export type BranchFormValues = {
@@ -41,6 +57,7 @@ export type BranchFormValues = {
   phoneNumber2: string;
   address: string;
   workingHours: string;
+  image: File | string | null;
 };
 
 export const toCreateBranchPayload = (values: BranchFormValues) => ({
@@ -49,4 +66,5 @@ export const toCreateBranchPayload = (values: BranchFormValues) => ({
   phoneNumber2: values.phoneNumber2,
   address: values.address,
   workingHours: values.workingHours,
+  image: values.image ?? null,
 });
