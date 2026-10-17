@@ -1,10 +1,9 @@
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
-import { Button } from "@/components/ui/button";
-import { SearchNormal1 } from "iconsax-reactjs";
 import UserMenu from "./UserMenu";
 import CartHeaderButton from "./CartHeaderButton";
+import HeaderSearchButton from "./HeaderSearchButton";
 
 export default function Header() {
   return (
@@ -22,13 +21,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-x-1 lg:gap-x-2">
-          <Button
-            variant="secondary"
-            aria-label="جستجو"
-            className="hidden lg:flex p-1 lg:p-1.75"
-          >
-            <SearchNormal1 className="w-4 h-4 lg:w-6 lg:h-6" />
-          </Button>
+          <HeaderSearchButton />
 
           <CartHeaderButton />
 
