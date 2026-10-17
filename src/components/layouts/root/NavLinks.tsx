@@ -35,7 +35,7 @@ export default function NavLinks({
 
         return (
           <Fragment key={link.href}>
-            {link.href === "/franchise" && (
+            {link.href === "/about" && (
               <li className={cn(itemClassName)}>
                 <BranchSelector isMobile={showIcons} onSelect={onLinkClick} />
               </li>

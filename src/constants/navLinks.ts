@@ -3,7 +3,6 @@ import {
   Profile2User,
   MenuBoard,
   CallCalling,
-  Bank,
 } from "iconsax-reactjs";
 import { ElementType } from "react";
 
@@ -23,11 +22,6 @@ export const NAV_LINKS: NavLink[] = [
     label: "منو",
     href: "/menu",
     icon: MenuBoard,
-  },
-  {
-    label: "اعطای نمایندگی",
-    href: "/franchise",
-    icon: Bank,
   },
   {
     label: "درباره ما",
