@@ -1,15 +1,14 @@
 "use client";
 
-import Search from "@/components/common/Search";
 import { useMenuContext } from "@/contexts/MenuContext";
+import SearchSectionBase from "@/components/sections/search/SearchSection";
 
 export default function SearchSection() {
   const { selectedSearch, onSearch } = useMenuContext();
 
   return (
-    <Search
+    <SearchSectionBase
       value={selectedSearch ?? ""}
-      placeholder="جستجوی غذا..."
       onSearch={onSearch}
     />
   );
