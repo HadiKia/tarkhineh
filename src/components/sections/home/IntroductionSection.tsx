@@ -1,20 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Diagram, HomeWifi, MenuBoard, User } from "iconsax-reactjs";
+import { RESTAURANT_FEATURES } from "@/constants/restaurantFeatures";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import type { ComponentType, SVGProps } from "react";
-
-type IntroductionFeature = {
-  label: string;
-  Icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
-
-const INTRODUCTION_FEATURES: IntroductionFeature[] = [
-  { label: "پرسنلی مجرب و حرفه‌ای", Icon: User },
-  { label: "کیفیت بالای غذاها", Icon: Diagram },
-  { label: "محیطی دلنشین و آرام", Icon: HomeWifi },
-  { label: "منوی متنوع", Icon: MenuBoard },
-];
 
 export default function IntroductionSection() {
   return (
@@ -46,7 +33,7 @@ export default function IntroductionSection() {
         </div>
 
         <div className="grid grid-cols-2 gap-x-12 gap-y-4 lg:gap-x-6 lg:gap-y-2">
-          {INTRODUCTION_FEATURES.map(({ label, Icon }) => (
+          {RESTAURANT_FEATURES.map(({ label, Icon }) => (
             <div
               key={label}
               className="flex flex-col items-center justify-center gap-1 text-center lg:gap-4"
