@@ -9,7 +9,7 @@ export default function TermsContentSection() {
   return (
     <div className="mx-auto w-full max-w-306 px-4 pt-3 pb-6 lg:pt-6 lg:pb-12 xl:px-0">
       <Accordion type="single" collapsible className="overflow-hidden">
-        <AccordionItem value="faq-1" className="px-4 py-2 lg:py-4.5">
+        <AccordionItem value="terms-1" className="px-4 py-2 lg:py-4.5">
           <AccordionTrigger className="flex items-center gap-1 p-0! text-xs transition-all duration-200 ease-linear">
             حداقل سفارش
           </AccordionTrigger>
@@ -20,7 +20,7 @@ export default function TermsContentSection() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="faq-2" className="px-4 py-2 lg:py-4.5">
+        <AccordionItem value="terms-2" className="px-4 py-2 lg:py-4.5">
           <AccordionTrigger className="flex items-center gap-1 p-0! text-xs transition-all duration-200 ease-linear">
             فاصله تحویل
           </AccordionTrigger>
@@ -32,7 +32,7 @@ export default function TermsContentSection() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="faq-3" className="px-4 py-2 lg:py-4.5">
+        <AccordionItem value="terms-3" className="px-4 py-2 lg:py-4.5">
           <AccordionTrigger className="flex items-center gap-1 p-0! text-xs transition-all duration-200 ease-linear">
             زمان تحویل
           </AccordionTrigger>
@@ -43,7 +43,7 @@ export default function TermsContentSection() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="faq-4" className="px-4 py-2 lg:py-4.5">
+        <AccordionItem value="terms-4" className="px-4 py-2 lg:py-4.5">
           <AccordionTrigger className="flex items-center gap-1 p-0! text-xs transition-all duration-200 ease-linear">
             گزینه‌های پرداخت
           </AccordionTrigger>
@@ -54,7 +54,7 @@ export default function TermsContentSection() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="faq-5" className="px-4 py-2 lg:py-4.5">
+        <AccordionItem value="terms-5" className="px-4 py-2 lg:py-4.5">
           <AccordionTrigger className="flex items-center gap-1 p-0! text-xs transition-all duration-200 ease-linear">
             دقت سفارش
           </AccordionTrigger>
@@ -66,7 +66,7 @@ export default function TermsContentSection() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="faq-6" className="px-4 py-2 lg:py-4.5">
+        <AccordionItem value="terms-6" className="px-4 py-2 lg:py-4.5">
           <AccordionTrigger className="flex items-center gap-1 p-0! text-xs transition-all duration-200 ease-linear">
             شرایط لغو سفارش
           </AccordionTrigger>
@@ -78,7 +78,7 @@ export default function TermsContentSection() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="faq-7" className="px-4 py-2 lg:py-4.5">
+        <AccordionItem value="terms-7" className="px-4 py-2 lg:py-4.5">
           <AccordionTrigger className="flex items-center gap-1 p-0! text-xs transition-all duration-200 ease-linear">
             شرایط بازگشت سفارش
           </AccordionTrigger>
@@ -89,7 +89,7 @@ export default function TermsContentSection() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="faq-8" className="px-4 py-2 lg:py-4.5">
+        <AccordionItem value="terms-8" className="px-4 py-2 lg:py-4.5">
           <AccordionTrigger className="flex items-center gap-1 p-0! text-xs transition-all duration-200 ease-linear">
             تخفیفات
           </AccordionTrigger>

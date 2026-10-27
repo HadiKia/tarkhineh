@@ -10,7 +10,7 @@ export default function FaqPage() {
         title="سوالات متداول از ترخینه"
       />
       <InformationTabs activeTab="faq" />
-      <FaqContentSection/>
+      <FaqContentSection />
     </>
   );
 }
