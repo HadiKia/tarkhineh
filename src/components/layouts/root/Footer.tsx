@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import FooterBranches from "@/components/layouts/root/FooterBranches";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
@@ -9,16 +10,9 @@ type FooterLink = {
 };
 
 const quickLinks: FooterLink[] = [
-  { title: "پرسش‌های متداول", href: "#" },
-  { title: "قوانین ترخینه", href: "#" },
-  { title: "حریم خصوصی", href: "#" },
-];
-
-const branches: FooterLink[] = [
-  { title: "شعبه اکباتان", href: "#" },
-  { title: "شعبه چالوس", href: "#" },
-  { title: "شعبه اقدسیه", href: "#" },
-  { title: "شعبه ونک", href: "#" },
+  { title: "پرسش‌های متداول", href: "faq" },
+  { title: "قوانین ترخینه", href: "terms" },
+  { title: "حریم خصوصی", href: "privacy" },
 ];
 
 const sectionTitleClass =
@@ -65,11 +59,7 @@ const Footer = () => {
           <h6 className={sectionTitleClass}>شعبه‌های ترخینه</h6>
 
           <ul className={listClass}>
-            {branches.map((item) => (
-              <li key={item.title} className={linkClass}>
-                <Link href={item.href}>{item.title}</Link>
-              </li>
-            ))}
+            <FooterBranches itemClassName={linkClass} />
           </ul>
         </div>
 
