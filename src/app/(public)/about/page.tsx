@@ -1,6 +1,11 @@
 import AboutDescriptionSection from "@/components/sections/about/AboutDescriptionSection";
 import AboutValuesSection from "@/components/sections/about/AboutValuesSection";
+import type { Metadata } from "next";
 import PageHeroSection from "@/components/sections/shared/PageHeroSection";
+
+export const metadata: Metadata = {
+  title: "درباره ترخینه",
+};
 
 export default function AboutPage() {
   return (

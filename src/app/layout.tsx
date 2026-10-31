@@ -12,8 +12,11 @@ import BranchProvider from "@/contexts/BranchContext";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "رستوران های زنجیره‌ای ترخینه",
-  description: "رستوران های زنجیره‌ای ترخینه",
+  title: {
+    template: "%s | ترخینه",
+    default: "ترخینه | رستوران‌های زنجیره‌ای",
+  },
+  description: "رستوران‌های زنجیره‌ای ترخینه؛ سفارش آنلاین غذا و مشاهده شعب.",
 };
 
 export default function RootLayout({
