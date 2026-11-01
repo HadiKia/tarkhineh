@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
+import type { Metadata } from "next";
 import {
   dehydrate,
   HydrationBoundary,
@@ -39,6 +40,10 @@ type MenuSearchParams = {
 const VALID_SORT_VALUES: StaticProductFilter[] = ["popular", "economic"];
 
 const ALLOWED_PARAMS = new Set(["mealCourse", "foodGroup", "search", "sort"]);
+
+export const metadata: Metadata = {
+  title: "منوی غذا",
+};
 
 export default async function MenuPage({
   searchParams,

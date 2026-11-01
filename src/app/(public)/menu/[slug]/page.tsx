@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
   dehydrate,
   HydrationBoundary,
@@ -18,6 +19,22 @@ import { ProductBreadcrumbData, ProductResult } from "@/types";
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+
+  try {
+    const productData = await getProductBySlug(slug);
+
+    return {
+      title: productData.product.title,
+    };
+  } catch {
+    return {
+      title: "جزئیات محصول",
+    };
+  }
+}
 
 export default async function MenuProductPage({ params }: Props) {
   const { slug } = await params;
