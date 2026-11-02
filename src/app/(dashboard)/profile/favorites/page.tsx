@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import type { Metadata } from "next";
 
 import EmptyState from "@/components/common/EmptyState";
 import FavoriteProductsSection from "@/components/features/products/favorites/FavoriteProductsSection";
@@ -16,6 +17,10 @@ type FavoritesSearchParams = {
 };
 
 const ALLOWED_PARAMS = new Set(["mealCourse", "search"]);
+
+export const metadata: Metadata = {
+  title: "علاقه‌مندی‌ها",
+};
 
 export default async function ProfileFavoritesPage({
   searchParams,

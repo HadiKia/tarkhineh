@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 
 import EmptyState from "@/components/common/EmptyState";
 import OrderTrackingSection from "@/components/features/orders/OrderTrackingSection";
@@ -14,6 +15,10 @@ type OrderTrackingSearchParams = {
 
 const ALLOWED_PARAMS = new Set(["deliveryMethod"]);
 const ALLOWED_DELIVERY_METHODS = new Set(["courier", "pickup"]);
+
+export const metadata: Metadata = {
+  title: "پیگیری سفارش‌ها",
+};
 
 export default async function ProfileOrderTrackingsPage({
   searchParams,
