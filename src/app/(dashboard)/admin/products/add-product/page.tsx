@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import ProductFormContainer from "@/components/features/products/admin/ProductFormContainer";
 import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 import { ADMIN_PRODUCTS_PATH } from "@/constants/products";
+
+export const metadata: Metadata = {
+  title: "ایجاد محصول",
+};
 
 const AddProduct = () => {
   return (

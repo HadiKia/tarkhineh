@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import CategoryFormContainer from "@/components/features/categories/CategoryFormContainer";
 import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
 import { ADMIN_CATEGORIES_PATH } from "@/constants/categories";
+
+export const metadata: Metadata = {
+  title: "ایجاد دسته‌بندی",
+};
 
 const AddCategory = () => {
   return (

@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import DashboardHeader from "@/components/layouts/dashboard/DashboardHeader";
+
+export const metadata: Metadata = {
+  title: "مدیریت",
+};
 
 const AdminPage = () => {
   return (
