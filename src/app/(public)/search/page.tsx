@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
+import type { Metadata } from "next";
 import {
   dehydrate,
   HydrationBoundary,
@@ -15,6 +16,19 @@ import SearchRouteSection from "@/components/sections/search/SearchRouteSection"
 type SearchParams = {
   search?: string;
 };
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}): Promise<Metadata> {
+  const { search } = await searchParams;
+  const query = search?.trim();
+
+  return {
+    title: query ? `نتایج جستجو برای "${query}"` : "جستجو",
+  };
+}
 
 export default async function SearchPage({
   searchParams,
