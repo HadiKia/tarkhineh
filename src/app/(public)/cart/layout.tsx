@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
+
 import CartMobileHeader from "@/components/features/cart/CartMobileHeader";
 import CartSteps from "@/components/features/cart/CartSteps";
 import CartCheckoutProvider from "@/contexts/CartCheckoutContext";
+
+export const metadata: Metadata = {
+  title: "سبد خرید",
+};
 
 export default function CartLayout({
   children,
