@@ -9,13 +9,29 @@ import { ADD_PRODUCT_PATH } from "@/constants/products";
 import { useGetProducts } from "@/hooks/useProducts";
 import { Add, AddCircle } from "iconsax-reactjs";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import SearchRouteSection from "@/components/sections/search/SearchRouteSection";
 
 const Products = () => {
-  const { data, isFetching } = useGetProducts();
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search")?.trim() ?? "";
+  const { data, isFetching } = useGetProducts(
+    search ? { search } : undefined,
+  );
 
   return (
     <div className="relative">
       <DashboardHeader title="محصولات" />
+
+      <div className="my-6 max-w-98 ms-auto">
+        <SearchRouteSection
+          value={search}
+          redirectOnEmpty
+          searchPath="/admin/products"
+          emptySearchPath="/admin/products"
+          placeholder="جستجوی محصول..."
+        />
+      </div>
 
       <Button
         type="button"
