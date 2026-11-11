@@ -11,12 +11,16 @@ import { Add, AddCircle } from "iconsax-reactjs";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import SearchRouteSection from "@/components/sections/search/SearchRouteSection";
+import ProductsPagination from "@/components/features/products/admin/ProductsPagination";
 
 const Products = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("search")?.trim() ?? "";
+  const pageParam = Number(searchParams.get("page"));
+  const page = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+  const limit = 8;
   const { data, isFetching } = useGetProducts(
-    search ? { search } : undefined,
+    search ? { search, page, limit } : { page, limit },
   );
 
   return (
@@ -69,6 +73,12 @@ const Products = () => {
           }
         />
       )}
+
+      <ProductsPagination
+        page={data?.pagination.page ?? page}
+        totalPages={data?.pagination.totalPages ?? 0}
+        search={search}
+      />
     </div>
   );
 };
