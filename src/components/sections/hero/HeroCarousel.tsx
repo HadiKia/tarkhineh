@@ -100,18 +100,9 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
         <CarouselNext className="left-4 z-10 text-white hover:text-white hidden lg:block" />
         <CarouselPrevious className="right-4 z-10 text-white hover:text-white hidden lg:block" />
       </Carousel>
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
-        <div className="flex items-end">
-          <svg
-            className="size-5 lg:size-8 shrink-0"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden
-          >
-            <path d="M0 0C10.2 0 10 20 20 20H0V0Z" fill="white" />
-          </svg>
-          <div className="flex items-center gap-x-1 bg-white py-1.5 lg:py-2.5">
+      <div className="absolute -bottom-px left-1/2 z-10 -translate-x-1/2">
+        <div className="relative flex aspect-82/19 w-20.5 items-center justify-center lg:aspect-154/33 lg:w-38.5">
+          <div className="relative z-10 flex items-center gap-x-2 py-1.5 lg:py-2.5">
             {scrollSnaps.map((_, index) => (
               <button
                 key={index}
@@ -126,14 +117,32 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               />
             ))}
           </div>
+          {/* desktop svg */}
           <svg
-            className="size-5 shrink-0 scale-x-[-1] lg:size-8"
-            viewBox="0 0 20 20"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            aria-hidden
+            viewBox="0 0 154 33"
+            className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full lg:block"
+            fill="none"
+            aria-hidden="true"
           >
-            <path d="M0 0C10.2 0 10 20 20 20H0V0Z" fill="white" />
+            <path
+              fill="#fff"
+              d="M13.15 12.996C15.324 5.566 21.904 0 29.646 0h95.471c7.453 0 13.88 5.162 16.143 12.263C144.25 21.651 148.867 33 153.711 33H.414c5.662 0 10.03-10.77 12.735-20.004"
+            />
+          </svg>
+
+          {/* mobile svg */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 82 19"
+            className="pointer-events-none absolute inset-0 z-0 h-full w-full lg:hidden"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              fill="#fff"
+              d="M81.182 18.909C71.519 15.764 70.945 0 60.783 0H20.171C9.933 0 10.39 19 .154 19H81.78q-.322 0-.598-.091"
+            />
           </svg>
         </div>
       </div>
